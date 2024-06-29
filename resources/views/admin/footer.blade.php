@@ -114,7 +114,38 @@
 
     });
 
+
     })(jQuery);
+</script>
+
+
+
+
+{{-- sidebar scroll to previous position --}}
+<script>
+    document.addEventListener("DOMContentLoaded", function(event) {
+        var sidebarScrollPos = localStorage.getItem('sidebarScrollPos');
+        if (sidebarScrollPos) {
+            document.querySelector('.main-sidebar').style.overflow = 'auto';
+            document.querySelector('.main-sidebar').scrollTop = sidebarScrollPos;
+        }
+    });
+
+    window.onbeforeunload = function(e) {
+        var sidebar = document.querySelector('.main-sidebar');
+        localStorage.setItem('sidebarScrollPos', sidebar.scrollTop);
+    };
+</script>
+
+{{-- reset sidebar scroll position --}}
+<script>
+    document.addEventListener("DOMContentLoaded", function(event) {
+        var currentRoute = "{{ Route::currentRouteName() }}";
+        if (currentRoute == 'admin.dashboard') {
+            localStorage.setItem('sidebarScrollPos', 0);
+            document.querySelector('.main-sidebar').scrollTop = 0;
+        }
+    });
 </script>
 
 </body>

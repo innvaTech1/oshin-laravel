@@ -82,89 +82,6 @@ class SettingController extends Controller
         $this->middleware('auth:admin');
     }
 
-    public function clearDatabase(){
-        AboutUs::truncate();
-        BillingAddress::truncate();
-        Blog::truncate();
-        BlogCategory::truncate();
-        BlogComment::truncate();
-        Brand::truncate();
-        Campaign::truncate();
-        CampaignProduct::truncate();
-        Category::truncate();
-        ChildCategory::truncate();
-        ContactMessage::truncate();
-        ContactPage::truncate();
-        Coupon::truncate();
-        CustomPage::truncate();
-        Faq::truncate();
-        FooterLink::truncate();
-        FooterSocialLink::truncate();
-        MegaMenuCategory::truncate();
-        MegaMenuSubCategory::truncate();
-        Message::truncate();
-        Order::truncate();
-        OrderAddress::truncate();
-        OrderProduct::truncate();
-        OrderProductVariant::truncate();
-        PopularPost::truncate();
-        Product::truncate();
-        ProductGallery::truncate();
-        ProductReport::truncate();
-        ProductReview::truncate();
-        ProductSpecification::truncate();
-        ProductSpecificationKey::truncate();
-        ProductTax::truncate();
-        ProductVariant::truncate();
-        ProductVariantItem::truncate();
-        ReturnPolicy::truncate();
-        SellerMailLog::truncate();
-        SellerWithdraw::truncate();
-        Service::truncate();
-        ShippingAddress::truncate();
-        Slider::truncate();
-        Subscriber::truncate();
-        SubCategory::truncate();
-        TermsAndCondition::truncate();
-        User::truncate();
-        Vendor::truncate();
-        VendorSocialLink::truncate();
-        Wishlist::truncate();
-        WithdrawMethod::truncate();
-
-        $setting = Setting::first();
-        $setting->seller_condition = '';
-        $setting->save();
-
-        // pending ----
-        $admins = Admin::where('id', '!=', 1)->get();
-        foreach($admins as $admin){
-            $admin_image = $admin->image;
-            $admin->delete();
-            if($admin_image){
-                if(File::exists(public_path().'/'.$admin_image))unlink(public_path().'/'.$admin_image);
-            }
-        }
-
-        $shippings = ShippingMethod::where('id', '!=', 1)->get();
-        foreach($shippings as $shipping){
-            $shipping->delete();
-        }
-
-
-        $folderPath = public_path('uploads/custom-images');
-        $response = File::deleteDirectory($folderPath);
-
-        $path = public_path('uploads/custom-images');
-        if(!File::isDirectory($path)){
-            File::makeDirectory($path, 0777, true, true);
-        }
-
-        $notification = trans('admin_validation.Database Cleared Successfully');
-        $notification = array('messege'=>$notification,'alert-type'=>'success');
-        return redirect()->back()->with($notification);
-    }
-
     public function index(){
         $setting = Setting::first();
         $cookieConsent = CookieConsent::first();
@@ -417,10 +334,6 @@ class SettingController extends Controller
         $notification = trans('admin_validation.Update Successfully');
         $notification = array('messege'=>$notification,'alert-type'=>'success');
         return redirect()->back()->with($notification);
-    }
-
-    public function showClearDatabasePage(){
-        return view('admin.clear_database');
     }
 
     public function updateSocialLogin(Request $request){

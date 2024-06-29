@@ -416,8 +416,6 @@ Route::group(['middleware' => ['XSS']], function () {
     Route::put('blog-comment-status/{id}', [BlogCommentController::class,'changeStatus'])->name('blog-comment.status');
 
 
-
-    Route::get('clear-database',[SettingController::class,'showClearDatabasePage'])->name('clear-database');
     Route::delete('clear-database',[SettingController::class,'clearDatabase'])->name('clear-database');
 
     Route::resource('campaign', CampaignController::class);
