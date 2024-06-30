@@ -81,59 +81,40 @@ class ProductController extends Controller
             'name' => 'required',
             'slug' => 'required|unique:products',
             'thumb_image' => 'required',
-            'banner_image' => 'required',
             'category' => 'required',
             'short_description' => 'required',
             'long_description' => 'required',
-            'brand' => 'required',
             'price' => 'required|numeric',
-            'quantity' => 'required',
-            'tax' => 'required',
-            'is_return' => 'required',
-            'is_warranty' => 'required',
-            'return_policy_id' => $request->is_return == 1 ?  'required' : '',
-            'status' => 'required'
+            'status' => 'required',
+            'weight' => 'required',
+            'quantity' => 'required|numeric',
         ];
         $customMessages = [
-            'short_name.required' => trans('admin_validation.Short name is required'),
-            'short_name.unique' => trans('admin_validation.Short name is required'),
-            'name.required' => trans('admin_validation.Name is required'),
-            'name.unique' => trans('admin_validation.Name is required'),
-            'slug.required' => trans('admin_validation.Slug is required'),
-            'slug.unique' => trans('admin_validation.Slug already exist'),
-            'category.required' => trans('admin_validation.Category is required'),
-            'thumb_image.required' => trans('admin_validation.thumbnail is required'),
-            'banner_image.required' => trans('admin_validation.Banner is required'),
-            'short_description.required' => trans('admin_validation.Short description is required'),
-            'long_description.required' => trans('admin_validation.Long description is required'),
-            'brand.required' => trans('admin_validation.Brand is required'),
-            'price.required' => trans('admin_validation.Price is required'),
-            'quantity.required' => trans('admin_validation.Quantity is required'),
-            'tax.required' => trans('admin_validation.Tax is required'),
-            'is_return.required' => trans('admin_validation.Return is required'),
-            'is_warranty.required' => trans('admin_validation.Warranty is required'),
-            'return_policy_id.required' => trans('admin_validation.Return policy is required'),
-            'status.required' => trans('admin_validation.Status is required'),
+            'short_name.required' => trans('Short name is required'),
+            'short_name.unique' => trans('Short name is required'),
+            'name.required' => trans('Name is required'),
+            'name.unique' => trans('Name is required'),
+            'slug.required' => trans('Slug is required'),
+            'slug.unique' => trans('Slug already exist'),
+            'category.required' => trans('Category is required'),
+            'thumb_image.required' => trans('thumbnail is required'),
+            'short_description.required' => trans('Short description is required'),
+            'long_description.required' => trans('Long description is required'),
+            'price.required' => trans('Price is required'),
+            'status.required' => trans('Status is required'),
+            'quantity.required' => trans('Quantity is required'),
+            'weight.required' => trans('Weight is required'),
         ];
-        $this->validate($request, $rules,$customMessages);
+        $this->validate($request, $rules, $customMessages);
 
         $product = new Product();
-        if($request->thumb_image){
+        if ($request->thumb_image) {
             $extention = $request->thumb_image->getClientOriginalExtension();
-            $image_name = Str::slug($request->name).date('-Y-m-d-h-i-s-').rand(999,9999).'.'.$extention;
-            $image_name = 'uploads/custom-images/'.$image_name;
+            $image_name = Str::slug($request->name) . date('-Y-m-d-h-i-s-') . rand(999, 9999) . '.' . $extention;
+            $image_name = 'uploads/custom-images/' . $image_name;
             Image::make($request->thumb_image)
-                ->save(public_path().'/'.$image_name);
-            $product->thumb_image=$image_name;
-        }
-
-        if($request->banner_image){
-            $extention = $request->banner_image->getClientOriginalExtension();
-            $banner_name = 'product-banner'.date('-Y-m-d-h-i-s-').rand(999,9999).'.'.$extention;
-            $banner_name = 'uploads/custom-images/'.$banner_name;
-            Image::make($request->banner_image)
-                ->save(public_path().'/'.$banner_name);
-            $product->banner_image = $banner_name;
+                ->save(public_path() . '/' . $image_name);
+            $product->thumb_image = $image_name;
         }
 
         $product->short_name = $request->short_name;
@@ -142,35 +123,34 @@ class ProductController extends Controller
         $product->category_id = $request->category;
         $product->sub_category_id = $request->sub_category ? $request->sub_category : 0;
         $product->child_category_id = $request->child_category ? $request->child_category : 0;
-        $product->brand_id = $request->brand;
+        $product->brand_id = $request->brand ? $request->brand : 0;
         $product->sku = $request->sku;
         $product->price = $request->price;
         $product->offer_price = $request->offer_price;
-        $product->qty = $request->quantity;
+        $product->qty = $request->quantity ? $request->quantity : 0;
         $product->short_description = $request->short_description;
         $product->long_description = $request->long_description;
-        $product->video_link = $request->video_link;
         $product->tags = $request->tags;
-        $product->tax_id = $request->tax;
-        $product->is_warranty = $request->is_warranty;
-        $product->is_return = $request->is_return;
-        $product->return_policy_id = $request->is_return == 1 ? $request->return_policy_id : 0;
         $product->status = $request->status;
-
+        $product->weight = $request->weight;
         $product->is_undefine = 1;
         $product->is_specification = $request->is_specification ? 1 : 0;
         $product->seo_title = $request->seo_title ? $request->seo_title : $request->name;
         $product->seo_description = $request->seo_description ? $request->seo_description : $request->name;
+        $product->is_top = $request->top_product ? 1 : 0;
+        $product->new_product = $request->new_arrival ? 1 : 0;
+        $product->is_best = $request->best_product ? 1 : 0;
+        $product->is_featured = $request->is_featured ? 1 : 0;
         $product->save();
 
-        if($request->is_specification){
-            $exist_specifications=[];
-            if($request->keys){
-                foreach($request->keys as $index => $key){
-                    if($key){
-                        if($request->specifications[$index]){
-                            if(!in_array($key, $exist_specifications)){
-                                $productSpecification= new ProductSpecification();
+        if ($request->is_specification) {
+            $exist_specifications = [];
+            if ($request->keys) {
+                foreach ($request->keys as $index => $key) {
+                    if ($key) {
+                        if ($request->specifications[$index]) {
+                            if (!in_array($key, $exist_specifications)) {
+                                $productSpecification = new ProductSpecification();
                                 $productSpecification->product_id = $product->id;
                                 $productSpecification->product_specification_key_id = $key;
                                 $productSpecification->specification = $request->specifications[$index];
@@ -230,67 +210,46 @@ class ProductController extends Controller
         $rules = [
             'short_name' => 'required',
             'name' => 'required',
-            'slug' => 'required|unique:products,slug,'.$product->id,
+            'slug' => 'required|unique:products,slug,' . $product->id,
             'category' => 'required',
             'short_description' => 'required',
             'long_description' => 'required',
-            'brand' => 'required',
             'price' => 'required|numeric',
-            'quantity' => 'required',
-            'tax' => 'required',
-            'is_return' => 'required',
-            'is_warranty' => 'required',
-            'return_policy_id' => $request->is_return == 1 ?  'required' : '',
-            'status' => 'required'
+            'status' => 'required',
+            'weight' => 'required',
+            'quantity' => 'required|numeric',
         ];
         $customMessages = [
-            'short_name.required' => trans('admin_validation.Short name is required'),
-            'short_name.unique' => trans('admin_validation.Short name is required'),
-            'name.required' => trans('admin_validation.Name is required'),
-            'name.unique' => trans('admin_validation.Name is required'),
-            'slug.required' => trans('admin_validation.Slug is required'),
-            'slug.unique' => trans('admin_validation.Slug already exist'),
-            'category.required' => trans('admin_validation.Category is required'),
-            'thumb_image.required' => trans('admin_validation.thumbnail is required'),
-            'banner_image.required' => trans('admin_validation.Banner is required'),
-            'short_description.required' => trans('admin_validation.Short description is required'),
-            'long_description.required' => trans('admin_validation.Long description is required'),
-            'brand.required' => trans('admin_validation.Brand is required'),
-            'price.required' => trans('admin_validation.Price is required'),
-            'quantity.required' => trans('admin_validation.Quantity is required'),
-            'tax.required' => trans('admin_validation.Tax is required'),
-            'is_return.required' => trans('admin_validation.Return is required'),
-            'is_warranty.required' => trans('admin_validation.Warranty is required'),
-            'return_policy_id.required' => trans('admin_validation.Return policy is required'),
-            'status.required' => trans('admin_validation.Status is required'),
+            'short_name.required' => trans('Short name is required'),
+            'short_name.unique' => trans('Short name is required'),
+            'name.required' => trans('Name is required'),
+            'name.unique' => trans('Name is required'),
+            'slug.required' => trans('Slug is required'),
+            'slug.unique' => trans('Slug already exist'),
+            'category.required' => trans('Category is required'),
+            'thumb_image.required' => trans('thumbnail is required'),
+            'banner_image.required' => trans('Banner is required'),
+            'short_description.required' => trans('Short description is required'),
+            'long_description.required' => trans('Long description is required'),
+            'brand.required' => trans('Brand is required'),
+            'price.required' => trans('Price is required'),
+            'quantity.required' => trans('Quantity is required'),
+            'status.required' => trans('Status is required'),
+            'weight.required' => trans('Weight is required'),
         ];
-        $this->validate($request, $rules,$customMessages);
+        $this->validate($request, $rules, $customMessages);
 
-        if($request->thumb_image){
+        if ($request->thumb_image) {
             $old_thumbnail = $product->thumb_image;
             $extention = $request->thumb_image->getClientOriginalExtension();
-            $image_name = Str::slug($request->name).date('-Y-m-d-h-i-s-').rand(999,9999).'.'.$extention;
-            $image_name = 'uploads/custom-images/'.$image_name;
+            $image_name = Str::slug($request->name) . date('-Y-m-d-h-i-s-') . rand(999, 9999) . '.' . $extention;
+            $image_name = 'uploads/custom-images/' . $image_name;
             Image::make($request->thumb_image)
-                ->save(public_path().'/'.$image_name);
-            $product->thumb_image=$image_name;
+                ->save(public_path() . '/' . $image_name);
+            $product->thumb_image = $image_name;
             $product->save();
-            if($old_thumbnail){
-                if(File::exists(public_path().'/'.$old_thumbnail))unlink(public_path().'/'.$old_thumbnail);
-            }
-        }
-
-        if($request->banner_image){
-            $old_banner = $product->banner_image;
-            $extention = $request->banner_image->getClientOriginalExtension();
-            $banner_name = 'product-banner'.date('-Y-m-d-h-i-s-').rand(999,9999).'.'.$extention;
-            $banner_name = 'uploads/custom-images/'.$banner_name;
-            Image::make($request->banner_image)
-                ->save(public_path().'/'.$banner_name);
-            $product->banner_image = $banner_name;
-            $product->save();
-            if($old_banner){
-                if(File::exists(public_path().'/'.$old_banner))unlink(public_path().'/'.$old_banner);
+            if ($old_thumbnail) {
+                if (File::exists(public_path() . '/' . $old_thumbnail)) unlink(public_path() . '/' . $old_thumbnail);
             }
         }
 
@@ -301,36 +260,37 @@ class ProductController extends Controller
         $product->category_id = $request->category;
         $product->sub_category_id = $request->sub_category ? $request->sub_category : 0;
         $product->child_category_id = $request->child_category ? $request->child_category : 0;
-        $product->brand_id = $request->brand;
+        $product->brand_id = $request->brand ? $request->brand : 0;
+        $product->qty = $request->quantity ? $request->quantity : 0;
+        $product->sold_qty = 0;
         $product->sku = $request->sku;
         $product->price = $request->price;
         $product->offer_price = $request->offer_price;
-        $product->qty = $request->quantity;
         $product->short_description = $request->short_description;
         $product->long_description = $request->long_description;
-        $product->video_link = $request->video_link;
         $product->tags = $request->tags;
-        $product->tax_id = $request->tax;
-        $product->is_warranty = $request->is_warranty;
-        $product->is_return = $request->is_return;
-        $product->return_policy_id = $request->is_return == 1 ? $request->return_policy_id : 0;
         $product->status = $request->status;
+        $product->weight = $request->weight;
         $product->is_specification = $request->is_specification ? 1 : 0;
         $product->seo_title = $request->seo_title ? $request->seo_title : $request->name;
         $product->seo_description = $request->seo_description ? $request->seo_description : $request->name;
+        $product->is_top = $request->top_product ? 1 : 0;
+        $product->new_product = $request->new_arrival ? 1 : 0;
+        $product->is_best = $request->best_product ? 1 : 0;
+        $product->is_featured = $request->is_featured ? 1 : 0;
         $product->save();
 
-        $exist_specifications=[];
-        if($request->keys){
-            foreach($request->keys as $index => $key){
-                if($key){
-                    if($request->specifications[$index]){
-                        if(!in_array($key, $exist_specifications)){
-                            $existSroductSpecification = ProductSpecification::where(['product_id' => $product->id,'product_specification_key_id' => $key])->first();
-                            if($existSroductSpecification){
+        $exist_specifications = [];
+        if ($request->keys) {
+            foreach ($request->keys as $index => $key) {
+                if ($key) {
+                    if ($request->specifications[$index]) {
+                        if (!in_array($key, $exist_specifications)) {
+                            $existSroductSpecification = ProductSpecification::where(['product_id' => $product->id, 'product_specification_key_id' => $key])->first();
+                            if ($existSroductSpecification) {
                                 $existSroductSpecification->specification = $request->specifications[$index];
                                 $existSroductSpecification->save();
-                            }else{
+                            } else {
                                 $productSpecification = new ProductSpecification();
                                 $productSpecification->product_id = $product->id;
                                 $productSpecification->product_specification_key_id = $key;

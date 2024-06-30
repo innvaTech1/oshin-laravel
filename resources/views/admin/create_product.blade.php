@@ -37,12 +37,6 @@
                                 </div>
 
                                 <div class="form-group col-12">
-                                    <label>{{__('admin.Banner Image')}} <span class="text-danger">*</span></label>
-                                    <input type="file" class="form-control-file"  name="banner_image">
-                                </div>
-
-
-                                <div class="form-group col-12">
                                     <label>{{__('admin.Short Name')}} <span class="text-danger">*</span></label>
                                     <input type="text" id="short_name" class="form-control"  name="short_name" value="{{ old('short_name') }}">
                                 </div>
@@ -82,7 +76,7 @@
                                 </div>
 
                                 <div class="form-group col-12">
-                                    <label>{{__('admin.Brand')}} <span class="text-danger">*</span></label>
+                                    <label>{{__('admin.Brand')}} </label>
                                     <select name="brand" class="form-control select2" id="brand">
                                         <option value="">{{__('admin.Select Brand')}}</option>
                                         @foreach ($brands as $brand)
@@ -92,8 +86,16 @@
                                 </div>
 
                                 <div class="form-group col-12">
-                                    <label>{{__('admin.SKU')}} </label>
-                                   <input type="text" class="form-control" name="sku">
+                                    <label>{{ __('admin.SKU') }} </label>
+                                    <div class="input-group">
+                                        <input type="text" name="sku" class="form-control currency"
+                                            id="sku" required value="{{ old('sku') }}">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text sku_generate">
+                                                <i class="fas fa-barcode"></i>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div class="form-group col-12">
@@ -102,7 +104,7 @@
                                 </div>
 
                                 <div class="form-group col-12">
-                                    <label>{{__('admin.Offer Price')}}</label>
+                                    <label>{{__('admin.Offer Price')}} <span class="text-danger"></span></label>
                                    <input type="text" class="form-control" name="offer_price" value="{{ old('offer_price') }}">
                                 </div>
 
@@ -114,8 +116,8 @@
                                 </div>
 
                                 <div class="form-group col-12">
-                                    <label>{{__('admin.Video Link')}}</label>
-                                   <input type="text" class="form-control" name="video_link" value="{{ old('video_link') }}">
+                                    <label>{{__('admin.Weight')}} <span class="text-danger">*</span></label>
+                                   <input type="text" class="form-control" name="weight" value="{{ old('weight') }}">
                                 </div>
 
                                 <div class="form-group col-12">
@@ -128,51 +130,18 @@
                                     <textarea name="long_description" id="" cols="30" rows="10" class="summernote">{{ old('long_description') }}</textarea>
                                 </div>
 
-
-
-
                                 <div class="form-group col-12">
-                                    <label>{{__('admin.Tags')}}</label>
-                                   <input type="text" class="form-control tags" name="tags" value="{{ old('tags') }}">
+                                    <label>{{__('admin.Highlight')}}</label>
+                                    <div>
+                                        <input type="checkbox"name="top_product" id="top_product"> <label for="top_product" class="mr-3" >{{__('admin.Top Product')}}</label>
+
+                                        <input type="checkbox" name="new_arrival" id="new_arrival"> <label for="new_arrival" class="mr-3" >{{__('admin.New Arrival')}}</label>
+
+                                        <input type="checkbox" name="best_product" id="best_product"> <label for="best_product" class="mr-3" >{{__('admin.Best Product')}}</label>
+
+                                        <input type="checkbox" name="is_featured" id="is_featured"> <label for="is_featured" class="mr-3" >{{__('admin.Featured Product')}}</label>
+                                    </div>
                                 </div>
-
-                                <div class="form-group col-12">
-                                    <label>{{__('admin.Tax')}} <span class="text-danger">*</span></label>
-                                    <select name="tax" class="form-control">
-                                        <option value="">{{__('admin.Select Tax')}}</option>
-                                        @foreach ($productTaxs as $tax)
-                                            <option {{ old('tax') == $tax->id ? 'selected' : '' }}  value="{{ $tax->id }}">{{ $tax->title }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-
-                                <div class="form-group col-12">
-                                    <label>{{__('admin.Product Return Availabe ?')}} <span class="text-danger">*</span></label>
-                                    <select name="is_return" class="form-control" id="is_return" >
-                                        <option value="0">{{__('admin.No')}}</option>
-                                        <option value="1">{{__('admin.Yes')}}</option>
-                                    </select>
-                                </div>
-
-                                <div class="form-group col-12 d-none" id="policy_box">
-                                    <label>{{__('admin.Return Policy')}} <span class="text-danger">*</span></label>
-                                    <select name="return_policy_id" class="form-control">
-                                        @foreach ($retrunPolicies as $retrunPolicy)
-                                            <option value="{{ $retrunPolicy->id }}">{{ $retrunPolicy->title }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-
-
-                                <div class="form-group col-12">
-                                    <label>{{__('admin.Warranty Available ?')}}  <span class="text-danger">*</span></label>
-                                    <select name="is_warranty" class="form-control">
-                                        <option value="1">{{__('admin.Yes')}}</option>
-                                        <option value="0">{{__('admin.No')}}</option>
-                                    </select>
-                                </div>
-
-
 
                                 <div class="form-group col-12">
                                     <label>{{__('admin.Status')}} <span class="text-danger">*</span></label>
@@ -182,8 +151,6 @@
                                     </select>
                                 </div>
 
-
-
                                 <div class="form-group col-12">
                                     <label>{{__('admin.SEO Title')}}</label>
                                    <input type="text" class="form-control" name="seo_title" value="{{ old('seo_title') }}">
@@ -192,58 +159,6 @@
                                 <div class="form-group col-12">
                                     <label>{{__('admin.SEO Description')}}</label>
                                     <textarea name="seo_description" id="" cols="30" rows="10" class="form-control text-area-5">{{ old('seo_description') }}</textarea>
-                                </div>
-
-                                <div class="form-group col-12">
-                                    <label>{{__('admin.Specifications')}}</label>
-                                    <div>
-                                        <a href="javascript::void()" id="manageSpecificationBox">
-                                            <input name="is_specification" id="status_toggle" type="checkbox" checked data-toggle="toggle" data-on="Enable" data-off="Disabled" data-onstyle="success" data-offstyle="danger">
-                                        </a>
-                                    </div>
-                                </div>
-
-                                <div class="form-group col-12" id="specification-box">
-                                    <div class="row">
-                                        <div class="col-md-5">
-                                            <label>{{__('admin.Key')}} <span class="text-danger">*</span></label>
-                                            <select name="keys[]" class="form-control">
-                                                @foreach ($specificationKeys as $specificationKey)
-                                                    <option value="{{ $specificationKey->id }}">{{ $specificationKey->key }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="col-md-5">
-                                            <label>{{__('admin.Specification')}} <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" name="specifications[]">
-                                        </div>
-                                        <div class="col-md-2">
-                                            <button type="button" class="btn btn-success plus_btn" id="addNewSpecificationRow"><i class="fas fa-plus"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                                <div id="hidden-specification-box" class="d-none">
-                                    <div class="delete-specification-row">
-                                        <div class="row mt-2">
-                                            <div class="col-md-5">
-                                                <label>{{__('admin.Key')}} <span class="text-danger">*</span></label>
-                                                <select name="keys[]" class="form-control">
-                                                    @foreach ($specificationKeys as $specificationKey)
-                                                        <option value="{{ $specificationKey->id }}">{{ $specificationKey->key }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                            <div class="col-md-5">
-                                                <label>{{__('admin.Specification')}} <span class="text-danger">*</span></label>
-                                                <input type="text" class="form-control" name="specifications[]">
-                                            </div>
-                                            <div class="col-md-2">
-                                                <button type="button" class="btn btn-danger plus_btn deleteSpeceficationBtn"><i class="fas fa-trash"></i></button>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                             <div class="row">
@@ -343,10 +258,12 @@
                     specification = true;
                     $("#specification-box").removeClass('d-none');
                 }
-
-
             })
 
+            $('.sku_generate').on('click', function() {
+                var sku = Math.floor(10000000 + Math.random() * 90000000);
+                $('[name="sku"]').val(sku);
+            })
         });
     })(jQuery);
 

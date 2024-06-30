@@ -32,7 +32,6 @@
                                         @foreach ($states as $state)
                                         <option {{ $city->country_state_id == $state->id ? 'selected' : '' }} value="{{ $state->id }}">{{ $state->name }}</option>
                                         @endforeach
-
                                     </select>
                                 </div>
 

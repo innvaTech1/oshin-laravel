@@ -9,6 +9,7 @@
   'Banner Image' => 'Banner Image',
   'Save' => 'Save',
   'Admin' => 'Admin',
+  'Weight' => 'Weight',
   'Create Seller' => 'Create Seller',
   'Add New' => 'Add New',
   'SN' => 'SN',

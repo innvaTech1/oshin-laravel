@@ -38,19 +38,6 @@
                                 </div>
 
                                 <div class="form-group col-12">
-                                    <label>{{__('admin.Current Banner Image')}}</label>
-                                    <div>
-                                        <img id="preview-img" width="200px" src="{{ asset($product->banner_image) }}" alt="">
-                                    </div>
-                                </div>
-
-                                <div class="form-group col-12">
-                                    <label>{{__('admin.Banner Image')}} <span class="text-danger">*</span></label>
-                                    <input type="file" class="form-control-file"  name="banner_image">
-                                </div>
-
-
-                                <div class="form-group col-12">
                                     <label>{{__('admin.Short Name')}} <span class="text-danger">*</span></label>
                                     <input type="text" id="short_name" class="form-control"  name="short_name" value="{{ $product->short_name }}">
                                 </div>
@@ -100,7 +87,7 @@
                                 </div>
 
                                 <div class="form-group col-12">
-                                    <label>{{__('admin.Brand')}} <span class="text-danger">*</span></label>
+                                    <label>{{__('admin.Brand')}}</label>
                                     <select name="brand" class="form-control select2" id="brand">
                                         <option value="">{{__('admin.Select Brand')}}</option>
                                         @foreach ($brands as $brand)
@@ -110,46 +97,39 @@
                                 </div>
 
                                 <div class="form-group col-12">
-                                    <label>{{__('admin.SKU')}} </label>
-                                   <input type="text" class="form-control" name="sku" value="{{ $product->sku }}">
+                                    <label>{{ __('admin.SKU') }} </label>
+                                    <div class="input-group">
+                                        <input type="text" name="sku" class="form-control currency"
+                                            id="sku" required value="{{ $product->sku }}">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text sku_generate">
+                                                <i class="fas fa-barcode"></i>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div class="form-group col-12">
-                                    <label>{{__('admin.Price')}} <span class="text-danger">*</span></label>
+                                    <label>{{__('admin.Price')}} <span class="text-danger">* </span></label>
                                    <input type="text" class="form-control" name="price" value="{{ $product->price }}">
                                 </div>
 
                                 <div class="form-group col-12">
-                                    <label>{{__('admin.Offer Price')}} </label>
+                                    <label>{{__('admin.Offer Price')}} <span class="text-danger"> </span></label>
                                    <input type="text" class="form-control" name="offer_price" value="{{ $product->offer_price }}">
                                 </div>
-
-
 
                                 <div class="form-group col-12">
                                     <label>{{__('admin.Stock Quantity')}} <span class="text-danger">*</span></label>
                                    <input type="number" class="form-control" name="quantity" value="{{ $product->qty }}">
                                 </div>
 
-                                @if ($product->video_link)
-                                    <div class="form-group col-12">
-                                        <label>{{__('admin.Video Preview')}}</label>
-                                        @php
-                                            $video_id=explode("=",$product->video_link);
-                                        @endphp
-                                        <div>
-                                            <iframe width="300" height="200"
-                                                src="https://www.youtube.com/embed/{{ $video_id[1] }}">
-                                            </iframe>
-                                        </div>
-
-                                    </div>
-                                @endif
-
                                 <div class="form-group col-12">
-                                    <label>{{__('admin.Video Link')}}</label>
-                                   <input type="text" class="form-control" name="video_link" value="{{ $product->video_link }}">
+                                    <label>{{__('admin.Weight')}} <span class="text-danger">*</span></label>
+                                   <input type="text" class="form-control" name="weight" value="{{ $product->weight }}">
                                 </div>
+
+
 
                                 <div class="form-group col-12">
                                     <label>{{__('admin.Short Description') }} <span class="text-danger">*</span></label>
@@ -162,59 +142,28 @@
                                 </div>
 
                                 <div class="form-group col-12">
-                                    <label>{{__('admin.Tags')}}</label>
-                                   <input type="text" class="form-control tags" name="tags" value="{{ $tags }}">
+                                    <label>{{__('admin.Highlight')}}</label>
+                                    <div>
+
+                                        <input {{ $product->is_top == 1 ? 'checked' : '' }} type="checkbox"name="top_product" id="top_product"> <label for="top_product" class="mr-3" >{{__('admin.Top Product')}}</label>
+
+                                        <input {{ $product->new_product == 1 ? 'checked' : '' }}  type="checkbox" name="new_arrival" id="new_arrival"> <label for="new_arrival" class="mr-3" >{{__('admin.New Arrival')}}</label>
+
+                                        <input {{ $product->is_best == 1 ? 'checked' : '' }}  type="checkbox" name="best_product" id="best_product"> <label for="best_product" class="mr-3" >{{__('admin.Best Product')}}</label>
+
+                                        <input {{ $product->is_featured == 1 ? 'checked' : '' }}  type="checkbox" name="is_featured" id="is_featured"> <label for="is_featured" class="mr-3" >{{__('admin.Featured Product')}}</label>
+                                    </div>
                                 </div>
 
-                                <div class="form-group col-12">
-                                    <label>{{__('admin.Tax')}} <span class="text-danger">*</span></label>
-                                    <select name="tax" class="form-control">
-                                        <option value="">{{__('admin.Select Tax')}}</option>
-                                        @foreach ($productTaxs as $tax)
-                                            <option {{ $product->tax_id == $tax->id ? 'selected' : '' }}  value="{{ $tax->id }}">{{ $tax->title }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-
-                                <div class="form-group col-12">
-                                    <label>{{__('admin.Product Return Availabe ?')}} <span class="text-danger">*</span></label>
-                                    <select name="is_return" class="form-control" id="is_return" >
-                                        <option {{ $product->is_return == 0 ? 'selected' : '' }} value="0">{{__('admin.No')}}</option>
-                                        <option {{ $product->is_return == 1 ? 'selected' : '' }} value="1">{{__('admin.Yes')}}</option>
-                                    </select>
-                                </div>
-
-
-                                @if ($product->is_return == 1)
-                                    <div class="form-group col-12" id="policy_box">
-                                        <label>{{__('admin.Return Policy')}} <span class="text-danger">*</span></label>
-                                        <select name="return_policy_id" class="form-control">
-                                            @foreach ($retrunPolicies as $retrunPolicy)
-                                                <option {{ $product->return_policy_id == $retrunPolicy->id ? 'selected' : '' }} value="{{ $retrunPolicy->id }}">{{ $retrunPolicy->title }}</option>
-                                            @endforeach
+                                @if ($product->vendor_id != 0)
+                                    <div class="form-group col-12">
+                                        <label>{{__('admin.Administrator Status')}} <span data-toggle="tooltip" data-placement="top" class="fa fa-info-circle text--primary" title="Only for seller product"></span> <span class="text-danger">*</span></label>
+                                        <select name="approve_by_admin" class="form-control">
+                                            <option {{ $product->approve_by_admin == 1 ? 'selected' : '' }} value="1">{{__('admin.Approved')}}</option>
+                                            <option {{ $product->approve_by_admin == 0 ? 'selected' : '' }} value="0">{{__('admin.Pending')}}</option>
                                         </select>
                                     </div>
                                 @endif
-
-                                @if ($product->is_return != 1)
-                                    <div class="form-group col-12 d-none" id="policy_box">
-                                        <label>{{__('admin.Return Policy')}} <span class="text-danger">*</span></label>
-                                        <select name="return_policy_id" class="form-control">
-                                            @foreach ($retrunPolicies as $retrunPolicy)
-                                                <option value="{{ $retrunPolicy->id }}">{{ $retrunPolicy->title }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                @endif
-
-                                <div class="form-group col-12">
-                                    <label>{{__('admin.Warranty Available ?')}}  <span class="text-danger">*</span></label>
-                                    <select name="is_warranty" class="form-control">
-                                        <option {{ $product->is_warranty == 1 ? 'selected' : '' }} value="1">{{__('admin.Yes')}}</option>
-                                        <option {{ $product->is_warranty == 0 ? 'selected' : '' }} value="0">{{__('admin.No')}}</option>
-                                    </select>
-                                </div>
-
 
                                 <div class="form-group col-12">
                                     <label>{{__('admin.Status')}} <span class="text-danger">*</span></label>
@@ -489,7 +438,10 @@
                     }
                 })
             })
-
+            $('.sku_generate').on('click', function() {
+                var sku = Math.floor(10000000 + Math.random() * 90000000);
+                $('[name="sku"]').val(sku);
+            })
         });
     })(jQuery);
 
