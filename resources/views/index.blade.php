@@ -116,31 +116,12 @@
                             $current_time=  Carbon\Carbon::now()->timestamp;
                             $capmaign_time = $end - $current_time;
 
-                            if(env('APP_VERSION') == 0){
-                                $demo_end = Carbon\Carbon::now()->addDays(3);
-                                $demo_end = $demo_end->format('Y-m-d H:i:s');
-                                $end = strtotime($demo_end);
-                                $capmaign_time = $end - $current_time;
-                             }
                         @endphp
                         <script>
                             var capmaign_time = {{ $capmaign_time }};
                         </script>
 
-                        @if (env('APP_VERSION') == 0)
-                            @php
-                                $demo_end = Carbon\Carbon::now()->addDays(3);
-                            @endphp
-                            <script>
-                                var campaign_end_year = {{ $demo_end->format('Y') }}
-                                var campaign_end_month = {{ $demo_end->format('m') }}
-                                var campaign_end_date = {{ $demo_end->format('d') }}
-                                var campaign_hour = {{ $demo_end->format('H') }}
-                                var campaign_min = {{ $demo_end->format('i') }}
-                                var campaign_sec = {{ $demo_end->format('s') }}
-                            </script>
-                            @else
-                            <script>
+                        <script>
                                 var campaign_end_year = {{ date('Y', strtotime($campaign->end_date)) }}
                                 var campaign_end_month = {{ date('m', strtotime($campaign->end_date)) }}
                                 var campaign_end_date = {{ date('d', strtotime($campaign->end_date)) }}
@@ -148,7 +129,6 @@
                                 var campaign_min = {{ date('i', strtotime($campaign->end_date)) }}
                                 var campaign_sec = {{ date('s', strtotime($campaign->end_date)) }}
                             </script>
-                        @endif
 
                         <div class="wsus__flash_coundown">
                             <span class="end_text">{{ $campaign->name }}</span>
@@ -1092,22 +1072,12 @@
                 $productMonths = [];
                 $productDays = [];
 
-                if(env('APP_VERSION') == 0){
-                    $demo_end = Carbon\Carbon::now()->addDays(3);
-                    foreach ($flashDealProducts as $key => $flashDealProduct) {
-                        $productIds[] = $flashDealProduct->id;
-                        $productYears[] = $demo_end->format('Y');
-                        $productMonths[] = $demo_end->format('m');;
-                        $productDays[] = $demo_end->format('d');
-                    }
-                }else {
-                    foreach ($flashDealProducts as $key => $flashDealProduct) {
+                foreach ($flashDealProducts as $key => $flashDealProduct) {
                         $productIds[] = $flashDealProduct->id;
                         $productYears[] = date('Y', strtotime($flashDealProduct->flash_deal_date));
                         $productMonths[] = date('m', strtotime($flashDealProduct->flash_deal_date));
                         $productDays[] = date('d', strtotime($flashDealProduct->flash_deal_date));
                     }
-                }
 
             @endphp
             <script>

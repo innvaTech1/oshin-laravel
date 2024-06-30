@@ -72,28 +72,14 @@
                             <div class="wsus__offer_countdown">
                                 <span class="end_text">{{__('user.ends time')}} :</span>
                                 <div class="simply-countdown campaign-details"></div>
-                                @if (env('APP_VERSION') == 0)
-                                    @php
-                                        $demo_end = Carbon\Carbon::now()->addDays(3);
-                                    @endphp
-                                    <script>
-                                        var campaign_end_year = {{ $demo_end->format('Y') }}
-                                        var campaign_end_month = {{ $demo_end->format('m') }}
-                                        var campaign_end_date = {{ $demo_end->format('d') }}
-                                        var campaign_hour = {{ $demo_end->format('H') }}
-                                        var campaign_min = {{ $demo_end->format('i') }}
-                                        var campaign_sec = {{ $demo_end->format('s') }}
-                                    </script>
-                                @else
-                                    <script>
-                                        var campaign_end_year = {{ date('Y', strtotime($campaign->end_date)) }}
-                                        var campaign_end_month = {{ date('m', strtotime($campaign->end_date)) }}
-                                        var campaign_end_date = {{ date('d', strtotime($campaign->end_date)) }}
-                                        var campaign_hour = {{ date('H', strtotime($campaign->end_date)) }}
-                                        var campaign_min = {{ date('i', strtotime($campaign->end_date)) }}
-                                        var campaign_sec = {{ date('s', strtotime($campaign->end_date)) }}
-                                    </script>
-                                @endif
+                                <script>
+                                    var campaign_end_year = {{ date('Y', strtotime($campaign->end_date)) }}
+                                    var campaign_end_month = {{ date('m', strtotime($campaign->end_date)) }}
+                                    var campaign_end_date = {{ date('d', strtotime($campaign->end_date)) }}
+                                    var campaign_hour = {{ date('H', strtotime($campaign->end_date)) }}
+                                    var campaign_min = {{ date('i', strtotime($campaign->end_date)) }}
+                                    var campaign_sec = {{ date('s', strtotime($campaign->end_date)) }}
+                                </script>
 
                             </div>
                         </div>

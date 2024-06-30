@@ -555,12 +555,6 @@ class UserProfileController extends Controller
 
     public function delete_account(){
 
-        if(env('APP_VERSION') == 0){
-            $notification = trans('This Is Demo Version. You Can Not Change Anything');
-            $notification=array('messege'=>$notification,'alert-type'=>'error');
-            return redirect()->back()->with($notification);
-        }
-
         $user = Auth::guard('web')->user();
 
         $isVendor = Vendor::where('user_id',$user->id)->first();

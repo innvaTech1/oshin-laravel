@@ -461,11 +461,7 @@
             })
 
             $(".removeExistSpecificationRow").on("click",function(){
-                var isDemo = "{{ env('APP_VERSION') }}"
-                if(isDemo == 0){
-                    toastr.error('This Is Demo Version. You Can Not Change Anything');
-                    return;
-                }
+                
 
                 var specificationId = $(this).attr("data-specificationiId");
                 $.ajax({

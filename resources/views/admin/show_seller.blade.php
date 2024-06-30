@@ -313,11 +313,7 @@
 
 <script>
     function manageCustomerStatus(id){
-        var isDemo = "{{ env('APP_VERSION') }}"
-        if(isDemo == 0){
-            toastr.error('This Is Demo Version. You Can Not Change Anything');
-            return;
-        }
+        
         $.ajax({
             type:"put",
             data: { _token : '{{ csrf_token() }}' },
@@ -333,11 +329,7 @@
     }
 
     function manageShopStatus(id){
-        var isDemo = "{{ env('APP_VERSION') }}"
-        if(isDemo == 0){
-            toastr.error('This Is Demo Version. You Can Not Change Anything');
-            return;
-        }
+        
         $.ajax({
             type:"put",
             data: { _token : '{{ csrf_token() }}' },
