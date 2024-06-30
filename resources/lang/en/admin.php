@@ -10,6 +10,7 @@
   'Save' => 'Save',
   'Admin' => 'Admin',
   'Weight' => 'Weight',
+  'Delivery Area' => 'Delivery Area',
   'Create Seller' => 'Create Seller',
   'Add New' => 'Add New',
   'SN' => 'SN',

@@ -87,6 +87,16 @@
                                 </div>
 
                                 <div class="form-group col-12">
+                                    <label>{{__('admin.Delivery Area')}} </label>
+                                    <select name="city_id" class="form-control select2" id="city_id">
+                                        <option value="">{{__('admin.Delivery Area')}}</option>
+                                        @foreach ($cities as $city)
+                                            <option {{ old('city_id') == $city->id ? 'selected' : '' }} value="{{ $city->id }}">{{ $city->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="form-group col-12">
                                     <label>{{__('admin.Brand')}}</label>
                                     <select name="brand" class="form-control select2" id="brand">
                                         <option value="">{{__('admin.Select Brand')}}</option>
@@ -155,6 +165,85 @@
                                     </div>
                                 </div>
 
+                                <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label>{{ __('Take Pre Order?') }} </span></label>
+                                                            <select name="is_pre_order" class="form-control"
+                                                                id="is_pre_order">
+                                                                <option value="0"
+                                                                    @if (old('is_pre_order') == 0 || $product->is_pre_order == 0) selected @endif>
+                                                                    {{ __('No') }}</option>
+                                                                <option value="1"
+                                                                    @if (old('is_pre_order') == 1 || $product->is_pre_order == 1) selected @endif>
+                                                                    {{ __('Yes') }}</option>
+                                                            </select>
+                                                            @error('is_pre_order')
+                                                                <span class="text-danger">{{ $message }}</span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+
+                                                    <div
+                                                        class="col-md-12 {{ $product->is_pre_order ? '' : 'd-none' }} release_date">
+                                                        <div class="form-group">
+                                                            <label>{{ __('Release Date') }} </label>
+                                                            <input type="text" name="release_date"
+                                                                class="form-control datepicker"
+                                                                @if (!$product->is_pre_order) disabled @endif
+                                                                value="{{ $product->release_date }}" />
+                                                            @error('release_date')
+                                                                <span class="text-danger">{{ $message }}</span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+
+                                                    <div
+                                                        class="col-md-12 {{ $product->is_pre_order ? '' : 'd-none' }} max_product">
+                                                        <div class="form-group">
+                                                            <label>{{ __('Max Quantity') }} <span
+                                                                    class="text-danger">*</span></label>
+                                                            <input type="number" name="max_product" class="form-control"
+                                                                @if (!$product->is_pre_order) disabled @endif
+                                                                value="{{ $product->max_product }}" />
+                                                            @error('max_product')
+                                                                <span class="text-danger">{{ $message }}</span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label>{{ __('Has Partial Payment?') }} </label>
+                                                            <select name="is_partial" class="form-control"
+                                                                id="is_partial">
+                                                                <option value="0"
+                                                                    @if (old('is_partial') == 0 || $product->is_partial == 0) selected @endif>
+                                                                    {{ __('No') }}</option>
+                                                                <option value="1"
+                                                                    @if (old('is_partial') == 1 || $product->is_partial == 1) selected @endif>
+                                                                    {{ __('Yes') }}</option>
+                                                            </select>
+                                                            @error('is_partial')
+                                                                <span class="text-danger">{{ $message }}</span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+
+                                                    <div
+                                                        class="col-md-12 {{ !$product->partial_amount ? 'd-none' : '' }} partial_amount">
+                                                        <div class="form-group">
+                                                            <label>{{ __('Partial Amount') }} <span
+                                                                    class="text-danger">*</span></label>
+                                                            <input type="text" name="partial_amount"
+                                                                class="form-control"
+                                                                @if (!$product->partial_amount) disabled @endif value="{{ $product->partial_amount }}"/>
+                                                            @error('partial_amount')
+                                                                <span class="text-danger">{{ $message }}</span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+
+
                                 @if ($product->vendor_id != 0)
                                     <div class="form-group col-12">
                                         <label>{{__('admin.Administrator Status')}} <span data-toggle="tooltip" data-placement="top" class="fa fa-info-circle text--primary" title="Only for seller product"></span> <span class="text-danger">*</span></label>
@@ -182,136 +271,6 @@
                                 <div class="form-group col-12">
                                     <label>{{__('admin.SEO Description')}}</label>
                                     <textarea name="seo_description" id="" cols="30" rows="10" class="form-control text-area-5">{{ $product->seo_description }}</textarea>
-                                </div>
-
-                                <div class="form-group col-12">
-                                    <label>{{__('admin.Specifications')}}</label>
-                                    <div>
-                                        @if ($product->is_specification==1)
-                                            <a href="javascript::void()" id="manageSpecificationBox">
-                                                <input name="is_specification" id="status_toggle" type="checkbox" checked data-toggle="toggle" data-on="Enable" data-off="Disabled" data-onstyle="success" data-offstyle="danger">
-                                            </a>
-                                        @else
-                                        <a href="javascript::void()" id="manageSpecificationBox">
-                                                <input name="is_specification" id="status_toggle" type="checkbox" data-toggle="toggle" data-on="Enable" data-off="Disabled" data-onstyle="success" data-offstyle="danger">
-                                            </a>
-                                        @endif
-
-                                    </div>
-                                </div>
-                                @if ($product->is_specification==1)
-                                    <div class="form-group col-12" id="specification-box">
-                                        @if ($productSpecifications->count() != 0)
-                                            @foreach ($productSpecifications as $productSpecification)
-                                                <div class="row mt-2" id="existSpecificationBox-{{ $productSpecification->id }}">
-                                                    <div class="col-md-5">
-                                                        <label>{{__('admin.Key')}} <span class="text-danger">*</span></label>
-                                                        <select name="keys[]" class="form-control">
-                                                            @foreach ($specificationKeys as $specificationKey)
-                                                                <option {{ $specificationKey->id == $productSpecification->product_specification_key_id ? 'selected' : '' }} value="{{ $specificationKey->id }}">{{ $specificationKey->key }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                    <div class="col-md-5">
-                                                        <label>{{__('admin.Specification')}} <span class="text-danger">*</span></label>
-                                                        <input type="text" class="form-control" name="specifications[]" value="{{ $productSpecification->specification }}">
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        <button type="button" class="btn btn-danger plus_btn removeExistSpecificationRow"  data-specificationiId="{{ $productSpecification->id }}"><i class="fas fa-trash"></i></button>
-                                                    </div>
-                                                </div>
-                                            @endforeach
-                                        @endif
-
-                                        <div class="row mt-2">
-                                            <div class="col-md-5">
-                                                <label>{{__('admin.Key')}} <span class="text-danger">*</span></label>
-                                                <select name="keys[]" class="form-control">
-                                                    @foreach ($specificationKeys as $specificationKey)
-                                                        <option value="{{ $specificationKey->id }}">{{ $specificationKey->key }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                            <div class="col-md-5">
-                                                <label>{{__('admin.Specification')}} <span class="text-danger">*</span></label>
-                                                <input type="text" class="form-control" name="specifications[]">
-                                            </div>
-                                            <div class="col-md-2">
-                                                <button type="button" class="btn btn-success plus_btn" id="addNewSpecificationRow"><i class="fas fa-plus"></i></button>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                @endif
-
-                                @if ($product->is_specification==0)
-                                    <div class="form-group col-12 d-none" id="specification-box">
-                                        @if ($productSpecifications->count() != 0)
-                                            @foreach ($productSpecifications as $productSpecification)
-                                                <div class="row mt-2" id="existSpecificationBox-{{ $productSpecification->id }}">
-                                                    <div class="col-md-5">
-                                                        <label>{{__('admin.Key')}} <span class="text-danger">*</span></label>
-                                                        <select name="keys[]" class="form-control">
-                                                            @foreach ($specificationKeys as $specificationKey)
-                                                                <option {{ $specificationKey->id == $productSpecification->product_specification_key_id ? 'selected' : '' }} value="{{ $specificationKey->id }}">{{ $specificationKey->key }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                    <div class="col-md-5">
-                                                        <label>{{__('admin.Specification')}} <span class="text-danger">*</span></label>
-                                                        <input type="text" class="form-control" name="specifications[]" value="{{ $productSpecification->specification }}">
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        <button type="button" class="btn btn-danger plus_btn removeExistSpecificationRow"  data-specificationiId="{{ $productSpecification->id }}"><i class="fas fa-trash"></i></button>
-                                                    </div>
-                                                </div>
-                                            @endforeach
-                                        @endif
-
-                                        <div class="row mt-2">
-                                            <div class="col-md-5">
-                                                <label>{{__('admin.Key')}} <span class="text-danger">*</span></label>
-                                                <select name="keys[]" class="form-control">
-                                                    @foreach ($specificationKeys as $specificationKey)
-                                                        <option value="{{ $specificationKey->id }}">{{ $specificationKey->key }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                            <div class="col-md-5">
-                                                <label>{{__('admin.Specification')}} <span class="text-danger">*</span></label>
-                                                <input type="text" class="form-control" name="specifications[]">
-                                            </div>
-                                            <div class="col-md-2">
-                                                <button type="button" class="btn btn-success plus_btn" id="addNewSpecificationRow"><i class="fas fa-plus"></i></button>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                @endif
-
-
-
-
-                                <div id="hidden-specification-box" class="d-none">
-                                    <div class="delete-specification-row">
-                                        <div class="row mt-2">
-                                            <div class="col-md-5">
-                                                <label>{{__('admin.Key')}} <span class="text-danger">*</span></label>
-                                                <select name="keys[]" class="form-control">
-                                                    @foreach ($specificationKeys as $specificationKey)
-                                                        <option value="{{ $specificationKey->id }}">{{ $specificationKey->key }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                            <div class="col-md-5">
-                                                <label>{{__('admin.Specification')}} <span class="text-danger">*</span></label>
-                                                <input type="text" class="form-control" name="specifications[]">
-                                            </div>
-                                            <div class="col-md-2">
-                                                <button type="button" class="btn btn-danger plus_btn deleteSpeceficationBtn"><i class="fas fa-trash"></i></button>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                             <div class="row">
@@ -442,6 +401,15 @@
                 var sku = Math.floor(10000000 + Math.random() * 90000000);
                 $('[name="sku"]').val(sku);
             })
+            $('[name="is_partial"]').on('change', function() {
+                    var is_partial = $(this).val();
+                    changeAttr(is_partial, 'partial_amount')
+                })
+                $('[name="is_pre_order"]').on('change', function() {
+                    var is_partial = $(this).val();
+                    changeAttr(is_partial, 'release_date')
+                    changeAttr(is_partial, 'max_product')
+                })
         });
     })(jQuery);
 
@@ -460,6 +428,18 @@
         }
         reader.readAsDataURL(event.target.files[0]);
     };
+
+    function changeAttr(val, selectorName) {
+        if (val == 1) {
+            $(`[name="${selectorName}"]`).attr('required', true);
+            $(`.${selectorName}`).removeClass('d-none')
+            $(`[name="${selectorName}"]`).removeAttr('disabled');
+        } else {
+            $(`[name="${selectorName}"]`).removeAttr('required');
+            $(`[name="${selectorName}"]`).attr('disabled');
+            $(`.${selectorName}`).addClass('d-none')
+        }
+    }
 
 </script>
 

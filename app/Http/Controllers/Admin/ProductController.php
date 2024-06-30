@@ -17,6 +17,7 @@ use App\Models\OrderProduct;
 use App\Models\ProductVariant;
 use App\Models\ProductVariantItem;
 use App\Models\CampaignProduct;
+use App\Models\City;
 use App\Models\OrderProductVariant;
 use App\Models\ProductReport;
 use App\Models\ProductReview;
@@ -61,7 +62,8 @@ class ProductController extends Controller
         $productTaxs = ProductTax::where('status',1)->get();
         $retrunPolicies = ReturnPolicy::where('status',1)->get();
         $specificationKeys = ProductSpecificationKey::all();
-        return view('admin.create_product',compact('categories','brands','productTaxs','retrunPolicies','specificationKeys'));
+        $cities = City::all();
+        return view('admin.create_product',compact('categories','brands','productTaxs','retrunPolicies','specificationKeys', 'cities'));
     }
 
     public function store(Request $request)
@@ -89,6 +91,14 @@ class ProductController extends Controller
             'weight' => 'required',
             'quantity' => 'required|numeric',
         ];
+
+        if($request->is_pre_order){
+            $rules['release_date'] = 'required|date';
+            $rules['max_product'] = 'required';
+        }
+        if ($request->is_partial) {
+            $rules['partial_amount'] = 'required';
+        }
         $customMessages = [
             'short_name.required' => trans('Short name is required'),
             'short_name.unique' => trans('Short name is required'),
@@ -104,6 +114,10 @@ class ProductController extends Controller
             'status.required' => trans('Status is required'),
             'quantity.required' => trans('Quantity is required'),
             'weight.required' => trans('Weight is required'),
+            'release_date.required' => __('Release Date is Required'),
+            'release_date.date' => __('Release Date must be a Date'),
+            'max_product.required' => __('Pre order Quantity is Required'),
+            'partial_amount.required' => __('Partial Amount Quantity is Required'),
         ];
         $this->validate($request, $rules, $customMessages);
 
@@ -131,6 +145,7 @@ class ProductController extends Controller
         $product->short_description = $request->short_description;
         $product->long_description = $request->long_description;
         $product->tags = $request->tags;
+        $product->city_id = $request->city_id;
         $product->status = $request->status;
         $product->weight = $request->weight;
         $product->is_undefine = 1;
@@ -141,6 +156,18 @@ class ProductController extends Controller
         $product->new_product = $request->new_arrival ? 1 : 0;
         $product->is_best = $request->best_product ? 1 : 0;
         $product->is_featured = $request->is_featured ? 1 : 0;
+
+
+        $product->is_pre_order = $request->is_pre_order ? 1 : 0;
+        $product->is_partial = $request->is_partial ? 1 : 0;
+
+        if($request->is_pre_order){
+            $product->release_date = now()->parse($request->release_date);
+            $product->max_product = $request->max_product;
+        }
+        if ($request->is_partial) {
+            $product->partial_amount = $request->partial_amount;
+        }
         $product->save();
 
         if ($request->is_specification) {
@@ -183,6 +210,7 @@ class ProductController extends Controller
         $retrunPolicies = ReturnPolicy::where('status',1)->get();
         $specificationKeys = ProductSpecificationKey::all();
         $productSpecifications = ProductSpecification::where('product_id',$product->id)->get();
+        $cities = City::all();
         $tagArray = json_decode($product->tags);
         $tags = '';
         if($product->tags){
@@ -191,7 +219,7 @@ class ProductController extends Controller
             }
         }
 
-        return view('admin.edit_product',compact('categories','brands','productTaxs','retrunPolicies','specificationKeys','product','subCategories','childCategories','tags','productSpecifications'));
+        return view('admin.edit_product',compact('categories','brands','productTaxs','retrunPolicies','specificationKeys','product','subCategories','childCategories','tags','productSpecifications', 'cities'));
     }
 
     public function update(Request $request, $id)
@@ -205,8 +233,8 @@ class ProductController extends Controller
                 return redirect()->back()->with($notification);
             }
         }
-
         $product = Product::find($id);
+
         $rules = [
             'short_name' => 'required',
             'name' => 'required',
@@ -219,6 +247,14 @@ class ProductController extends Controller
             'weight' => 'required',
             'quantity' => 'required|numeric',
         ];
+        
+        if ($request->is_pre_order) {
+            $rules['release_date'] = 'required|date';
+            $rules['max_product'] = 'required';
+        }
+        if ($request->is_partial) {
+            $rules['partial_amount'] = 'required';
+        }
         $customMessages = [
             'short_name.required' => trans('Short name is required'),
             'short_name.unique' => trans('Short name is required'),
@@ -228,14 +264,16 @@ class ProductController extends Controller
             'slug.unique' => trans('Slug already exist'),
             'category.required' => trans('Category is required'),
             'thumb_image.required' => trans('thumbnail is required'),
-            'banner_image.required' => trans('Banner is required'),
             'short_description.required' => trans('Short description is required'),
             'long_description.required' => trans('Long description is required'),
-            'brand.required' => trans('Brand is required'),
             'price.required' => trans('Price is required'),
-            'quantity.required' => trans('Quantity is required'),
             'status.required' => trans('Status is required'),
+            'quantity.required' => trans('Quantity is required'),
             'weight.required' => trans('Weight is required'),
+            'release_date.required' => __('Release Date is Required'),
+            'release_date.date' => __('Release Date must be a Date'),
+            'max_product.required' => __('Pre order Quantity is Required'),
+            'partial_amount.required' => __('Partial Amount Quantity is Required'),
         ];
         $this->validate($request, $rules, $customMessages);
 
@@ -270,6 +308,7 @@ class ProductController extends Controller
         $product->long_description = $request->long_description;
         $product->tags = $request->tags;
         $product->status = $request->status;
+        $product->city_id = $request->city_id;
         $product->weight = $request->weight;
         $product->is_specification = $request->is_specification ? 1 : 0;
         $product->seo_title = $request->seo_title ? $request->seo_title : $request->name;
@@ -278,6 +317,18 @@ class ProductController extends Controller
         $product->new_product = $request->new_arrival ? 1 : 0;
         $product->is_best = $request->best_product ? 1 : 0;
         $product->is_featured = $request->is_featured ? 1 : 0;
+
+        $product->is_pre_order = $request->is_pre_order ? 1 : 0;
+        $product->is_partial = $request->is_partial ? 1 : 0;
+
+        if ($request->is_pre_order) {
+            $product->release_date = now()->parse($request->release_date);
+            $product->max_product = $request->max_product;
+        }
+        if ($request->is_partial) {
+            $product->partial_amount = $request->partial_amount;
+        }
+
         $product->save();
 
         $exist_specifications = [];
