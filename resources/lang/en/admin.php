@@ -15,6 +15,7 @@
   'Name' => 'Name',
   'Greeting Message' => 'Greeting Message',
   'Verified Seller' => 'Verified Seller',
+  'City Name / Delivery Area' => 'City Name / Delivery Area',
   'Highlight' => 'Highlight',
   'Seller Info' => 'Seller Info',
   'Featured Seller' => 'Featured Seller',
