@@ -7,9 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable implements JWTSubject
+class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -54,31 +53,23 @@ class User extends Authenticatable implements JWTSubject
         'city_id' => 'integer',
     ];
 
-    public function seller(){
+    public function seller()
+    {
         return $this->hasOne(Vendor::class);
     }
 
-    public function city(){
+    public function city()
+    {
         return $this->belongsTo(City::class);
     }
 
-    public function state(){
+    public function state()
+    {
         return $this->belongsTo(CountryState::class);
     }
 
-    public function country(){
+    public function country()
+    {
         return $this->belongsTo(Country::class);
     }
-
-    public function getJWTIdentifier()
-    {
-        return $this->getKey();
-    }
-
-    public function getJWTCustomClaims()
-    {
-        return [];
-    }
-
-
 }

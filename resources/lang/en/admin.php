@@ -13,6 +13,8 @@ return array(
     'Sale Products' => 'Sale Products',
     'Just for You' => 'Just for You',
     'Best Selling Product' => 'Best Selling Product',
+    'Delivery Location' => 'Delivery Location',
+    'Delivery Charge' => 'Delivery Charge',
     'Delivery Area' => 'Delivery Area',
     'Create Seller' => 'Create Seller',
     'Add New' => 'Add New',

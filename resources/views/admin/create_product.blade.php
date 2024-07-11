@@ -32,7 +32,6 @@
                                                 <img id="preview-img" class="admin-img"
                                                     src="{{ asset('uploads/website-images/preview.png') }}" alt="">
                                             </div>
-
                                         </div>
 
                                         <div class="form-group col-12">

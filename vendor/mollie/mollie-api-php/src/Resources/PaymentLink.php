@@ -5,11 +5,6 @@ namespace Mollie\Api\Resources;
 class PaymentLink extends BaseResource
 {
     /**
-     * @var string
-     */
-    public $resource;
-
-    /**
      * Id of the payment link (on the Mollie platform).
      *
      * @var string
@@ -48,6 +43,14 @@ class PaymentLink extends BaseResource
      */
     public $paidAt;
 
+    /**
+     * Whether the payment link is archived. Customers will not be able to complete
+     * payments on archived payment links.
+     *
+     * @var bool
+     */
+    public $archived;
+    
     /**
      * UTC datetime the payment link was updated in ISO-8601 format.
      *
@@ -120,5 +123,64 @@ class PaymentLink extends BaseResource
         }
 
         return $this->_links->paymentLink->href;
+    }
+
+    /**
+     * Persist the current local Payment Link state to the Mollie API.
+     *
+     * @return mixed|\Mollie\Api\Resources\BaseResource
+     * @throws \Mollie\Api\Exceptions\ApiException
+     */
+    public function update()
+    {
+        $body = $this->withPresetOptions([
+            'description' => $this->description,
+            'archived' => $this->archived,
+        ]);
+
+        $result = $this->client->paymentLinks->update($this->id, $body);
+
+        return ResourceFactory::createFromApiResult($result, new PaymentLink($this->client));
+    }
+
+    /**
+     * Archive this Payment Link.
+     *
+     * @return \Mollie\Api\Resources\PaymentLink
+     * @throws \Mollie\Api\Exceptions\ApiException
+     */
+    public function archive()
+    {
+        $data = $this->withPresetOptions([
+            'archived' => true,
+        ]);
+
+        return $this->client->paymentLinks->update($this->id, $data);
+    }
+
+    /**
+     * When accessed by oAuth we want to pass the testmode by default
+     *
+     * @return array
+     */
+    private function getPresetOptions()
+    {
+        $options = [];
+        if ($this->client->usesOAuth()) {
+            $options["testmode"] = $this->mode === "test";
+        }
+
+        return $options;
+    }
+
+    /**
+     * Apply the preset options.
+     *
+     * @param array $options
+     * @return array
+     */
+    private function withPresetOptions(array $options)
+    {
+        return array_merge($this->getPresetOptions(), $options);
     }
 }
