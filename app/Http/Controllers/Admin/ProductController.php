@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
+
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -26,6 +27,7 @@ use App\Models\Setting;
 use Image;
 use File;
 use Str;
+
 class ProductController extends Controller
 {
     public function __construct()
@@ -35,45 +37,47 @@ class ProductController extends Controller
 
     public function index()
     {
-        $products = Product::with('category')->where(['vendor_id' => 0])->orderBy('id','desc')->get();
+        $products = Product::with('category')->where(['vendor_id' => 0])->orderBy('id', 'desc')->get();
         $orderProducts = OrderProduct::all();
         $setting = Setting::first();
-        return view('admin.product',compact('products','orderProducts','setting'));
+        return view('admin.product', compact('products', 'orderProducts', 'setting'));
     }
 
-    public function sellerProduct(){
-        $products = Product::with('category')->where('vendor_id','!=',0)->where('status',1)->get();
+    public function sellerProduct()
+    {
+        $products = Product::with('category')->where('vendor_id', '!=', 0)->where('status', 1)->get();
         $orderProducts = OrderProduct::all();
         $setting = Setting::first();
-        return view('admin.seller_product',compact('products','orderProducts','setting'));
+        return view('admin.seller_product', compact('products', 'orderProducts', 'setting'));
     }
 
-    public function sellerPendingProduct(){
-        $products = Product::with('category')->where('vendor_id','!=',0)->where('status',0)->get();
+    public function sellerPendingProduct()
+    {
+        $products = Product::with('category')->where('vendor_id', '!=', 0)->where('status', 0)->get();
         $orderProducts = OrderProduct::all();
         $setting = Setting::first();
-        return view('admin.seller_product',compact('products','orderProducts','setting'));
+        return view('admin.seller_product', compact('products', 'orderProducts', 'setting'));
     }
 
     public function create()
     {
         $categories = Category::all();
         $brands = Brand::all();
-        $productTaxs = ProductTax::where('status',1)->get();
-        $retrunPolicies = ReturnPolicy::where('status',1)->get();
+        $productTaxs = ProductTax::where('status', 1)->get();
+        $retrunPolicies = ReturnPolicy::where('status', 1)->get();
         $specificationKeys = ProductSpecificationKey::all();
         $cities = City::all();
-        return view('admin.create_product',compact('categories','brands','productTaxs','retrunPolicies','specificationKeys', 'cities'));
+        return view('admin.create_product', compact('categories', 'brands', 'productTaxs', 'retrunPolicies', 'specificationKeys', 'cities'));
     }
 
     public function store(Request $request)
     {
-        if($request->video_link) {
+        if ($request->video_link) {
             $valid = preg_match("/^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/watch\?v\=\w+$/", $request->video_link);
 
             if (!$valid) {
                 $notification = trans('admin_validation.Please provide your valid youtube url');
-                $notification = array('messege'=>$notification,'alert-type'=>'error');
+                $notification = array('messege' => $notification, 'alert-type' => 'error');
                 return redirect()->back()->with($notification);
             }
         }
@@ -92,7 +96,7 @@ class ProductController extends Controller
             'quantity' => 'required|numeric',
         ];
 
-        if($request->is_pre_order){
+        if ($request->is_pre_order) {
             $rules['release_date'] = 'required|date';
             $rules['max_product'] = 'required';
         }
@@ -161,12 +165,13 @@ class ProductController extends Controller
         $product->is_pre_order = $request->is_pre_order ? 1 : 0;
         $product->is_partial = $request->is_partial ? 1 : 0;
 
-        if($request->is_pre_order){
+        if ($request->is_pre_order) {
             $product->release_date = now()->parse($request->release_date);
             $product->max_product = $request->max_product;
         }
         if ($request->is_partial) {
             $product->partial_amount = $request->partial_amount;
+            $product->partial_type = $request->partial_type;
         }
         $product->save();
 
@@ -190,7 +195,7 @@ class ProductController extends Controller
             }
         }
         $notification = trans('admin_validation.Created Successfully');
-        $notification=array('messege'=>$notification,'alert-type'=>'success');
+        $notification = array('messege' => $notification, 'alert-type' => 'success');
         return redirect()->route('admin.product.index')->with($notification);
     }
 
@@ -206,30 +211,30 @@ class ProductController extends Controller
         $subCategories = SubCategory::all();
         $childCategories = ChildCategory::all();
         $brands = Brand::all();
-        $productTaxs = ProductTax::where('status',1)->get();
-        $retrunPolicies = ReturnPolicy::where('status',1)->get();
+        $productTaxs = ProductTax::where('status', 1)->get();
+        $retrunPolicies = ReturnPolicy::where('status', 1)->get();
         $specificationKeys = ProductSpecificationKey::all();
-        $productSpecifications = ProductSpecification::where('product_id',$product->id)->get();
+        $productSpecifications = ProductSpecification::where('product_id', $product->id)->get();
         $cities = City::all();
         $tagArray = json_decode($product->tags);
         $tags = '';
-        if($product->tags){
-            foreach($tagArray as $index => $tag){
-                $tags .= $tag->value.',';
+        if ($product->tags) {
+            foreach ($tagArray as $index => $tag) {
+                $tags .= $tag->value . ',';
             }
         }
 
-        return view('admin.edit_product',compact('categories','brands','productTaxs','retrunPolicies','specificationKeys','product','subCategories','childCategories','tags','productSpecifications', 'cities'));
+        return view('admin.edit_product', compact('categories', 'brands', 'productTaxs', 'retrunPolicies', 'specificationKeys', 'product', 'subCategories', 'childCategories', 'tags', 'productSpecifications', 'cities'));
     }
 
     public function update(Request $request, $id)
     {
-        if($request->video_link) {
+        if ($request->video_link) {
             $valid = preg_match("/^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/watch\?v\=\w+$/", $request->video_link);
 
             if (!$valid) {
                 $notification = trans('admin_validation.Please provide your valid youtube url');
-                $notification = array('messege'=>$notification,'alert-type'=>'error');
+                $notification = array('messege' => $notification, 'alert-type' => 'error');
                 return redirect()->back()->with($notification);
             }
         }
@@ -247,7 +252,7 @@ class ProductController extends Controller
             'weight' => 'required',
             'quantity' => 'required|numeric',
         ];
-        
+
         if ($request->is_pre_order) {
             $rules['release_date'] = 'required|date';
             $rules['max_product'] = 'required';
@@ -327,6 +332,7 @@ class ProductController extends Controller
         }
         if ($request->is_partial) {
             $product->partial_amount = $request->partial_amount;
+            $product->partial_type = $request->partial_type;
         }
 
         $product->save();
@@ -355,7 +361,7 @@ class ProductController extends Controller
             }
         }
         $notification = trans('admin_validation.Update Successfully');
-        $notification=array('messege'=>$notification,'alert-type'=>'success');
+        $notification = array('messege' => $notification, 'alert-type' => 'success');
         return redirect()->route('admin.product.index')->with($notification);
     }
 
@@ -365,36 +371,37 @@ class ProductController extends Controller
         $gallery = $product->gallery;
         $old_thumbnail = $product->thumb_image;
         $product->delete();
-        if($old_thumbnail){
-            if(File::exists(public_path().'/'.$old_thumbnail))unlink(public_path().'/'.$old_thumbnail);
+        if ($old_thumbnail) {
+            if (File::exists(public_path() . '/' . $old_thumbnail)) unlink(public_path() . '/' . $old_thumbnail);
         }
-        foreach($gallery as $image){
+        foreach ($gallery as $image) {
             $old_image = $image->image;
             $image->delete();
-            if($old_image){
-                if(File::exists(public_path().'/'.$old_image))unlink(public_path().'/'.$old_image);
+            if ($old_image) {
+                if (File::exists(public_path() . '/' . $old_image)) unlink(public_path() . '/' . $old_image);
             }
         }
-        ProductVariant::where('product_id',$id)->delete();
-        ProductVariantItem::where('product_id',$id)->delete();
-        CampaignProduct::where('product_id',$id)->delete();
-        ProductReport::where('product_id',$id)->delete();
-        ProductReview::where('product_id',$id)->delete();
-        ProductSpecification::where('product_id',$id)->delete();
-        Wishlist::where('product_id',$id)->delete();
+        ProductVariant::where('product_id', $id)->delete();
+        ProductVariantItem::where('product_id', $id)->delete();
+        CampaignProduct::where('product_id', $id)->delete();
+        ProductReport::where('product_id', $id)->delete();
+        ProductReview::where('product_id', $id)->delete();
+        ProductSpecification::where('product_id', $id)->delete();
+        Wishlist::where('product_id', $id)->delete();
 
         $notification = trans('admin_validation.Delete Successfully');
-        $notification = array('messege'=>$notification,'alert-type'=>'success');
+        $notification = array('messege' => $notification, 'alert-type' => 'success');
         return redirect()->back()->with($notification);
     }
 
-    public function changeStatus($id){
+    public function changeStatus($id)
+    {
         $product = Product::find($id);
-        if($product->status == 1){
+        if ($product->status == 1) {
             $product->status = 0;
             $product->save();
             $message = trans('admin_validation.InActive Successfully');
-        }else{
+        } else {
             $product->status = 1;
             $product->save();
             $message = trans('admin_validation.Active Successfully');
@@ -402,22 +409,25 @@ class ProductController extends Controller
         return response()->json($message);
     }
 
-    public function removedProductExistSpecification($id){
+    public function removedProductExistSpecification($id)
+    {
         $productSpecification = ProductSpecification::find($id);
         $productSpecification->delete();
         $message = trans('admin_validation.Removed Successfully');
         return response()->json($message);
     }
 
-    public function productHighlight($id){
+    public function productHighlight($id)
+    {
         $product = Product::find($id);
         return view('admin.product_highlight', compact('product'));
     }
 
-    public function productHighlightUpdate(Request $request,$id){
+    public function productHighlightUpdate(Request $request, $id)
+    {
 
         $product = Product::find($id);
-        if($request->product_type == 1){
+        if ($request->product_type == 1) {
             $product->is_undefine = 1;
             $product->new_product = 0;
             $product->is_featured = 0;
@@ -425,7 +435,7 @@ class ProductController extends Controller
             $product->is_top = 0;
             $product->is_flash_deal = 0;
             $product->save();
-        }else if($request->product_type == 2){
+        } else if ($request->product_type == 2) {
             $product->is_undefine = 0;
             $product->new_product = 1;
             $product->is_featured = 0;
@@ -433,7 +443,7 @@ class ProductController extends Controller
             $product->is_top = 0;
             $product->is_flash_deal = 0;
             $product->save();
-        }else if($request->product_type == 3){
+        } else if ($request->product_type == 3) {
             $product->is_undefine = 0;
             $product->new_product = 0;
             $product->is_featured = 1;
@@ -441,7 +451,7 @@ class ProductController extends Controller
             $product->is_top = 0;
             $product->is_flash_deal = 0;
             $product->save();
-        }else if($request->product_type == 4){
+        } else if ($request->product_type == 4) {
             $product->is_undefine = 0;
             $product->new_product = 0;
             $product->is_featured = 0;
@@ -449,7 +459,7 @@ class ProductController extends Controller
             $product->is_top = 1;
             $product->is_flash_deal = 0;
             $product->save();
-        }else if($request->product_type == 5){
+        } else if ($request->product_type == 5) {
             $product->is_undefine = 0;
             $product->new_product = 0;
             $product->is_featured = 0;
@@ -457,7 +467,7 @@ class ProductController extends Controller
             $product->is_top = 0;
             $product->is_flash_deal = 0;
             $product->save();
-        }else if($request->product_type == 6){
+        } else if ($request->product_type == 6) {
             $rules = [
                 'date' => 'required'
             ];
@@ -473,11 +483,7 @@ class ProductController extends Controller
         }
 
         $notification = trans('admin_validation.Update Successfully');
-        $notification=array('messege'=>$notification,'alert-type'=>'success');
+        $notification = array('messege' => $notification, 'alert-type' => 'success');
         return redirect()->route('admin.product.index')->with($notification);
     }
-
-
-
-
 }

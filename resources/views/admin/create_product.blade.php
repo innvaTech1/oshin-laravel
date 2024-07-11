@@ -165,15 +165,15 @@
                                             <div>
                                                 <input type="checkbox"name="top_product" id="top_product"> <label
                                                     for="top_product"
-                                                    class="mr-3">{{ __('admin.Top Product') }}</label>
+                                                    class="mr-3">{{ __('admin.Just for You') }}</label>
 
                                                 <input type="checkbox" name="new_arrival" id="new_arrival"> <label
                                                     for="new_arrival"
-                                                    class="mr-3">{{ __('admin.New Arrival') }}</label>
+                                                    class="mr-3">{{ __('admin.Sale Products') }}</label>
 
                                                 <input type="checkbox" name="best_product" id="best_product"> <label
                                                     for="best_product"
-                                                    class="mr-3">{{ __('admin.Best Product') }}</label>
+                                                    class="mr-3">{{ __('admin.Best Selling Product') }}</label>
 
                                                 <input type="checkbox" name="is_featured" id="is_featured"> <label
                                                     for="is_featured"
@@ -211,7 +211,8 @@
                                         <div class="col-md-12 d-none max_product">
                                             <div class="form-group">
                                                 <label>{{ __('Max Quantity') }} <span class="text-danger">*</span></label>
-                                                <input type="number" name="max_product" class="form-control" disabled min="1" />
+                                                <input type="number" name="max_product" class="form-control" disabled
+                                                    min="1" />
                                                 @error('max_product')
                                                     <span class="text-danger">{{ $message }}</span>
                                                 @enderror
@@ -239,8 +240,19 @@
                                             <div class="form-group">
                                                 <label>{{ __('Partial Amount') }} <span
                                                         class="text-danger">*</span></label>
-                                                <input type="text" name="partial_amount" class="form-control"
-                                                    disabled />
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <div class="">
+                                                            <select name="partial_type" id=""
+                                                                class="form-control">
+                                                                <option value="percentage">%</option>
+                                                                <option value="flat">Flat</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <input type="text" class="form-control currency"
+                                                        name="partial_amount" disabled>
+                                                </div>
                                                 @error('partial_amount')
                                                     <span class="text-danger">{{ $message }}</span>
                                                 @enderror
@@ -403,16 +415,16 @@
             reader.readAsDataURL(event.target.files[0]);
         };
 
-         function changeAttr(val, selectorName) {
-                if (val == 1) {
-                    $(`[name="${selectorName}"]`).attr('required', true);
-                    $(`.${selectorName}`).removeClass('d-none')
-                    $(`[name="${selectorName}"]`).removeAttr('disabled');
-                } else {
-                    $(`[name="${selectorName}"]`).removeAttr('required');
-                    $(`[name="${selectorName}"]`).attr('disabled');
-                    $(`.${selectorName}`).addClass('d-none')
-                }
+        function changeAttr(val, selectorName) {
+            if (val == 1) {
+                $(`[name="${selectorName}"]`).attr('required', true);
+                $(`.${selectorName}`).removeClass('d-none')
+                $(`[name="${selectorName}"]`).removeAttr('disabled');
+            } else {
+                $(`[name="${selectorName}"]`).removeAttr('required');
+                $(`[name="${selectorName}"]`).attr('disabled');
+                $(`.${selectorName}`).addClass('d-none')
             }
+        }
     </script>
 @endsection
