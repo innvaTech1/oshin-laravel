@@ -5,18 +5,16 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
-use Modules\Currency\app\Models\MultiCurrency;
 use Modules\GlobalSetting\app\Models\Setting;
-use Modules\Language\app\Models\Language;
-use Modules\Subscription\app\Models\SubscriptionPlan;
 use App\Exceptions\AccessPermissionDeniedException;
+use App\Models\Currency;
 use Modules\GlobalSetting\app\Models\SeoSetting;
 
 // file upload method
 function file_upload($request_file, $old_file, $file_path)
 {
     $extention = $request_file->getClientOriginalExtension();
-    $file_name = 'wsus-img' . date('-Y-m-d-h-i-s-') . rand(999, 9999) . '.' . $extention;
+    $file_name = 'oshin-img' . date('-Y-m-d-h-i-s-') . rand(999, 9999) . '.' . $extention;
     $file_name = $file_path . $file_name;
     $request_file->move(public_path($file_path), $file_name);
 
@@ -32,7 +30,6 @@ function file_upload($request_file, $old_file, $file_path)
 if (!function_exists('allLanguages')) {
     function allLanguages()
     {
-        return Language::all();
     }
 }
 
@@ -141,7 +138,7 @@ function currency($price = '')
     $currencySetting = Cache::rememberForever('currency', function () {
         $siteCurrencyId = Session::get('site_currency');
 
-        $currency = MultiCurrency::when($siteCurrencyId, function ($query) use ($siteCurrencyId) {
+        $currency = Currency::when($siteCurrencyId, function ($query) use ($siteCurrencyId) {
             return $query->where('id', $siteCurrencyId);
         })->when(!$siteCurrencyId, function ($query) {
             return $query->where('is_default', 'yes');
@@ -180,17 +177,10 @@ function currency($price = '')
 function currency_icon()
 {
     $currencySetting = Cache::rememberForever('currency', function () {
-        $siteCurrencyId = Session::get('site_currency');
-
-        $currency = MultiCurrency::when($siteCurrencyId, function ($query) use ($siteCurrencyId) {
-            return $query->where('id', $siteCurrencyId);
-        })->when(!$siteCurrencyId, function ($query) {
-            return $query->where('is_default', 'yes');
-        })->first();
+        $currency = Currency::where('is_default', 'yes')->first();
 
         return $currency;
     });
-
     return $currencySetting->currency_icon;
 }
 
@@ -253,16 +243,6 @@ if (!function_exists('getPaymentGateway')) {
     }
 }
 
-// subscription plans
-
-if (!function_exists('getSubscriptionPlans')) {
-    function getSubscriptionPlans()
-    {
-        return Cache::rememberForever('subscription_plans', function () {
-            return SubscriptionPlan::where('status', 1)->get();
-        });
-    }
-}
 
 // make date
 if (!function_exists('make_date')) {

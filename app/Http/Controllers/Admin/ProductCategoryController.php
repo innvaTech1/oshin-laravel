@@ -53,10 +53,21 @@ class ProductCategoryController extends Controller
         ];
         $this->validate($request, $rules, $customMessages);
 
+        $imageName = null;
+
+        if ($request->hasFile('image')) {
+            $image = $request->image;
+            $imageName = file_upload($image, $imageName, 'uploads/custom-images/');
+        }
+
+
         $category = new Category();
 
+        $category->image = $imageName;
         $category->name = $request->name;
         $category->slug = $request->slug;
+        $category->delivery_charge = $request->delivery_charge;
+        $category->city_id = $request->city_id;
         $category->status = $request->status;
         $category->save();
 
@@ -81,7 +92,6 @@ class ProductCategoryController extends Controller
             'name' => 'required|unique:categories,name,' . $category->id,
             'slug' => 'required|unique:categories,name,' . $category->id,
             'status' => 'required',
-            'icon' => 'required'
         ];
 
         $customMessages = [
@@ -89,13 +99,22 @@ class ProductCategoryController extends Controller
             'name.unique' => trans('admin_validation.Name already exist'),
             'slug.required' => trans('admin_validation.Slug is required'),
             'slug.unique' => trans('admin_validation.Slug already exist'),
-            'icon.required' => trans('admin_validation.Icon is required'),
         ];
         $this->validate($request, $rules, $customMessages);
 
-        $category->icon = $request->icon;
+        $imageName = $category->image;
+
+        if ($request->hasFile('image')) {
+            $image = $request->image;
+            $imageName = file_upload($image, $imageName, 'uploads/custom-images/');
+        }
+
+
+        $category->image = $imageName;
         $category->name = $request->name;
         $category->slug = $request->slug;
+        $category->delivery_charge = $request->delivery_charge;
+        $category->city_id = $request->city_id;
         $category->status = $request->status;
         $category->save();
 
