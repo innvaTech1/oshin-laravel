@@ -710,12 +710,10 @@
         }
         $shop_page = App\Models\ShopPage::first();
         $max_val = $shop_page->filter_price_range;
-        $currencySetting = App\Models\Setting::first();
+        $currencySetting = $setting;
         $currency_icon = $currencySetting->currency_icon;
         $tawk_setting = App\Models\TawkChat::first();
         $cookie_consent = App\Models\CookieConsent::first();
-        $setting = App\Models\Setting::first();
-
     @endphp
     <script>
         let filter_max_val = "{{ $max_val }}";

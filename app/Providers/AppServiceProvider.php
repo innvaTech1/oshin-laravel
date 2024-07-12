@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use App\Models\Setting;
 use Exception;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\View;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -33,6 +34,7 @@ class AppServiceProvider extends ServiceProvider
                 $setting = Setting::first();
                 cache()->forever('setting', $setting);
             }
+            View::share('setting', $setting);
         } catch (Exception $e) {
             Log::error($e->getMessage());
         }
