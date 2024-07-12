@@ -76,7 +76,11 @@
                             <i class="fas fa-user-alt"></i>
                         </div>
                         <div class="wsus__call_text">
-                            <a href="login.html">Login/Register</a>
+                            @auth
+                                <a href="{{ route('user.dashboard') }}">{{ __('user.Account') }}</a>
+                            @else
+                                <a href="{{ route('login') }}">{{ __('user.Login') }}</a>
+                            @endauth
                         </div>
                     </div>
                     <ul class="wsus__icon_area">
@@ -109,11 +113,11 @@
         </div>
     </div>
     <div class="wsus__mini_cart">
-        <h4>{{ __('user.SHOPPING CART') }} <span class="wsus_close_mini_cart"><i class="far fa-times"></i></span>
+        <h4>{{ __('user.Shopping Cart') }} <span class="wsus_close_mini_cart"><i class="far fa-times"></i></span>
         </h4>
         <div id="load_sidebar_cart">
             @if (Cart::instance('default')->count() == 0)
-                <h5 class="text-danger text-center">{{ 'Your Cart is empty' }}</h5>
+                <h5 class="text-danger text-center">{{ __('user.Your Cart is empty') }}</h5>
             @else
                 <ul>
                     @php

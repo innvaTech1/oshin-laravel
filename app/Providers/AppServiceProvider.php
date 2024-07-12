@@ -4,6 +4,9 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use App\Models\Setting;
+use Exception;
+use Illuminate\Support\Facades\Log;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -23,6 +26,15 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-
+        try {
+            if (cache()->has('setting')) {
+                $setting = cache()->get('setting');
+            } else {
+                $setting = Setting::first();
+                cache()->forever('setting', $setting);
+            }
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+        }
     }
 }
