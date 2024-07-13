@@ -9,9 +9,9 @@
 @section('public-content')
 
 
-    <!--============================
-                                                 BREADCRUMB START
-                                            ==============================-->
+    {{-- <!--============================
+            BREADCRUMB START
+    ==============================--> --}}
     <section id="wsus__breadcrumb" style="background: url({{ asset($product->banner_image) }});">
         <div class="wsus_breadcrumb_overlay">
             <div class="container">
@@ -27,12 +27,12 @@
             </div>
         </div>
     </section>
-    <!--============================
-                                                BREADCRUMB END
-                                            ==============================-->
-    <!--============================
-                                                PRODUCT DETAILS START
-                                            ==============================-->
+    {{-- <!--============================
+        BREADCRUMB END
+    ==============================--> --}}
+    {{-- <!--============================
+        PRODUCT DETAILS START
+    ==============================--> --}}
     <section id="wsus__product_details">
         <div class="container">
             <div class="row">
@@ -407,14 +407,12 @@
                             @endif
 
                             @if ($product->vendor_id != 0)
-                                @if ($setting->enable_multivendor == 1)
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill"
-                                            data-bs-target="#pills-contact" type="button" role="tab"
-                                            aria-controls="pills-contact"
-                                            aria-selected="false">{{ __('user.Seller Information') }}</button>
-                                    </li>
-                                @endif
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill"
+                                        data-bs-target="#pills-contact" type="button" role="tab"
+                                        aria-controls="pills-contact"
+                                        aria-selected="false">{{ __('user.Seller Information') }}</button>
+                                </li>
                             @endif
 
                             <li class="nav-item" role="presentation">
@@ -422,6 +420,12 @@
                                     data-bs-target="#pills-contact2" type="button" role="tab"
                                     aria-controls="pills-contact2"
                                     aria-selected="false">{{ __('user.Reviews') }}</button>
+                            </li>
+
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="pills-contact-tab239" data-bs-toggle="pill"
+                                    data-bs-target="#faqs" type="button" role="tab" aria-controls="faqs"
+                                    aria-selected="false">{{ __('user.Faqs') }}</button>
                             </li>
 
                         </ul>
@@ -449,7 +453,6 @@
                                             @endforeach
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                             @if ($product->vendor_id != 0)
@@ -635,6 +638,130 @@
                                                                 href="{{ route('login') }}">{{ __('user.Before submit review, please login first') }}</a>
                                                         @endauth
                                                     </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="faqs" role="tabpanel"
+                                aria-labelledby="pills-contact-tab239">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="wsus__contact_question">
+                                            <h5>People usually ask these</h5>
+                                            <div class="accordion" id="accordionExample">
+                                                <div class="accordion-item">
+                                                    <h2 class="accordion-header" id="headingOne">
+                                                        <button class="accordion-button" type="button"
+                                                            data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                                                            aria-expanded="true" aria-controls="collapseOne">
+                                                            How can I cancel my order?
+                                                        </button>
+                                                    </h2>
+                                                    <div id="collapseOne" class="accordion-collapse collapse show"
+                                                        aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                                        <div class="accordion-body">
+                                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing
+                                                                elit.
+                                                                Voluptatum voluptas ea hic excepturi sit, sapiente
+                                                                optio
+                                                                deleniti pariatur. Dolorum in quos magni?
+                                                                Necessitatibus
+                                                                recusandae cupiditate iste expedita amet voluptatem
+                                                                laudantium.</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="accordion-item">
+                                                    <h2 class="accordion-header" id="headingTwo">
+                                                        <button class="accordion-button collapsed" type="button"
+                                                            data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+                                                            aria-expanded="false" aria-controls="collapseTwo">
+                                                            Why is my registration delayed?
+                                                        </button>
+                                                    </h2>
+                                                    <div id="collapseTwo" class="accordion-collapse collapse"
+                                                        aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                                        <div class="accordion-body">
+                                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing
+                                                                elit.
+                                                                Voluptatum voluptas ea hic excepturi sit, sapiente
+                                                                optio
+                                                                deleniti pariatur. Dolorum in quos magni?
+                                                                Necessitatibus
+                                                                recusandae cupiditate iste expedita amet voluptatem
+                                                                laudantium.</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="accordion-item">
+                                                    <h2 class="accordion-header" id="headingThree">
+                                                        <button class="accordion-button collapsed" type="button"
+                                                            data-bs-toggle="collapse" data-bs-target="#collapseThree"
+                                                            aria-expanded="false" aria-controls="collapseThree">
+                                                            What do I need to buy products?
+                                                        </button>
+                                                    </h2>
+                                                    <div id="collapseThree" class="accordion-collapse collapse"
+                                                        aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                                                        <div class="accordion-body">
+                                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing
+                                                                elit.
+                                                                Voluptatum voluptas ea hic excepturi sit, sapiente
+                                                                optio
+                                                                deleniti pariatur. Dolorum in quos magni?
+                                                                Necessitatibus
+                                                                recusandae cupiditate iste expedita amet voluptatem
+                                                                laudantium.</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="accordion-item">
+                                                    <h2 class="accordion-header" id="headingThreet1">
+                                                        <button class="accordion-button collapsed" type="button"
+                                                            data-bs-toggle="collapse" data-bs-target="#collapseThreet1"
+                                                            aria-expanded="false" aria-controls="collapseThreet1">
+                                                            How can I track an order?
+                                                        </button>
+                                                    </h2>
+                                                    <div id="collapseThreet1" class="accordion-collapse collapse"
+                                                        aria-labelledby="headingThreet1"
+                                                        data-bs-parent="#accordionExample">
+                                                        <div class="accordion-body">
+                                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing
+                                                                elit.
+                                                                Voluptatum voluptas ea hic excepturi sit, sapiente
+                                                                optio
+                                                                deleniti pariatur. Dolorum in quos magni?
+                                                                Necessitatibus
+                                                                recusandae cupiditate iste expedita amet voluptatem
+                                                                laudantium.</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="accordion-item">
+                                                    <h2 class="accordion-header" id="headingThreet2">
+                                                        <button class="accordion-button collapsed" type="button"
+                                                            data-bs-toggle="collapse" data-bs-target="#collapseThreet2"
+                                                            aria-expanded="false" aria-controls="collapseThreet2">
+                                                            How can I get money back?
+                                                        </button>
+                                                    </h2>
+                                                    <div id="collapseThreet2" class="accordion-collapse collapse"
+                                                        aria-labelledby="headingThreet2"
+                                                        data-bs-parent="#accordionExample">
+                                                        <div class="accordion-body">
+                                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing
+                                                                elit.
+                                                                Voluptatum voluptas ea hic excepturi sit, sapiente
+                                                                optio
+                                                                deleniti pariatur. Dolorum in quos magni?
+                                                                Necessitatibus
+                                                                recusandae cupiditate iste expedita amet voluptatem
+                                                                laudantium.</p>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

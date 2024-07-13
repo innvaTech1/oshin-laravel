@@ -21,6 +21,7 @@ return array(
     'hot deals of the day' => 'hot deals of the day',
     'Order Now' => 'Order Now',
     'Sale Products' => 'Sale Products',
+    'Faqs' => 'Faqs',
     'Best Selling Products' => 'Best Selling Products',
     'Update Password' => 'Update Password',
     'Chat with' => 'Chat with',
