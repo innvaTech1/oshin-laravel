@@ -88,31 +88,36 @@
                     <div class="wsus__features_section">
                         <a href="brands.html">
                             <div class="wsus__section_content">
-                                <img src="images/features_service/brand.png" alt="" class="img-fluid">
+                                <img src="{{ asset('user/images/features_service/brand.png') }}" alt=""
+                                    class="img-fluid">
                                 <h2>Brands</h2>
                             </div>
                         </a>
                         <a href="#">
                             <div class="wsus__section_content">
-                                <img src="images/features_service/surprise.png" alt="" class="img-fluid">
+                                <img src="{{ asset('user/images/features_service/surprise.png') }}" alt=""
+                                    class="img-fluid">
                                 <h2>Gift Corner</h2>
                             </div>
                         </a>
                         <a href="#">
                             <div class="wsus__section_content">
-                                <img src="images/features_service/supply-chain.png" alt="" class="img-fluid">
+                                <img src="{{ asset('user/images/features_service/supply-chain.png') }}" alt=""
+                                    class="img-fluid">
                                 <h2>Wholesale</h2>
                             </div>
                         </a>
                         <a href="#">
                             <div class="wsus__section_content">
-                                <img src="images/features_service/order.png" alt="" class="img-fluid">
+                                <img src="{{ asset('user/images/features_service/order.png') }}" alt=""
+                                    class="img-fluid">
                                 <h2>Pre-Order</h2>
                             </div>
                         </a>
                         <a href="#">
                             <div class="wsus__section_content">
-                                <img src="images/features_service/marketing.png" alt="" class="img-fluid">
+                                <img src="{{ asset('user/images/features_service/marketing.png') }}" alt=""
+                                    class="img-fluid">
                                 <h2>Campaigns</h2>
                             </div>
                         </a>
@@ -134,37 +139,38 @@
                 <div class="row">
                     <div class="col-xl-2 col-sm-3 col-lg-2 col-4">
                         <div class="wsus__home_services_single">
-                            <img src="images/icons/verified.png" alt="" class="img-fluid">
+                            <img src="{{ asset('user/images/icons/verified.png') }}" alt="" class="img-fluid">
                             <h5>Safe Payments</h5>
                         </div>
                     </div>
                     <div class="col-xl-2 col-sm-3 col-lg-2 col-4">
                         <div class="wsus__home_services_single">
-                            <img src="images/icons/shipped.png" alt="" class="img-fluid">
+                            <img src="{{ asset('user/images/icons/shipped.png') }}" alt="" class="img-fluid">
                             <h5>Nationalwide Delevery</h5>
                         </div>
                     </div>
                     <div class="col-xl-2 col-sm-3 col-lg-2 col-4">
                         <div class="wsus__home_services_single">
-                            <img src="images/icons/product-return.png" alt="" class="img-fluid">
+                            <img src="{{ asset('user/images/icons/product-return.png') }}" alt=""
+                                class="img-fluid">
                             <h5>Free & Easy Return</h5>
                         </div>
                     </div>
                     <div class="col-xl-2 col-sm-3 col-lg-2 col-4">
                         <div class="wsus__home_services_single">
-                            <img src="images/icons//tag.png" alt="" class="img-fluid">
+                            <img src="{{ asset('user/images/icons/tag.png') }}" alt="" class="img-fluid">
                             <h5>Best Price Guaranteed</h5>
                         </div>
                     </div>
                     <div class="col-xl-2 col-sm-3 col-lg-2 col-4">
                         <div class="wsus__home_services_single">
-                            <img src="images/icons/high-quality.png" alt="" class="img-fluid">
+                            <img src="{{ asset('user/images/icons/high-quality.png') }}" alt="" class="img-fluid">
                             <h5>100% Authentic Products</h5>
                         </div>
                     </div>
                     <div class="col-xl-2 col-sm-3 col-lg-2 col-4">
                         <div class="wsus__home_services_single">
-                            <img src="images/icons/verify.png" alt="" class="img-fluid">
+                            <img src="{{ asset('user/images/icons/verify.png') }}" alt="" class="img-fluid">
                             <h5>Oshin verified</h5>
                         </div>
                     </div>
@@ -508,55 +514,6 @@
                     @endforeach
                 </div>
             @endif
-
-            <section id="wsus__single_banner" class="home_2_single_banner">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-xl-6 col-lg-6">
-                            <div class="wsus__single_banner_content banner_1">
-                                <div class="wsus__single_banner_img">
-                                    <img src="images/single_banner_44.jpg" alt="banner" class="img-fluid w-100">
-                                </div>
-                                <div class="wsus__single_banner_text">
-                                    <h6>sell on <span>35% off</span></h6>
-                                    <h3>smart watch</h3>
-                                    <a class="shop_btn" href="#">shop now</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-6 col-lg-6">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="wsus__single_banner_content single_banner_2">
-                                        <div class="wsus__single_banner_img">
-                                            <img src="images/single_banner_55.jpg" alt="banner"
-                                                class="img-fluid w-100">
-                                        </div>
-                                        <div class="wsus__single_banner_text">
-                                            <h6>New Collection</h6>
-                                            <h3>kid's fashion</h3>
-                                            <a class="shop_btn" href="#">shop now</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12 mt-lg-4">
-                                    <div class="wsus__single_banner_content">
-                                        <div class="wsus__single_banner_img">
-                                            <img src="images/single_banner_66.jpg" alt="banner"
-                                                class="img-fluid w-100">
-                                        </div>
-                                        <div class="wsus__single_banner_text">
-                                            <h6>sell on <span>42% off</span></h6>
-                                            <h3>winter collection</h3>
-                                            <a class="shop_btn" href="#">shop now</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
         </div>
     </section>
 
@@ -624,7 +581,7 @@
     {{-- <!--============================
         LARGE BANNER  START
     ==============================--> --}}
-    <section id="wsus__large_banner">
+    {{-- <section id="wsus__large_banner">
         <div class="container">
             <div class="row">
                 <div class="cl-xl-12">
@@ -654,7 +611,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
     {{-- <!--============================
         LARGE BANNER  END
     ==============================--> --}}
@@ -704,6 +661,54 @@
 
     {{-- <!--============================
             HOT DEALS END
+    ==============================--> --}}
+
+
+    {{-- <!--============================
+        LARGE BANNER  START
+    ==============================--> --}}
+
+    @php
+        $bannerVisibility = $visibilities->where('id', 10)->first();
+    @endphp
+    @if ($bannerVisibility->status == 1)
+        <section id="wsus__single_banner">
+            <div class="container">
+                <div class="row">
+                    @php
+                        $bannerOne = $banners->where('id', 7)->first();
+                        $bannerTwo = $banners->where('id', 8)->first();
+                    @endphp
+                    <div class="col-xl-6 col-lg-6">
+                        <div class="wsus__single_banner_content">
+                            <div class="wsus__single_banner_img">
+                                <img src="{{ asset($bannerOne->image) }}" alt="banner" class="img-fluid w-100">
+                            </div>
+                            <div class="wsus__single_banner_text">
+                                <h6>{{ $bannerOne->description }}</h6>
+                                <h3>{{ $bannerOne->title }}</h3>
+                                <a class="shop_btn" href="{{ $bannerOne->link }}">{{ __('user.shop now') }}</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6">
+                        <div class="wsus__single_banner_content">
+                            <div class="wsus__single_banner_img">
+                                <img src="{{ asset($bannerTwo->image) }}" alt="banner" class="img-fluid w-100">
+                            </div>
+                            <div class="wsus__single_banner_text">
+                                <h6>{{ $bannerTwo->description }}</h6>
+                                <h3>{{ $bannerTwo->title }}</h3>
+                                <a class="shop_btn" href="{{ $bannerTwo->link }}">{{ __('user.shop now') }}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    @endif
+    {{-- <!--============================
+        LARGE BANNER  END
     ==============================--> --}}
 
 
@@ -766,53 +771,5 @@
     </section>
     {{-- <!--============================
         Just for END
-    ==============================--> --}}
-
-
-    {{-- <!--============================
-        LARGE BANNER  START
-    ==============================--> --}}
-
-    @php
-        $bannerVisibility = $visibilities->where('id', 10)->first();
-    @endphp
-    @if ($bannerVisibility->status == 1)
-        <section id="wsus__single_banner">
-            <div class="container">
-                <div class="row">
-                    @php
-                        $bannerOne = $banners->where('id', 7)->first();
-                        $bannerTwo = $banners->where('id', 8)->first();
-                    @endphp
-                    <div class="col-xl-6 col-lg-6">
-                        <div class="wsus__single_banner_content">
-                            <div class="wsus__single_banner_img">
-                                <img src="{{ asset($bannerOne->image) }}" alt="banner" class="img-fluid w-100">
-                            </div>
-                            <div class="wsus__single_banner_text">
-                                <h6>{{ $bannerOne->description }}</h6>
-                                <h3>{{ $bannerOne->title }}</h3>
-                                <a class="shop_btn" href="{{ $bannerOne->link }}">{{ __('user.shop now') }}</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-6 col-lg-6">
-                        <div class="wsus__single_banner_content">
-                            <div class="wsus__single_banner_img">
-                                <img src="{{ asset($bannerTwo->image) }}" alt="banner" class="img-fluid w-100">
-                            </div>
-                            <div class="wsus__single_banner_text">
-                                <h6>{{ $bannerTwo->description }}</h6>
-                                <h3>{{ $bannerTwo->title }}</h3>
-                                <a class="shop_btn" href="{{ $bannerTwo->link }}">{{ __('user.shop now') }}</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    @endif
-    {{-- <!--============================
-        LARGE BANNER  END
     ==============================--> --}}
 @endsection

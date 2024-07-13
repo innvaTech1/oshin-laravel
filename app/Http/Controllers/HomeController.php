@@ -59,8 +59,6 @@ class HomeController extends Controller
         $sliders = Slider::orderBy('serial', 'asc')->where(['status' => 1])->get();
         $topCategories = Category::where(['status' => 1, 'is_top' => 1])->get();
 
-
-
         $campaign = '';
         $campaign = Campaign::where(['show_homepage' => 1, 'status' => 1])->first();
         $campaignProducts = '';
