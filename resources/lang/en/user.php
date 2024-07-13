@@ -17,6 +17,8 @@ return array(
     'Current Password' => 'Current Password',
     'New Password' => 'New Password',
     'Confirm Password' => 'Confirm Password',
+    'ADD TO CART' => 'ADD TO CART',
+    'Order Now' => 'Order Now',
     'Update Password' => 'Update Password',
     'Chat with' => 'Chat with',
     'Type Message' => 'Type Message',

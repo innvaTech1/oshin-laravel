@@ -1,46 +1,46 @@
-$(function() {
+$(function () {
 
     "use strict";
 
     //=========MENU FIX JS=========
-    if ($('.wsus__main_menu').offset() != undefined) {
-        var navoff = $('.wsus__main_menu').offset().top;
-        $(window).scroll(function() {
+    if ($('header').offset() != undefined) {
+        var navoff = $('header').offset().top;
+        $(window).scroll(function () {
             var scrolling = $(this).scrollTop();
 
             if (scrolling > navoff) {
-                $('.wsus__main_menu').addClass('menu_fix');
+                $('header').addClass('menu_fix');
             } else {
-                $('.wsus__main_menu').removeClass('menu_fix');
+                $('header').removeClass('menu_fix');
             }
         });
     }
 
 
     //*==========MINI CART==========
-    $('.wsus__cart_icon').on('click', function() {
+    $('.wsus__cart_icon').on('click', function () {
         $('.wsus__mini_cart').addClass('.show_cart');
     });
 
-    $('.wsus_close_mini_cart').on('click', function() {
+    $('.wsus_close_mini_cart').on('click', function () {
         $('.wsus__mini_cart').removeClass('.show_cart');
     });
 
 
     // ======CATEGORY MENU======
-    $('.wsus_menu_category_bar').on('click', function() {
+    $('.wsus_menu_category_bar').on('click', function () {
         $('.toggle_menu').toggleClass('.show_category');
     });
 
 
     //=======POP_UP========
-    $("#cross").on("click", function() {
+    $("#cross").on("click", function () {
         $("#wsus__pop_up").fadeOut();
     });
 
 
     //=======SELECT2======
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('.select_2').select2();
     });
 
@@ -67,7 +67,8 @@ $(function() {
         nextArrow: '<i class="fas fa-chevron-right nxt_arr"></i>',
         prevArrow: '<i class="fas fa-chevron-left prv_arr"></i>',
 
-        responsive: [{
+        responsive: [
+            {
                 breakpoint: 1200,
                 settings: {
                     slidesToShow: 5,
@@ -91,7 +92,7 @@ $(function() {
             {
                 breakpoint: 576,
                 settings: {
-                    slidesToShow: 1,
+                    slidesToShow: 2,
                     slidesToScroll: 1,
                 }
             }
@@ -101,7 +102,7 @@ $(function() {
 
     //*==========FLASH SELL SLIDER=========
     $('.flash_sell_slider').slick({
-        slidesToShow: 4,
+        slidesToShow: 6,
         slidesToScroll: 1,
         autoplay: true,
         autoplaySpeed: 4000,
@@ -110,31 +111,32 @@ $(function() {
         nextArrow: '<i class="fas fa-chevron-right nxt_arr"></i>',
         prevArrow: '<i class="fas fa-chevron-left prv_arr"></i>',
 
-        responsive: [{
+        responsive: [
+            {
                 breakpoint: 1200,
                 settings: {
-                    slidesToShow: 3,
+                    slidesToShow: 4,
                     slidesToScroll: 1,
                 }
             },
             {
                 breakpoint: 992,
                 settings: {
-                    slidesToShow: 2,
+                    slidesToShow: 3,
                     slidesToScroll: 1,
                 }
             },
             {
                 breakpoint: 768,
                 settings: {
-                    slidesToShow: 2,
+                    slidesToShow: 3,
                     slidesToScroll: 1,
                 }
             },
             {
                 breakpoint: 576,
                 settings: {
-                    slidesToShow: 1,
+                    slidesToShow: 2,
                     slidesToScroll: 1,
                 }
             }
@@ -145,26 +147,27 @@ $(function() {
 
     //*======HOT DETAILS SLIDER=====
     $('.hot_deals_slider').slick({
-        slidesToShow: 2,
+        slidesToShow: 1,
         slidesToScroll: 1,
-        autoplay: false,
+        autoplay: true,
         autoplaySpeed: 4000,
         dots: false,
         arrows: true,
         nextArrow: '<i class="fas fa-chevron-right nxt_arr"></i>',
         prevArrow: '<i class="fas fa-chevron-left prv_arr"></i>',
 
-        responsive: [{
+        responsive: [
+            {
                 breakpoint: 1200,
                 settings: {
-                    slidesToShow: 3,
+                    slidesToShow: 4,
                     slidesToScroll: 1,
                 }
             },
             {
                 breakpoint: 992,
                 settings: {
-                    slidesToShow: 2,
+                    slidesToShow: 3,
                     slidesToScroll: 1,
                 }
             },
@@ -178,7 +181,7 @@ $(function() {
             {
                 breakpoint: 576,
                 settings: {
-                    slidesToShow: 1,
+                    slidesToShow: 2,
                     slidesToScroll: 1,
                 }
             }
@@ -193,7 +196,7 @@ $(function() {
         slidesToShow: 1,
         slidesToScroll: 1,
         autoplay: true,
-        autoplaySpeed: 500,
+        autoplaySpeed: 1000,
         dots: false,
         arrows: true,
         nextArrow: '<i class="fas fa-chevron-right nxt_arr"></i>',
@@ -204,7 +207,7 @@ $(function() {
     //*==========ISOTOPE==============
     var $grid = $('.grid').isotope({});
 
-    $('.monthly_top_filter').on('click', 'button', function() {
+    $('.monthly_top_filter').on('click', 'button', function () {
         var filterValue = $(this).attr('data-filter');
         $grid.isotope({
             filter: filterValue
@@ -212,7 +215,7 @@ $(function() {
     });
 
     //active class
-    $('.monthly_top_filter button').on("click", function(event) {
+    $('.monthly_top_filter button').on("click", function (event) {
 
         $(this).siblings('.active').removeClass('active');
         $(this).addClass('active');
@@ -224,7 +227,7 @@ $(function() {
     //*==========ISOTOPE==============
     var $grid2 = $('.grid2').isotope({});
 
-    $('.monthly_top_filter2').on('click', 'button', function() {
+    $('.monthly_top_filter2').on('click', 'button', function () {
         var filterValue = $(this).attr('data-filter');
         $grid2.isotope({
             filter: filterValue
@@ -232,7 +235,7 @@ $(function() {
     });
 
     //active class
-    $('.monthly_top_filter2 button').on("click", function(event) {
+    $('.monthly_top_filter2 button').on("click", function (event) {
 
         $(this).siblings('.active').removeClass('active');
         $(this).addClass('active');
@@ -253,7 +256,8 @@ $(function() {
         nextArrow: '<i class="fas fa-angle-right prv_arr"></i>',
         prevArrow: '<i class="fas fa-angle-left nxt_arr"></i>',
 
-        responsive: [{
+        responsive: [
+            {
                 breakpoint: 1399.99,
                 settings: {
                     slidesToShow: 3,
@@ -309,19 +313,16 @@ $(function() {
     //=======COUNTDOWN======
     var d = new Date(),
         countUpDate = new Date();
-    d.setDate(d.getDate());
-
+    d.setDate(d.getDate() + 90);
 
     // default example
     simplyCountdown('.simply-countdown-one', {
-        year: end_year,
-        month: end_month,
-        day: end_date,
-        hours: 0,
-        minutes: 0,
-        seconds: 0,
-        enableUtc: false
+        year: d.getFullYear(),
+        month: d.getMonth() + 1,
+        day: d.getDate(),
+        enableUtc: true
     });
+
 
     simplyCountdown('.campaign-details', {
         year: campaign_end_year,
@@ -334,6 +335,7 @@ $(function() {
     });
 
 
+
     simplyCountdown('.product-details', {
         year: end_year,
         month: end_month,
@@ -341,15 +343,6 @@ $(function() {
         hours: 0,
         minutes: 0,
         seconds: 0,
-        enableUtc: false
-    });
-
-
-    // default example
-    simplyCountdown('.simply-countdown-five', {
-        year: 2023,
-        month: 10,
-        day: 20,
         enableUtc: false
     });
 
@@ -366,19 +359,15 @@ $(function() {
         });
     }
 
-    // productIds.forEach((e) => {
-    //     console.log(e);
-    // })
-
 
     //*==========SCROLL BUTTON==========
-    $('.wsus__scroll_btn').on('click', function() {
+    $('.wsus__scroll_btn').on('click', function () {
         $('html, body').animate({
             scrollTop: 0,
-        }, 100);
+        }, 400);
     });
 
-    $(window).on('scroll', function() {
+    $(window).on('scroll', function () {
         var scrolling = $(this).scrollTop();
 
         if (scrolling > 300) {
@@ -401,36 +390,35 @@ $(function() {
     $('.venobox').venobox();
 
 
-
     //=========main.js=========
     $('.counter').countUp();
 
 
-    //=========calender.js=========
-    $(function() {
-        $('#calendar_js').calendar({
-            months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-            days: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-        });
-    });
-
-
     //*==========MOBILE MENU==========
-    $('.wsus__mobile_menu_icon').on('click', function() {
+    $('.wsus__mobile_menu_icon').on('click', function () {
         $('#wsus__mobile_menu').addClass('show_m_menu');
     });
 
-    $('.wsus__mobile_menu_close').on('click', function() {
+    $('.wsus__mobile_menu_close').on('click', function () {
+        $('#wsus__mobile_menu').removeClass('show_m_menu');
+    });
+
+    //*==========MOBILE MENU BOTTOM==========
+    $('.wsus__mobile_menu_bottom').on('click', function () {
+        $('#wsus__mobile_menu').addClass('show_m_menu');
+    });
+
+    $('.wsus__mobile_menu_close').on('click', function () {
         $('#wsus__mobile_menu').removeClass('show_m_menu');
     });
 
 
     // ======SIDEBAR FILTER======
-    $('.wsus__sidebar_filter').on('click', function() {
+    $('.wsus__sidebar_filter').on('click', function () {
         $('.wsus__product_sidebar').toggleClass('show_filter');
     });
 
-    $('.wsus__sidebar_filter').on('click', function() {
+    $('.wsus__sidebar_filter').on('click', function () {
         $('#plus').toggleClass('show_plus');
     });
 
@@ -444,7 +432,8 @@ $(function() {
         dots: false,
         arrows: false,
 
-        responsive: [{
+        responsive: [
+            {
                 breakpoint: 1200,
                 settings: {
                     slidesToShow: 3,
@@ -503,7 +492,8 @@ $(function() {
         dots: true,
         arrows: false,
 
-        responsive: [{
+        responsive: [
+            {
                 breakpoint: 1400,
                 settings: {
                     slidesToShow: 2,
@@ -543,14 +533,13 @@ $(function() {
 
 
     //*==========PRICE SLIDER=========
-    jQuery(function() {
+    jQuery(function () {
         jQuery("#slider_range").flatslider({
-            min: 0,
-            max: filter_max_val,
+            min: 0, max: 10000,
             step: 100,
-            values: [0, filter_max_val],
+            values: [0, 8000],
             range: true,
-            einheit: currency_icon
+            einheit: '$'
         });
     });
 
@@ -558,26 +547,80 @@ $(function() {
     //*========IMG & VIDEO UPLOAD=======
     $('.gallery').miv({ image: '.cam', video: '.vid' });
 
-    //*========classycountdown=======
 
+    //*========classycountdown=======
     $('#countdown17').ClassyCountdown({
         theme: "flat-colors-very-wide",
-        end: Date.now() + capmaign_time
+        end: $.now() + 10000
     });
 
 
     //*==========DASHBOARD SIDEBAR==========
-    $('.close_icon').on('click', function() {
-
+    $('.close_icon').on('click', function () {
         $('.dashboard_sidebar').toggleClass('show_dash_menu');
     });
 
-    $('.close_icon').on('click', function() {
+    $('.close_icon').on('click', function () {
         $('.dash_close').toggleClass('dash_opasity');
-
     });
 
 
+
+    //*======HOT DETAILS SLIDER=====
+    $('.hot_deals_slider_2').slick({
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 4000,
+        dots: false,
+        arrows: true,
+        nextArrow: '<i class="fas fa-chevron-right nxt_arr"></i>',
+        prevArrow: '<i class="fas fa-chevron-left prv_arr"></i>',
+
+        responsive: [
+            {
+                breakpoint: 1200,
+                settings: {
+                    slidesToShow: 4,
+                    slidesToScroll: 1,
+                }
+            },
+            {
+                breakpoint: 992,
+                settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 1,
+                }
+            },
+            {
+                breakpoint: 768,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 1,
+                }
+            },
+            {
+                breakpoint: 576,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                }
+            }
+        ]
+    });
+
+
+    //*==========TEAM SLIDER=========
+    $('.weekly_best2').slick({
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 4000,
+        dots: false,
+        arrows: true,
+        nextArrow: '<i class="fas fa-long-arrow-alt-right nxt_arr"></i>',
+        prevArrow: '<i class="fas fa-long-arrow-alt-left prv_arr"></i>',
+    });
 
 
 });
