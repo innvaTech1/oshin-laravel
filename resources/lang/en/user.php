@@ -24,6 +24,7 @@ return array(
     'Best Selling Products' => 'Best Selling Products',
     'Update Password' => 'Update Password',
     'Chat with' => 'Chat with',
+    'All Categories' => 'All Categories',
     'Just for You' => 'Just for You',
     'see more' => 'see more',
     'Type Message' => 'Type Message',

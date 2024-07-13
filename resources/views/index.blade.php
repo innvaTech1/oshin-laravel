@@ -20,6 +20,7 @@
                     <div class="col-xl-2 col-md-2">
                         <div class="innva__cate_area">
                             <div class="relative_contect d-flex">
+                                @include('website.partials.menu-item')
                             </div>
                         </div>
                     </div>

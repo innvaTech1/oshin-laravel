@@ -57,57 +57,19 @@ class HomeController extends Controller
         $brands = Brand::where(['status' => 1])->get();
         $visibilities = HomePageOneVisibility::all();
         $sliders = Slider::orderBy('serial', 'asc')->where(['status' => 1])->get();
+        $productCategories = Category::where(['status' => 1])->get();
         $topCategories = Category::where(['status' => 1, 'is_top' => 1])->get();
 
         $campaign = '';
         $campaign = Campaign::where(['show_homepage' => 1, 'status' => 1])->first();
         $campaignProducts = '';
+
         if ($campaign) {
             $campaignProducts = CampaignProduct::where(['campaign_id' => $campaign->id, 'show_homepage' => 1])->get();
             $end_time = strtotime($campaign->end_date);
             $start_time  = strtotime(date('Y-m-d'));
         }
 
-        $popularCategory = PopularCategory::first();
-        $firstCategory = Category::find($popularCategory->category_id_one);
-        $firstCategoryproducts = Product::where('category_id', $popularCategory->category_id_one);
-        if ($popularCategory->sub_category_id_one != 0) {
-            $firstCategoryproducts = $firstCategoryproducts->where('sub_category_id', $popularCategory->sub_category_id_one);
-        }
-        if ($popularCategory->child_category_id_one != 0) {
-            $firstCategoryproducts = $firstCategoryproducts->where('child_category_id', $popularCategory->child_category_id_one);
-        }
-        $firstCategoryproducts = $firstCategoryproducts->get()->take($popularCategory->product_qty);
-
-        $secondCategory = Category::find($popularCategory->category_id_two);
-        $secondCategoryproducts = Product::where('category_id', $popularCategory->category_id_two);
-        if ($popularCategory->sub_category_id_two != 0) {
-            $secondCategoryproducts = $secondCategoryproducts->where('sub_category_id', $popularCategory->sub_category_id_two);
-        }
-        if ($popularCategory->child_category_id_two != 0) {
-            $secondCategoryproducts = $secondCategoryproducts->where('child_category_id', $popularCategory->child_category_id_two);
-        }
-        $secondCategoryproducts = $secondCategoryproducts->get()->take($popularCategory->product_qty);
-
-        $thirdCategory = Category::find($popularCategory->category_id_three);
-        $thirdCategoryproducts = Product::where('category_id', $popularCategory->category_id_three);
-        if ($popularCategory->sub_category_id_three != 0) {
-            $thirdCategoryproducts = $thirdCategoryproducts->where('sub_category_id', $popularCategory->sub_category_id_three);
-        }
-        if ($popularCategory->child_category_id_three != 0) {
-            $thirdCategoryproducts = $thirdCategoryproducts->where('child_category_id', $popularCategory->child_category_id_three);
-        }
-        $thirdCategoryproducts = $thirdCategoryproducts->get()->take($popularCategory->product_qty);
-
-        $fourthCategory = Category::find($popularCategory->category_id_four);
-        $fourthCategoryproducts = Product::where('category_id', $popularCategory->category_id_four);
-        if ($popularCategory->sub_category_id_four != 0) {
-            $fourthCategoryproducts = $fourthCategoryproducts->where('sub_category_id', $popularCategory->sub_category_id_four);
-        }
-        if ($popularCategory->child_category_id_four != 0) {
-            $fourthCategoryproducts = $fourthCategoryproducts->where('child_category_id', $popularCategory->child_category_id_four);
-        }
-        $fourthCategoryproducts = $fourthCategoryproducts->get()->take($popularCategory->product_qty);
 
         $oneColumnBanner = BannerImage::whereId('2')->first();
         $banners  = BannerImage::all();
@@ -118,43 +80,12 @@ class HomeController extends Controller
         $topProducts = Product::where(['status' => 1, 'is_top' => 1])->get()->take($paginateQty);
         $newProducts = Product::where(['status' => 1, 'new_product' => 1])->get()->take($paginateQty);
 
-        $columnCategories = Category::all();
-        $threeColumnCategory = ThreeColumnCategory::first();
-        $threeColumnFirstCategoryProducts = Product::where('category_id', $threeColumnCategory->category_id_one);
-        if ($threeColumnCategory->sub_category_id_one != 0) {
-            $threeColumnFirstCategoryProducts = $threeColumnFirstCategoryProducts->where('sub_category_id', $threeColumnCategory->sub_category_id_one);
-        }
-        if ($threeColumnCategory->child_category_id_one != 0) {
-            $threeColumnFirstCategoryProducts = $threeColumnFirstCategoryProducts->where('child_category_id', $threeColumnCategory->child_category_id_one);
-        }
-        $threeColumnFirstCategoryProducts = $threeColumnFirstCategoryProducts->get();
-
-        $threeColumnSecondCategoryProducts = Product::where('category_id', $threeColumnCategory->category_id_two);
-        if ($threeColumnCategory->sub_category_id_two != 0) {
-            $threeColumnSecondCategoryProducts = $threeColumnSecondCategoryProducts->where('sub_category_id', $threeColumnCategory->sub_category_id_two);
-        }
-        if ($threeColumnCategory->child_category_id_two != 0) {
-            $threeColumnSecondCategoryProducts = $threeColumnSecondCategoryProducts->where('child_category_id', $threeColumnCategory->child_category_id_two);
-        }
-        $threeColumnSecondCategoryProducts = $threeColumnSecondCategoryProducts->get();
-
-        $threeColumnThirdCategoryProducts = Product::where('category_id', $threeColumnCategory->category_id_three);
-        if ($threeColumnCategory->sub_category_id_three != 0) {
-            $threeColumnThirdCategoryProducts = $threeColumnThirdCategoryProducts->where('sub_category_id', $threeColumnCategory->sub_category_id_three);
-        }
-        if ($threeColumnCategory->child_category_id_three != 0) {
-            $threeColumnThirdCategoryProducts = $threeColumnThirdCategoryProducts->where('child_category_id', $threeColumnCategory->child_category_id_three);
-        }
-        $threeColumnThirdCategoryProducts = $threeColumnThirdCategoryProducts->get();
-
-        $services = Service::where('status', 1)->get();
-        $blogs = Blog::with('admin')->where(['show_homepage' => 1, 'status' => 1])->get();
         $seoSetting = SeoSetting::find(1);
         $currencySetting = cache('setting');
         $setting = $currencySetting;
 
 
-        return view('index', compact('brands', 'visibilities', 'campaign', 'sliders', 'topCategories', 'campaignProducts', 'popularCategory', 'firstCategory', 'firstCategoryproducts', 'oneColumnBanner', 'banners', 'flashDealProducts', 'featuredProducts', 'bestProducts', 'topProducts', 'newProducts', 'services', 'blogs', 'threeColumnFirstCategoryProducts', 'columnCategories', 'threeColumnCategory', 'threeColumnSecondCategoryProducts', 'threeColumnSecondCategoryProducts', 'threeColumnThirdCategoryProducts', 'seoSetting', 'secondCategory', 'secondCategoryproducts', 'thirdCategory', 'thirdCategoryproducts', 'fourthCategory', 'fourthCategoryproducts', 'currencySetting', 'setting'));
+        return view('index', compact('brands', 'visibilities', 'campaign', 'sliders', 'topCategories', 'campaignProducts', 'oneColumnBanner', 'banners', 'flashDealProducts', 'featuredProducts', 'bestProducts', 'topProducts', 'newProducts', 'seoSetting', 'currencySetting', 'setting', 'productCategories'));
     }
 
     public function aboutUs()

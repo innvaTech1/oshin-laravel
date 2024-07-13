@@ -15,7 +15,7 @@
                 <div class="wsus_header_cate_wra d-none d-md-block">
                     <div class="wsus_header_cate">
                         <div class="wsus_header_icon">
-                            <p> <i class="far fa-bars"></i> {{ __('user.Browse Categories') }}</p>
+                            <p> <i class="far fa-bars"></i> {{ __('user.All Categories') }}</p>
                         </div>
                         <span><i class="fas fa-caret-down"></i></span>
                     </div>
