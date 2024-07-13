@@ -479,7 +479,8 @@ class HomeController extends Controller
                 $tags .= $tag->value . ',';
             }
         }
-        return view('product_detail', compact('product', 'productReviews', 'totalProductReviewQty', 'productVariants', 'recaptchaSetting', 'relatedProducts', 'currencySetting', 'banner', 'setting', 'defaultProfile', 'tags'));
+        // product_detail
+        return view('website.products.details', compact('product', 'productReviews', 'totalProductReviewQty', 'productVariants', 'recaptchaSetting', 'relatedProducts', 'currencySetting', 'banner', 'setting', 'defaultProfile', 'tags'));
     }
 
     public function addToCompare($id)
