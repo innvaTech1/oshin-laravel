@@ -7,8 +7,6 @@
 @endsection
 
 @section('public-content')
-
-
     {{-- <!--============================
             BREADCRUMB START
     ==============================--> --}}
@@ -172,38 +170,54 @@
 
                         <form id="shoppingCartForm">
                             @if ($productVariants->count() != 0)
-                                <div class="wsus__selectbox">
-                                    <div class="row">
-                                        @foreach ($productVariants as $productVariant)
-                                            @php
-                                                $items = App\Models\ProductVariantItem::orderBy('is_default', 'desc')
-                                                    ->where([
-                                                        'product_variant_id' => $productVariant->id,
-                                                        'product_id' => $product->id,
-                                                    ])
-                                                    ->get();
-                                            @endphp
-                                            @if ($items->count() != 0)
-                                                <div class="col-xl-6 col-sm-6 mb-3">
-                                                    <h5 class="mb-2">{{ $productVariant->name }}:</h5>
-
-                                                    <input type="hidden" name="variants[]"
-                                                        value="{{ $productVariant->id }}">
-                                                    <input type="hidden" name="variantNames[]"
-                                                        value="{{ $productVariant->name }}">
-
-                                                    <select class="select_2 productVariant" name="items[]">
-                                                        @foreach ($items as $item)
-                                                            <option value="{{ $item->id }}">{{ $item->name }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-
-                                                </div>
-                                            @endif
-                                        @endforeach
-                                    </div>
-                                </div>
+                                @php
+                                    $selected = [];
+                                @endphp
+                                @foreach ($productVariants as $productVariant)
+                                    @php
+                                        $items = App\Models\ProductVariantItem::orderBy('is_default', 'desc')
+                                            ->where([
+                                                'product_variant_id' => $productVariant->id,
+                                                'product_id' => $product->id,
+                                            ])
+                                            ->get();
+                                        $variName = strtolower($productVariant->name);
+                                    @endphp
+                                    @if ($items->count() != 0)
+                                        <input type="hidden" name="variants[]" value="{{ $productVariant->id }}">
+                                        <input type="hidden" name="variantNames[]" value="{{ $productVariant->name }}">
+                                        <div
+                                            class="{{ $variName == 'color' ? 'wsus_pro_det_color' : 'wsus_pro__det_size' }}">
+                                            <h5>{{ $productVariant->name }} :</h5>
+                                            <ul>
+                                                @foreach ($items as $item)
+                                                    @if ($item->is_default == 1)
+                                                        @php
+                                                            array_push($selected, $item->id);
+                                                        @endphp
+                                                    @endif
+                                                    <li>
+                                                        @if ($variName == 'color')
+                                                            <a href="javascript:;"
+                                                                style="background:{{ strtolower($item->name) }}"
+                                                                data-id = "{{ $item->id }}"
+                                                                class="variant {{ $item->is_default == 1 ? 'active-variant' : '' }}">
+                                                                <i class="far fa-check"
+                                                                    @if ($item->is_default == 1) style="opacity:1" @endif></i>
+                                                            </a>
+                                                        @else
+                                                            <a href="javascript:;" data-id = "{{ $item->id }}"
+                                                                class="variant {{ $item->is_default == 1 ? 'active-variant' : '' }}">{{ $item->name }}</a>
+                                                        @endif
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
+                                @endforeach
+                                <input type="hidden" name="items[]" value="{{ join(',', $selected) }}">
+                                {{-- @foreach ($selected as $item)
+                                @endforeach --}}
                             @endif
                             <div class="wsus__quentity">
                                 <h5>{{ __('user.Quantity') }} :</h5>
@@ -222,40 +236,6 @@
                             <input type="hidden" name="image" value="{{ $product->thumb_image }}">
                             <input type="hidden" name="slug" value="{{ $product->slug }}">
 
-                            @if ($productVariants->count() != 0)
-                                <div class="wsus__selectbox">
-                                    <div class="row">
-                                        @foreach ($productVariants as $productVariant)
-                                            @php
-                                                $items = App\Models\ProductVariantItem::orderBy('is_default', 'desc')
-                                                    ->where([
-                                                        'product_variant_id' => $productVariant->id,
-                                                        'product_id' => $product->id,
-                                                    ])
-                                                    ->get();
-                                            @endphp
-                                            @if ($items->count() != 0)
-                                                <div class="col-xl-6 col-sm-6 mb-3">
-                                                    <h5 class="mb-2">{{ $productVariant->name }}:</h5>
-
-                                                    <input type="hidden" name="variants[]"
-                                                        value="{{ $productVariant->id }}">
-                                                    <input type="hidden" name="variantNames[]"
-                                                        value="{{ $productVariant->name }}">
-
-                                                    <select class="select_2 productVariant" name="items[]">
-                                                        @foreach ($items as $item)
-                                                            <option value="{{ $item->id }}">{{ $item->name }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-
-                                                </div>
-                                            @endif
-                                        @endforeach
-                                    </div>
-                                </div>
-                            @endif
                             <ul class="wsus__button_area">
                                 <li><button type="submit" class="add_cart">{{ __('user.add to cart') }}</button></li>
                                 <li><a class="buy_now" href="javascript:;" id="buyNowBtn">{{ __('user.buy now') }}</a>
@@ -265,7 +245,6 @@
                                 <li><a href="javascript:;" onclick="addToCompare('{{ $product->id }}')"><i
                                             class="far fa-random"></i></a></li>
                             </ul>
-
                         </form>
                         @if ($product->sku)
                             <p class="brand_model"><span>{{ __('user.Model') }} :</span> {{ $product->sku }}</p>
@@ -453,13 +432,6 @@
                                     aria-controls="pills-contact2"
                                     aria-selected="false">{{ __('user.Reviews') }}</button>
                             </li>
-
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="pills-contact-tab239" data-bs-toggle="pill"
-                                    data-bs-target="#faqs" type="button" role="tab" aria-controls="faqs"
-                                    aria-selected="false">{{ __('user.Faqs') }}</button>
-                            </li>
-
                         </ul>
                         <div class="tab-content" id="pills-tabContent4">
                             <div class="tab-pane fade  show active " id="pills-home22" role="tabpanel"
@@ -676,130 +648,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="tab-pane fade" id="faqs" role="tabpanel"
-                                aria-labelledby="pills-contact-tab239">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="wsus__contact_question">
-                                            <h5>People usually ask these</h5>
-                                            <div class="accordion" id="accordionExample">
-                                                <div class="accordion-item">
-                                                    <h2 class="accordion-header" id="headingOne">
-                                                        <button class="accordion-button" type="button"
-                                                            data-bs-toggle="collapse" data-bs-target="#collapseOne"
-                                                            aria-expanded="true" aria-controls="collapseOne">
-                                                            How can I cancel my order?
-                                                        </button>
-                                                    </h2>
-                                                    <div id="collapseOne" class="accordion-collapse collapse show"
-                                                        aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                                        <div class="accordion-body">
-                                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing
-                                                                elit.
-                                                                Voluptatum voluptas ea hic excepturi sit, sapiente
-                                                                optio
-                                                                deleniti pariatur. Dolorum in quos magni?
-                                                                Necessitatibus
-                                                                recusandae cupiditate iste expedita amet voluptatem
-                                                                laudantium.</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="accordion-item">
-                                                    <h2 class="accordion-header" id="headingTwo">
-                                                        <button class="accordion-button collapsed" type="button"
-                                                            data-bs-toggle="collapse" data-bs-target="#collapseTwo"
-                                                            aria-expanded="false" aria-controls="collapseTwo">
-                                                            Why is my registration delayed?
-                                                        </button>
-                                                    </h2>
-                                                    <div id="collapseTwo" class="accordion-collapse collapse"
-                                                        aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                                                        <div class="accordion-body">
-                                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing
-                                                                elit.
-                                                                Voluptatum voluptas ea hic excepturi sit, sapiente
-                                                                optio
-                                                                deleniti pariatur. Dolorum in quos magni?
-                                                                Necessitatibus
-                                                                recusandae cupiditate iste expedita amet voluptatem
-                                                                laudantium.</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="accordion-item">
-                                                    <h2 class="accordion-header" id="headingThree">
-                                                        <button class="accordion-button collapsed" type="button"
-                                                            data-bs-toggle="collapse" data-bs-target="#collapseThree"
-                                                            aria-expanded="false" aria-controls="collapseThree">
-                                                            What do I need to buy products?
-                                                        </button>
-                                                    </h2>
-                                                    <div id="collapseThree" class="accordion-collapse collapse"
-                                                        aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                                                        <div class="accordion-body">
-                                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing
-                                                                elit.
-                                                                Voluptatum voluptas ea hic excepturi sit, sapiente
-                                                                optio
-                                                                deleniti pariatur. Dolorum in quos magni?
-                                                                Necessitatibus
-                                                                recusandae cupiditate iste expedita amet voluptatem
-                                                                laudantium.</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="accordion-item">
-                                                    <h2 class="accordion-header" id="headingThreet1">
-                                                        <button class="accordion-button collapsed" type="button"
-                                                            data-bs-toggle="collapse" data-bs-target="#collapseThreet1"
-                                                            aria-expanded="false" aria-controls="collapseThreet1">
-                                                            How can I track an order?
-                                                        </button>
-                                                    </h2>
-                                                    <div id="collapseThreet1" class="accordion-collapse collapse"
-                                                        aria-labelledby="headingThreet1"
-                                                        data-bs-parent="#accordionExample">
-                                                        <div class="accordion-body">
-                                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing
-                                                                elit.
-                                                                Voluptatum voluptas ea hic excepturi sit, sapiente
-                                                                optio
-                                                                deleniti pariatur. Dolorum in quos magni?
-                                                                Necessitatibus
-                                                                recusandae cupiditate iste expedita amet voluptatem
-                                                                laudantium.</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="accordion-item">
-                                                    <h2 class="accordion-header" id="headingThreet2">
-                                                        <button class="accordion-button collapsed" type="button"
-                                                            data-bs-toggle="collapse" data-bs-target="#collapseThreet2"
-                                                            aria-expanded="false" aria-controls="collapseThreet2">
-                                                            How can I get money back?
-                                                        </button>
-                                                    </h2>
-                                                    <div id="collapseThreet2" class="accordion-collapse collapse"
-                                                        aria-labelledby="headingThreet2"
-                                                        data-bs-parent="#accordionExample">
-                                                        <div class="accordion-body">
-                                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing
-                                                                elit.
-                                                                Voluptatum voluptas ea hic excepturi sit, sapiente
-                                                                optio
-                                                                deleniti pariatur. Dolorum in quos magni?
-                                                                Necessitatibus
-                                                                recusandae cupiditate iste expedita amet voluptatem
-                                                                laudantium.</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -846,6 +694,38 @@
             $(document).ready(function() {
                 $(".productVariant").on("change", function() {
                     calculateProductPrice();
+                })
+                $('.variant').on('click', function() {
+
+                    var itemId = $(this).data('id');
+
+                    if ($(this).children('i').length) {
+                        $('.variant').each(function(index, item) {
+                            $(item).children('i').css('opacity', '0');
+
+                            if ($(item).children('i').length) {
+                                $(item).removeClass('active-variant');
+                            }
+                        });
+                        // Set opacity of 'i' elements of the clicked element to 1
+                        $(this).children('i').css('opacity', '1');
+                        $(this).addClass('active-variant');
+                    } else {
+                        $('.variant').each(function(index, item) {
+                            if (!$(item).children('i').length) {
+                                $(item).removeClass('active-variant');
+                            }
+                        });
+                        $(this).addClass('active-variant');
+                    }
+
+                    var selectedItems = [];
+                    $('.active-variant').each(function(index, item) {
+                        selectedItems.push($(item).data('id'));
+                    })
+
+                    $('[name="items[]"]').val(selectedItems.join(','));
+
                 })
 
                 $(".decrementProduct").on("click", function() {
