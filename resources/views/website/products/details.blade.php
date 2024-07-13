@@ -54,8 +54,6 @@
                                         <li><img class="zoom ing-fluid w-100" src="{{ asset($image->image) }}"
                                                 alt="product"></li>
                                     @endforeach
-
-
                                 </ul>
                             </div>
                             <div class="exzoom_nav"></div>
@@ -173,6 +171,40 @@
                         @endphp
 
                         <form id="shoppingCartForm">
+                            @if ($productVariants->count() != 0)
+                                <div class="wsus__selectbox">
+                                    <div class="row">
+                                        @foreach ($productVariants as $productVariant)
+                                            @php
+                                                $items = App\Models\ProductVariantItem::orderBy('is_default', 'desc')
+                                                    ->where([
+                                                        'product_variant_id' => $productVariant->id,
+                                                        'product_id' => $product->id,
+                                                    ])
+                                                    ->get();
+                                            @endphp
+                                            @if ($items->count() != 0)
+                                                <div class="col-xl-6 col-sm-6 mb-3">
+                                                    <h5 class="mb-2">{{ $productVariant->name }}:</h5>
+
+                                                    <input type="hidden" name="variants[]"
+                                                        value="{{ $productVariant->id }}">
+                                                    <input type="hidden" name="variantNames[]"
+                                                        value="{{ $productVariant->name }}">
+
+                                                    <select class="select_2 productVariant" name="items[]">
+                                                        @foreach ($items as $item)
+                                                            <option value="{{ $item->id }}">{{ $item->name }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+
+                                                </div>
+                                            @endif
+                                        @endforeach
+                                    </div>
+                                </div>
+                            @endif
                             <div class="wsus__quentity">
                                 <h5>{{ __('user.Quantity') }} :</h5>
                                 <div class="modal_btn">
