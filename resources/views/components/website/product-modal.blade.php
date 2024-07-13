@@ -32,7 +32,7 @@
                             </div>
                         </div>
                         <div class="col-xl-6 col-12 col-sm-12 col-md-12 col-lg-6">
-                            @include('website.modal-content')
+                            @include('components.website.modal-content')
                         </div>
                     </div>
                 </div>

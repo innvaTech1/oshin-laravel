@@ -231,7 +231,9 @@
                     @if ($campaignProducts != null)
                         @foreach ($campaignProducts->take($campaignVisibility->qty) as $campaignProduct)
                             <div class="col-xl-2 col-sm-6 col-lg-2">
-                                @include('website.product-cart', ['product' => $campaignProduct->product])
+                                @include('components/website.product-card', [
+                                    'product' => $campaignProduct->product,
+                                ])
                             </div>
                         @endforeach
                     @endif
@@ -239,7 +241,9 @@
 
                 @if ($campaignProducts != null)
                     @foreach ($campaignProducts->take($campaignVisibility->qty) as $campaignProduct)
-                        @include('website.product-modal', ['product' => $campaignProduct->product])
+                        @include('components.website.product-modal', [
+                            'product' => $campaignProduct->product,
+                        ])
                     @endforeach
                 @endif
             </div>
@@ -536,12 +540,12 @@
                 <div class="row">
                     @foreach ($newProducts as $product)
                         <div class="col-xl-2 col-sm-6 col-lg-2 col-6">
-                            @include('website.product-cart')
+                            @include('components/website.product-card')
                         </div>
                     @endforeach
                 </div>
                 @foreach ($newProducts as $product)
-                    @include('website.product-modal')
+                    @include('components.website.product-modal')
                 @endforeach
             </div>
         </section>
@@ -564,12 +568,12 @@
                 <div class="row">
                     @foreach ($featuredProducts as $product)
                         <div class="col-xl-2 col-sm-6 col-lg-3 col-6">
-                            @include('website.product-cart')
+                            @include('components/website.product-card')
                         </div>
                     @endforeach
                 </div>
                 @foreach ($featuredProducts as $product)
-                    @include('website.product-modal')
+                    @include('components.website.product-modal')
                 @endforeach
             </div>
         </section>
@@ -730,12 +734,12 @@
             <div class="row">
                 @foreach ($bestProducts as $product)
                     <div class="col-xl-2 col-sm-6 col-lg-3 col-6">
-                        @include('website.product-cart')
+                        @include('components/website.product-card')
                     </div>
                 @endforeach
             </div>
             @foreach ($bestProducts as $product)
-                @include('website.product-modal')
+                @include('components.website.product-modal')
             @endforeach
         </div>
     </section>
@@ -761,12 +765,12 @@
             <div class="row">
                 @foreach ($topProducts as $product)
                     <div class="col-xl-2 col-sm-6 col-lg-3 col-6">
-                        @include('website.product-cart')
+                        @include('components/website.product-card')
                     </div>
                 @endforeach
             </div>
             @foreach ($topProducts as $product)
-                @include('website.product-modal')
+                @include('components.website.product-modal')
             @endforeach
         </div>
     </section>
