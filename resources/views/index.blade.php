@@ -8,8 +8,8 @@
 
 @section('public-content')
     <!--============================
-                                                                                                    BANNER PART START
-                                                                                                ==============================-->
+                                                                                                            BANNER PART START
+                                                                                                        ==============================-->
     @php
         $sliderVisibility = $visibilities->where('id', 1)->first();
     @endphp
@@ -47,12 +47,12 @@
         </section>
     @endif
     <!--============================
-                                                                                                    BANNER PART END
-                                                                                                ==============================-->
+                                                                                                            BANNER PART END
+                                                                                                        ==============================-->
 
     <!--============================
-                                                                                                    BRAND SLIDER START
-                                                                                                ==============================-->
+                                                                                                            BRAND SLIDER START
+                                                                                                        ==============================-->
     {{-- @php
         $brandVisibility = $visibilities->where('id', 2)->first();
     @endphp --}}
@@ -75,12 +75,12 @@
         </section>
     @endif --}}
     <!--============================
-                                                                                                    BRAND SLIDER END
-                                                                                                ==============================-->
+                                                                                                            BRAND SLIDER END
+                                                                                                        ==============================-->
 
     <!-- =========================
-                                                                                         HOME FEATURED START
-                                                                                         ========================== -->
+                                                                                                 HOME FEATURED START
+                                                                                                 ========================== -->
     <section class="section_separate">
         <div class="container">
             <div class="row">
@@ -122,12 +122,12 @@
         </div>
     </section>
     <!-- =====================
-                                                                                          HOME FEATURED END
-                                                                                          ========================= -->
+                                                                                                  HOME FEATURED END
+                                                                                                  ========================= -->
 
     <!--============================
-                                                                                          HOME SERVICES START
-                                                                                        ==============================-->
+                                                                                                  HOME SERVICES START
+                                                                                                ==============================-->
     <section id="wsus__home_services">
         <div class="container">
             <div class="wsus__home_services_bg">
@@ -173,12 +173,12 @@
         </div>
     </section>
     <!--============================
-                                                                                            HOME SERVICES END
-                                                                                        ==============================-->
+                                                                                                    HOME SERVICES END
+                                                                                                ==============================-->
 
     <!--============================
-                                                                                                    FLASH SELL START
-                                                                                                ==============================-->
+                                                                                                            FLASH SELL START
+                                                                                                        ==============================-->
     @php
         $campaignVisibility = $visibilities->where('id', 3)->first();
     @endphp
@@ -300,8 +300,8 @@
 
 
     <!--============================
-                                                                BRAND SLIDER START
-                                                            ==============================-->
+                                                                        BRAND SLIDER START
+                                                                    ==============================-->
     @php
         $brandVisibility = $visibilities->where('id', 2)->first();
     @endphp
@@ -324,17 +324,17 @@
         </section>
     @endif
     <!--============================
-                                                                BRAND SLIDER END
-                                                            ==============================-->
+                                                                        BRAND SLIDER END
+                                                                    ==============================-->
 
     <!--============================
-                                                                                                   MONTHLY TOP PRODUCT END
-                                                                                                ==============================-->
+                                                                                                           MONTHLY TOP PRODUCT END
+                                                                                                        ==============================-->
 
 
     <!--============================
-                                                                                                    SINGLE BANNER START
-                                                                                                ==============================-->
+                                                                                                            SINGLE BANNER START
+                                                                                                        ==============================-->
     @php
         $bannerVisibility = $visibilities->where('id', 5)->first();
     @endphp
@@ -589,8 +589,8 @@
 
 
         <!--============================
-                Featured Products START
-            ==============================-->
+                        Featured Products START
+                    ==============================-->
         <section id="wsus__electronic2">
             <div class="container">
                 <div class="row">
@@ -614,9 +614,48 @@
             </div>
         </section>
         <!--============================
-                Featured Products END
-            ==============================-->
+                        Featured Products END
+                    ==============================-->
     @endif
+
+
+    <!--============================
+                LARGE BANNER  START
+            ==============================-->
+    <section id="wsus__large_banner">
+        <div class="container">
+            <div class="row">
+                <div class="cl-xl-12">
+                    <div class="wsus__large_banner_content" style="background: url(images/large_banner_img.jpg);">
+                        <div class="wsus__large_banner_content_overlay">
+                            <div class="row">
+                                <div class="col-xl-6 col-12 col-md-6">
+                                    <div class="wsus__large_banner_text">
+                                        <h3>This Week's Deal</h3>
+                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem repudiandae in
+                                            ipsam
+                                            nesciunt.</p>
+                                        <a class="shop_btn" href="#">view more</a>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-12 col-md-6">
+                                    <div class="wsus__large_banner_text wsus__large_banner_text_right">
+                                        <h3>headphones</h3>
+                                        <h5>up to 20% off</h5>
+                                        <p>Spring's collection has discounted now!</p>
+                                        <a class="shop_btn" href="#">shop now</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--============================
+                LARGE BANNER  END
+            ==============================-->
 
 
     @php
@@ -661,15 +700,15 @@
     </div>
     </section>
 
-    <!--============================
-                                                                                                       HOT DEALS END
-                                                                                                ==============================-->
+    {{-- <!--============================
+            HOT DEALS END
+    ==============================--> --}}
 
 
 
-    <!--============================
-                                                                                                    WEEKLY BEST ITEM START
-                                                                                                ==============================-->
+    {{-- <!--============================
+        WEEKLY BEST ITEM START
+    ==============================--> --}}
     @php
         $threeColVisible = $visibilities->where('id', 9)->first();
     @endphp
@@ -1105,13 +1144,13 @@
             </div>
         </section>
     @endif
-    <!--============================
-                                                                                                    WEEKLY BEST ITEM END
-                                                                                                ==============================-->
+    {{-- <!--============================
+        WEEKLY BEST ITEM END
+    ==============================--> --}}
 
-    <!--============================
-                                                                                                    LARGE BANNER  START
-                                                                                                ==============================-->
+    {{-- <!--============================
+        LARGE BANNER  START
+    ==============================--> --}}
 
     @php
         $bannerVisibility = $visibilities->where('id', 10)->first();
@@ -1152,13 +1191,13 @@
             </div>
         </section>
     @endif
-    <!--============================
-                                                                                                    LARGE BANNER  END
-                                                                                                ==============================-->
+    {{-- <!--============================
+        LARGE BANNER  END
+    ==============================--> --}}
 
-    <!--============================
-                                                                                                  HOME SERVOCES START
-                                                                                                ==============================-->
+    {{-- <!--============================
+        HOME SERVOCES START
+    ==============================--> --}}
     @php
         $serviceVisibility = $visibilities->where('id', 11)->first();
     @endphp
@@ -1179,76 +1218,7 @@
             </div>
         </section>
     @endif
-    <!--============================
-                                                                                                    HOME SERVOCES END
-                                                                                                ==============================-->
-
-
-    <!--============================
-                                                                                                    HOME BLOGS START
-                                                                                                ==============================-->
-    @php
-        $blogVisibilty = $visibilities->where('id', 12)->first();
-    @endphp
-    @if ($blogVisibilty->status == 1)
-        <section id="wsus__blogs" class="home_blogs">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xl-12">
-                        <div class="wsus__section_header">
-                            <h3>{{ __('user.recent blogs') }}</h3>
-                            <a class="see_btn" href="{{ route('blog') }}">{{ __('user.see more') }} <i
-                                    class="fas fa-caret-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="row home_blog_slider">
-                    @php
-                        $colorId = 1;
-                    @endphp
-                    @foreach ($blogs as $index => $blog)
-                        @php
-                            if ($index % 4 == 0) {
-                                $colorId = 1;
-                            }
-
-                            $color = '';
-                            if ($colorId == 1) {
-                                $color = 'blue';
-                            } elseif ($colorId == 2) {
-                                $color = 'red';
-                            } elseif ($colorId == 3) {
-                                $color = 'orange';
-                            } elseif ($colorId == 4) {
-                                $color = 'green';
-                            }
-                        @endphp
-                        <div class="col-xl-4">
-                            <div class="wsus__single_blog">
-                                <a class="wsus__blog_img" href="{{ route('blog-detail', $blog->slug) }}">
-                                    <img src="{{ asset($blog->image) }}" alt="blog" class="img-fluid w-100">
-                                </a>
-                                <a class="blog_top {{ $color }}"
-                                    href="{{ route('blog-by-category', $blog->category->slug) }}">{{ $blog->category->name }}</a>
-                                <div class="wsus__blog_text">
-                                    <div class="wsus__blog_text_center">
-                                        <a href="{{ route('blog-detail', $blog->slug) }}">{{ $blog->title }}</a>
-                                        <p class="date"><span>{{ $blog->created_at->format('d F, Y') }}</span>
-                                            {{ __('user.Hosted by') }} {{ $blog->admin->name }}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        @php
-                            $colorId++;
-                        @endphp
-                    @endforeach
-                </div>
-            </div>
-        </section>
-    @endif
-    <!--============================
-                                                                                                    HOME BLOGS END
-                                                                                                ==============================-->
-
+    {{-- <!--============================
+        HOME SERVICES END
+    ==============================--> --}}
 @endsection
