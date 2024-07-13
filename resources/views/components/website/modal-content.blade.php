@@ -95,6 +95,16 @@
         }
     @endphp
     <form id="productModalFormId-{{ $product->id }}">
+
+
+        @php
+            $productVariants = App\Models\ProductVariant::where([
+                'status' => 1,
+                'product_id' => $product->id,
+            ])->get();
+        @endphp
+
+        @include('components.website.product-variation')
         <div class="wsus__quentity">
             <h5>{{ __('user.quantity') }} :</h5>
             <div class="modal_btn">
@@ -114,44 +124,7 @@
             <input type="hidden" name="slug" value="{{ $product->slug }}">
 
         </div>
-        @php
-            $productVariants = App\Models\ProductVariant::where([
-                'status' => 1,
-                'product_id' => $product->id,
-            ])->get();
-        @endphp
-        @if ($productVariants->count() != 0)
-            <div class="wsus__selectbox">
-                <div class="row">
-                    @foreach ($productVariants as $productVariant)
-                        @php
-                            $items = App\Models\ProductVariantItem::orderBy('is_default', 'desc')
-                                ->where([
-                                    'product_variant_id' => $productVariant->id,
-                                    'product_id' => $product->id,
-                                ])
-                                ->get();
-                        @endphp
-                        @if ($items->count() != 0)
-                            <div class="col-xl-6 col-sm-6 mb-3">
-                                <h5 class="mb-2">{{ $productVariant->name }}:</h5>
 
-                                <input type="hidden" name="variants[]" value="{{ $productVariant->id }}">
-                                <input type="hidden" name="variantNames[]" value="{{ $productVariant->name }}">
-
-                                <select class="select_2 productModalVariant" name="items[]"
-                                    data-product="{{ $product->id }}">
-                                    @foreach ($items as $item)
-                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                    @endforeach
-                                </select>
-
-                            </div>
-                        @endif
-                    @endforeach
-                </div>
-            </div>
-        @endif
         <ul class="wsus__button_area">
             <li><button type="button" onclick="addToCartInProductModal('{{ $product->id }}')"
                     class="add_cart">{{ __('user.add to cart') }}</button></li>

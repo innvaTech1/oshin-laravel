@@ -943,6 +943,38 @@
                     calculateProductModalPrice(id);
 
                 })
+
+                $('.variant').on('click', function() {
+                    var itemId = $(this).data('id');
+                    if ($(this).children('i').length) {
+                        $('.variant').each(function(index, item) {
+                            $(item).children('i').css('opacity', '0');
+                            if ($(item).children('i').length) {
+                                $(item).removeClass('select-variant');
+                            }
+                        });
+                        // Set opacity of 'i' elements of the clicked element to 1
+                        $(this).children('i').css('opacity', '1');
+                        $(this).addClass('select-variant');
+                    } else {
+                        $('.variant').each(function(index, item) {
+                            if (!$(item).children('i').length) {
+                                $(item).removeClass('active-variant');
+                                $(item).removeClass('select-variant');
+                            }
+                        });
+                        $(this).addClass('active-variant');
+                        $(this).addClass('select-variant');
+                    }
+
+                    var selectedItems = [];
+                    $('.select-variant').each(function(index, item) {
+                        selectedItems.push($(item).data('id'));
+                    })
+
+                    $('[name="items[]"]').val(selectedItems.join(','));
+
+                })
             });
         })(jQuery);
 

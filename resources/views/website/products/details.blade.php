@@ -169,56 +169,7 @@
                         @endphp
 
                         <form id="shoppingCartForm">
-                            @if ($productVariants->count() != 0)
-                                @php
-                                    $selected = [];
-                                @endphp
-                                @foreach ($productVariants as $productVariant)
-                                    @php
-                                        $items = App\Models\ProductVariantItem::orderBy('is_default', 'desc')
-                                            ->where([
-                                                'product_variant_id' => $productVariant->id,
-                                                'product_id' => $product->id,
-                                            ])
-                                            ->get();
-                                        $variName = strtolower($productVariant->name);
-                                    @endphp
-                                    @if ($items->count() != 0)
-                                        <input type="hidden" name="variants[]" value="{{ $productVariant->id }}">
-                                        <input type="hidden" name="variantNames[]" value="{{ $productVariant->name }}">
-                                        <div
-                                            class="{{ $variName == 'color' ? 'wsus_pro_det_color' : 'wsus_pro__det_size' }}">
-                                            <h5>{{ $productVariant->name }} :</h5>
-                                            <ul>
-                                                @foreach ($items as $item)
-                                                    @if ($item->is_default == 1)
-                                                        @php
-                                                            array_push($selected, $item->id);
-                                                        @endphp
-                                                    @endif
-                                                    <li>
-                                                        @if ($variName == 'color')
-                                                            <a href="javascript:;"
-                                                                style="background:{{ strtolower($item->name) }}"
-                                                                data-id = "{{ $item->id }}"
-                                                                class="variant {{ $item->is_default == 1 ? 'active-variant' : '' }}">
-                                                                <i class="far fa-check"
-                                                                    @if ($item->is_default == 1) style="opacity:1" @endif></i>
-                                                            </a>
-                                                        @else
-                                                            <a href="javascript:;" data-id = "{{ $item->id }}"
-                                                                class="variant {{ $item->is_default == 1 ? 'active-variant' : '' }}">{{ $item->name }}</a>
-                                                        @endif
-                                                    </li>
-                                                @endforeach
-                                            </ul>
-                                        </div>
-                                    @endif
-                                @endforeach
-                                <input type="hidden" name="items[]" value="{{ join(',', $selected) }}">
-                                {{-- @foreach ($selected as $item)
-                                @endforeach --}}
-                            @endif
+                            @include('components.website.product-variation')
                             <div class="wsus__quentity">
                                 <h5>{{ __('user.Quantity') }} :</h5>
                                 <div class="modal_btn">
@@ -695,38 +646,7 @@
                 $(".productVariant").on("change", function() {
                     calculateProductPrice();
                 })
-                $('.variant').on('click', function() {
 
-                    var itemId = $(this).data('id');
-
-                    if ($(this).children('i').length) {
-                        $('.variant').each(function(index, item) {
-                            $(item).children('i').css('opacity', '0');
-
-                            if ($(item).children('i').length) {
-                                $(item).removeClass('active-variant');
-                            }
-                        });
-                        // Set opacity of 'i' elements of the clicked element to 1
-                        $(this).children('i').css('opacity', '1');
-                        $(this).addClass('active-variant');
-                    } else {
-                        $('.variant').each(function(index, item) {
-                            if (!$(item).children('i').length) {
-                                $(item).removeClass('active-variant');
-                            }
-                        });
-                        $(this).addClass('active-variant');
-                    }
-
-                    var selectedItems = [];
-                    $('.active-variant').each(function(index, item) {
-                        selectedItems.push($(item).data('id'));
-                    })
-
-                    $('[name="items[]"]').val(selectedItems.join(','));
-
-                })
 
                 $(".decrementProduct").on("click", function() {
                     let qty = $(".product_qty").val();
