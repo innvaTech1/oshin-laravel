@@ -405,6 +405,24 @@ class HomeController extends Controller
         if ($request->brand_id) {
             $products = $products->where('brand_id', $request->brand_id);
         }
+        if ($request->type) {
+            switch ($request->type) {
+                case 'new':
+                    $products = $products->where('new_product', 1);
+                    break;
+                case 'featured':
+                    $products = $products->where('is_featured', 1);
+                    break;
+                case 'best':
+                    $products = $products->where('is_best', 1);
+                    break;
+                case 'top':
+                    $products = $products->where('is_top', 1);
+                    break;
+                default:
+                    $products = $products->orderBy('id', 'desc');
+            }
+        }
 
         $products = $products->paginate($paginateQty);
         $seoSetting = SeoSetting::find(9);

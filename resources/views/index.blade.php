@@ -7,9 +7,9 @@
 @endsection
 
 @section('public-content')
-    <!--============================
-                                                                                                            BANNER PART START
-                                                                                                        ==============================-->
+    {{-- <!--============================
+        BANNER PART START
+    ==============================--> --}}
     @php
         $sliderVisibility = $visibilities->where('id', 1)->first();
     @endphp
@@ -46,13 +46,13 @@
             </div>
         </section>
     @endif
-    <!--============================
-                                                                                                            BANNER PART END
-                                                                                                        ==============================-->
+    {{-- <!--============================
+        BANNER PART END
+    ==============================--> --}}
 
-    <!--============================
-                                                                                                            BRAND SLIDER START
-                                                                                                        ==============================-->
+    {{-- <!--============================
+        BRAND SLIDER START
+    ==============================--> --}}
     {{-- @php
         $brandVisibility = $visibilities->where('id', 2)->first();
     @endphp --}}
@@ -74,13 +74,13 @@
             </div>
         </section>
     @endif --}}
-    <!--============================
-                                                                                                            BRAND SLIDER END
-                                                                                                        ==============================-->
+    {{-- <!--============================
+        BRAND SLIDER END
+    ==============================--> --}}
 
-    <!-- =========================
-                                                                                                 HOME FEATURED START
-                                                                                                 ========================== -->
+    {{-- <!-- =========================
+        HOME FEATURED START
+    ========================== --> --}}
     <section class="section_separate">
         <div class="container">
             <div class="row">
@@ -121,13 +121,13 @@
             </div>
         </div>
     </section>
-    <!-- =====================
-                                                                                                  HOME FEATURED END
-                                                                                                  ========================= -->
+    {{-- <!-- =====================
+        HOME FEATURED END
+    ========================= --> --}}
 
-    <!--============================
-                                                                                                  HOME SERVICES START
-                                                                                                ==============================-->
+    {{-- <!--============================
+        HOME SERVICES START
+    ==============================--> --}}
     <section id="wsus__home_services">
         <div class="container">
             <div class="wsus__home_services_bg">
@@ -172,13 +172,13 @@
             </div>
         </div>
     </section>
-    <!--============================
-                                                                                                    HOME SERVICES END
-                                                                                                ==============================-->
+    {{-- <!--============================
+        HOME SERVICES END
+    ==============================--> --}}
 
-    <!--============================
-                                                                                                            FLASH SELL START
-                                                                                                        ==============================-->
+    {{-- <!--============================
+        FLASH SELL START
+    ==============================--> --}}
     @php
         $campaignVisibility = $visibilities->where('id', 3)->first();
     @endphp
@@ -299,9 +299,9 @@
     @endif
 
 
-    <!--============================
-                                                                        BRAND SLIDER START
-                                                                    ==============================-->
+    {{-- <!--============================
+        BRAND SLIDER START
+    ==============================--> --}}
     @php
         $brandVisibility = $visibilities->where('id', 2)->first();
     @endphp
@@ -323,18 +323,18 @@
             </div>
         </section>
     @endif
-    <!--============================
-                                                                        BRAND SLIDER END
-                                                                    ==============================-->
+    {{-- <!--============================
+        BRAND SLIDER END
+    ==============================--> --}}
 
-    <!--============================
-                                                                                                           MONTHLY TOP PRODUCT END
-                                                                                                        ==============================-->
+    {{-- <!--============================
+        MONTHLY TOP PRODUCT END
+    ==============================--> --}}
 
 
-    <!--============================
-                                                                                                            SINGLE BANNER START
-                                                                                                        ==============================-->
+    {{-- <!--============================
+        SINGLE BANNER START
+    ==============================--> --}}
     @php
         $bannerVisibility = $visibilities->where('id', 5)->first();
     @endphp
@@ -570,7 +570,8 @@
                     <div class="col-xl-12">
                         <div class="wsus__section_header">
                             <h3>{{ __('user.Sale Products') }}</h3>
-                            <a class="see_btn" href="#">see more <i class="fas fa-caret-right"></i></a>
+                            <a class="see_btn" href="{{ route('product', ['type' => 'new']) }}">see more <i
+                                    class="fas fa-caret-right"></i></a>
                         </div>
                     </div>
                 </div>
@@ -588,16 +589,17 @@
         </section>
 
 
-        <!--============================
-                        Featured Products START
-                    ==============================-->
+        {{-- <!--============================
+            Featured Products START
+        ==============================--> --}}
         <section id="wsus__electronic2">
             <div class="container">
                 <div class="row">
                     <div class="col-xl-12">
                         <div class="wsus__section_header">
                             <h3>Featured Products</h3>
-                            <a class="see_btn" href="#">see more <i class="fas fa-caret-right"></i></a>
+                            <a class="see_btn" href="{{ route('product', ['type' => 'featured']) }}">see more <i
+                                    class="fas fa-caret-right"></i></a>
                         </div>
                     </div>
                 </div>
@@ -613,15 +615,15 @@
                 @endforeach
             </div>
         </section>
-        <!--============================
-                        Featured Products END
-                    ==============================-->
+        {{-- <!--============================
+            Featured Products END
+        ==============================--> --}}
     @endif
 
 
-    <!--============================
-                LARGE BANNER  START
-            ==============================-->
+    {{-- <!--============================
+        LARGE BANNER  START
+    ==============================--> --}}
     <section id="wsus__large_banner">
         <div class="container">
             <div class="row">
@@ -653,12 +655,12 @@
             </div>
         </div>
     </section>
-    <!--============================
-                LARGE BANNER  END
-            ==============================-->
+    {{-- <!--============================
+        LARGE BANNER  END
+    ==============================--> --}}
 
 
-    @php
+    {{-- @php
         $bannerVisiblity = $visibilities->where('id', 8)->first();
     @endphp
     @if ($bannerVisiblity->status == 1)
@@ -698,455 +700,74 @@
         </section>
     @endif
     </div>
-    </section>
+    </section> --}}
 
     {{-- <!--============================
             HOT DEALS END
     ==============================--> --}}
 
 
-
     {{-- <!--============================
-        WEEKLY BEST ITEM START
+        Best selling products START
     ==============================--> --}}
-    @php
-        $threeColVisible = $visibilities->where('id', 9)->first();
-    @endphp
-    @if ($threeColVisible->status == 1)
-        <section id="wsus__weekly_best">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xl-4 col-sm-6 col-md-6 col-lg-4">
-                        <div class="wsus__section_header">
-                            @php
-                                $firstCategory = $columnCategories
-                                    ->where('id', $threeColumnCategory->category_id_one)
-                                    ->first();
-                            @endphp
-                            <h3>{{ $firstCategory ? $firstCategory->name : '' }}</h3>
-                        </div>
-                        <div class="row weekly_best">
-                            @foreach ($threeColumnFirstCategoryProducts as $threeColfirstCatProduct)
-                                <div class="col-xl-12">
-                                    <a class="wsus__hot_deals__single"
-                                        href="{{ route('product-detail', $threeColfirstCatProduct->slug) }}">
-                                        <div class="wsus__hot_deals__single_img">
-                                            <img src="{{ asset($threeColfirstCatProduct->thumb_image) }}" alt="bag"
-                                                class="img-fluid w-100">
-                                        </div>
-                                        <div class="wsus__hot_deals__single_text">
-                                            <h5>{{ $threeColfirstCatProduct->short_name }}</h5>
-                                            @php
-                                                $reviewQty = $threeColfirstCatProduct->reviews
-                                                    ->where('status', 1)
-                                                    ->count();
-                                                $totalReview = $threeColfirstCatProduct->reviews
-                                                    ->where('status', 1)
-                                                    ->sum('rating');
-                                                if ($reviewQty > 0) {
-                                                    $average = $totalReview / $reviewQty;
-                                                    $intAverage = intval($average);
-                                                    $nextValue = $intAverage + 1;
-                                                    $reviewPoint = $intAverage;
-                                                    $halfReview = false;
-                                                    if ($intAverage < $average && $average < $nextValue) {
-                                                        $reviewPoint = $intAverage + 0.5;
-                                                        $halfReview = true;
-                                                    }
-                                                }
-                                            @endphp
-
-                                            @if ($reviewQty > 0)
-                                                <p class="wsus__rating">
-                                                    @for ($i = 1; $i <= 5; $i++)
-                                                        @if ($i <= $reviewPoint)
-                                                            <i class="fas fa-star"></i>
-                                                        @elseif ($i > $reviewPoint)
-                                                            @if ($halfReview == true)
-                                                                <i class="fas fa-star-half-alt"></i>
-                                                                @php
-                                                                    $halfReview = false;
-                                                                @endphp
-                                                            @else
-                                                                <i class="fal fa-star"></i>
-                                                            @endif
-                                                        @endif
-                                                    @endfor
-                                                    <span>({{ $reviewQty }})</span>
-                                                </p>
-                                            @endif
-
-                                            @if ($reviewQty == 0)
-                                                <p class="wsus__rating">
-                                                    <i class="fal fa-star"></i>
-                                                    <i class="fal fa-star"></i>
-                                                    <i class="fal fa-star"></i>
-                                                    <i class="fal fa-star"></i>
-                                                    <i class="fal fa-star"></i>
-                                                    <span>(0)</span>
-                                                </p>
-                                            @endif
-
-                                            @php
-                                                $variantPrice = 0;
-                                                $variants = $threeColfirstCatProduct->variants->where('status', 1);
-                                                if ($variants->count() != 0) {
-                                                    foreach ($variants as $variants_key => $variant) {
-                                                        if ($variant->variantItems->where('status', 1)->count() != 0) {
-                                                            $item = $variant->variantItems
-                                                                ->where('is_default', 1)
-                                                                ->first();
-                                                            if ($item) {
-                                                                $variantPrice += $item->price;
-                                                            }
-                                                        }
-                                                    }
-                                                }
-
-                                                $isCampaign = false;
-                                                $today = date('Y-m-d H:i:s');
-                                                $campaign = App\Models\CampaignProduct::where([
-                                                    'status' => 1,
-                                                    'product_id' => $threeColfirstCatProduct->id,
-                                                ])->first();
-                                                if ($campaign) {
-                                                    $campaign = $campaign->campaign;
-                                                    if (
-                                                        $campaign->start_date <= $today &&
-                                                        $today <= $campaign->end_date
-                                                    ) {
-                                                        $isCampaign = true;
-                                                    }
-                                                    $campaignOffer = $campaign->offer;
-                                                    $productPrice = $threeColfirstCatProduct->price;
-                                                    $campaignOfferPrice = ($campaignOffer / 100) * $productPrice;
-                                                    $totalPrice = $productPrice;
-                                                    $campaignOfferPrice = $totalPrice - $campaignOfferPrice;
-                                                }
-
-                                                $totalPrice = $threeColfirstCatProduct->price;
-                                                if ($threeColfirstCatProduct->offer_price != null) {
-                                                    $offerPrice = $threeColfirstCatProduct->offer_price;
-                                                    $offer = $totalPrice - $offerPrice;
-                                                    $percentage = ($offer * 100) / $totalPrice;
-                                                    $percentage = round($percentage);
-                                                }
-                                            @endphp
-
-                                            @if ($isCampaign)
-                                                <p class="wsus__tk">
-                                                    {{ $currencySetting->currency_icon }}{{ sprintf('%.2f', $campaignOfferPrice + $variantPrice) }}
-                                                    <del>{{ $currencySetting->currency_icon }}{{ sprintf('%.2f', $totalPrice) }}</del>
-                                                </p>
-                                            @else
-                                                @if ($threeColfirstCatProduct->offer_price == null)
-                                                    <p class="wsus__tk">
-                                                        {{ $currencySetting->currency_icon }}{{ sprintf('%.2f', $totalPrice + $variantPrice) }}
-                                                    </p>
-                                                @else
-                                                    <p class="wsus__tk">
-                                                        {{ $currencySetting->currency_icon }}{{ sprintf('%.2f', $threeColfirstCatProduct->offer_price + $variantPrice) }}
-                                                        <del>{{ $currencySetting->currency_icon }}{{ sprintf('%.2f', $totalPrice) }}</del>
-                                                    </p>
-                                                @endif
-                                            @endif
-
-                                        </div>
-                                    </a>
-                                </div>
-                            @endforeach
-
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-sm-6 col-md-6 col-lg-4">
-                        <div class="wsus__section_header">
-                            @php
-                                $secondCategory = $columnCategories
-                                    ->where('id', $threeColumnCategory->category_id_two)
-                                    ->first();
-                            @endphp
-                            <h3>{{ $secondCategory ? $secondCategory->name : '' }}</h3>
-                        </div>
-                        <div class="row weekly_best">
-                            @foreach ($threeColumnSecondCategoryProducts as $threeColsecondCatProduct)
-                                <div class="col-xl-12">
-                                    <a class="wsus__hot_deals__single"
-                                        href="{{ route('product-detail', $threeColsecondCatProduct->slug) }}">
-                                        <div class="wsus__hot_deals__single_img">
-                                            <img src="{{ asset($threeColsecondCatProduct->thumb_image) }}" alt="bag"
-                                                class="img-fluid w-100">
-                                        </div>
-                                        <div class="wsus__hot_deals__single_text">
-                                            <h5>{{ $threeColsecondCatProduct->short_name }}</h5>
-                                            @php
-                                                $reviewQty = $threeColsecondCatProduct->reviews
-                                                    ->where('status', 1)
-                                                    ->count();
-                                                $totalReview = $threeColsecondCatProduct->reviews
-                                                    ->where('status', 1)
-                                                    ->sum('rating');
-                                                if ($reviewQty > 0) {
-                                                    $average = $totalReview / $reviewQty;
-                                                    $intAverage = intval($average);
-                                                    $nextValue = $intAverage + 1;
-                                                    $reviewPoint = $intAverage;
-                                                    $halfReview = false;
-                                                    if ($intAverage < $average && $average < $nextValue) {
-                                                        $reviewPoint = $intAverage + 0.5;
-                                                        $halfReview = true;
-                                                    }
-                                                }
-                                            @endphp
-
-                                            @if ($reviewQty > 0)
-                                                <p class="wsus__rating">
-                                                    @for ($i = 1; $i <= 5; $i++)
-                                                        @if ($i <= $reviewPoint)
-                                                            <i class="fas fa-star"></i>
-                                                        @elseif ($i > $reviewPoint)
-                                                            @if ($halfReview == true)
-                                                                <i class="fas fa-star-half-alt"></i>
-                                                                @php
-                                                                    $halfReview = false;
-                                                                @endphp
-                                                            @else
-                                                                <i class="fal fa-star"></i>
-                                                            @endif
-                                                        @endif
-                                                    @endfor
-                                                    <span>({{ $reviewQty }})</span>
-                                                </p>
-                                            @endif
-
-                                            @if ($reviewQty == 0)
-                                                <p class="wsus__rating">
-                                                    <i class="fal fa-star"></i>
-                                                    <i class="fal fa-star"></i>
-                                                    <i class="fal fa-star"></i>
-                                                    <i class="fal fa-star"></i>
-                                                    <i class="fal fa-star"></i>
-                                                    <span>(0)</span>
-                                                </p>
-                                            @endif
-
-                                            @php
-                                                $variantPrice = 0;
-                                                $variants = $threeColsecondCatProduct->variants->where('status', 1);
-                                                if ($variants->count() != 0) {
-                                                    foreach ($variants as $variants_key => $variant) {
-                                                        if ($variant->variantItems->where('status', 1)->count() != 0) {
-                                                            $item = $variant->variantItems
-                                                                ->where('is_default', 1)
-                                                                ->first();
-                                                            if ($item) {
-                                                                $variantPrice += $item->price;
-                                                            }
-                                                        }
-                                                    }
-                                                }
-
-                                                $isCampaign = false;
-                                                $today = date('Y-m-d H:i:s');
-                                                $campaign = App\Models\CampaignProduct::where([
-                                                    'status' => 1,
-                                                    'product_id' => $threeColsecondCatProduct->id,
-                                                ])->first();
-                                                if ($campaign) {
-                                                    $campaign = $campaign->campaign;
-                                                    if (
-                                                        $campaign->start_date <= $today &&
-                                                        $today <= $campaign->end_date
-                                                    ) {
-                                                        $isCampaign = true;
-                                                    }
-                                                    $campaignOffer = $campaign->offer;
-                                                    $productPrice = $threeColsecondCatProduct->price;
-                                                    $campaignOfferPrice = ($campaignOffer / 100) * $productPrice;
-                                                    $totalPrice = $productPrice;
-                                                    $campaignOfferPrice = $totalPrice - $campaignOfferPrice;
-                                                }
-
-                                                $totalPrice = $threeColsecondCatProduct->price;
-                                                if ($threeColsecondCatProduct->offer_price != null) {
-                                                    $offerPrice = $threeColsecondCatProduct->offer_price;
-                                                    $offer = $totalPrice - $offerPrice;
-                                                    $percentage = ($offer * 100) / $totalPrice;
-                                                    $percentage = round($percentage);
-                                                }
-                                            @endphp
-
-                                            @if ($isCampaign)
-                                                <p class="wsus__tk">
-                                                    {{ $currencySetting->currency_icon }}{{ sprintf('%.2f', $campaignOfferPrice + $variantPrice) }}
-                                                    <del>{{ $currencySetting->currency_icon }}{{ sprintf('%.2f', $totalPrice) }}</del>
-                                                </p>
-                                            @else
-                                                @if ($threeColsecondCatProduct->offer_price == null)
-                                                    <p class="wsus__tk">
-                                                        {{ $currencySetting->currency_icon }}{{ sprintf('%.2f', $totalPrice + $variantPrice) }}
-                                                    </p>
-                                                @else
-                                                    <p class="wsus__tk">
-                                                        {{ $currencySetting->currency_icon }}{{ sprintf('%.2f', $threeColsecondCatProduct->offer_price + $variantPrice) }}
-                                                        <del>{{ $currencySetting->currency_icon }}{{ sprintf('%.2f', $totalPrice) }}</del>
-                                                    </p>
-                                                @endif
-                                            @endif
-
-                                        </div>
-                                    </a>
-                                </div>
-                            @endforeach
-
-
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-sm-6 col-md-6 col-lg-4">
-                        <div class="wsus__section_header">
-                            @php
-                                $threeCategory = $columnCategories
-                                    ->where('id', $threeColumnCategory->category_id_three)
-                                    ->first();
-                            @endphp
-                            <h3>{{ $threeCategory ? $threeCategory->name : '' }}</h3>
-                        </div>
-                        <div class="row weekly_best">
-                            @foreach ($threeColumnThirdCategoryProducts as $threeColCatProduct)
-                                <div class="col-xl-12">
-                                    <a class="wsus__hot_deals__single"
-                                        href="{{ route('product-detail', $threeColCatProduct->slug) }}">
-                                        <div class="wsus__hot_deals__single_img">
-                                            <img src="{{ asset($threeColCatProduct->thumb_image) }}" alt="bag"
-                                                class="img-fluid w-100">
-                                        </div>
-                                        <div class="wsus__hot_deals__single_text">
-                                            <h5>{{ $threeColCatProduct->short_name }}</h5>
-                                            @php
-                                                $reviewQty = $threeColCatProduct->reviews->where('status', 1)->count();
-                                                $totalReview = $threeColCatProduct->reviews
-                                                    ->where('status', 1)
-                                                    ->sum('rating');
-                                                if ($reviewQty > 0) {
-                                                    $average = $totalReview / $reviewQty;
-                                                    $intAverage = intval($average);
-                                                    $nextValue = $intAverage + 1;
-                                                    $reviewPoint = $intAverage;
-                                                    $halfReview = false;
-                                                    if ($intAverage < $average && $average < $nextValue) {
-                                                        $reviewPoint = $intAverage + 0.5;
-                                                        $halfReview = true;
-                                                    }
-                                                }
-                                            @endphp
-
-                                            @if ($reviewQty > 0)
-                                                <p class="wsus__rating">
-                                                    @for ($i = 1; $i <= 5; $i++)
-                                                        @if ($i <= $reviewPoint)
-                                                            <i class="fas fa-star"></i>
-                                                        @elseif ($i > $reviewPoint)
-                                                            @if ($halfReview == true)
-                                                                <i class="fas fa-star-half-alt"></i>
-                                                                @php
-                                                                    $halfReview = false;
-                                                                @endphp
-                                                            @else
-                                                                <i class="fal fa-star"></i>
-                                                            @endif
-                                                        @endif
-                                                    @endfor
-                                                    <span>({{ $reviewQty }})</span>
-                                                </p>
-                                            @endif
-
-                                            @if ($reviewQty == 0)
-                                                <p class="wsus__rating">
-                                                    <i class="fal fa-star"></i>
-                                                    <i class="fal fa-star"></i>
-                                                    <i class="fal fa-star"></i>
-                                                    <i class="fal fa-star"></i>
-                                                    <i class="fal fa-star"></i>
-                                                    <span>(0)</span>
-                                                </p>
-                                            @endif
-
-                                            @php
-                                                $variantPrice = 0;
-                                                $variants = $threeColCatProduct->variants->where('status', 1);
-                                                if ($variants->count() != 0) {
-                                                    foreach ($variants as $variants_key => $variant) {
-                                                        if ($variant->variantItems->where('status', 1)->count() != 0) {
-                                                            $item = $variant->variantItems
-                                                                ->where('is_default', 1)
-                                                                ->first();
-                                                            if ($item) {
-                                                                $variantPrice += $item->price;
-                                                            }
-                                                        }
-                                                    }
-                                                }
-
-                                                $isCampaign = false;
-                                                $today = date('Y-m-d H:i:s');
-                                                $campaign = App\Models\CampaignProduct::where([
-                                                    'status' => 1,
-                                                    'product_id' => $threeColCatProduct->id,
-                                                ])->first();
-                                                if ($campaign) {
-                                                    $campaign = $campaign->campaign;
-                                                    if (
-                                                        $campaign->start_date <= $today &&
-                                                        $today <= $campaign->end_date
-                                                    ) {
-                                                        $isCampaign = true;
-                                                    }
-                                                    $campaignOffer = $campaign->offer;
-                                                    $productPrice = $threeColCatProduct->price;
-                                                    $campaignOfferPrice = ($campaignOffer / 100) * $productPrice;
-                                                    $totalPrice = $productPrice;
-                                                    $campaignOfferPrice = $totalPrice - $campaignOfferPrice;
-                                                }
-
-                                                $totalPrice = $threeColCatProduct->price;
-                                                if ($threeColCatProduct->offer_price != null) {
-                                                    $offerPrice = $threeColCatProduct->offer_price;
-                                                    $offer = $totalPrice - $offerPrice;
-                                                    $percentage = ($offer * 100) / $totalPrice;
-                                                    $percentage = round($percentage);
-                                                }
-                                            @endphp
-
-                                            @if ($isCampaign)
-                                                <p class="wsus__tk">
-                                                    {{ $currencySetting->currency_icon }}{{ sprintf('%.2f', $campaignOfferPrice + $variantPrice) }}
-                                                    <del>{{ $currencySetting->currency_icon }}{{ sprintf('%.2f', $totalPrice) }}</del>
-                                                </p>
-                                            @else
-                                                @if ($threeColCatProduct->offer_price == null)
-                                                    <p class="wsus__tk">
-                                                        {{ $currencySetting->currency_icon }}{{ sprintf('%.2f', $totalPrice + $variantPrice) }}
-                                                    </p>
-                                                @else
-                                                    <p class="wsus__tk">
-                                                        {{ $currencySetting->currency_icon }}{{ sprintf('%.2f', $threeColCatProduct->offer_price + $variantPrice) }}
-                                                        <del>{{ $currencySetting->currency_icon }}{{ sprintf('%.2f', $totalPrice) }}</del>
-                                                    </p>
-                                                @endif
-                                            @endif
-
-                                        </div>
-                                    </a>
-                                </div>
-                            @endforeach
-                        </div>
+    <section id="wsus__electronic2" class="section_separate">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="wsus__section_header">
+                        <h3>{{ __('user.Best Selling Products') }}</h3>
+                        <a class="see_btn" href="{{ route('product', ['type' => 'best']) }}">{{ __('user.see more') }}
+                            <i class="fas fa-caret-right"></i></a>
                     </div>
                 </div>
             </div>
-        </section>
-    @endif
+            <div class="row">
+                @foreach ($bestProducts as $product)
+                    <div class="col-xl-2 col-sm-6 col-lg-3 col-6">
+                        @include('website.product-cart')
+                    </div>
+                @endforeach
+            </div>
+            @foreach ($bestProducts as $product)
+                @include('website.product-modal')
+            @endforeach
+        </div>
+    </section>
     {{-- <!--============================
-        WEEKLY BEST ITEM END
+        Best selling products END
     ==============================--> --}}
+
+
+    {{-- <!--============================
+        Just for START
+    ==============================--> --}}
+    <section id="wsus__electronic2" class="section_separate">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="wsus__section_header">
+                        <h3>{{ __('user.Just for You') }}</h3>
+                        <a class="see_btn" href="{{ route('product', ['type' => 'top']) }}">{{ __('see more') }} <i
+                                class="fas fa-caret-right"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                @foreach ($topProducts as $product)
+                    <div class="col-xl-2 col-sm-6 col-lg-3 col-6">
+                        @include('website.product-cart')
+                    </div>
+                @endforeach
+            </div>
+            @foreach ($topProducts as $product)
+                @include('website.product-modal')
+            @endforeach
+        </div>
+    </section>
+    {{-- <!--============================
+        Just for END
+    ==============================--> --}}
+
 
     {{-- <!--============================
         LARGE BANNER  START
@@ -1193,32 +814,5 @@
     @endif
     {{-- <!--============================
         LARGE BANNER  END
-    ==============================--> --}}
-
-    {{-- <!--============================
-        HOME SERVOCES START
-    ==============================--> --}}
-    @php
-        $serviceVisibility = $visibilities->where('id', 11)->first();
-    @endphp
-    @if ($serviceVisibility->status == 1)
-        <section id="wsus__home_services">
-            <div class="container">
-                <div class="row">
-                    @foreach ($services as $service)
-                        <div class="col-xl-3 col-sm-6 col-lg-3">
-                            <div class="wsus__home_services_single">
-                                <i class="{{ $service->icon }}"></i>
-                                <h5>{{ $service->title }}</h5>
-                                <p>{{ $service->description }}</p>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-            </div>
-        </section>
-    @endif
-    {{-- <!--============================
-        HOME SERVICES END
     ==============================--> --}}
 @endsection
