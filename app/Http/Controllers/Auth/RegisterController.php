@@ -2,20 +2,22 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
-use App\Models\User;
-use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Http\Request;
-use App\Rules\Captcha;
 use Auth;
-use App\Mail\UserRegistration;
-use App\Helpers\MailHelper;
-use App\Models\EmailTemplate;
 use Mail;
-use Str;
+use App\Models\User;
+use App\Rules\Captcha;
+use App\Helpers\MailHelper;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use App\Models\EmailTemplate;
+use App\Mail\UserRegistration;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
+use App\Providers\RouteServiceProvider;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Foundation\Auth\RegistersUsers;
+
+
 class RegisterController extends Controller
 {
 
@@ -30,59 +32,78 @@ class RegisterController extends Controller
         $this->middleware('guest:web');
     }
 
-    public function storeRegister(Request $request){
+    public function storeRegister(Request $request)
+    {
         $rules = [
-            'name'=>'required',
-            'agree'=>'required',
-            'email'=>'required|unique:users',
-            'password'=>'required|min:4|confirmed',
-            'g-recaptcha-response'=>new Captcha()
+            'name' => 'required',
+            'password' => 'required|min:4|confirmed'
         ];
         $customMessages = [
-            'name.required' => trans('user_validation.Email is required'),
-            'email.required' => trans('user_validation.Email is required'),
-            'email.unique' => trans('user_validation.Email already exist'),
+            'name.required' => trans('user_validation.Name is required'),
             'password.required' => trans('user_validation.Password is required'),
             'password.min' => trans('user_validation.Password must be 4 characters'),
             'password.confirmed' => trans('user_validation.Confirm password does not match'),
-            'agree.required' => trans('user_validation.Consent filed is required'),
         ];
-        $this->validate($request, $rules,$customMessages);
+        $this->validate($request, $rules, $customMessages);
 
-        $user = new User();
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->agree_policy = $request->agree ? 1 : 0;
-        $user->password = Hash::make($request->password);
-        $user->verify_token = Str::random(100);
-        $user->save();
+        $login = $request->username;
 
-        MailHelper::setMailConfig();
+        $field = null;
+        if (is_numeric($login)) {
+            $field = 'phone';
+        } elseif (filter_var($login, FILTER_VALIDATE_EMAIL)) {
+            $field = 'email';
+        }
 
-        $template=EmailTemplate::where('id',4)->first();
-        $subject=$template->subject;
-        $message=$template->description;
-        $message = str_replace('{{user_name}}',$request->name,$message);
-        Mail::to($user->email)->send(new UserRegistration($message,$subject,$user));
 
-        $notification = trans('user_validation.Register Successfully. Please Verify your email');
-        $notification=array('messege'=>$notification,'alert-type'=>'success');
+
+        $check = User::where($field, $login)->first();
+
+        if ($check) {
+            return back()->with([
+                'messege' => 'User already exists',
+                'alert-type' => 'error'
+            ]);
+        }
+
+        $user = User::create([
+            'name' => $request->name,
+            $field => $request->username,
+            'password' => Hash::make($request->password),
+            'verify_token' => Str::random(100),
+            'email_verified_at' => now(),
+            'email_verified' => 1,
+            "agree_policy" => $request->agree ? 1 : 0,
+            'status' => 1,
+        ]);
+
+        // MailHelper::setMailConfig();
+
+        // $template = EmailTemplate::where('id', 4)->first();
+        // $subject = $template->subject;
+        // $message = $template->description;
+        // $message = str_replace('{{user_name}}', $request->name, $message);
+        // Mail::to($user->email)->send(new UserRegistration($message, $subject, $user));
+
+        $notification = trans('user_validation.Register Successfully');
+        $notification = array('messege' => $notification, 'alert-type' => 'success');
         return redirect()->back()->with($notification);
     }
 
-    public function userVerification($token){
-        $user = User::where('verify_token',$token)->first();
-        if($user){
+    public function userVerification($token)
+    {
+        $user = User::where('verify_token', $token)->first();
+        if ($user) {
             $user->verify_token = null;
             $user->status = 1;
             $user->email_verified = 1;
             $user->save();
             $notification = trans('user_validation.Verification Successfully');
-            $notification = array('messege'=>$notification,'alert-type'=>'success');
+            $notification = array('messege' => $notification, 'alert-type' => 'success');
             return redirect()->route('login')->with($notification);
-        }else{
+        } else {
             $notification = trans('user_validation.Invalid token');
-            $notification = array('messege'=>$notification,'alert-type'=>'error');
+            $notification = array('messege' => $notification, 'alert-type' => 'error');
             return redirect()->route('login')->with($notification);
         }
     }
