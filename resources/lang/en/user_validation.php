@@ -125,5 +125,6 @@ return array(
     'Amount cannot be less than 100₱' => 'Amount cannot be less than 100₱',
     'Your account has been deleted successfully' => 'Your account has been deleted successfully',
     'You can not delete your seller account' => 'You can not delete your seller account',
-    'Register Successfully' => 'Register Successfully'
+    'Register Successfully' => 'Register Successfully',
+    'Address Crated Successfully' => 'Address Crated Successfully'
 );
