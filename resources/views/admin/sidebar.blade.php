@@ -111,7 +111,9 @@
 
                 </ul>
             </li>
-
+            <li class="{{ Route::is('admin.inventory') || Route::is('admin.stock-history') ? 'active' : '' }}"><a
+                    class="nav-link" href="{{ route('admin.inventory') }}"><i class="fas fa-th-large"></i>
+                    <span>{{ __('admin.Inventory') }}</span></a></li>
             <li
                 class="nav-item dropdown {{ Route::is('admin.state.*') || Route::is('admin.city.*') ? 'active' : '' }}">
                 <a href="#" class="nav-link has-dropdown"><i
@@ -134,7 +136,8 @@
                 <ul class="dropdown-menu">
                     <li
                         class="{{ Route::is('admin.campaign.*') || Route::is('admin.campaign-product') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ route('admin.campaign.index') }}">{{ __('admin.Campaign') }}</a>
+                        <a class="nav-link"
+                            href="{{ route('admin.campaign.index') }}">{{ __('admin.Campaign') }}</a>
                     </li>
 
                     <li class="{{ Route::is('admin.coupon.*') ? 'active' : '' }}"><a class="nav-link"

@@ -95,6 +95,7 @@ use App\Http\Controllers\User\MessageController;
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Admin\InventoryController;
 
 Route::group(['middleware' => ['XSS']], function () {
 
@@ -401,6 +402,12 @@ Route::group(['middleware' => ['XSS']], function () {
 
         Route::resource('service', ServiceController::class);
         Route::put('service-status/{id}', [ServiceController::class, 'changeStatus'])->name('service.status');
+
+
+        Route::get('inventory', [InventoryController::class, 'index'])->name('inventory');
+        Route::get('stock-history/{id}', [InventoryController::class, 'show_inventory'])->name('stock-history');
+        Route::post('add-stock', [InventoryController::class, 'add_stock'])->name('add-stock');
+        Route::delete('delete-stock/{id}', [InventoryController::class, 'delete_stock'])->name('delete-stock');
 
         Route::resource('about-us', AboutUsController::class);
         Route::resource('contact-us', ContactPageController::class);
