@@ -29,23 +29,4 @@ class Address extends Model
     {
         return $this->belongsTo(User::class);
     }
-
-    public function getFullAddressAttribute()
-    {
-        $fullAddress = $this->address ?? '';
-
-        if ($this->city) {
-            $fullAddress .= ', ' . $this->city->name ?? '';
-        }
-
-        if ($this->state) {
-            $fullAddress .= ', ' . $this->state->name ?? '';
-        }
-
-        if ($this->country) {
-            $fullAddress .= ', ' . $this->country->name ?? '';
-        }
-
-        return $fullAddress;
-    }
 }

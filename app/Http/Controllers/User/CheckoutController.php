@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Address;
 use Illuminate\Http\Request;
 use App\Models\BreadcrumbImage;
 use Auth;
@@ -47,7 +48,13 @@ class CheckoutController extends Controller
 
         $banner = BreadcrumbImage::where(['id' => 2])->first();
         $shippingMethods = ShippingMethod::where('status', 1)->get();
-        return view('checkout', compact('banner', 'cartContents', 'shipping', 'states', 'shippingMethods'));
+
+        $addresses = null;
+
+        if (auth()->user()) {
+            $addresses = Address::where('user_id', auth()->user()->id)->get();
+        }
+        return view('checkout', compact('banner', 'cartContents', 'shipping', 'states', 'shippingMethods', 'addresses'));
     }
 
     public function payment()

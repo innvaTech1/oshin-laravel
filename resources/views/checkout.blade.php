@@ -8,8 +8,8 @@
 
 @section('public-content')
     <!--============================
-                                                                                                                                                         BREADCRUMB START
-                                                                                                                                                    ==============================-->
+                                                                                                                                                                             BREADCRUMB START
+                                                                                                                                                                        ==============================-->
     <section id="wsus__breadcrumb" style="background: url({{ asset($banner->image) }});">
         <div class="wsus_breadcrumb_overlay">
             <div class="container">
@@ -50,69 +50,31 @@
                                     @endauth
                                 </h5>
                                 <div class="row">
-                                    <div class="col-xl-6">
-                                        <div class="wsus__checkout_single_address">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                                    id="flexRadioDefault1" checked>
-                                                <label class="form-check-label" for="flexRadioDefault1">
-                                                    Select Address
-                                                </label>
+                                    @foreach ($addresses as $address)
+                                        <div class="col-xl-6">
+                                            <div class="wsus__checkout_single_address">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                                        id="flexRadioDefault{{ $address->id }}" checked>
+                                                    <label class="form-check-label"
+                                                        for="flexRadioDefault{{ $address->id }}">
+                                                        {{ __('user.Select Address') }}
+                                                    </label>
+                                                </div>
+                                                <ul>
+                                                    <li><span>{{ __('user.Name') }} :</span>{{ $address->name }}</li>
+                                                    <li><span>{{ __('user.Phone') }} :</span> {{ $address->phone }}</li>
+                                                    <li><span>{{ __('user.Email') }} :</span> {{ $address->email }}</li>
+                                                    <li><span>{{ __('user.Address') }} :</span> {{ $address->address }}
+                                                    </li>
+                                                    <li><span>{{ __('user.City') }} :</span> {{ $address->city->name }}
+                                                    </li>
+                                                    <li><span>{{ __('user.State') }} :</span> {{ $address->state->name }}
+                                                    </li>
+                                                </ul>
                                             </div>
-                                            <ul>
-                                                <li><span>Name :</span> Anik Roy</li>
-                                                <li><span>Phone :</span> +66954581322222</li>
-                                                <li><span>Email :</span> Example@Gmail.Com</li>
-                                                <li><span>Country :</span> Bangladesh</li>
-                                                <li><span>City :</span> Dhaka</li>
-                                                <li><span>Zip Code :</span> 8320</li>
-                                                <li><span>Company :</span> N/A</li>
-                                                <li><span>Address :</span> Bashindhara P/A, Dhaka</li>
-                                            </ul>
                                         </div>
-                                    </div>
-                                    <div class="col-xl-6">
-                                        <div class="wsus__checkout_single_address">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                                    id="flexRadioDefault11">
-                                                <label class="form-check-label" for="flexRadioDefault11">
-                                                    Select Address
-                                                </label>
-                                            </div>
-                                            <ul>
-                                                <li><span>Name :</span> Anik Roy</li>
-                                                <li><span>Phone :</span> +66954581322222</li>
-                                                <li><span>Email :</span> Example@Gmail.Com</li>
-                                                <li><span>Country :</span> Bangladesh</li>
-                                                <li><span>City :</span> Dhaka</li>
-                                                <li><span>Zip Code :</span> 8320</li>
-                                                <li><span>Company :</span> N/A</li>
-                                                <li><span>Address :</span> Bashindhara P/A, Dhaka</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-6">
-                                        <div class="wsus__checkout_single_address">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                                    id="flexRadioDefault12">
-                                                <label class="form-check-label" for="flexRadioDefault12">
-                                                    Select Address
-                                                </label>
-                                            </div>
-                                            <ul>
-                                                <li><span>Name :</span> Anik Roy</li>
-                                                <li><span>Phone :</span> +66954581322222</li>
-                                                <li><span>Email :</span> Example@Gmail.Com</li>
-                                                <li><span>Country :</span> Bangladesh</li>
-                                                <li><span>City :</span> Dhaka</li>
-                                                <li><span>Zip Code :</span> 8320</li>
-                                                <li><span>Company :</span> N/A</li>
-                                                <li><span>Address :</span> Bashindhara P/A, Dhaka</li>
-                                            </ul>
-                                        </div>
-                                    </div>
+                                    @endforeach
                                 </div>
                                 <div class="row mt-4">
                                     @guest
@@ -172,7 +134,7 @@
                                                                 <input class="form-check-input" type="checkbox"
                                                                     value="" id="flexCheckDefault">
                                                                 <label class="form-check-label" for="flexCheckDefault">
-                                                                    Same as shipping address
+                                                                    {{ __('user.Same as shipping address') }}
                                                                 </label>
                                                             </div>
                                                         </div>
@@ -187,33 +149,36 @@
                                                                     <div class="wsus__check_single_form">
                                                                         <input type="text"
                                                                             placeholder="{{ __('user.Name') }}*"
-                                                                            name="name" value="{{ old('name') }}">
+                                                                            name="billing_name"
+                                                                            value="{{ old('billing_name') }}">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-12 col-lg-6 col-xl-6">
                                                                     <div class="wsus__add_address_single">
                                                                         <input type="email"
                                                                             placeholder="{{ __('user.Email') }}"
-                                                                            name="email" value="{{ old('email') }}">
+                                                                            name="billing_email"
+                                                                            value="{{ old('billing_email') }}">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-12 col-lg-6 col-xl-6">
                                                                     <div class="wsus__add_address_single">
                                                                         <input type="text"
                                                                             placeholder="{{ __('user.Phone') }}*"
-                                                                            name="phone" value="{{ old('phone') }}">
+                                                                            name="billing_phone"
+                                                                            value="{{ old('billing_phone') }}">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-6 col-lg-12 col-xl-6">
                                                                     <div class="wsus__check_single_form">
-                                                                        <input type="text" name="address"
+                                                                        <input type="text" name="billing_address"
                                                                             placeholder="{{ __('user.Address') }}*"
-                                                                            value="{{ old('address') }}">
+                                                                            value="{{ old('billing_address') }}">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-6 col-lg-12 col-xl-6">
                                                                     <div class="wsus__check_single_form">
-                                                                        <select name="state_id"
+                                                                        <select name="billing_state_id"
                                                                             class="state form-control select_2">
                                                                             <option selected disabled>
                                                                                 {{ __('user.Select State') }}
@@ -227,7 +192,7 @@
                                                                 </div>
                                                                 <div class="col-md-6 col-lg-12 col-xl-6">
                                                                     <div class="wsus__check_single_form">
-                                                                        <select name="city_id"
+                                                                        <select name="billing_city_id"
                                                                             class="city form-control select_2">
                                                                             <option selected disabled>
                                                                                 {{ __('user.Select City') }}
@@ -245,7 +210,7 @@
                                     <div class="col-md-12 col-lg-12 col-xl-12">
                                         <div class="wsus__check_single_form">
                                             <h5>{{ __('user.Additional Information') }}</h5>
-                                            <textarea cols="3" rows="4" name="addition_information"></textarea>
+                                            <textarea cols="3" rows="4" name="addition_information">{{ old('addition_information') }}</textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -427,8 +392,8 @@
                                     </div>
                                     <div class="col-md-6 col-lg-12 col-xl-6">
                                         <div class="wsus__check_single_form">
-                                            <input type="text" name="address" placeholder="{{ __('user.Address') }}*"
-                                                value="{{ old('address') }}">
+                                            <input type="text" name="address"
+                                                placeholder="{{ __('user.Address') }}*" value="{{ old('address') }}">
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-lg-12 col-xl-6">
@@ -456,7 +421,8 @@
 
                                     <div class="col-md-12 col-lg-6 col-xl-6">
                                         <div class="wsus__check_single_form">
-                                            <button type="submit" class="btn btn-primary">{{ __('user.Save Address') }}</button>
+                                            <button type="submit"
+                                                class="btn btn-primary">{{ __('user.Save Address') }}</button>
                                         </div>
                                     </div>
                                 </div>
