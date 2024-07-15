@@ -86,6 +86,8 @@
                         <a class="nav-link" href="{{ route('admin.product.index') }}">{{ __('admin.Products') }}</a>
                     </li>
 
+                    <li class="{{ Route::is('admin.stockout-product') ? 'active' : '' }}"><a class="nav-link"
+                            href="{{ route('admin.stockout-product') }}">{{ __('admin.Stock out') }}</a></li>
                     <li class="{{ Route::is('admin.seller-product') ? 'active' : '' }}"><a class="nav-link"
                             href="{{ route('admin.seller-product') }}">{{ __('admin.Seller Products') }}</a></li>
 
@@ -97,12 +99,14 @@
                     <li
                         class="{{ Route::is('admin.product-review') || Route::is('admin.show-product-review') ? 'active' : '' }}">
                         <a class="nav-link"
-                            href="{{ route('admin.product-review') }}">{{ __('admin.Product Reviews') }}</a></li>
+                            href="{{ route('admin.product-review') }}">{{ __('admin.Product Reviews') }}</a>
+                    </li>
 
                     <li
                         class="{{ Route::is('admin.product-report') || Route::is('admin.show-product-report') ? 'active' : '' }}">
                         <a class="nav-link"
-                            href="{{ route('admin.product-report') }}">{{ __('admin.Product Report') }}</a></li>
+                            href="{{ route('admin.product-report') }}">{{ __('admin.Product Report') }}</a>
+                    </li>
 
 
                 </ul>
@@ -168,7 +172,8 @@
                     <li
                         class="{{ Route::is('admin.seller-withdraw') || Route::is('admin.show-seller-withdraw') ? 'active' : '' }}">
                         <a class="nav-link"
-                            href="{{ route('admin.seller-withdraw') }}">{{ __('admin.Seller Withdraw') }}</a></li>
+                            href="{{ route('admin.seller-withdraw') }}">{{ __('admin.Seller Withdraw') }}</a>
+                    </li>
 
                     <li class="{{ Route::is('admin.pending-seller-withdraw') ? 'active' : '' }}"><a class="nav-link"
                             href="{{ route('admin.pending-seller-withdraw') }}">{{ __('admin.Pending Seller Withdraw') }}</a>
@@ -185,7 +190,8 @@
                     <li
                         class="{{ Route::is('admin.customer-list') || Route::is('admin.customer-show') || Route::is('admin.send-email-to-all-customer') ? 'active' : '' }}">
                         <a class="nav-link"
-                            href="{{ route('admin.customer-list') }}">{{ __('admin.Customer List') }}</a></li>
+                            href="{{ route('admin.customer-list') }}">{{ __('admin.Customer List') }}</a>
+                    </li>
 
                     <li class="{{ Route::is('admin.pending-customer-list') ? 'active' : '' }}"><a class="nav-link"
                             href="{{ route('admin.pending-customer-list') }}">{{ __('admin.Pending Customers') }}</a>
@@ -197,7 +203,8 @@
                     <li
                         class="{{ Route::is('admin.seller-list') || Route::is('admin.seller-show') || Route::is('admin.seller-shop-detail') || Route::is('admin.seller-reviews') || Route::is('admin.show-seller-review-details') || Route::is('admin.send-email-to-seller') || Route::is('admin.email-history') || Route::is('admin.product-by-seller') || Route::is('admin.send-email-to-all-seller') ? 'active' : '' }}">
                         <a class="nav-link"
-                            href="{{ route('admin.seller-list') }}">{{ __('admin.Seller List') }}</a></li>
+                            href="{{ route('admin.seller-list') }}">{{ __('admin.Seller List') }}</a>
+                    </li>
 
                     <li class="{{ Route::is('admin.pending-seller-list') ? 'active' : '' }}"><a class="nav-link"
                             href="{{ route('admin.pending-seller-list') }}">{{ __('admin.Pending Sellers') }}</a>
@@ -346,7 +353,8 @@
                     <li
                         class="{{ Route::is('admin.email-template') || Route::is('admin.edit-email-template') ? 'active' : '' }}">
                         <a class="nav-link"
-                            href="{{ route('admin.email-template') }}">{{ __('admin.Email Template') }}</a></li>
+                            href="{{ route('admin.email-template') }}">{{ __('admin.Email Template') }}</a>
+                    </li>
                 </ul>
             </li>
             <li

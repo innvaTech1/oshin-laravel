@@ -63,6 +63,17 @@ class ProductController extends Controller
         return view('admin.seller_product', compact('products', 'orderProducts', 'setting'));
     }
 
+    public function stockoutProduct()
+    {
+        $products = Product::with('category', 'seller', 'brand')->where('vendor_id', 0)->where('qty', 0)->get();
+        $orderProducts = OrderProduct::all();
+        $setting = Setting::first();
+        $frontend_url = $setting->frontend_url;
+        $frontend_url = $frontend_url . '/single-product?slug=';
+
+        return view('admin.stockout_product', compact('products', 'orderProducts', 'setting', 'frontend_url'));
+    }
+
     public function create()
     {
         $categories = Category::all();

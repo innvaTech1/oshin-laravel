@@ -375,7 +375,7 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::post('product-import', [ProductController::class, 'product_import'])->name('product-import');
 
 
-
+        Route::get('stockout-product', [ProductController::class, 'stockoutProduct'])->name('stockout-product');
 
         Route::get('product-variant/{id}', [ProductVariantController::class, 'index'])->name('product-variant');
         Route::get('create-product-variant/{id}', [ProductVariantController::class, 'create'])->name('create-product-variant');
