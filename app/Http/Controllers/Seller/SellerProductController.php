@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Seller;
+namespace App\Http\Controllers\WEB\Seller;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -9,8 +9,6 @@ use App\Models\SubCategory;
 use App\Models\ChildCategory;
 use App\Models\ProductGallery;
 use App\Models\Brand;
-use App\Models\ProductTax;
-use App\Models\ReturnPolicy;
 use App\Models\ProductSpecificationKey;
 use App\Models\ProductSpecification;
 use App\Models\User;
@@ -18,18 +16,23 @@ use App\Models\Vendor;
 use App\Models\OrderProduct;
 use App\Models\ProductVariant;
 use App\Models\ProductVariantItem;
-use App\Models\CampaignProduct;
 use App\Models\ProductReport;
 use App\Models\ProductReview;
 use App\Models\Wishlist;
 use App\Models\Setting;
+use App\Models\ShoppingCart;
+use App\Models\FlashSaleProduct;
+use App\Models\ShoppingCartVariant;
+use App\Models\CompareProduct;
 use Image;
 use File;
 use Str;
 use Auth;
 
-
-
+use App\Exports\ProductExport;
+use App\Imports\ProductImport;
+use Maatwebsite\Excel\Facades\Excel;
+use Exception;
 
 class SellerProductController extends Controller
 {
@@ -41,34 +44,45 @@ class SellerProductController extends Controller
     public function index()
     {
         $seller = Auth::guard('web')->user()->seller;
-        $products = Product::with('category')->orderBy('id','desc')->where('status',1)->where('vendor_id',$seller->id)->get();
+        $products = Product::with('category','seller','brand')->orderBy('id','desc')->where('approve_by_admin',1)->where('vendor_id',$seller->id)->orderBy('id','desc')->get();
         $orderProducts = OrderProduct::all();
         $setting = Setting::first();
         return view('seller.product',compact('products','orderProducts','setting'));
+
+
     }
 
     public function pendingProduct(){
         $seller = Auth::guard('web')->user()->seller;
-        $products = Product::with('category')->orderBy('id','desc')->where('status',0)->where('vendor_id',$seller->id)->get();
+        $products = Product::with('category','seller','brand')->orderBy('id','desc')->where('approve_by_admin',0)->where('vendor_id',$seller->id)->orderBy('id','desc')->get();
         $orderProducts = OrderProduct::all();
         $setting = Setting::first();
-        return view('seller.product',compact('products','orderProducts','setting'));
+        return view('seller.pending_product',compact('products','orderProducts','setting'));
     }
+
+    public function stockoutProduct(){
+        $seller = Auth::guard('web')->user()->seller;
+        $products = Product::with('category','seller','brand')->orderBy('id','desc')->where('qty',0)->where('vendor_id',$seller->id)->get();
+        $setting = Setting::first();
+
+        return view('seller.stockout_product',compact('products','setting'));
+    }
+
+
 
     public function create()
     {
         $categories = Category::all();
         $brands = Brand::all();
-        $productTaxs = ProductTax::where('status',1)->get();
-        $retrunPolicies = ReturnPolicy::where('status',1)->get();
         $specificationKeys = ProductSpecificationKey::all();
-        return view('seller.create_product',compact('categories','brands','productTaxs','retrunPolicies','specificationKeys'));
+
+        return view('seller.create_product',compact('categories','brands','specificationKeys'));
     }
 
 
     public function getSubcategoryByCategory($id){
         $subCategories=SubCategory::where('category_id',$id)->get();
-        $response='<option value="">'.trans('user_validation.Select Sub Category').'</option>';
+        $response='<option value="">'.trans('admin_validation.Select Sub Category').'</option>';
         foreach($subCategories as $subCategory){
             $response .= "<option value=".$subCategory->id.">".$subCategory->name."</option>";
         }
@@ -77,7 +91,7 @@ class SellerProductController extends Controller
 
     public function getChildcategoryBySubCategory($id){
         $childCategories=ChildCategory::where('sub_category_id',$id)->get();
-        $response='<option value="">'.trans('user_validation.Select Child Category').'</option>';
+        $response='<option value="">'.trans('admin_validation.Select Child Category').'</option>';
         foreach($childCategories as $childCategory){
             $response .= "<option value=".$childCategory->id.">".$childCategory->name."</option>";
         }
@@ -87,53 +101,33 @@ class SellerProductController extends Controller
     public function store(Request $request)
     {
 
-        if($request->video_link) {
-            $valid = preg_match("/^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/watch\?v\=\w+$/", $request->video_link);
-
-            if (!$valid) {
-                $notification = trans('admin_validation.Please provide your valid youtube url');
-                $notification = array('messege'=>$notification,'alert-type'=>'error');
-                return redirect()->back()->with($notification);
-            }
-        }
-
         $rules = [
             'short_name' => 'required',
             'name' => 'required',
             'slug' => 'required|unique:products',
             'thumb_image' => 'required',
-            'banner_image' => 'required',
             'category' => 'required',
             'short_description' => 'required',
             'long_description' => 'required',
-            'brand' => 'required',
             'price' => 'required|numeric',
-            'quantity' => 'required',
-            'tax' => 'required',
-            'is_return' => 'required',
-            'is_warranty' => 'required',
-            'return_policy_id' => $request->is_return == 1 ?  'required' : '',
+            'weight' => 'required',
+            'quantity' => 'required|numeric',
         ];
         $customMessages = [
-            'short_name.required' => trans('user_validation.Short name is required'),
-            'short_name.unique' => trans('user_validation.Short name is required'),
-            'name.required' => trans('user_validation.Name is required'),
-            'name.unique' => trans('user_validation.Name is required'),
-            'slug.required' => trans('user_validation.Slug is required'),
-            'slug.unique' => trans('user_validation.Slug already exist'),
-            'category.required' => trans('user_validation.Category is required'),
-            'thumb_image.required' => trans('user_validation.thumbnail is required'),
-            'banner_image.required' => trans('user_validation.Banner is required'),
-            'short_description.required' => trans('user_validation.Short description is required'),
-            'long_description.required' => trans('user_validation.Long description is required'),
-            'brand.required' => trans('user_validation.Brand is required'),
-            'price.required' => trans('user_validation.Price is required'),
-            'quantity.required' => trans('user_validation.Quantity is required'),
-            'tax.required' => trans('user_validation.Tax is required'),
-            'is_return.required' => trans('user_validation.Return is required'),
-            'is_warranty.required' => trans('user_validation.Warranty is required'),
-            'return_policy_id.required' => trans('user_validation.Return policy is required'),
-            'status.required' => trans('user_validation.Status is required'),
+            'short_name.required' => trans('admin_validation.Short name is required'),
+            'short_name.unique' => trans('admin_validation.Short name is required'),
+            'name.required' => trans('admin_validation.Name is required'),
+            'name.unique' => trans('admin_validation.Name is required'),
+            'slug.required' => trans('admin_validation.Slug is required'),
+            'slug.unique' => trans('admin_validation.Slug already exist'),
+            'category.required' => trans('admin_validation.Category is required'),
+            'thumb_image.required' => trans('admin_validation.thumbnail is required'),
+            'short_description.required' => trans('admin_validation.Short description is required'),
+            'long_description.required' => trans('admin_validation.Long description is required'),
+            'price.required' => trans('admin_validation.Price is required'),
+            'status.required' => trans('admin_validation.Status is required'),
+            'quantity.required' => trans('admin_validation.Quantity is required'),
+            'weight.required' => trans('admin_validation.Weight is required'),
         ];
         $this->validate($request, $rules,$customMessages);
 
@@ -149,15 +143,6 @@ class SellerProductController extends Controller
             $product->thumb_image=$image_name;
         }
 
-        if($request->banner_image){
-            $extention = $request->banner_image->getClientOriginalExtension();
-            $banner_name = 'product-banner'.date('-Y-m-d-h-i-s-').rand(999,9999).'.'.$extention;
-            $banner_name = 'uploads/custom-images/'.$banner_name;
-            Image::make($request->banner_image)
-                ->save(public_path().'/'.$banner_name);
-            $product->banner_image = $banner_name;
-        }
-
         $product->vendor_id = $seller->id;
         $product->short_name = $request->short_name;
         $product->name = $request->name;
@@ -165,23 +150,24 @@ class SellerProductController extends Controller
         $product->category_id = $request->category;
         $product->sub_category_id = $request->sub_category ? $request->sub_category : 0;
         $product->child_category_id = $request->child_category ? $request->child_category : 0;
-        $product->brand_id = $request->brand;
+        $product->brand_id = $request->brand ? $request->brand : 0;
         $product->sku = $request->sku;
         $product->price = $request->price;
         $product->offer_price = $request->offer_price;
-        $product->qty = $request->quantity;
+        $product->qty = $request->quantity ? $request->quantity : 0;
         $product->short_description = $request->short_description;
         $product->long_description = $request->long_description;
-        $product->video_link = $request->video_link;
         $product->tags = $request->tags;
-        $product->tax_id = $request->tax;
-        $product->is_warranty = $request->is_warranty;
-        $product->is_return = $request->is_return;
-        $product->return_policy_id = $request->is_return == 1 ? $request->return_policy_id : 0;
+        $product->status = 1;
+        $product->weight = $request->weight;
         $product->is_undefine = 1;
         $product->is_specification = $request->is_specification ? 1 : 0;
         $product->seo_title = $request->seo_title ? $request->seo_title : $request->name;
         $product->seo_description = $request->seo_description ? $request->seo_description : $request->name;
+        $product->is_top = $request->top_product ? 1 : 0;
+        $product->new_product = $request->new_arrival ? 1 : 0;
+        $product->is_best = $request->best_product ? 1 : 0;
+        $product->is_featured = $request->is_featured ? 1 : 0;
         $product->save();
 
         if($request->is_specification){
@@ -203,58 +189,47 @@ class SellerProductController extends Controller
                 }
             }
         }
-
-        $notification = trans('user_validation.Created Successfully');
+        $notification = trans('admin_validation.Created Successfully');
         $notification=array('messege'=>$notification,'alert-type'=>'success');
         return redirect()->route('seller.product.index')->with($notification);
     }
 
-    public function show(Product $product)
+    public function show($id)
     {
-        //
+        $product = Product::with('category','brand','gallery','specifications','reviews','variants','variantItems')->find($id);
+        if($product->vendor_id == 0){
+            $notification = 'Something went wrong';
+            return response()->json(['error'=>$notification],403);
+        }
+
+        return response()->json(['product' => $product], 200);
     }
 
     public function edit($id)
     {
-        $product = Product::find($id);
+        $product = Product::with('category','brand','gallery','variants','variantItems')->find($id);
         if($product->vendor_id == 0){
             $notification = 'Something went wrong';
-            $notification=array('messege'=>$notification,'alert-type'=>'error');
-            return redirect()->route('seller.product.index')->with($notification);
+            return response()->json(['error'=>$notification],403);
         }
         $categories = Category::all();
-        $subCategories = SubCategory::all();
-        $childCategories = ChildCategory::all();
+        $subCategories = SubCategory::where('category_id',$product->category_id)->get();
+        $childCategories = ChildCategory::where('sub_category_id', $product->sub_category_id)->get();
         $brands = Brand::all();
-        $productTaxs = ProductTax::where('status',1)->get();
-        $retrunPolicies = ReturnPolicy::where('status',1)->get();
         $specificationKeys = ProductSpecificationKey::all();
         $productSpecifications = ProductSpecification::where('product_id',$product->id)->get();
-        $tagArray = json_decode($product->tags);
-        $tags = '';
-        if($product->tags){
-            foreach($tagArray as $index => $tag){
-                $tags .= $tag->value.',';
-            }
-        }
 
-        return view('seller.edit_product',compact('categories','brands','productTaxs','retrunPolicies','specificationKeys','product','subCategories','childCategories','tags','productSpecifications'));
+
+        return view('seller.edit_product',compact('categories','brands','specificationKeys','product','subCategories','childCategories','productSpecifications'));
+
     }
 
     public function update(Request $request, $id)
     {
-        if($request->video_link) {
-            $valid = preg_match("/^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/watch\?v\=\w+$/", $request->video_link);
-
-            if (!$valid) {
-                $notification = trans('admin_validation.Please provide your valid youtube url');
-                $notification = array('messege'=>$notification,'alert-type'=>'error');
-                return redirect()->back()->with($notification);
-            }
-        }
 
 
         $product = Product::find($id);
+
         $rules = [
             'short_name' => 'required',
             'name' => 'required',
@@ -262,34 +237,27 @@ class SellerProductController extends Controller
             'category' => 'required',
             'short_description' => 'required',
             'long_description' => 'required',
-            'brand' => 'required',
             'price' => 'required|numeric',
-            'quantity' => 'required',
-            'tax' => 'required',
-            'is_return' => 'required',
-            'is_warranty' => 'required',
-            'return_policy_id' => $request->is_return == 1 ?  'required' : '',
+            'weight' => 'required',
+            'quantity' => 'required|numeric',
         ];
         $customMessages = [
-            'short_name.required' => trans('user_validation.Short name is required'),
-            'short_name.unique' => trans('user_validation.Short name is required'),
-            'name.required' => trans('user_validation.Name is required'),
-            'name.unique' => trans('user_validation.Name is required'),
-            'slug.required' => trans('user_validation.Slug is required'),
-            'slug.unique' => trans('user_validation.Slug already exist'),
-            'category.required' => trans('user_validation.Category is required'),
-            'thumb_image.required' => trans('user_validation.thumbnail is required'),
-            'banner_image.required' => trans('user_validation.Banner is required'),
-            'short_description.required' => trans('user_validation.Short description is required'),
-            'long_description.required' => trans('user_validation.Long description is required'),
-            'brand.required' => trans('user_validation.Brand is required'),
-            'price.required' => trans('user_validation.Price is required'),
-            'quantity.required' => trans('user_validation.Quantity is required'),
-            'tax.required' => trans('user_validation.Tax is required'),
-            'is_return.required' => trans('user_validation.Return is required'),
-            'is_warranty.required' => trans('user_validation.Warranty is required'),
-            'return_policy_id.required' => trans('user_validation.Return policy is required'),
-            'status.required' => trans('user_validation.Status is required'),
+            'short_name.required' => trans('admin_validation.Short name is required'),
+            'short_name.unique' => trans('admin_validation.Short name is required'),
+            'name.required' => trans('admin_validation.Name is required'),
+            'name.unique' => trans('admin_validation.Name is required'),
+            'slug.required' => trans('admin_validation.Slug is required'),
+            'slug.unique' => trans('admin_validation.Slug already exist'),
+            'category.required' => trans('admin_validation.Category is required'),
+            'thumb_image.required' => trans('admin_validation.thumbnail is required'),
+            'banner_image.required' => trans('admin_validation.Banner is required'),
+            'short_description.required' => trans('admin_validation.Short description is required'),
+            'long_description.required' => trans('admin_validation.Long description is required'),
+            'brand.required' => trans('admin_validation.Brand is required'),
+            'price.required' => trans('admin_validation.Price is required'),
+            'quantity.required' => trans('admin_validation.Quantity is required'),
+            'status.required' => trans('admin_validation.Status is required'),
+            'weight.required' => trans('admin_validation.Weight is required'),
         ];
         $this->validate($request, $rules,$customMessages);
 
@@ -307,19 +275,6 @@ class SellerProductController extends Controller
             }
         }
 
-        if($request->banner_image){
-            $old_banner = $product->banner_image;
-            $extention = $request->banner_image->getClientOriginalExtension();
-            $banner_name = 'product-banner'.date('-Y-m-d-h-i-s-').rand(999,9999).'.'.$extention;
-            $banner_name = 'uploads/custom-images/'.$banner_name;
-            Image::make($request->banner_image)
-                ->save(public_path().'/'.$banner_name);
-            $product->banner_image = $banner_name;
-            $product->save();
-            if($old_banner){
-                if(File::exists(public_path().'/'.$old_banner))unlink(public_path().'/'.$old_banner);
-            }
-        }
 
         $product->short_name = $request->short_name;
         $product->name = $request->name;
@@ -327,22 +282,27 @@ class SellerProductController extends Controller
         $product->category_id = $request->category;
         $product->sub_category_id = $request->sub_category ? $request->sub_category : 0;
         $product->child_category_id = $request->child_category ? $request->child_category : 0;
-        $product->brand_id = $request->brand;
+        $product->brand_id = $request->brand ? $request->brand : 0;
+        $product->qty = $request->quantity ? $request->quantity : 0;
+        $product->sold_qty = 0;
         $product->sku = $request->sku;
         $product->price = $request->price;
         $product->offer_price = $request->offer_price;
-        $product->qty = $request->quantity;
         $product->short_description = $request->short_description;
         $product->long_description = $request->long_description;
-        $product->video_link = $request->video_link;
         $product->tags = $request->tags;
-        $product->tax_id = $request->tax;
-        $product->is_warranty = $request->is_warranty;
-        $product->is_return = $request->is_return;
-        $product->return_policy_id = $request->is_return == 1 ? $request->return_policy_id : 0;
+
+        $product->weight = $request->weight;
         $product->is_specification = $request->is_specification ? 1 : 0;
         $product->seo_title = $request->seo_title ? $request->seo_title : $request->name;
         $product->seo_description = $request->seo_description ? $request->seo_description : $request->name;
+        $product->is_top = $request->top_product ? 1 : 0;
+        $product->new_product = $request->new_arrival ? 1 : 0;
+        $product->is_best = $request->best_product ? 1 : 0;
+        $product->is_featured = $request->is_featured ? 1 : 0;
+        if($product->approve_by_admin == 1){
+            $product->status = $request->status;
+        }
         $product->save();
 
         $exist_specifications=[];
@@ -368,8 +328,7 @@ class SellerProductController extends Controller
                 }
             }
         }
-
-        $notification = trans('user_validation.Update Successfully');
+        $notification = trans('admin_validation.Update Successfully');
         $notification=array('messege'=>$notification,'alert-type'=>'success');
         return redirect()->route('seller.product.index')->with($notification);
     }
@@ -392,15 +351,23 @@ class SellerProductController extends Controller
         }
         ProductVariant::where('product_id',$id)->delete();
         ProductVariantItem::where('product_id',$id)->delete();
-        CampaignProduct::where('product_id',$id)->delete();
         ProductReport::where('product_id',$id)->delete();
+        FlashSaleProduct::where('product_id',$id)->delete();
         ProductReview::where('product_id',$id)->delete();
         ProductSpecification::where('product_id',$id)->delete();
         Wishlist::where('product_id',$id)->delete();
 
-        $notification = trans('user_validation.Delete Successfully');
-        $notification = array('messege'=>$notification,'alert-type'=>'success');
-        return redirect()->back()->with($notification);
+        $cartProducts = ShoppingCart::where('product_id',$id)->get();
+        foreach($cartProducts as $cartProduct){
+            ShoppingCartVariant::where('shopping_cart_id', $cartProduct->id)->delete();
+            $cartProduct->delete();
+        }
+        CompareProduct::where('product_id',$id)->delete();
+
+        $notification = trans('admin_validation.Delete Successfully');
+        $notification=array('messege'=>$notification,'alert-type'=>'success');
+        return redirect()->route('seller.product.index')->with($notification);
+
     }
 
     public function changeStatus($id){
@@ -408,11 +375,11 @@ class SellerProductController extends Controller
         if($product->status == 1){
             $product->status = 0;
             $product->save();
-            $message = trans('user_validation.Inactive Successfully');
+            $message = trans('admin_validation.Inactive Successfully');
         }else{
             $product->status = 1;
             $product->save();
-            $message = trans('user_validation.Active Successfully');
+            $message = trans('admin_validation.Active Successfully');
         }
         return response()->json($message);
     }
@@ -420,81 +387,48 @@ class SellerProductController extends Controller
     public function removedProductExistSpecification($id){
         $productSpecification = ProductSpecification::find($id);
         $productSpecification->delete();
-        $message = trans('user_validation.Removed Successfully');
+        $message = trans('admin_validation.Removed Successfully');
         return response()->json($message);
     }
 
 
-    public function productHighlight($id){
-        $product = Product::find($id);
-        return view('seller.product_highlight', compact('product'));
+    public function product_import_page()
+    {
+        $seller = Auth::guard('web')->user()->seller;
+        return view('seller.product_import_page')->with(['seller' => $seller]);
     }
 
-    public function productHighlightUpdate(Request $request,$id){
+    public function product_export()
+    {
+        $is_dummy = false;
+        return Excel::download(new ProductExport($is_dummy), 'products.xlsx');
+    }
 
-        $product = Product::find($id);
-        if($request->product_type == 1){
-            $product->is_undefine = 1;
-            $product->new_product = 0;
-            $product->is_featured = 0;
-            $product->is_best = 0;
-            $product->is_top = 0;
-            $product->is_flash_deal = 0;
-            $product->save();
-        }else if($request->product_type == 2){
-            $product->is_undefine = 0;
-            $product->new_product = 1;
-            $product->is_featured = 0;
-            $product->is_best = 0;
-            $product->is_top = 0;
-            $product->is_flash_deal = 0;
-            $product->save();
-        }else if($request->product_type == 3){
-            $product->is_undefine = 0;
-            $product->new_product = 0;
-            $product->is_featured = 1;
-            $product->is_best = 0;
-            $product->is_top = 0;
-            $product->is_flash_deal = 0;
-            $product->save();
-        }else if($request->product_type == 4){
-            $product->is_undefine = 0;
-            $product->new_product = 0;
-            $product->is_featured = 0;
-            $product->is_best = 0;
-            $product->is_top = 1;
-            $product->is_flash_deal = 0;
-            $product->save();
-        }else if($request->product_type == 5){
-            $product->is_undefine = 0;
-            $product->new_product = 0;
-            $product->is_featured = 0;
-            $product->is_best = 1;
-            $product->is_top = 0;
-            $product->is_flash_deal = 0;
-            $product->save();
-        }else if($request->product_type == 6){
-            $rules = [
-                'date' => 'required'
-            ];
 
-            $customMessages = [
-                'date.required' => trans('user_validation.Date is required'),
-            ];
-            $this->validate($request, $rules, $customMessages);
-            $product->is_flash_deal = 1;
-            $product->flash_deal_date = $request->date;
-            $product->is_undefine = 0;
-            $product->new_product = 0;
-            $product->is_featured = 0;
-            $product->is_best = 0;
-            $product->is_top = 0;
-            $product->save();
+    public function demo_product_export()
+    {
+        $is_dummy = true;
+        return Excel::download(new ProductExport($is_dummy), 'products.xlsx');
+    }
+
+
+
+    public function product_import(Request $request)
+    {
+        try{
+            Excel::import(new ProductImport, $request->file('import_file'));
+
+            $notification=trans('Uploaded Successfully');
+            $notification=array('messege'=>$notification,'alert-type'=>'success');
+            return redirect()->back()->with($notification);
+
+        }catch(Exception $ex){
+            $notification=trans('Please follow the instruction and input the value carefully');
+            $notification=array('messege'=>$notification,'alert-type'=>'error');
+            return redirect()->back()->with($notification);
         }
 
-        $notification = trans('user_validation.Update Successfully');
-        $notification=array('messege'=>$notification,'alert-type'=>'success');
-        return redirect()->route('seller.product.index')->with($notification);
+
     }
 
 }

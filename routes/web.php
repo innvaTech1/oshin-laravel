@@ -260,6 +260,10 @@ Route::group(['middleware' => ['XSS']], function () {
             Route::get('product-highlight/{id}', [SellerProductController::class, 'productHighlight'])->name('product-highlight');
             Route::put('update-product-highlight/{id}', [SellerProductController::class, 'productHighlightUpdate'])->name('update-product-highlight');
 
+            Route::get('product-import-page', [SellerProductController::class, 'product_import_page'])->name('product-import-page');
+            Route::get('product-export', [SellerProductController::class, 'product_export'])->name('product-export');
+            Route::get('product-demo-export', [SellerProductController::class, 'demo_product_export'])->name('product-demo-export');
+            Route::post('product-import', [SellerProductController::class, 'product_import'])->name('product-import');
 
             Route::get('subcategory-by-category/{id}', [SellerProductController::class, 'getSubcategoryByCategory'])->name('subcategory-by-category');
             Route::get('childcategory-by-subcategory/{id}', [SellerProductController::class, 'getChildcategoryBySubCategory'])->name('childcategory-by-subcategory');
@@ -363,6 +367,14 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::get('seller-pending-product', [ProductController::class, 'sellerPendingProduct'])->name('seller-pending-product');
         Route::get('product-highlight/{id}', [ProductController::class, 'productHighlight'])->name('product-highlight');
         Route::put('update-product-highlight/{id}', [ProductController::class, 'productHighlightUpdate'])->name('update-product-highlight');
+
+
+        Route::get('product-import-page', [ProductController::class, 'product_import_page'])->name('product-import-page');
+        Route::get('product-export', [ProductController::class, 'product_export'])->name('product-export');
+        Route::get('product-demo-export', [ProductController::class, 'demo_product_export'])->name('product-demo-export');
+        Route::post('product-import', [ProductController::class, 'product_import'])->name('product-import');
+
+
 
 
         Route::get('product-variant/{id}', [ProductVariantController::class, 'index'])->name('product-variant');

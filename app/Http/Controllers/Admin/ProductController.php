@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\ProductExport;
 use App\Http\Controllers\Controller;
+use App\Imports\ProductImport;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Models\Category;
@@ -24,8 +26,10 @@ use App\Models\ProductReport;
 use App\Models\ProductReview;
 use App\Models\Wishlist;
 use App\Models\Setting;
+use Exception;
 use Image;
 use File;
+use Maatwebsite\Excel\Facades\Excel;
 use Str;
 
 class ProductController extends Controller
@@ -485,5 +489,40 @@ class ProductController extends Controller
         $notification = trans('admin_validation.Update Successfully');
         $notification = array('messege' => $notification, 'alert-type' => 'success');
         return redirect()->route('admin.product.index')->with($notification);
+    }
+
+    public function product_import_page()
+    {
+        return view('admin.product_import_page');
+    }
+
+    public function product_export()
+    {
+        $is_dummy = false;
+        return Excel::download(new ProductExport($is_dummy), 'products.xlsx');
+    }
+
+
+    public function demo_product_export()
+    {
+        $is_dummy = true;
+        return Excel::download(new ProductExport($is_dummy), 'products.xlsx');
+    }
+
+
+
+    public function product_import(Request $request)
+    {
+        try {
+            Excel::import(new ProductImport, $request->file('import_file'));
+
+            $notification = trans('Uploaded Successfully');
+            $notification = array('messege' => $notification, 'alert-type' => 'success');
+            return redirect()->back()->with($notification);
+        } catch (Exception $ex) {
+            $notification = trans('Please follow the instruction and input the value carefully');
+            $notification = array('messege' => $notification, 'alert-type' => 'error');
+            return redirect()->back()->with($notification);
+        }
     }
 }
