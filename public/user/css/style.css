@@ -213,7 +213,7 @@ p {
 }
 
 .wsus__topbar_left li:hover a {
-    color: #0b2c3d;
+    color: #0d0d0e;
 }
 
 .wsus__topbar_dropdown {
@@ -251,7 +251,7 @@ p {
     padding-left: 10px;
     border-bottom: 1px solid #aad8ff73;
     line-height: 40px;
-    color: #0b2c3d;
+    color: #0d0d0e;
 }
 
 .wsus__topbar_dropdown li:last-child a {
@@ -299,7 +299,7 @@ p {
 
 .wsus__topbar_right li a:hover,
 .wsus__topbar_right li .active {
-    color: #0b2c3d;
+    color: #0d0d0e;
 }
 
 /*======================
@@ -312,7 +312,8 @@ p {
 /* Header Top */
 .wsus__header_top {
     width: 100%;
-    background: #930A02;
+    /* background: #930A02; */
+    background: #fff;
 }
 
 .wsus_header_info {
@@ -328,7 +329,7 @@ p {
 
 .wsus_header_info li a {
     font-size: 12px;
-    color: #fff;
+    color: #930A02;
     font-weight: 400;
     text-transform: capitalize;
     cursor: pointer;
@@ -340,12 +341,13 @@ p {
 }
 
 .wsus_header_info li a:hover {
-    color: #0b2c3d;
+    color: #0d0d0e;
 }
 
 header {
     width: 100%;
-    background: #930A02;
+    /* background: #930A02; */
+    background: #fff;
     padding-top: 12px;
     padding-bottom: 18px;
     height: 90px;
@@ -363,8 +365,8 @@ header {
     justify-content: space-between;
     position: relative;
     overflow: hidden;
-    border-radius: 30px;
-    border: none;
+    border-radius: 5px;
+    border: 0.5px solid #930A02;
 }
 
 .wsus__category_search {
@@ -384,7 +386,7 @@ header {
 }
 
 .wsus__category_search .select2-container--default .select2-selection--single .select2-selection__rendered {
-    color: #0b2c3d;
+    color: #0d0d0e;
     line-height: 41px;
     font-size: 15px;
     text-transform: capitalize;
@@ -399,7 +401,7 @@ header {
     line-height: 0;
     border: none;
     font-size: 15px;
-    color: #0b2c3d;
+    color: #0d0d0e;
     width: 100%;
     padding: 12px 20px;
     font-weight: 400;
@@ -414,8 +416,8 @@ header {
     transform: translateY(-50%);
     right: 6px;
     background: #f5c8c6;
-    padding: 10px 35px;
-    border-radius: 80px;
+    padding: 10px 25px;
+    border-radius: 5px;
     transition: all linear 0.3s;
     -webkit-transition: all linear 0.3s ease;
     -moz-transition: all linear 0.3s ease;
@@ -439,11 +441,9 @@ header {
 }
 
 .wsus__call {
-    /* font-size: 34px; */
-    /* color: #333; */
     margin-right: 10px;
     font-size: 30px;
-    color: #fff;
+    color: #930A02;
 }
 
 /* .wsus__call_text {
@@ -454,9 +454,10 @@ header {
 } */
 
 .wsus__call_text a {
-    color: #fff;
+    color: #930A02;
     font-size: 14px;
     font-weight: 700;
+    opacity: 0.8;
     transition: all linear 0.3s;
     -webkit-transition: all linear 0.3s ease;
     -moz-transition: all linear 0.3s ease;
@@ -466,6 +467,7 @@ header {
 
 .wsus__call_text a:hover {
     color: #930A02;
+    opacity: 1;
 }
 
 .wsus__icon_area {
@@ -483,12 +485,11 @@ header {
 .wsus__icon_area li a {
     position: relative;
     text-align: center;
-    background: #fff;
     width: 40px;
     height: 40px;
     line-height: 40px;
     background: none;
-    color: #fff;
+    color: #930A02;
     box-shadow: none;
     font-size: 30px;
     border: 1px solid transparent;
@@ -505,9 +506,9 @@ header {
     right: -7px;
     border-radius: 50%;
     text-align: center;
-    color: #d33;
+    color: #fff;
     font-weight: 400;
-    background: #fff;
+    background: #930A02;
     font-size: 10px;
     line-height: 22px;
     width: 22px;
@@ -546,7 +547,7 @@ header {
 
 .wsus__mini_cart h4 span {
     text-align: center;
-    background: #dc3545;
+    background: #930A02;
     color: #fff;
     cursor: pointer;
     transition: all linear 0.3s;
@@ -601,7 +602,7 @@ header {
     position: absolute;
     top: -10px;
     left: -5px;
-    color: #dc3545;
+    color: #930A02;
     font-size: 18px;
     width: 20px;
     height: 20px;
@@ -649,7 +650,7 @@ header {
 }
 
 .wsus__mini_cart .wsus__cart_text p del {
-    color: #dc3545;
+    color: #930A02;
     font-weight: 400;
 }
 
@@ -801,7 +802,7 @@ HEADER CATEGORIES MENU END
 .wsus__main_menu {
     width: 100%;
     height: 50px;
-    background: #0b2c3d;
+    background: #0d0d0e;
     background: #fff;
     box-shadow: rgb(100 100 111 / 20%) 0px 3px 15px 0;
 }
@@ -1032,7 +1033,7 @@ HEADER CATEGORIES MENU END
     top: 0;
     z-index: 999;
     animation: menu_animate 1s;
-    /* background: #0b2c3d; */
+    /* background: #0d0d0e; */
     height: 90px;
     border-bottom: none;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
@@ -1099,7 +1100,7 @@ HEADER CATEGORIES MENU END
     font-size: 20px;
     text-transform: uppercase;
     font-weight: 600;
-    color: #dc3545;
+    color: #930A02;
 }
 
 .wsus__mega_menu_colum_text h3 {
@@ -1844,7 +1845,7 @@ Home Features End
 
 .wsus__minus {
     position: absolute;
-    background: #dc3545;
+    background: #930A02;
     width: 45px;
     height: 25px;
     text-align: center;
@@ -2186,7 +2187,7 @@ MONTHLY TOP PRODUCT START
 }
 
 .wsus__monthly_top_banner_text h3 span {
-    color: #dc3545;
+    color: #930A02;
     font-weight: 900;
     font-size: 30px;
 }
@@ -2604,7 +2605,7 @@ HOME BLOGS END
 }
 
 .wsus__large_banner_text h5 {
-    color: #dc3545;
+    color: #930A02;
     font-size: 30px;
     font-weight: 900;
     text-transform: capitalize;
@@ -2781,7 +2782,7 @@ HOME SERVOCES START
 ========================*/
 #wsus__subscribe {
     margin-top: 70px;
-    background: #0b2c3d;
+    background: #0d0d0e;
     padding: 70px 0px;
 }
 
@@ -4379,7 +4380,7 @@ PRODUCT DETAILS START
 }
 
 .wsus__pro_det_review h4 {
-    color: #0b2c3d;
+    color: #0d0d0e;
     margin-top: 0 !important;
 }
 
@@ -4538,7 +4539,7 @@ CART VIEW PAGE START
 
 .wsus__pro_status span {
     text-transform: capitalize;
-    color: #dc3545 !important;
+    color: #930A02 !important;
     display: inline-block;
 }
 
@@ -4579,7 +4580,7 @@ CART VIEW PAGE START
 }
 
 .wsus__pro_icon a {
-    color: #0b2c3d;
+    color: #0d0d0e;
     font-size: 20px;
     transition: all linear 0.3s;
     -webkit-transition: all 0.3s ease;
@@ -4608,7 +4609,7 @@ CART VIEW PAGE START
 
 .wsus__cart_list table tbody tr td p {
     font-family: "Roboto", sans-serif;
-    color: #0b2c3d;
+    color: #0d0d0e;
     text-transform: capitalize;
     font-size: 15px;
     text-align: center;
@@ -4616,7 +4617,7 @@ CART VIEW PAGE START
 
 .wsus__pro_name span {
     text-transform: capitalize;
-    color: #0b2c3d;
+    color: #0d0d0e;
     font-size: 14px;
 }
 
@@ -4670,7 +4671,7 @@ CART VIEW PAGE START
 }
 
 .cart_summery .form-check label span {
-    color: #0b2c3d;
+    color: #0d0d0e;
 }
 
 .cart_page_rel_product {
@@ -4783,7 +4784,7 @@ CHECKOUT PAGE START
     font-weight: 600;
     text-transform: capitalize;
     margin-bottom: 15px;
-    color: #0b2c3d;
+    color: #0d0d0e;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -4841,7 +4842,7 @@ CHECKOUT PAGE START
     margin-bottom: 25px;
     font-size: 15px;
     font-weight: 400;
-    color: #0b2c3d;
+    color: #0d0d0e;
     resize: none;
     border-radius: 5px;
     background: #fff;
@@ -4887,19 +4888,19 @@ CHECKOUT PAGE START
     display: flex;
     justify-content: space-between;
     text-transform: capitalize;
-    color: #0b2c3d;
+    color: #0d0d0e;
     margin: 15px 0px;
 }
 
 .wsus__order_details_summery p span {
-    color: #0b2c3d;
+    color: #0d0d0e;
 }
 
 .wsus__order_details .wsus__product {
     font-size: 18px;
     font-weight: 600;
     text-transform: capitalize;
-    color: #0b2c3d;
+    color: #0d0d0e;
     /* padding-top: 15px; */
     /* border-top: 1px solid #eee; */
 }
@@ -4909,7 +4910,7 @@ CHECKOUT PAGE START
 }
 
 .wsus__order_details .form-check label {
-    color: #0b2c3d;
+    color: #0d0d0e;
     font-size: 15px;
     font-weight: 400;
 }
@@ -4963,7 +4964,7 @@ CHECKOUT PAGE START
 }
 
 .wsus__checkout_single_address ul li span {
-    color: #0b2c3d;
+    color: #0d0d0e;
     text-transform: capitalize;
     width: 30%;
     font-size: 15px;
@@ -5012,7 +5013,7 @@ INVOICE PAGE SATAR
     font-size: 20px;
     font-weight: 600;
     text-transform: capitalize;
-    color: #0b2c3d;
+    color: #0d0d0e;
 }
 
 .wsus__invoice_top_text p {
@@ -5033,7 +5034,7 @@ INVOICE PAGE SATAR
     font-size: 16px;
     font-weight: 700;
     text-transform: capitalize;
-    color: #0b2c3d;
+    color: #0d0d0e;
     margin-bottom: 15px;
 }
 
@@ -5082,12 +5083,12 @@ INVOICE PAGE SATAR
 }
 
 .wsus__invoice_description .name p {
-    color: #0b2c3d;
+    color: #0d0d0e;
     font-size: 17px;
 }
 
 .wsus__invoice_description .name span {
-    color: #0b2c3d;
+    color: #0d0d0e;
     display: block;
     font-size: 14px;
     width: 100%;
@@ -5119,7 +5120,7 @@ INVOICE PAGE SATAR
 .wsus__invoice_description td {
     text-transform: capitalize;
     font-size: 15px;
-    color: #0b2c3d;
+    color: #0d0d0e;
     padding: 15px 10px;
     text-align: center;
     border-bottom: 1px solid #eee;
@@ -5137,7 +5138,7 @@ INVOICE PAGE SATAR
 
 .wsus__invoice_footer p {
     font-size: 16px;
-    color: #0b2c3d;
+    color: #0d0d0e;
 }
 
 .wsus__invoice_footer p span {
@@ -5264,7 +5265,7 @@ WISHLIST PAGE START
     text-transform: capitalize;
     font-size: 16px;
     font-weight: 600;
-    color: #0b2c3d;
+    color: #0d0d0e;
 }
 
 .wsus__compare_text p {
@@ -5350,7 +5351,7 @@ WISHLIST PAGE START
 }
 
 .wsus__compare_text .wsus__compare_del i {
-    color: #0b2c3d;
+    color: #0d0d0e;
     transition: all linear 0.3s;
     -webkit-transition: all 0.3s ease;
     -moz-transition: all 0.3s ease;
@@ -6020,7 +6021,7 @@ WISHLIST PAGE START
 }
 
 .wsus__team_service_single {
-    background: #0b2c3d;
+    background: #0d0d0e;
     border-radius: 5px;
     padding: 30px;
     text-align: center;
@@ -6065,7 +6066,7 @@ WISHLIST PAGE START
 }
 
 .wsus__team_service_single:hover i {
-    background: #0b2c3d;
+    background: #0d0d0e;
 }
 
 .wsus__team_service_single.hover {
@@ -6073,7 +6074,7 @@ WISHLIST PAGE START
 }
 
 .wsus__team_service_single.hover i {
-    background: #0b2c3d;
+    background: #0d0d0e;
 }
 
 .wsus__team_det_review {
@@ -6179,7 +6180,7 @@ WISHLIST PAGE START
 .wsus__404_text h2 {
     font-size: 130px;
     font-weight: 700;
-    color: #0b2c3d;
+    color: #0d0d0e;
     margin-bottom: 10px;
 }
 
@@ -6550,7 +6551,7 @@ WISHLIST PAGE START
 .wsus__comment_text h6 {
     text-transform: capitalize;
     font-size: 17px;
-    color: #0b2c3d;
+    color: #0d0d0e;
     font-weight: 600;
     display: flex;
     align-items: center;
@@ -6558,7 +6559,7 @@ WISHLIST PAGE START
 }
 
 .wsus__comment_text h6 span {
-    color: #0b2c3d;
+    color: #0d0d0e;
     font-size: 14px;
 }
 
@@ -6622,7 +6623,7 @@ WISHLIST PAGE START
 .wsus__post_comment textarea {
     font-size: 16px;
     font-weight: 400;
-    color: #0b2c3d;
+    color: #0d0d0e;
 }
 
 .wsus__post_comment button {
@@ -6867,7 +6868,7 @@ WISHLIST PAGE START
     align-items: center;
     justify-content: end;
     padding: 5px 20px;
-    background: #0b2c3d;
+    background: #0d0d0e;
 }
 
 .wsusd__dashboard_user {
@@ -6896,7 +6897,7 @@ WISHLIST PAGE START
 .dashboard_sidebar {
     width: 15%;
     height: 100vh;
-    background: #0b2c3d;
+    background: #0d0d0e;
     position: fixed;
     top: 0;
     left: 0;
@@ -7081,7 +7082,7 @@ WISHLIST PAGE START
     font-size: 16px;
     text-transform: capitalize;
     font-weight: 500;
-    color: #0b2c3d;
+    color: #0d0d0e;
     margin-bottom: 13px;
 }
 
@@ -7112,7 +7113,7 @@ WISHLIST PAGE START
 
 .wsus__message_icon span {
     display: block;
-    color: #0b2c3d;
+    color: #0d0d0e;
     font-size: 16px;
     font-weight: 400;
     margin-bottom: 16px;
@@ -7147,7 +7148,7 @@ WISHLIST PAGE START
     padding: 10px 20px;
     font-size: 16px;
     font-weight: 400;
-    color: #0b2c3d;
+    color: #0d0d0e;
     margin-bottom: 25px;
     border-radius: 5px;
     resize: none;
@@ -8117,13 +8118,13 @@ TRACKING ORDER START
 
 .red_mark::before {
     content: "\f00d" !important;
-    background: #dc3545 !important;
-    border-color: #dc3545 !important;
+    background: #930A02 !important;
+    border-color: #930A02 !important;
     color: #fff !important;
 }
 
 .red_mark::after {
-    background: #dc3545 !important;
+    background: #930A02 !important;
 }
 
 /* .progtrckr li:last-child::after {
@@ -9172,7 +9173,7 @@ header .wsus__call_text a:hover {
 
 .footer_2 {
     margin-top: 70px;
-    background: #0b2c3d;
+    background: #0d0d0e;
 }
 
 .footer_2 form {
@@ -9567,8 +9568,8 @@ DASHBOARD CHAT END
 }
 
 .modal_btn .btn-danger:focus {
-    background-color: #dc3545;
-    border-color: #dc3545;
+    background-color: #930A02;
+    border-color: #930A02;
 }
 
 .wsus__quentity h3 span {

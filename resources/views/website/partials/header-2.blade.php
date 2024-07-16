@@ -28,7 +28,7 @@
             <div class="col-xl-6 col-md-6 col-lg-6 d-block">
                 <div class="wsus__search">
                     <form action="{{ route('product') }}">
-                        <input type="text" placeholder="{{ __('user.Search...') }}" name="search"
+                        <input type="text" placeholder="{{ __('user.Search in Oshin...') }}" name="search"
                             value="{{ request()->has('search') ? request()->get('search') : '' }}">
                         <button type="submit"><i class="far fa-search"></i></button>
                     </form>
@@ -44,7 +44,7 @@
                             @auth
                                 <a href="{{ route('user.dashboard') }}">{{ __('user.Account') }}</a>
                             @else
-                                <a href="{{ route('login') }}">{{ __('user.Login') }}</a>
+                                <a href="{{ route('login') }}">{{ __('user.Login/Register') }}</a>
                             @endauth
                         </div>
                     </div>
