@@ -4863,6 +4863,19 @@ CHECKOUT PAGE START
     border-radius: 5px;
     box-shadow: rgb(50 50 93 / 15%) 0px 0px 5px 0px;
 }
+.wsus__order_details_item li{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+.wsus__order_details_img{
+    height: 60px;
+    width: 60px;
+    background-color: #ddd;
+    border-radius: 5px;
+    box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.25);
+}
 
 .wsus__order_details_summery {
     border-top: 1px solid #eee;
