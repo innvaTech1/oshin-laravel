@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\SubCategory;
 use App\Models\Category;
+use App\Models\City;
 use Illuminate\Http\Request;
 use App\Models\PopularCategory;
 use App\Models\ThreeColumnCategory;
 use App\Models\MegaMenuSubCategory;
+
 class ProductSubCategoryController extends Controller
 {
     public function __construct()
@@ -18,27 +20,28 @@ class ProductSubCategoryController extends Controller
 
     public function index()
     {
-        $subCategories=SubCategory::with('category','childCategories','products')->get();
+        $subCategories = SubCategory::with('category', 'childCategories', 'products')->get();
         $pupoularCategory = PopularCategory::first();
         $threeColCategory = ThreeColumnCategory::first();
-        return view('admin.product_sub_category',compact('subCategories','pupoularCategory','threeColCategory'));
+        return view('admin.product_sub_category', compact('subCategories', 'pupoularCategory', 'threeColCategory'));
     }
 
 
     public function create()
     {
-        $categories=Category::all();
-        return view('admin.create_product_sub_category',compact('categories'));
+        $categories = Category::all();
+        $cities = City::all();
+        return view('admin.create_product_sub_category', compact('categories', 'cities'));
     }
 
 
     public function store(Request $request)
     {
         $rules = [
-            'name'=>'required',
-            'slug'=>'required|unique:sub_categories',
-            'category'=>'required',
-            'status'=>'required'
+            'name' => 'required',
+            'slug' => 'required|unique:sub_categories',
+            'category' => 'required',
+            'status' => 'required'
         ];
 
         $customMessages = [
@@ -47,25 +50,29 @@ class ProductSubCategoryController extends Controller
             'slug.unique' => trans('admin_validation.Slug already exist'),
             'category.required' => trans('admin_validation.Category is required'),
         ];
-        $this->validate($request, $rules,$customMessages);
+        $this->validate($request, $rules, $customMessages);
 
         $subCategory = new SubCategory();
         $subCategory->category_id = $request->category;
         $subCategory->name = $request->name;
         $subCategory->slug = $request->slug;
+        $subCategory->delivery_charge = $request->delivery_charge;
+        $subCategory->city_id = $request->city_id;
+        $subCategory->commission_rate = $request->commission_rate;
         $subCategory->status = $request->status;
         $subCategory->save();
 
         $notification = trans('admin_validation.Created Successfully');
-        $notification=array('messege'=>$notification,'alert-type'=>'success');
+        $notification = array('messege' => $notification, 'alert-type' => 'success');
         return redirect()->route('admin.product-sub-category.index')->with($notification);
     }
 
     public function edit($id)
     {
         $subCategory = SubCategory::find($id);
-        $categories=Category::all();
-        return view('admin.edit_product_sub_category',compact('subCategory','categories'));
+        $categories = Category::all();
+        $cities = City::all();
+        return view('admin.edit_product_sub_category', compact('subCategory', 'categories', 'cities'));
     }
 
 
@@ -73,10 +80,10 @@ class ProductSubCategoryController extends Controller
     {
         $subCategory = SubCategory::find($id);
         $rules = [
-            'name'=>'required',
-            'slug'=>'required|unique:sub_categories,slug,'.$subCategory->id,
-            'category'=>'required',
-            'status'=>'required'
+            'name' => 'required',
+            'slug' => 'required|unique:sub_categories,slug,' . $subCategory->id,
+            'category' => 'required',
+            'status' => 'required'
         ];
 
         $customMessages = [
@@ -85,16 +92,19 @@ class ProductSubCategoryController extends Controller
             'slug.unique' => trans('admin_validation.Slug already exist'),
             'category.required' => trans('admin_validation.Category is required'),
         ];
-        $this->validate($request, $rules,$customMessages);
+        $this->validate($request, $rules, $customMessages);
 
         $subCategory->category_id = $request->category;
         $subCategory->name = $request->name;
         $subCategory->slug = $request->slug;
+        $subCategory->delivery_charge = $request->delivery_charge;
+        $subCategory->city_id = $request->city_id;
+        $subCategory->commission_rate = $request->commission_rate;
         $subCategory->status = $request->status;
         $subCategory->save();
 
         $notification = trans('admin_validation.Update Successfully');
-        $notification=array('messege'=>$notification,'alert-type'=>'success');
+        $notification = array('messege' => $notification, 'alert-type' => 'success');
         return redirect()->route('admin.product-sub-category.index')->with($notification);
     }
 
@@ -103,25 +113,25 @@ class ProductSubCategoryController extends Controller
     {
         $subCategory = SubCategory::find($id);
         $subCategory->delete();
-        MegaMenuSubCategory::where('sub_category_id',$id)->delete();
+        MegaMenuSubCategory::where('sub_category_id', $id)->delete();
 
         $notification = trans('admin_validation.Delete Successfully');
-        $notification=array('messege'=>$notification,'alert-type'=>'success');
+        $notification = array('messege' => $notification, 'alert-type' => 'success');
         return redirect()->route('admin.product-sub-category.index')->with($notification);
     }
 
-    public function changeStatus($id){
+    public function changeStatus($id)
+    {
         $subCategory = SubCategory::find($id);
-        if($subCategory->status==1){
-            $subCategory->status=0;
+        if ($subCategory->status == 1) {
+            $subCategory->status = 0;
             $subCategory->save();
             $message = trans('admin_validation.InActive Successfully');
-        }else{
-            $subCategory->status=1;
+        } else {
+            $subCategory->status = 1;
             $subCategory->save();
             $message = trans('admin_validation.Active Successfully');
         }
         return response()->json($message);
     }
-
 }
