@@ -451,8 +451,8 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::delete('delete-contact-message/{id}', [ContactMessageController::class, 'destroy'])->name('delete-contact-message');
         Route::put('enable-save-contact-message', [ContactMessageController::class, 'handleSaveContactMessage'])->name('enable-save-contact-message');
 
-        Route::get('email-configuration', [EmailConfigurationController::class, 'index'])->name('email-configuration');
-        Route::put('update-email-configuraion', [EmailConfigurationController::class, 'update'])->name('update-email-configuraion');
+        // Route::get('email-configuration', [EmailConfigurationController::class, 'index'])->name('email-configuration');
+        // Route::put('update-email-configuraion', [EmailConfigurationController::class, 'update'])->name('update-email-configuraion');
 
         Route::get('email-template', [EmailTemplateController::class, 'index'])->name('email-template');
         Route::get('edit-email-template/{id}', [EmailTemplateController::class, 'edit'])->name('edit-email-template');
