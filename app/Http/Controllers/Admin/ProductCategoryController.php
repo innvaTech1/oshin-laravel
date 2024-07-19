@@ -68,6 +68,7 @@ class ProductCategoryController extends Controller
         $category->slug = $request->slug;
         $category->delivery_charge = $request->delivery_charge;
         $category->city_id = $request->city_id;
+        $category->commission_rate = $request->commission_rate;
         $category->status = $request->status;
         $category->save();
 
@@ -115,6 +116,7 @@ class ProductCategoryController extends Controller
         $category->slug = $request->slug;
         $category->delivery_charge = $request->delivery_charge;
         $category->city_id = $request->city_id;
+        $category->commission_rate = $request->commission_rate;
         $category->status = $request->status;
         $category->save();
 

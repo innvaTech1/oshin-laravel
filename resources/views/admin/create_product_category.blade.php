@@ -46,6 +46,12 @@
                                             <input type="text" id="slug" class="form-control" name="slug">
                                         </div>
                                         <div class="form-group col-12">
+                                            <label>{{ __('admin.Commission Rate') }}(%) <span
+                                                    class="text-danger">*</span></label>
+                                            <input type="text" id="commission_rate" class="form-control"
+                                                name="commission_rate" value="">
+                                        </div>
+                                        <div class="form-group col-12">
                                             <label>{{ __('admin.Delivery Charge') }} <span
                                                     class="text-danger">*</span></label>
 
