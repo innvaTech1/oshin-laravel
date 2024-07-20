@@ -96,6 +96,7 @@ use App\Http\Controllers\User\MessageController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Admin\InventoryController;
+use App\Http\Controllers\Admin\PosController;
 
 Route::group(['middleware' => ['XSS']], function () {
 
@@ -408,6 +409,27 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::get('stock-history/{id}', [InventoryController::class, 'show_inventory'])->name('stock-history');
         Route::post('add-stock', [InventoryController::class, 'add_stock'])->name('add-stock');
         Route::delete('delete-stock/{id}', [InventoryController::class, 'delete_stock'])->name('delete-stock');
+
+        // Pos Routes........
+        Route::get('/pos', [PosController::class, 'Index'])->name('pos.index');
+        Route::get('/pos/category/{id}', [PosController::class, 'categoryIndex'])->name('pos.category.index');
+        Route::get('/products/search', [PosController::class, 'search'])->name('pos.product.search');
+        Route::get('/pos/add/product/{id}', [PosController::class, 'AddProduct'])->name('pos.add.product');
+        Route::get('/pos/product/delete/{id}', [PosController::class, 'Destroy'])->name('pos.destroy.product');
+        Route::get('/pos/product/cart/increment/{id}', [PosController::class, 'cartIncremet'])->name('pos.cart.increment.product');
+        Route::get('/pos/product/cart/decrement/delete/{id}', [PosController::class, 'cartDecrement'])->name('pos.cart.decrement.product');
+        Route::get('/pos/product/cart/clear', [PosController::class, 'clearCart'])->name('pos.cart.clear.product');
+        Route::post('/pos/add/customer', [PosController::class, 'addCustomer'])->name('pos.add.customer');
+        Route::get('/pos/apply/cupon', [PosController::class, 'applyCupon'])->name('pos.apply.cupon');
+        Route::post('/pos/order/submit', [PosController::class, 'orderSubmit'])->name('pos.order.submit');
+        Route::get(
+            '/pos/bulk/order',
+            [PosController::class, 'bulkOrder']
+        )->name('pos.bulk.order');
+        Route::get('/pos/bulk/order/serch', [PosController::class, 'bulkOrderSerch'])->name('pos.bulk.order.serch');
+        Route::put('/pos/bulk/order/status/change', [PosController::class, 'updateOrderStatus'])->name('pos.bulk.order.status.change');
+        Route::put('/pos/update/cart/product', [PosController::class, 'updatePosCart'])->name('pos.update.cart.order');
+        Route::post('/pos/add/product/with/detils/{id}', [PosController::class, 'AddProductWithDetils'])->name('pos.cart.order.detils');
 
         Route::resource('about-us', AboutUsController::class);
         Route::resource('contact-us', ContactPageController::class);

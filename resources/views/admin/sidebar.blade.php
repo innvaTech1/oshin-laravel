@@ -115,6 +115,24 @@
                     class="nav-link" href="{{ route('admin.inventory') }}"><i class="fas fa-th-large"></i>
                     <span>{{ __('admin.Inventory') }}</span></a></li>
             <li
+                class="nav-item dropdown {{ Route::is('admin.pos.index') || Route::is('admin.pos.bulk.order') ? 'active' : '' }}">
+                <a href="#" class="nav-link has-dropdown">
+                    <div class="icon">
+                        <i class="fas fa-th-large"></i>
+                    </div>
+                    <span>{{ __('admin.Pos') }}</span>
+                </a>
+                <ul class="dropdown-menu">
+
+                    <li class="{{ Route::is('admin.pos.index') ? 'active' : '' }}"><a class="nav-link"
+                            href="{{ route('admin.pos.index') }}">{{ __('admin.Add New Order') }}</a></li>
+
+                    <li class="{{ Route::is('admin.pos.bulk.order') ? 'active' : '' }}"><a class="nav-link"
+                            href="{{ route('admin.pos.bulk.order') }}">{{ __('admin.Bulk Order Accept') }}</a></li>
+                </ul>
+
+            </li>
+            <li
                 class="nav-item dropdown {{ Route::is('admin.state.*') || Route::is('admin.city.*') ? 'active' : '' }}">
                 <a href="#" class="nav-link has-dropdown"><i
                         class="fas fa-map-marker-alt"></i><span>{{ __('admin.Locations') }}</span></a>
