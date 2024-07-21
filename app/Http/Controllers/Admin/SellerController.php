@@ -139,7 +139,6 @@ class SellerController extends Controller
     {
         $seller = Vendor::find($id);
         if ($seller) {
-            $countries = Country::orderBy('name', 'asc')->where('status', 1)->get();
             $states = CountryState::orderBy('name', 'asc')->where(['status' => 1, 'country_id' => $seller->user->country_id])->get();
             $cities = City::orderBy('name', 'asc')->where(['status' => 1, 'country_state_id' => $seller->user->state_id])->get();
             $user = $seller->user;
@@ -159,7 +158,7 @@ class SellerController extends Controller
 
             $defaultProfile = BannerImage::whereId('15')->first();
             $setting = Setting::first();
-            return view('admin.show_seller', compact('seller', 'countries', 'cities', 'states', 'user', 'totalWithdraw', 'totalAmount', 'totalSoldProduct', 'totalPendingWithdraw', 'defaultProfile', 'setting'));
+            return view('admin.show_seller', compact('seller', 'cities', 'states', 'user', 'totalWithdraw', 'totalAmount', 'totalSoldProduct', 'totalPendingWithdraw', 'defaultProfile', 'setting'));
         } else {
             $notification = trans('admin_validation.Something went wrong');
             $notification = array('messege' => $notification, 'alert-type' => 'error');
@@ -198,8 +197,6 @@ class SellerController extends Controller
             'name' => 'required',
             'email' => 'required|unique:users,email,' . $user->id,
             'phone' => 'required',
-            'country' => 'required',
-            'zip_code' => 'required',
             'address' => 'required',
         ];
         $customMessages = [
@@ -207,18 +204,14 @@ class SellerController extends Controller
             'email.required' => trans('admin_validation.Email is required'),
             'email.unique' => trans('admin_validation.Email already exist'),
             'phone.required' => trans('admin_validation.Phone is required'),
-            'country.required' => trans('admin_validation.Country is required'),
-            'zip_code.required' => trans('admin_validation.Zip code is required'),
             'address.required' => trans('admin_validation.Address is required'),
         ];
         $this->validate($request, $rules, $customMessages);
 
         $user->name = $request->name;
         $user->phone = $request->phone;
-        $user->country_id = $request->country;
         $user->state_id = $request->state;
         $user->city_id = $request->city;
-        $user->zip_code = $request->zip_code;
         $user->address = $request->address;
         $user->save();
 
