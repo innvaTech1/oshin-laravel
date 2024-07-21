@@ -31,6 +31,7 @@ use Illuminate\Pagination\Paginator;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
 use App\Mail\UserRegistrationFromAdmin;
+use App\Models\CampaignProduct;
 use App\Models\ShippingMethod;
 use DB;
 
@@ -153,60 +154,93 @@ class PosController extends Controller
 
     public function AddProductWithDetils(Request $request, $id)
     {
-        $selectedValues = $request->input('selectedValues');
-        if (Auth::guard('admin')->user()) {
-            $check_stock = Product::where('id', $id)->select('qty')->first();
-            $qty = $check_stock->qty;
-            if ($qty > 0) {
-                if (ShoppingCart::where('product_id', $id)->where('user_id', Auth::guard('admin')->user()->id)->exists()) {
-                    $cart = ShoppingCart::where('product_id', $id)->where('user_id', Auth::guard('admin')->user()->id)->first();
-                    $qty = $cart->qty + $request->quantity;
-                    $datacode = array();
-                    $datacode['qty'] = $qty;
-                    $code_reg = ShoppingCart::where('product_id', $id)->where('user_id', Auth::guard('admin')->user()->id)
-                        ->update($datacode);
-                    if ($selectedValues) {
-                        foreach ($selectedValues as $variantName => $selectedValue) {
-                            $cart_variation = new ShoppingCartVariant();
-                            $cart_variation->shopping_cart_id = $cart->id;
-                            $cart_variation->variant_id = $variantName;
-                            $cart_variation->variant_item_id = $selectedValue;
-                            $cart_variation->save();
-                        }
-                    }
-
-                    $notification = trans('admin_validation.Product Quantity Updated');
-                    $notification = array('messege' => $notification, 'alert-type' => 'success');
-                    return redirect()->back()->with($notification);
-                } else {
-                    $cart = new ShoppingCart();
-                    $cart->user_id = Auth::guard('admin')->user()->id;
-                    $cart->product_id = $id;
-                    $cart->qty = $request->quantity;
-                    $cart->save();
-                    if ($selectedValues) {
-                        foreach ($selectedValues as $variantName => $selectedValue) {
-                            $cart_variation = new ShoppingCartVariant();
-                            $cart_variation->shopping_cart_id = $cart->id;
-                            $cart_variation->variant_id = $variantName;
-                            $cart_variation->variant_item_id = $selectedValue;
-                            $cart_variation->save();
-                        }
-                    }
-                    $notification = trans('admin_validation.Product Added');
-                    $notification = array('messege' => $notification, 'alert-type' => 'success');
-                    return redirect()->back()->with($notification);
-                }
-            } else {
-                $notification = trans('admin_validation.This Product Are Out of Stock');
-                $notification = array('messege' => $notification, 'alert-type' => 'error');
-                return redirect()->back()->with($notification);
-            }
-        } else {
-            $notification = trans('admin_validation.Sry First You Need To Login');
-            $notification = array('messege' => $notification, 'alert-type' => 'error');
-            return redirect()->back()->with($notification);
+        $itemExist = false;
+        $cartContents = Cart::content();
+        foreach ($cartContents as $cartContent) {
+            if ($cartContent->id == $id) $itemExist = true;
         }
+
+        $product = Product::with('tax')->find($id);
+        if ($product->qty == 0) {
+            $notification = trans('user_validation.Product stock out');
+            return response()->json(['status' => 0, 'message' => $notification]);
+        }
+
+
+        if ($itemExist) {
+            $notification = trans('user_validation.Item already exist');
+            return response()->json(['status' => 0, 'message' => $notification]);
+        }
+
+        $variants = [];
+        $values = [];
+        $prices = [];
+        $variantPrice = 0;
+
+        if ($request->selectedValues) {
+            foreach ($request->selectedValues as $index => $varr) {
+                $variants[] = $request->selectedValues[$index];
+                $varItems = explode(',', $request->items[0]);
+
+                $item = ProductVariantItem::where(['id' => $varItems[$index]])->first();
+                $values[] = $item->name;
+                $prices[] = $item->price;
+            }
+            $variantPrice = $variantPrice + array_sum($prices);
+        }
+
+        $tax_percentage = $product->tax->price;
+
+        $isCampaign = false;
+        $today = date('Y-m-d');
+        $campaign = CampaignProduct::where(['status' => 1, 'product_id' => $product->id])->first();
+        if ($campaign) {
+            $campaign = $campaign->campaign;
+            if ($campaign->start_date <= $today &&  $today <= $campaign->end_date) {
+                $isCampaign = true;
+            }
+            $campaignOffer = $campaign->offer;
+            $productPrice = $product->price;
+            $campaignOfferPrice = ($campaignOffer / 100) * $productPrice;
+            $totalPrice = $product->price;
+            $campaignOfferPrice = $totalPrice - $campaignOfferPrice;
+        } else {
+            $totalPrice = $product->price;
+            if ($product->offer_price != null) {
+                $offerPrice = $product->offer_price;
+            }
+        }
+        $productPrice = 0;
+        if ($isCampaign) {
+            $productPrice = $campaignOfferPrice + $variantPrice;
+            $tax_percentage_amount = ($tax_percentage / 100) * $productPrice;
+        } else {
+            if ($product->offer_price == null) {
+                $productPrice = $totalPrice + $variantPrice;
+                $tax_percentage_amount = ($tax_percentage / 100) * $productPrice;
+            } else {
+                $productPrice = $product->offer_price + $variantPrice;
+                $tax_percentage_amount = ($tax_percentage / 100) * $productPrice;
+            }
+        }
+
+        $data = array();
+        $data['id'] = $product->id;
+        $data['name'] = $product->short_name;
+        $data['qty'] = $request->quantity;
+        $data['price'] = $productPrice;
+        $data['weight'] = 1;
+        $data['options']['tax'] = $tax_percentage_amount;
+        $data['options']['coupon_price'] = 0;
+        $data['options']['image'] = $request->image;
+        $data['options']['slug'] = $request->slug;
+        $data['options']['variants'] = $variants;
+        $data['options']['values'] = $values;
+        $data['options']['prices'] = $prices;
+        Cart::add($data);
+
+        $notification = trans('user_validation.Item added successfully');
+        return response()->json(['status' => 1, 'message' => $notification]);
     }
 
     public function cartIncremet($id)

@@ -726,6 +726,42 @@
             var $initialQty = $(".input-qty");
             $initialQty.val(Number($initialQty.val()));
         });
+
+
+        function addToCartInProductModal(productId) {
+            $.ajax({
+                type: 'get',
+                data: $('#productModalFormId-' + productId).serialize(),
+                url: "{{ route('add-to-cart') }}",
+                success: function(response) {
+                    if (response.status == 0) {
+                        toastr.error(response.message)
+                    }
+                    if (response.status == 1) {
+                        toastr.success(response.message)
+                        $.ajax({
+                            type: 'get',
+                            url: "{{ route('load-sidebar-cart') }}",
+                            success: function(response) {
+                                $("#load_sidebar_cart").html(response)
+                                $.ajax({
+                                    type: 'get',
+                                    url: "{{ route('get-cart-qty') }}",
+                                    success: function(response) {
+                                        $("#cartQty").text(response.qty);
+                                        $("#productModalView-" + productId).modal(
+                                            'hide');
+                                    },
+                                });
+                            },
+                        });
+                    }
+                },
+                error: function(response) {
+
+                }
+            });
+        }
     </script>
 
     <script>

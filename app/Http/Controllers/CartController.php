@@ -53,20 +53,27 @@ class CartController extends Controller
         $prices = [];
         $variantPrice = 0;
         if ($request->variants) {
-            foreach ($request->variants as $index => $varr) {
-                $variants[] = $request->variantNames[$index];
-                $varItems = explode(',', $request->items[0]);
+            //     foreach ($request->variants as $index => $varr) {
 
-                $item = ProductVariantItem::where(['id' => $varItems[$index]])->first();
-                $values[] = $item->name;
-                $prices[] = $item->price;
+            //         $variants[] = $request->variantNames[$index];
+            //         $varItems = explode(',', $request->items[0]);
+            //         $item = ProductVariantItem::where(['id' => $varItems[$index]])->first();
+            //         dd($request->all());
+            //         $values[] = $item->name;
+            //         $prices[] = $item->price;
+            //     }
+            $items = ProductVariantItem::whereIn('id', $request->items)->get(['name', 'price', 'product_variant_id'])->toArray();
+            foreach ($items as $item) {
+                $variants[]  = $item['product_variant_id'];
+                $values[] = $item['name'];
+                $prices[] = $item['price'];
             }
             $variantPrice = $variantPrice + array_sum($prices);
         }
 
 
         $product = Product::with('tax')->find($request->product_id);
-        $tax_percentage = $product->tax->price;
+        $tax_percentage = $product->tax?->price;
 
         $isCampaign = false;
         $today = date('Y-m-d');
@@ -115,6 +122,7 @@ class CartController extends Controller
         $data['options']['variants'] = $variants;
         $data['options']['values'] = $values;
         $data['options']['prices'] = $prices;
+
         Cart::add($data);
 
         $notification = trans('user_validation.Item added successfully');

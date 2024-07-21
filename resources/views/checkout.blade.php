@@ -8,8 +8,8 @@
 
 @section('public-content')
     <!--============================
-                                                                                                                                                                             BREADCRUMB START
-                                                                                                                                                                        ==============================-->
+                                                                                                                                                                                 BREADCRUMB START
+                                                                                                                                                                            ==============================-->
     <section id="wsus__breadcrumb" style="background: url({{ asset($banner->image) }});">
         <div class="wsus_breadcrumb_overlay">
             <div class="container">
@@ -227,6 +227,7 @@
                                     @foreach ($cartContents as $cartContent)
                                         @php
                                             $variantPrice = 0;
+                                            dd($cartContent->qty);
                                         @endphp
                                         <li>
                                             <div class="wsus__order_details_img">

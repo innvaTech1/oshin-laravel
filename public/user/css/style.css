@@ -2020,12 +2020,12 @@ Home Features End
     border-radius: 0;
 }
 
-/* .wsus__product_item:hover 
+/* .wsus__product_item:hover
 .wsus__product_details .add_cart {
   opacity: 1;
 }
 
-.wsus__product_item:hover 
+.wsus__product_item:hover
 .wsus__product_details .wsus__price {
   opacity: 0;
   visibility: hidden;
@@ -2568,11 +2568,11 @@ HOME BLOGS END
 }
 
 /*======================
-	HOT DEALS END  
+	HOT DEALS END
 ========================*/
 
 /*======================
-	LARGE BANNER START  
+	LARGE BANNER START
 ========================*/
 #wsus__large_banner {
     padding-top: 30px;
@@ -2627,11 +2627,11 @@ HOME BLOGS END
 }
 
 /*======================
-	LARGE BANNER  END  
+	LARGE BANNER  END
 ========================*/
 
 /*======================
-WEEKLY BEST ITEM START   
+WEEKLY BEST ITEM START
 ========================*/
 #wsus__weekly_best {
     margin-top: 67px;
@@ -2690,7 +2690,7 @@ WEEKLY BEST ITEM START
 }
 
 /*======================
-WEEKLY BEST ITEM END 
+WEEKLY BEST ITEM END
 ========================*/
 /*======================
 HOME SERVOCES START
@@ -4846,6 +4846,39 @@ CHECKOUT PAGE START
     resize: none;
     border-radius: 5px;
     background: #fff;
+}
+
+.wsus__order_details_item {
+    margin-bottom: 25px;
+}
+
+.wsus__order_details_item li {
+    display: flex;
+    margin-bottom: 15px;
+    overflow: hidden;
+    padding-top: 8px;
+}
+
+.wsus__order_details_img {
+    width: 15%;
+    height: 70px;
+    border: 1px solid #ff520060;
+    border-radius: 3px;
+    margin-right: 15px;
+    position: relative;
+}
+
+.wsus__order_details_img img {
+    height: 100%;
+    object-fit: cover;
+    border-radius: 3px;
+}
+
+.wsus__order_details_text {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .wsus__check_single_form textarea {
@@ -8677,7 +8710,7 @@ DAILY DEALS DETAILS END
 ========================*/
 
 /*======================
-	HOME PAGE 2 START   
+	HOME PAGE 2 START
 ========================*/
 header .dropdown .nav-link {
     width: auto;

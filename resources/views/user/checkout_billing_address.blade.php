@@ -1,26 +1,27 @@
 @extends('layout')
 @section('title')
-    <title>{{__('user.Billing Address')}}</title>
+    <title>{{ __('user.Billing Address') }}</title>
 @endsection
 @section('meta')
-    <meta name="description" content="{{__('user.Billing Address')}}">
+    <meta name="description" content="{{ __('user.Billing Address') }}">
 @endsection
 
 @section('public-content')
 
 
     <!--============================
-         BREADCRUMB START
-    ==============================-->
-    <section id="wsus__breadcrumb" style="background: url({{  asset($banner->image) }});">
+             BREADCRUMB START
+        ==============================-->
+    <section id="wsus__breadcrumb" style="background: url({{ asset($banner->image) }});">
         <div class="wsus_breadcrumb_overlay">
             <div class="container">
                 <div class="row">
                     <div class="col-12">
-                        <h4>{{__('user.Billing Address')}}</h4>
+                        <h4>{{ __('user.Billing Address') }}</h4>
                         <ul>
-                            <li><a href="{{ route('home') }}">{{__('user.home')}}</a></li>
-                            <li><a href="{{ route('user.checkout.billing-address') }}">{{__('user.Billing Address')}}</a></li>
+                            <li><a href="{{ route('home') }}">{{ __('user.home') }}</a></li>
+                            <li><a href="{{ route('user.checkout.billing-address') }}">{{ __('user.Billing Address') }}</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -28,54 +29,62 @@
         </div>
     </section>
     <!--============================
-        BREADCRUMB END
-    ==============================-->
+            BREADCRUMB END
+        ==============================-->
 
 
     <!--============================
-          CHECK OUT PAGE START
-    ==============================-->
+              CHECK OUT PAGE START
+        ==============================-->
     <section id="wsus__cart_view">
         <div class="container">
             <div class="row">
                 <div class="col-12">
                     <ul class="wsus__cart_tab">
-                        <li><a href="{{ route('cart') }}">{{__('user.Shopping Cart')}}</a></li>
-                        <li><a  class="wsus__order_active" href="{{ route('user.checkout.billing-address') }}">{{__('user.Billing Address')}}</a></li>
-                        <li><a  href="javascript:;">{{__('user.Shipping Address')}}</a></li>
-                        <li><a href="javascript:;">{{__('user.payment')}}</a></li>
+                        <li><a href="{{ route('cart') }}">{{ __('user.Shopping Cart') }}</a></li>
+                        <li><a class="wsus__order_active"
+                                href="{{ route('user.checkout.billing-address') }}">{{ __('user.Billing Address') }}</a>
+                        </li>
+                        <li><a href="javascript:;">{{ __('user.Shipping Address') }}</a></li>
+                        <li><a href="javascript:;">{{ __('user.payment') }}</a></li>
                     </ul>
                 </div>
-                <form class="wsus__checkout_form" method="POST" action="{{ route('user.checkout.update-billing-address') }}">
+                <form class="wsus__checkout_form" method="POST"
+                    action="{{ route('user.checkout.update-billing-address') }}">
                     @csrf
                     <div class="row">
                         <div class="col-xl-7 col-lg-6">
                             <div class="wsus__check_form">
-                                <h5>{{__('user.Billing Address')}}</h5>
+                                <h5>{{ __('user.Billing Address') }}</h5>
                                 @if ($billing)
                                     <div class="row">
                                         <div class="col-xl-12">
                                             <div class="wsus__add_address_single">
-                                                <input type="text" placeholder="{{__('user.Name')}}*" name="name" value="{{ $billing->name }}">
+                                                <input type="text" placeholder="{{ __('user.Name') }}*" name="name"
+                                                    value="{{ $billing->name }}">
                                             </div>
                                         </div>
                                         <div class="col-xl-12">
                                             <div class="wsus__add_address_single">
-                                                <input type="email" placeholder="{{__('user.Email')}}*" name="email" value="{{ $billing->email }}">
+                                                <input type="email" placeholder="{{ __('user.Email') }}*" name="email"
+                                                    value="{{ $billing->email }}">
                                             </div>
                                         </div>
                                         <div class="col-xl-12">
                                             <div class="wsus__add_address_single">
-                                                <input type="text" placeholder="{{__('user.Phone')}}*" name="phone" value="{{ $billing->phone }}">
+                                                <input type="text" placeholder="{{ __('user.Phone') }}*" name="phone"
+                                                    value="{{ $billing->phone }}">
                                             </div>
                                         </div>
 
                                         <div class="col-xl-12">
                                             <div class="wsus__check_single_form">
                                                 <select class="select_2" name="country" id="country_id">
-                                                    <option value="">{{__('user.Select Country')}}*</option>
+                                                    <option value="">{{ __('user.Select Country') }}*</option>
                                                     @foreach ($countries as $country)
-                                                        <option {{ $country->id == $billing->country_id ? 'selected' : '' }} value="{{ $country->id }}">{{ $country->name }}</option>
+                                                        <option
+                                                            {{ $country->id == $billing->country_id ? 'selected' : '' }}
+                                                            value="{{ $country->id }}">{{ $country->name }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -83,9 +92,10 @@
                                         <div class="col-xl-12">
                                             <div class="wsus__check_single_form">
                                                 <select class="select_2" name="state" id="state_id">
-                                                    <option value="0">{{__('user.Select State')}}</option>
+                                                    <option value="0">{{ __('user.Select State') }}</option>
                                                     @foreach ($states as $state)
-                                                        <option {{ $state->id == $billing->state_id ? 'selected' : '' }} value="{{ $state->id }}">{{ $state->name }}</option>
+                                                        <option {{ $state->id == $billing->state_id ? 'selected' : '' }}
+                                                            value="{{ $state->id }}">{{ $state->name }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -93,9 +103,10 @@
                                         <div class="col-xl-12">
                                             <div class="wsus__check_single_form">
                                                 <select class="select_2" name="city" id="city_id">
-                                                    <option value="0">{{__('user.Select City')}}</option>
+                                                    <option value="0">{{ __('user.Select City') }}</option>
                                                     @foreach ($cities as $city)
-                                                        <option {{ $city->id == $billing->city_id ? 'selected' : '' }} value="{{ $city->id }}">{{ $city->name }}</option>
+                                                        <option {{ $city->id == $billing->city_id ? 'selected' : '' }}
+                                                            value="{{ $city->id }}">{{ $city->name }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -103,16 +114,20 @@
 
                                         <div class="col-xl-6">
                                             <div class="wsus__add_address_single">
-                                                <input type="text" placeholder="{{__('user.Zip Code')}}" name="zip_code" value="{{ $billing->zip_code }}">
+                                                <input type="text" placeholder="{{ __('user.Zip Code') }}"
+                                                    name="zip_code" value="{{ $billing->zip_code }}">
                                             </div>
                                         </div>
                                         <div class="col-xl-6">
                                             <div class="wsus__add_address_single">
-                                                <input type="text" name="address" placeholder="{{__('user.Address')}}*" value="{{ $billing->address }}">
+                                                <input type="text" name="address"
+                                                    placeholder="{{ __('user.Address') }}*"
+                                                    value="{{ $billing->address }}">
                                             </div>
                                         </div>
                                         <div class="col-xl-6">
-                                            <input type="checkbox" name="same_as_shipping" id="same_as_shipping"> <label for="same_as_shipping">{{__('user.Same as Shipping Address')}}</label>
+                                            <input type="checkbox" name="same_as_shipping" id="same_as_shipping"> <label
+                                                for="same_as_shipping">{{ __('user.Same as Shipping Address') }}</label>
                                         </div>
 
                                     </div>
@@ -120,24 +135,24 @@
                                     <div class="row">
                                         <div class="col-xl-6 col-md-6">
                                             <div class="wsus__add_address_single">
-                                                <input type="text" placeholder="{{__('user.Name')}}*" name="name" >
+                                                <input type="text" placeholder="{{ __('user.Name') }}*" name="name">
                                             </div>
                                         </div>
                                         <div class="col-xl-6 col-md-6">
                                             <div class="wsus__add_address_single">
-                                                <input type="email" placeholder="{{__('user.Email')}}*" name="email">
+                                                <input type="email" placeholder="{{ __('user.Email') }}*" name="email">
                                             </div>
                                         </div>
                                         <div class="col-xl-6 col-md-6">
                                             <div class="wsus__add_address_single">
-                                                <input type="text" placeholder="{{__('user.Phone')}}*" name="phone">
+                                                <input type="text" placeholder="{{ __('user.Phone') }}*" name="phone">
                                             </div>
                                         </div>
 
                                         <div class="col-xl-6 col-md-6">
                                             <div class="wsus__check_single_form">
                                                 <select class="select_2" name="country" id="country_id">
-                                                    <option value="">{{__('user.Select Country')}}*</option>
+                                                    <option value="">{{ __('user.Select Country') }}*</option>
                                                     @foreach ($countries as $country)
                                                         <option value="{{ $country->id }}">{{ $country->name }}</option>
                                                     @endforeach
@@ -147,7 +162,7 @@
                                         <div class="col-xl-6 col-md-6">
                                             <div class="wsus__check_single_form">
                                                 <select class="select_2" name="state" id="state_id">
-                                                    <option value="0">{{__('user.Select State')}}</option>
+                                                    <option value="0">{{ __('user.Select State') }}</option>
                                                     @foreach ($states as $state)
                                                         <option value="{{ $state->id }}">{{ $state->name }}</option>
                                                     @endforeach
@@ -157,7 +172,7 @@
                                         <div class="col-xl-6 col-md-6">
                                             <div class="wsus__check_single_form">
                                                 <select class="select_2" name="city" id="city_id">
-                                                    <option value="0">{{__('user.Select City')}}</option>
+                                                    <option value="0">{{ __('user.Select City') }}</option>
                                                     @foreach ($cities as $city)
                                                         <option value="{{ $city->id }}">{{ $city->name }}</option>
                                                     @endforeach
@@ -167,17 +182,20 @@
 
                                         <div class="col-xl-6 col-md-6">
                                             <div class="wsus__add_address_single">
-                                                <input type="text" placeholder="{{__('user.Zip Code')}}" name="zip_code">
+                                                <input type="text" placeholder="{{ __('user.Zip Code') }}"
+                                                    name="zip_code">
                                             </div>
                                         </div>
                                         <div class="col-xl-6 col-md-6">
                                             <div class="wsus__add_address_single">
-                                                <input type="text" name="address" placeholder="{{__('user.Address')}}*">
+                                                <input type="text" name="address"
+                                                    placeholder="{{ __('user.Address') }}*">
                                             </div>
                                         </div>
 
                                         <div class="col-xl-6">
-                                            <input type="checkbox" name="same_as_shipping" id="same_as_shipping"> <label for="same_as_shipping">{{__('user.Same as Shipping Address')}}</label>
+                                            <input type="checkbox" name="same_as_shipping" id="same_as_shipping"> <label
+                                                for="same_as_shipping">{{ __('user.Same as Shipping Address') }}</label>
                                         </div>
 
                                     </div>
@@ -186,7 +204,7 @@
                         </div>
                         <div class="col-xl-5 col-lg-6">
                             <div class="wsus__order_details" id="sticky_sidebar">
-                                <h5>{{__('user.products')}}</h5>
+                                <h5>{{ __('user.products') }}</h5>
                                 <ul class="wsus__order_details_item">
                                     @php
                                         $subTotal = 0;
@@ -197,7 +215,8 @@
                                         @endphp
                                         <li>
                                             <div class="wsus__order_details_img">
-                                                <img src="{{ asset($cartContent->options->image) }}" alt="blazer" class="img-fluid w-100">
+                                                <img src="{{ asset($cartContent->options->image) }}" alt="blazer"
+                                                    class="img-fluid w-100">
                                                 <span>{{ $cartContent->qty }}</span>
                                             </div>
                                             <div class="wsus__order_details_text">
@@ -210,15 +229,16 @@
                                                         @php
                                                             $variantPrice += $cartContent->options->prices[$indx];
                                                         @endphp
-                                                        {{ $variant }}: {{ $cartContent->options->values[$indx] }}{{ $totalVariant == ++$indx ? '' : ',' }}
+                                                        {{ $variant }}:
+                                                        {{ $cartContent->options->values[$indx] }}{{ $totalVariant == ++$indx ? '' : ',' }}
                                                     @endforeach
 
                                                 </span>
                                             </div>
 
                                             @php
-                                                $productPrice = $cartContent->price ;
-                                                $total = $productPrice * $cartContent->qty ;
+                                                $productPrice = $cartContent->price;
+                                                $total = $productPrice * $cartContent->qty;
                                                 $subTotal += $total;
                                             @endphp
                                             <div class="wsus__order_details_tk">
@@ -242,25 +262,29 @@
 
                                     $total_price = $tax_amount + $subTotal;
 
-                                    if(Session::get('coupon_price') && Session::get('offer_type')) {
-                                        if(Session::get('offer_type') == 1) {
+                                    if (Session::get('coupon_price') && Session::get('offer_type')) {
+                                        if (Session::get('offer_type') == 1) {
                                             $coupon_price = Session::get('coupon_price');
                                             $coupon_price = ($coupon_price / 100) * $total_price;
-                                        }else {
+                                        } else {
                                             $coupon_price = Session::get('coupon_price');
                                         }
                                     }
 
-                                    $total_price = $total_price - $coupon_price ;
+                                    $total_price = $total_price - $coupon_price;
                                 @endphp
 
                                 <div class="wsus__order_details_summery">
-                                    <p>{{__('user.subtotal')}}: <span>{{ $setting->currency_icon }}{{ $subTotal }}</span></p>
-                                    <p>{{__('user.Tax')}}(+): <span>{{ $setting->currency_icon }}{{ $tax_amount }}</span></p>
-                                    <p>{{__('user.Coupon')}}(-): <span>{{ $setting->currency_icon }}{{  $coupon_price  }}</span></p>
-                                    <p class="total"><span>{{__('user.total')}}:</span> <span>{{ $setting->currency_icon }}{{ $total_price }}</span></p>
+                                    <p>{{ __('user.subtotal') }}:
+                                        <span>{{ $setting->currency_icon }}{{ $subTotal }}</span></p>
+                                    <p>{{ __('user.Tax') }}(+):
+                                        <span>{{ $setting->currency_icon }}{{ $tax_amount }}</span></p>
+                                    <p>{{ __('user.Coupon') }}(-):
+                                        <span>{{ $setting->currency_icon }}{{ $coupon_price }}</span></p>
+                                    <p class="total"><span>{{ __('user.total') }}:</span>
+                                        <span>{{ $setting->currency_icon }}{{ $total_price }}</span></p>
                                 </div>
-                                <button type="submit" class="common_btn">{{__('user.Continue Shopping')}}</button>
+                                <button type="submit" class="common_btn">{{ __('user.Continue Shopping') }}</button>
                             </div>
                         </div>
                     </div>
@@ -270,52 +294,51 @@
         </div>
     </section>
     <!--============================
-         CHECK OUT PAGE END
-    ==============================-->
+             CHECK OUT PAGE END
+        ==============================-->
 
 
     <script>
         (function($) {
             "use strict";
-            $(document).ready(function () {
+            $(document).ready(function() {
 
-                $("#country_id").on("change",function(){
+                $("#country_id").on("change", function() {
                     var countryId = $("#country_id").val();
-                    if(countryId){
+                    if (countryId) {
                         $.ajax({
-                            type:"get",
-                            url:"{{url('/user/state-by-country/')}}"+"/"+countryId,
-                            success:function(response){
+                            type: "get",
+                            url: "{{ url('/user/state-by-country/') }}" + "/" + countryId,
+                            success: function(response) {
                                 $("#state_id").html(response.states);
-                                var response= "<option value=''>{{__('user.Select a City')}}</option>";
+                                var response =
+                                    "<option value=''>{{ __('user.Select a City') }}</option>";
                                 $("#city_id").html(response);
                             },
-                            error:function(err){
-                            }
+                            error: function(err) {}
                         })
-                    }else{
-                        var response= "<option value=''>{{__('user.Select a State')}}</option>";
+                    } else {
+                        var response = "<option value=''>{{ __('user.Select a State') }}</option>";
                         $("#state_id").html(response);
-                        var response= "<option value=''>{{__('user.Select a City')}}</option>";
+                        var response = "<option value=''>{{ __('user.Select a City') }}</option>";
                         $("#city_id").html(response);
                     }
 
                 })
 
-                $("#state_id").on("change",function(){
+                $("#state_id").on("change", function() {
                     var countryId = $("#state_id").val();
-                    if(countryId){
+                    if (countryId) {
                         $.ajax({
-                            type:"get",
-                            url:"{{url('/user/city-by-state/')}}"+"/"+countryId,
-                            success:function(response){
+                            type: "get",
+                            url: "{{ url('/user/city-by-state/') }}" + "/" + countryId,
+                            success: function(response) {
                                 $("#city_id").html(response.cities);
                             },
-                            error:function(err){
-                            }
+                            error: function(err) {}
                         })
-                    }else{
-                        var response= "<option value=''>{{__('user.Select a City')}}</option>";
+                    } else {
+                        var response = "<option value=''>{{ __('user.Select a City') }}</option>";
                         $("#city_id").html(response);
                     }
 

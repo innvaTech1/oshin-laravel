@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Address;
 use Illuminate\Http\Request;
 use App\Models\BreadcrumbImage;
-use Auth;
 use App\Models\Country;
 use App\Models\CountryState;
 use App\Models\City;
@@ -24,14 +23,14 @@ use App\Models\BankPayment;
 use App\Models\InstamojoPayment;
 use App\Models\PaypalPayment;
 use App\Models\PaymongoPayment;
-use Cart;
-use Session;
+use Gloudemans\Shoppingcart\Facades\Cart;
+use Illuminate\Support\Facades\Auth;
 
 class CheckoutController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:web');
+        // $this->middleware('auth:web');
     }
 
     public function checkout()
@@ -43,19 +42,56 @@ class CheckoutController extends Controller
         }
         $cartContents = Cart::content();
         $user = Auth::guard('web')->user();
-        $shipping = ShippingAddress::where('user_id', $user->id)->first();
+        // $shipping = ShippingAddress::where('user_id', $user->id)->first();
         $states = CountryState::orderBy('name', 'asc')->where('status', 1)->get();
 
         $banner = BreadcrumbImage::where(['id' => 2])->first();
         $shippingMethods = ShippingMethod::where('status', 1)->get();
 
-        $addresses = null;
+        $addresses = [];
 
         if (auth()->user()) {
             $addresses = Address::where('user_id', auth()->user()->id)->get();
         }
-        return view('checkout', compact('banner', 'cartContents', 'shipping', 'states', 'shippingMethods', 'addresses'));
+        // 'shipping',
+        return view('checkout', compact('banner', 'cartContents', 'states', 'shippingMethods', 'addresses'));
     }
+    public function checkout_()
+    {
+        if (Cart::count() == 0) {
+            $notification = trans('user_validation.Your Shopping Cart is Empty');
+            $notification = array('messege' => $notification, 'alert-type' => 'error');
+            return redirect()->route('product')->with($notification);
+        }
+        $cartContents = Cart::content();
+
+        $user = Auth::guard('web')->user();
+
+        $banner = BreadcrumbImage::where(['id' => 2])->first();
+        $setting = Setting::first();
+
+        $shippings = ShippingMethod::all();
+
+
+        $inside_fee = 0;
+        $outside_fee = 0;
+
+        foreach ($cartContents as $cartContent) {
+            $product = Product::find($cartContent->id);
+            $inside_single = (int)$product->inside_fee *  (int)$cartContent->qty;
+            $inside_fee += $inside_single;
+            $outside_single = ((int)$product->outside_fee * (int)$cartContent->qty);
+            $outside_fee = $outside_fee + $outside_single;
+        }
+
+
+        $bankInfo = BankPayment::first();
+        $states = CountryState::all();
+
+        return view('checkout', compact('banner', 'cartContents', 'setting', 'inside_fee', 'outside_fee', 'shippings', "bankInfo"));
+    }
+
+
 
     public function payment()
     {
