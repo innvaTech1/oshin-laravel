@@ -582,38 +582,6 @@
         $links = App\Models\FooterSocialLink::all();
         $footerLinks = App\Models\FooterLink::all();
     @endphp
-    <!--============================
-        SUBSCRIBE PART START
-    ==============================-->
-    <section id="wsus__subscribe">
-        <div class="container">
-            <div class="wsus__subs_form">
-                <div class="row">
-                    <div class="col-xl-5 col-lg-5">
-                        <div class="wsus__subd_text">
-                            <h4>{{ __('user.Subscribe To Our Newsletter') }}</h4>
-                            <p>{{ __('user.Get all the latest information on Events, Sales and Offers.') }}</p>
-                        </div>
-                    </div>
-                    <div class="col-xl-7 col-lg-7">
-                        <div class="wsus__subs_form">
-                            <form id="subscriberForm">
-                                @csrf
-                                <input type="email" placeholder="{{ __('user.Your Email') }}" name="email">
-                                <button type="submit" class="common_btn" id="SubscribeBtn"><i
-                                        id="subscribe-spinner"
-                                        class="loading-icon fa fa-spin fa-spinner mr-3 d-none"></i>{{ __('user.Subscribe') }}</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!--============================
-        SUBSCRIBE PART END
-    ==============================-->
-
 
     <!--============================
         FOOTER PART START

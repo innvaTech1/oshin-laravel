@@ -117,8 +117,7 @@
                 </h5>
                 <div class="wsus__minicart_btn_area">
                     <a class="common_btn" href="{{ route('cart') }}">{{ __('user.View Cart') }}</a>
-                    <a class="common_btn"
-                        href="{{ route('user.checkout.billing-address') }}">{{ __('user.Checkout') }}</a>
+                    <a class="common_btn" href="{{ route('checkout.checkout') }}">{{ __('user.Checkout') }}</a>
                 </div>
             @endif
         </div>

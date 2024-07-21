@@ -439,21 +439,17 @@ class UserProfileController extends Controller
             'email' => 'required|unique:vendors',
             'phone' => 'required',
             'address' => 'required',
-            'open_at' => 'required',
-            'closed_at' => 'required',
             'agree_terms_condition' => 'required'
         ];
 
         $customMessages = [
-            'banner_image.required' => trans('user_validation.Name is required'),
+            'banner_image.required' => trans('user_validation.Image is required'),
             'shop_name.required' => trans('user_validation.Shop name is required'),
             'shop_name.unique' => trans('user_validation.Shop name already exist'),
             'email.required' => trans('user_validation.Email is required'),
             'email.unique' => trans('user_validation.Email already exist'),
             'phone.required' => trans('user_validation.Phone is required'),
             'address.required' => trans('user_validation.Address is required'),
-            'open_at.required' => trans('user_validation.Open at is required'),
-            'closed_at.required' => trans('user_validation.Close at is required'),
             'agree_terms_condition.required' => trans('user_validation.Agree field is required'),
         ];
         $this->validate($request, $rules, $customMessages);
@@ -475,19 +471,11 @@ class UserProfileController extends Controller
 
         if ($request->banner_image) {
             $exist_banner = $seller->banner_image;
-            $extention = $request->banner_image->getClientOriginalExtension();
-            $banner_name = 'seller-banner' . date('-Y-m-d-h-i-s-') . rand(999, 9999) . '.' . $extention;
-            $banner_name = 'uploads/custom-images/' . $banner_name;
-            Image::make($request->banner_image)
-                ->save(public_path() . '/' . $banner_name);
+            $banner_name = file_upload($request->banner_image, $exist_banner, 'uploads/custom-images/', 'seller-banner');
             $seller->banner_image = $banner_name;
-            $seller->save();
-            if ($exist_banner) {
-                if (File::exists(public_path() . '/' . $exist_banner)) unlink(public_path() . '/' . $exist_banner);
-            }
         }
         $seller->save();
-        $notification = trans('user_validation.Request sumited successfully');
+        $notification = trans('user_validation.Request submitted successfully');
         $notification = array('messege' => $notification, 'alert-type' => 'success');
         return redirect()->route('user.dashboard')->with($notification);
     }

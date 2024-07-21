@@ -11,10 +11,10 @@ use App\Models\Currency;
 use Modules\GlobalSetting\app\Models\SeoSetting;
 
 // file upload method
-function file_upload($request_file, $old_file, $file_path)
+function file_upload($request_file, $old_file, $file_path, $prefix = 'oshin-img')
 {
     $extention = $request_file->getClientOriginalExtension();
-    $file_name = 'oshin-img' . date('-Y-m-d-h-i-s-') . rand(999, 9999) . '.' . $extention;
+    $file_name =  $prefix . date('-Y-m-d-h-i-s-') . rand(999, 9999) . '.' . $extention;
     $file_name = $file_path . $file_name;
     $request_file->move(public_path($file_path), $file_name);
 
