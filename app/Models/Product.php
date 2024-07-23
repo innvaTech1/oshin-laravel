@@ -24,6 +24,16 @@ class Product extends Model
         return $this->belongsTo(Category::class)->withDefault();
     }
 
+    public function deliveryCharge()
+    {
+        $charge = 0;
+        if ($this->category()) {
+            $charge = $this->category->delivery_charge;
+        }
+
+        return (float) $charge;
+    }
+
     public function wholesales()
     {
         return $this->hasMany(Wholesell::class)->orderBy('minimum_product', 'asc');
@@ -75,8 +85,6 @@ class Product extends Model
 
         return $this->hasMany(ProductVariant::class)->select(['id', 'name', 'product_id']);
     }
-
-
 
     public function returnPolicy()
     {

@@ -8,8 +8,8 @@
 
 @section('public-content')
     <!--============================
-                                                                                                                                                                                     BREADCRUMB START
-                                                                                                                                                                                ==============================-->
+                                                                                                                                                                                                                                                                                                                                             BREADCRUMB START
+                                                                                                                                                                                                                                                                                                                                        ==============================-->
     <section id="wsus__breadcrumb" style="background: url({{ asset($banner->image) }});">
         <div class="wsus_breadcrumb_overlay">
             <div class="container">
@@ -223,11 +223,12 @@
                                 <ul class="wsus__order_details_item">
                                     @php
                                         $subTotal = 0;
+                                        $productsId = [];
                                     @endphp
                                     @foreach ($cartContents as $cartContent)
                                         @php
                                             $variantPrice = 0;
-                                            // dd($cartContent->qty);
+                                            $productsId[] = $cartContent->id;
                                         @endphp
                                         <li>
                                             <div class="wsus__order_details_img">
@@ -264,9 +265,28 @@
                                             $totalVariant = 0;
                                         @endphp
                                     @endforeach
+
+
                                 </ul>
 
                                 @php
+                                    $deliveryCharge = [];
+                                    $productsList = \App\Models\Product::whereIn('id', $productsId)->get();
+
+                                    foreach ($productsList as $key => $prod) {
+                                        $vendorId = $prod->vendor_id;
+                                        if (isset($deliveryCharge["$vendorId"])) {
+                                            if ($deliveryCharge[$vendorId] < $prod->deliveryCharge()) {
+                                                $deliveryCharge["$vendorId"] = $prod->deliveryCharge();
+                                            }
+                                            continue;
+                                        } else {
+                                            $deliveryCharge["$vendorId"] = $prod->deliveryCharge();
+                                        }
+                                    }
+
+                                    $deliveryCharge = array_sum($deliveryCharge);
+
                                     $tax_amount = 0;
                                     $total_price = 0;
                                     $coupon_price = 0;
@@ -327,7 +347,7 @@
                                         <span>{{ currency_icon() }}{{ $tax_amount }}</span>
                                     </p>
                                     <p>{{ __('user.Shipping') }}(+): <span>{{ currency_icon() }}<span
-                                                id="shipping_amount">0</span></span></p>
+                                                id="shipping_amount">{{ $deliveryCharge }}</span></span></p>
                                     <p>{{ __('user.Coupon') }}(-):
                                         <span>{{ currency_icon() }}{{ $coupon_price }}</span>
                                     </p>

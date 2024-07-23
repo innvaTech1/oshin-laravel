@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Http\Controllers\WEB\Seller;
+namespace App\Http\Controllers\Seller;
+
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -31,6 +32,8 @@ use Auth;
 
 use App\Exports\ProductExport;
 use App\Imports\ProductImport;
+use App\Models\ProductTax;
+use App\Models\ReturnPolicy;
 use Maatwebsite\Excel\Facades\Excel;
 use Exception;
 
@@ -44,28 +47,28 @@ class SellerProductController extends Controller
     public function index()
     {
         $seller = Auth::guard('web')->user()->seller;
-        $products = Product::with('category','seller','brand')->orderBy('id','desc')->where('approve_by_admin',1)->where('vendor_id',$seller->id)->orderBy('id','desc')->get();
+        $products = Product::with('category', 'seller', 'brand')->orderBy('id', 'desc')->where('approve_by_admin', 1)->where('vendor_id', $seller->id)->orderBy('id', 'desc')->get();
         $orderProducts = OrderProduct::all();
         $setting = Setting::first();
-        return view('seller.product',compact('products','orderProducts','setting'));
-
-
+        return view('seller.product', compact('products', 'orderProducts', 'setting'));
     }
 
-    public function pendingProduct(){
+    public function pendingProduct()
+    {
         $seller = Auth::guard('web')->user()->seller;
-        $products = Product::with('category','seller','brand')->orderBy('id','desc')->where('approve_by_admin',0)->where('vendor_id',$seller->id)->orderBy('id','desc')->get();
+        $products = Product::with('category', 'seller', 'brand')->orderBy('id', 'desc')->where('approve_by_admin', 0)->where('vendor_id', $seller->id)->orderBy('id', 'desc')->get();
         $orderProducts = OrderProduct::all();
         $setting = Setting::first();
-        return view('seller.pending_product',compact('products','orderProducts','setting'));
+        return view('seller.pending_product', compact('products', 'orderProducts', 'setting'));
     }
 
-    public function stockoutProduct(){
+    public function stockoutProduct()
+    {
         $seller = Auth::guard('web')->user()->seller;
-        $products = Product::with('category','seller','brand')->orderBy('id','desc')->where('qty',0)->where('vendor_id',$seller->id)->get();
+        $products = Product::with('category', 'seller', 'brand')->orderBy('id', 'desc')->where('qty', 0)->where('vendor_id', $seller->id)->get();
         $setting = Setting::first();
 
-        return view('seller.stockout_product',compact('products','setting'));
+        return view('seller.stockout_product', compact('products', 'setting'));
     }
 
 
@@ -74,28 +77,31 @@ class SellerProductController extends Controller
     {
         $categories = Category::all();
         $brands = Brand::all();
+        $productTaxs = ProductTax::where('status', 1)->get();
+        $retrunPolicies = ReturnPolicy::where('status', 1)->get();
         $specificationKeys = ProductSpecificationKey::all();
-
-        return view('seller.create_product',compact('categories','brands','specificationKeys'));
+        return view('seller.create_product', compact('categories', 'brands', 'productTaxs', 'retrunPolicies', 'specificationKeys'));
     }
 
 
-    public function getSubcategoryByCategory($id){
-        $subCategories=SubCategory::where('category_id',$id)->get();
-        $response='<option value="">'.trans('admin_validation.Select Sub Category').'</option>';
-        foreach($subCategories as $subCategory){
-            $response .= "<option value=".$subCategory->id.">".$subCategory->name."</option>";
+    public function getSubcategoryByCategory($id)
+    {
+        $subCategories = SubCategory::where('category_id', $id)->get();
+        $response = '<option value="">' . trans('admin_validation.Select Sub Category') . '</option>';
+        foreach ($subCategories as $subCategory) {
+            $response .= "<option value=" . $subCategory->id . ">" . $subCategory->name . "</option>";
         }
-        return response()->json(['subCategories'=>$response]);
+        return response()->json(['subCategories' => $response]);
     }
 
-    public function getChildcategoryBySubCategory($id){
-        $childCategories=ChildCategory::where('sub_category_id',$id)->get();
-        $response='<option value="">'.trans('admin_validation.Select Child Category').'</option>';
-        foreach($childCategories as $childCategory){
-            $response .= "<option value=".$childCategory->id.">".$childCategory->name."</option>";
+    public function getChildcategoryBySubCategory($id)
+    {
+        $childCategories = ChildCategory::where('sub_category_id', $id)->get();
+        $response = '<option value="">' . trans('admin_validation.Select Child Category') . '</option>';
+        foreach ($childCategories as $childCategory) {
+            $response .= "<option value=" . $childCategory->id . ">" . $childCategory->name . "</option>";
         }
-        return response()->json(['childCategories'=>$response]);
+        return response()->json(['childCategories' => $response]);
     }
 
     public function store(Request $request)
@@ -129,18 +135,18 @@ class SellerProductController extends Controller
             'quantity.required' => trans('admin_validation.Quantity is required'),
             'weight.required' => trans('admin_validation.Weight is required'),
         ];
-        $this->validate($request, $rules,$customMessages);
+        $this->validate($request, $rules, $customMessages);
 
 
         $seller = Auth::guard('web')->user()->seller;
         $product = new Product();
-        if($request->thumb_image){
+        if ($request->thumb_image) {
             $extention = $request->thumb_image->getClientOriginalExtension();
-            $image_name = Str::slug($request->name).date('-Y-m-d-h-i-s-').rand(999,9999).'.'.$extention;
-            $image_name = 'uploads/custom-images/'.$image_name;
+            $image_name = Str::slug($request->name) . date('-Y-m-d-h-i-s-') . rand(999, 9999) . '.' . $extention;
+            $image_name = 'uploads/custom-images/' . $image_name;
             Image::make($request->thumb_image)
-                ->save(public_path().'/'.$image_name);
-            $product->thumb_image=$image_name;
+                ->save(public_path() . '/' . $image_name);
+            $product->thumb_image = $image_name;
         }
 
         $product->vendor_id = $seller->id;
@@ -170,14 +176,14 @@ class SellerProductController extends Controller
         $product->is_featured = $request->is_featured ? 1 : 0;
         $product->save();
 
-        if($request->is_specification){
-            $exist_specifications=[];
-            if($request->keys){
-                foreach($request->keys as $index => $key){
-                    if($key){
-                        if($request->specifications[$index]){
-                            if(!in_array($key, $exist_specifications)){
-                                $productSpecification= new ProductSpecification();
+        if ($request->is_specification) {
+            $exist_specifications = [];
+            if ($request->keys) {
+                foreach ($request->keys as $index => $key) {
+                    if ($key) {
+                        if ($request->specifications[$index]) {
+                            if (!in_array($key, $exist_specifications)) {
+                                $productSpecification = new ProductSpecification();
                                 $productSpecification->product_id = $product->id;
                                 $productSpecification->product_specification_key_id = $key;
                                 $productSpecification->specification = $request->specifications[$index];
@@ -190,16 +196,16 @@ class SellerProductController extends Controller
             }
         }
         $notification = trans('admin_validation.Created Successfully');
-        $notification=array('messege'=>$notification,'alert-type'=>'success');
+        $notification = array('messege' => $notification, 'alert-type' => 'success');
         return redirect()->route('seller.product.index')->with($notification);
     }
 
     public function show($id)
     {
-        $product = Product::with('category','brand','gallery','specifications','reviews','variants','variantItems')->find($id);
-        if($product->vendor_id == 0){
+        $product = Product::with('category', 'brand', 'gallery', 'specifications', 'reviews', 'variants', 'variantItems')->find($id);
+        if ($product->vendor_id == 0) {
             $notification = 'Something went wrong';
-            return response()->json(['error'=>$notification],403);
+            return response()->json(['error' => $notification], 403);
         }
 
         return response()->json(['product' => $product], 200);
@@ -207,21 +213,20 @@ class SellerProductController extends Controller
 
     public function edit($id)
     {
-        $product = Product::with('category','brand','gallery','variants','variantItems')->find($id);
-        if($product->vendor_id == 0){
+        $product = Product::with('category', 'brand', 'gallery', 'variants', 'variantItems')->find($id);
+        if ($product->vendor_id == 0) {
             $notification = 'Something went wrong';
-            return response()->json(['error'=>$notification],403);
+            return response()->json(['error' => $notification], 403);
         }
         $categories = Category::all();
-        $subCategories = SubCategory::where('category_id',$product->category_id)->get();
+        $subCategories = SubCategory::where('category_id', $product->category_id)->get();
         $childCategories = ChildCategory::where('sub_category_id', $product->sub_category_id)->get();
         $brands = Brand::all();
         $specificationKeys = ProductSpecificationKey::all();
-        $productSpecifications = ProductSpecification::where('product_id',$product->id)->get();
+        $productSpecifications = ProductSpecification::where('product_id', $product->id)->get();
 
 
-        return view('seller.edit_product',compact('categories','brands','specificationKeys','product','subCategories','childCategories','productSpecifications'));
-
+        return view('seller.edit_product', compact('categories', 'brands', 'specificationKeys', 'product', 'subCategories', 'childCategories', 'productSpecifications'));
     }
 
     public function update(Request $request, $id)
@@ -233,7 +238,7 @@ class SellerProductController extends Controller
         $rules = [
             'short_name' => 'required',
             'name' => 'required',
-            'slug' => 'required|unique:products,slug,'.$product->id,
+            'slug' => 'required|unique:products,slug,' . $product->id,
             'category' => 'required',
             'short_description' => 'required',
             'long_description' => 'required',
@@ -259,19 +264,19 @@ class SellerProductController extends Controller
             'status.required' => trans('admin_validation.Status is required'),
             'weight.required' => trans('admin_validation.Weight is required'),
         ];
-        $this->validate($request, $rules,$customMessages);
+        $this->validate($request, $rules, $customMessages);
 
-        if($request->thumb_image){
+        if ($request->thumb_image) {
             $old_thumbnail = $product->thumb_image;
             $extention = $request->thumb_image->getClientOriginalExtension();
-            $image_name = Str::slug($request->name).date('-Y-m-d-h-i-s-').rand(999,9999).'.'.$extention;
-            $image_name = 'uploads/custom-images/'.$image_name;
+            $image_name = Str::slug($request->name) . date('-Y-m-d-h-i-s-') . rand(999, 9999) . '.' . $extention;
+            $image_name = 'uploads/custom-images/' . $image_name;
             Image::make($request->thumb_image)
-                ->save(public_path().'/'.$image_name);
-            $product->thumb_image=$image_name;
+                ->save(public_path() . '/' . $image_name);
+            $product->thumb_image = $image_name;
             $product->save();
-            if($old_thumbnail){
-                if(File::exists(public_path().'/'.$old_thumbnail))unlink(public_path().'/'.$old_thumbnail);
+            if ($old_thumbnail) {
+                if (File::exists(public_path() . '/' . $old_thumbnail)) unlink(public_path() . '/' . $old_thumbnail);
             }
         }
 
@@ -300,22 +305,22 @@ class SellerProductController extends Controller
         $product->new_product = $request->new_arrival ? 1 : 0;
         $product->is_best = $request->best_product ? 1 : 0;
         $product->is_featured = $request->is_featured ? 1 : 0;
-        if($product->approve_by_admin == 1){
+        if ($product->approve_by_admin == 1) {
             $product->status = $request->status;
         }
         $product->save();
 
-        $exist_specifications=[];
-        if($request->keys){
-            foreach($request->keys as $index => $key){
-                if($key){
-                    if($request->specifications[$index]){
-                        if(!in_array($key, $exist_specifications)){
-                            $existSroductSpecification = ProductSpecification::where(['product_id' => $product->id,'product_specification_key_id' => $key])->first();
-                            if($existSroductSpecification){
+        $exist_specifications = [];
+        if ($request->keys) {
+            foreach ($request->keys as $index => $key) {
+                if ($key) {
+                    if ($request->specifications[$index]) {
+                        if (!in_array($key, $exist_specifications)) {
+                            $existSroductSpecification = ProductSpecification::where(['product_id' => $product->id, 'product_specification_key_id' => $key])->first();
+                            if ($existSroductSpecification) {
                                 $existSroductSpecification->specification = $request->specifications[$index];
                                 $existSroductSpecification->save();
-                            }else{
+                            } else {
                                 $productSpecification = new ProductSpecification();
                                 $productSpecification->product_id = $product->id;
                                 $productSpecification->product_specification_key_id = $key;
@@ -329,7 +334,7 @@ class SellerProductController extends Controller
             }
         }
         $notification = trans('admin_validation.Update Successfully');
-        $notification=array('messege'=>$notification,'alert-type'=>'success');
+        $notification = array('messege' => $notification, 'alert-type' => 'success');
         return redirect()->route('seller.product.index')->with($notification);
     }
 
@@ -339,44 +344,44 @@ class SellerProductController extends Controller
         $gallery = $product->gallery;
         $old_thumbnail = $product->thumb_image;
         $product->delete();
-        if($old_thumbnail){
-            if(File::exists(public_path().'/'.$old_thumbnail))unlink(public_path().'/'.$old_thumbnail);
+        if ($old_thumbnail) {
+            if (File::exists(public_path() . '/' . $old_thumbnail)) unlink(public_path() . '/' . $old_thumbnail);
         }
-        foreach($gallery as $image){
+        foreach ($gallery as $image) {
             $old_image = $image->image;
             $image->delete();
-            if($old_image){
-                if(File::exists(public_path().'/'.$old_image))unlink(public_path().'/'.$old_image);
+            if ($old_image) {
+                if (File::exists(public_path() . '/' . $old_image)) unlink(public_path() . '/' . $old_image);
             }
         }
-        ProductVariant::where('product_id',$id)->delete();
-        ProductVariantItem::where('product_id',$id)->delete();
-        ProductReport::where('product_id',$id)->delete();
-        FlashSaleProduct::where('product_id',$id)->delete();
-        ProductReview::where('product_id',$id)->delete();
-        ProductSpecification::where('product_id',$id)->delete();
-        Wishlist::where('product_id',$id)->delete();
+        ProductVariant::where('product_id', $id)->delete();
+        ProductVariantItem::where('product_id', $id)->delete();
+        ProductReport::where('product_id', $id)->delete();
+        FlashSaleProduct::where('product_id', $id)->delete();
+        ProductReview::where('product_id', $id)->delete();
+        ProductSpecification::where('product_id', $id)->delete();
+        Wishlist::where('product_id', $id)->delete();
 
-        $cartProducts = ShoppingCart::where('product_id',$id)->get();
-        foreach($cartProducts as $cartProduct){
+        $cartProducts = ShoppingCart::where('product_id', $id)->get();
+        foreach ($cartProducts as $cartProduct) {
             ShoppingCartVariant::where('shopping_cart_id', $cartProduct->id)->delete();
             $cartProduct->delete();
         }
-        CompareProduct::where('product_id',$id)->delete();
+        CompareProduct::where('product_id', $id)->delete();
 
         $notification = trans('admin_validation.Delete Successfully');
-        $notification=array('messege'=>$notification,'alert-type'=>'success');
+        $notification = array('messege' => $notification, 'alert-type' => 'success');
         return redirect()->route('seller.product.index')->with($notification);
-
     }
 
-    public function changeStatus($id){
+    public function changeStatus($id)
+    {
         $product = Product::find($id);
-        if($product->status == 1){
+        if ($product->status == 1) {
             $product->status = 0;
             $product->save();
             $message = trans('admin_validation.Inactive Successfully');
-        }else{
+        } else {
             $product->status = 1;
             $product->save();
             $message = trans('admin_validation.Active Successfully');
@@ -384,7 +389,8 @@ class SellerProductController extends Controller
         return response()->json($message);
     }
 
-    public function removedProductExistSpecification($id){
+    public function removedProductExistSpecification($id)
+    {
         $productSpecification = ProductSpecification::find($id);
         $productSpecification->delete();
         $message = trans('admin_validation.Removed Successfully');
@@ -415,20 +421,16 @@ class SellerProductController extends Controller
 
     public function product_import(Request $request)
     {
-        try{
+        try {
             Excel::import(new ProductImport, $request->file('import_file'));
 
-            $notification=trans('Uploaded Successfully');
-            $notification=array('messege'=>$notification,'alert-type'=>'success');
+            $notification = trans('Uploaded Successfully');
+            $notification = array('messege' => $notification, 'alert-type' => 'success');
             return redirect()->back()->with($notification);
-
-        }catch(Exception $ex){
-            $notification=trans('Please follow the instruction and input the value carefully');
-            $notification=array('messege'=>$notification,'alert-type'=>'error');
+        } catch (Exception $ex) {
+            $notification = trans('Please follow the instruction and input the value carefully');
+            $notification = array('messege' => $notification, 'alert-type' => 'error');
             return redirect()->back()->with($notification);
         }
-
-
     }
-
 }

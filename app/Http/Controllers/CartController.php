@@ -109,10 +109,13 @@ class CartController extends Controller
             }
         }
 
+
         $data = array();
         $data['id'] = $product->id;
         $data['name'] = $product->short_name;
         $data['qty'] = $request->quantity;
+        $data['vendor_id'] = $product->vendor_id;
+        $data['delivery_charge'] = $product->deliveryCharge();
         $data['price'] = $productPrice;
         $data['weight'] = 1;
         $data['options']['tax'] = $tax_percentage_amount;
