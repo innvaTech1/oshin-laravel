@@ -22,6 +22,7 @@ return array(
     'Delivery Charge' => 'Delivery Charge',
     'Select City' => 'Select City',
     'SN' => 'SN',
+    'User Registration/Login' => 'User Registration/Login',
     'Image Preview' => 'Image Preview',
     'Name' => 'Name',
     'Email' => 'Email',

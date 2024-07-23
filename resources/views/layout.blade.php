@@ -705,36 +705,6 @@
         </script>
     @endif
 
-    @if ($cookie_consent->status == 1)
-        <script src="{{ asset('user/js/cookieconsent.min.js') }}"></script>
-
-        <script>
-            window.addEventListener("load", function() {
-                window.wpcc.init({
-                    "border": "{{ $cookie_consent->border }}",
-                    "corners": "{{ $cookie_consent->corners }}",
-                    "colors": {
-                        "popup": {
-                            "background": "{{ $cookie_consent->background_color }}",
-                            "text": "{{ $cookie_consent->text_color }} !important",
-                            "border": "{{ $cookie_consent->border_color }}"
-                        },
-                        "button": {
-                            "background": "{{ $cookie_consent->btn_bg_color }}",
-                            "text": "{{ $cookie_consent->btn_text_color }}"
-                        }
-                    },
-                    "content": {
-                        "href": "{{ route('privacy-policy') }}",
-                        "message": "{{ $cookie_consent->message }}",
-                        "link": "{{ $cookie_consent->link_text }}",
-                        "button": "{{ $cookie_consent->btn_text }}"
-                    }
-                })
-            });
-        </script>
-    @endif
-
     <!--bootstrap js-->
     <script src="{{ asset('user/js/bootstrap.bundle.min.js') }}"></script>
     <!--font-awesome js-->

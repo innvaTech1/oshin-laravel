@@ -66,7 +66,7 @@
                             </a>
                         </li>
                         @if ($menus->where('id', 19)->first()->status == 1)
-                            <li><a class="wsus__cart_icon" href="#">
+                            <li><a class="wsus__cart_icon" href="javascript:;">
                                     <i class="fal fa-shopping-bag"></i>
                                     <span id="cartQty">{{ Cart::instance('default')->count() }}</span>
                                 </a>

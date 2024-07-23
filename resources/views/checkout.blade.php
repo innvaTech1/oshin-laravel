@@ -8,8 +8,8 @@
 
 @section('public-content')
     <!--============================
-                                                                                                                                                                                                                                                                                                                                             BREADCRUMB START
-                                                                                                                                                                                                                                                                                                                                        ==============================-->
+                                                                                                                                                                                                                                                                                                                                                                                                         BREADCRUMB START
+                                                                                                                                                                                                                                                                                                                                                                                                    ==============================-->
     <section id="wsus__breadcrumb" style="background: url({{ asset($banner->image) }});">
         <div class="wsus_breadcrumb_overlay">
             <div class="container">
@@ -132,7 +132,8 @@
                                                         <div class="wsus__check_single_form">
                                                             <div class="form-check">
                                                                 <input class="form-check-input" type="checkbox"
-                                                                    value="" id="flexCheckDefault">
+                                                                    value="1" id="flexCheckDefault" checked
+                                                                    name="same_shipping">
                                                                 <label class="form-check-label" for="flexCheckDefault">
                                                                     {{ __('user.Same as shipping address') }}
                                                                 </label>
@@ -140,6 +141,7 @@
                                                         </div>
                                                     </button>
                                                 </h2>
+                                                {{--  --}}
                                                 <div id="collapseThree" class="accordion-collapse collapse"
                                                     aria-labelledby="headingThree" data-bs-parent="#accordionExample">
                                                     <div class="accordion-body p-0">
@@ -220,142 +222,9 @@
                         <div class="col-xl-5 col-lg-6">
                             <div class="wsus__order_details" id="sticky_sidebar">
                                 <h5>{{ __('user.products') }}</h5>
-                                <ul class="wsus__order_details_item">
-                                    @php
-                                        $subTotal = 0;
-                                        $productsId = [];
-                                    @endphp
-                                    @foreach ($cartContents as $cartContent)
-                                        @php
-                                            $variantPrice = 0;
-                                            $productsId[] = $cartContent->id;
-                                        @endphp
-                                        <li>
-                                            <div class="wsus__order_details_img">
-                                                <img src="{{ asset($cartContent->options->image) }}" alt="blazer"
-                                                    class="img-fluid w-100">
-                                                <span>{{ $cartContent->qty }}</span>
-                                            </div>
-                                            <div class="wsus__order_details_text">
-                                                <p>{{ $cartContent->name }}</p>
-                                                <span>
-                                                    @php
-                                                        $totalVariant = count($cartContent->options->variants);
-                                                    @endphp
-                                                    @foreach ($cartContent->options->variants as $indx => $variant)
-                                                        @php
-                                                            $variantPrice += $cartContent->options->prices[$indx];
-                                                        @endphp
-                                                        {{ $variant }}:
-                                                        {{ $cartContent->options->values[$indx] }}{{ $totalVariant == ++$indx ? '' : ',' }}
-                                                    @endforeach
-                                                </span>
-                                            </div>
-                                            @php
-                                                $productPrice = $cartContent->price;
-                                                $total = $productPrice * $cartContent->qty;
-                                                $subTotal += $total;
-                                            @endphp
-                                            <div class="wsus__order_details_tk">
-                                                <p>{{ currency_icon() }}{{ $total }}</p>
-                                            </div>
-                                        </li>
 
-                                        @php
-                                            $totalVariant = 0;
-                                        @endphp
-                                    @endforeach
-
-
-                                </ul>
-
-                                @php
-                                    $deliveryCharge = [];
-                                    $productsList = \App\Models\Product::whereIn('id', $productsId)->get();
-
-                                    foreach ($productsList as $key => $prod) {
-                                        $vendorId = $prod->vendor_id;
-                                        if (isset($deliveryCharge["$vendorId"])) {
-                                            if ($deliveryCharge[$vendorId] < $prod->deliveryCharge()) {
-                                                $deliveryCharge["$vendorId"] = $prod->deliveryCharge();
-                                            }
-                                            continue;
-                                        } else {
-                                            $deliveryCharge["$vendorId"] = $prod->deliveryCharge();
-                                        }
-                                    }
-
-                                    $deliveryCharge = array_sum($deliveryCharge);
-
-                                    $tax_amount = 0;
-                                    $total_price = 0;
-                                    $coupon_price = 0;
-                                    foreach ($cartContents as $key => $content) {
-                                        $tax = $content->options->tax * $content->qty;
-                                        $tax_amount = $tax_amount + $tax;
-                                    }
-
-                                    $total_price = $tax_amount + $subTotal;
-
-                                    if (Session::get('coupon_price') && Session::get('offer_type')) {
-                                        if (Session::get('offer_type') == 1) {
-                                            $coupon_price = Session::get('coupon_price');
-                                            $coupon_price = ($coupon_price / 100) * $total_price;
-                                        } else {
-                                            $coupon_price = Session::get('coupon_price');
-                                        }
-                                    }
-                                    $total_price = $total_price - $coupon_price;
-                                @endphp
-
-                                <p class="wsus__product">{{ __('user.shipping Methods') }}</p>
-                                @foreach ($shippingMethods as $shippingMethod)
-                                    <input type="hidden" value="{{ $shippingMethod->fee }}"
-                                        id="shipping_price-{{ $shippingMethod->id }}">
-                                    @if ($shippingMethod->id == 1)
-                                        @if ($shippingMethod->minimum_order <= $total_price)
-                                            <div class="form-check">
-                                                <input checked required class="form-check-input shipping_method"
-                                                    type="radio" name="shipping_method"
-                                                    id="shipping_method-{{ $shippingMethod }}"
-                                                    value="{{ $shippingMethod->id }}">
-                                                <label class="form-check-label"
-                                                    for="shipping_method-{{ $shippingMethod }}">
-                                                    {{ $shippingMethod->title }}
-                                                    <span>{{ $shippingMethod->description }}</span>
-                                                </label>
-                                            </div>
-                                        @endif
-                                    @else
-                                        <div class="form-check">
-                                            <input required class="form-check-input shipping_method" type="radio"
-                                                name="shipping_method" id="shipping_method-{{ $shippingMethod }}"
-                                                value="{{ $shippingMethod->id }}">
-                                            <label class="form-check-label" for="shipping_method-{{ $shippingMethod }}">
-                                                {{ $shippingMethod->title }}
-                                                <span>{{ $shippingMethod->description }}</span>
-                                            </label>
-                                        </div>
-                                    @endif
-                                @endforeach
-
-                                <div class="wsus__order_details_summery">
-                                    <p>{{ __('user.subtotal') }}:
-                                        <span>{{ currency_icon() }}{{ $subTotal }}</span>
-                                    </p>
-                                    <p>{{ __('user.Tax') }}(+):
-                                        <span>{{ currency_icon() }}{{ $tax_amount }}</span>
-                                    </p>
-                                    <p>{{ __('user.Shipping') }}(+): <span>{{ currency_icon() }}<span
-                                                id="shipping_amount">{{ $deliveryCharge }}</span></span></p>
-                                    <p>{{ __('user.Coupon') }}(-):
-                                        <span>{{ currency_icon() }}{{ $coupon_price }}</span>
-                                    </p>
-                                    <p class="total"><span>{{ __('user.total') }}:</span>
-                                        <span>{{ currency_icon() }}<span
-                                                id="total_price">{{ $total_price }}</span></span>
-                                    </p>
-                                    <input type="hidden" value="{{ $total_price }}" id="hidden_total_price">
+                                <div class="item-details">
+                                    @include('components.website.checkout-item-total')
                                 </div>
                                 <div class="terms_area">
                                     <div class="form-check">
@@ -368,7 +237,8 @@
                                         </label>
                                     </div>
                                 </div>
-                                <button type="submit" class="common_btn">{{ __('user.Continue Shopping') }}</button>
+                                <button type="submit"
+                                    class="common_btn place_order">{{ __('user.Place Order') }}</button>
                             </div>
                         </div>
                     </div>
@@ -385,7 +255,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">add new address</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">{{ __('user.add new address') }}</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body p-0">
@@ -413,8 +283,8 @@
                                     </div>
                                     <div class="col-md-6 col-lg-12 col-xl-6">
                                         <div class="wsus__check_single_form">
-                                            <input type="text" name="address"
-                                                placeholder="{{ __('user.Address') }}*" value="{{ old('address') }}">
+                                            <input type="text" name="address" placeholder="{{ __('user.Address') }}*"
+                                                value="{{ old('address') }}">
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-lg-12 col-xl-6">
@@ -477,14 +347,24 @@
                         }
                     });
                 });
-                $(".shipping_method").on('click', function() {
-                    let id = $(this).val();
-                    let fee = $("#shipping_price-" + id).val()
-                    $("#shipping_amount").text(fee)
-                    let total = $("#hidden_total_price").val();
-                    total = (total * 1) + (fee * 1);
-                    total = total.toFixed(2);
-                    $("#total_price").text(total);
+                // $(".shipping_method").on('click', function() {
+                //     let id = $(this).val();
+                //     let fee = $("#shipping_price-" + id).val()
+                //     $("#shipping_amount").text(fee)
+                //     let total = $("#hidden_total_price").val();
+                //     total = (total * 1) + (fee * 1);
+                //     total = total.toFixed(2);
+                //     $("#total_price").text(total);
+                // })
+
+                $('.place_order').on('click', function(e) {
+                    e.preventDefault();
+                    // check if terms and condition checked
+                    if (!$('[name="agree_terms_condition"]:checked')) {
+                        toastr.error("{{ __('user.You must agree to our terms and condition') }}");
+                    }
+                    console.log($('.wsus__checkout_form').serialize())
+                    // wsus__checkout_form
                 })
             });
         })(jQuery);
@@ -495,30 +375,6 @@
         (function($) {
             "use strict";
             $(document).ready(function() {
-
-                $("#country_id").on("change", function() {
-                    var countryId = $("#country_id").val();
-                    if (countryId) {
-                        $.ajax({
-                            type: "get",
-                            url: "{{ url('/user/state-by-country/') }}" + "/" + countryId,
-                            success: function(response) {
-                                $("#state_id").html(response.states);
-                                var response =
-                                    "<option value=''>{{ __('user.Select a City') }}</option>";
-                                $("#city_id").html(response);
-                            },
-                            error: function(err) {}
-                        })
-                    } else {
-                        var response = "<option value=''>{{ __('user.Select a State') }}</option>";
-                        $("#state_id").html(response);
-                        var response = "<option value=''>{{ __('user.Select a City') }}</option>";
-                        $("#city_id").html(response);
-                    }
-
-                })
-
                 $("#state_id").on("change", function() {
                     var countryId = $("#state_id").val();
                     if (countryId) {
