@@ -173,6 +173,8 @@
 
                     <li class="{{ Route::is('admin.shipping.*') ? 'active' : '' }}"><a class="nav-link"
                             href="{{ route('admin.shipping.index') }}">{{ __('admin.Shipping') }}</a></li>
+                    <li class="{{ Route::is('admin.payment-method') ? 'active' : '' }}"><a class="nav-link"
+                            href="{{ route('admin.payment-method') }}">{{ __('admin.Payment Method') }}</a></li>
                 </ul>
             </li>
 

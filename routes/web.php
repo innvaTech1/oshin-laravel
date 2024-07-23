@@ -603,15 +603,9 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::put('city-status/{id}', [CityController::class, 'changeStatus'])->name('city-status');
 
         Route::get('payment-method', [PaymentMethodController::class, 'index'])->name('payment-method');
-        Route::put('update-paypal', [PaymentMethodController::class, 'updatePaypal'])->name('update-paypal');
-        Route::put('update-stripe', [PaymentMethodController::class, 'updateStripe'])->name('update-stripe');
-        Route::put('update-razorpay', [PaymentMethodController::class, 'updateRazorpay'])->name('update-razorpay');
+        Route::put('update-aamarpay', [PaymentMethodController::class, 'updateAamarpay'])->name('update-aamarpay');
         Route::put('update-bank', [PaymentMethodController::class, 'updateBank'])->name('update-bank');
-        Route::put('update-mollie', [PaymentMethodController::class, 'updateMollie'])->name('update-mollie');
-        Route::put('update-paystack', [PaymentMethodController::class, 'updatePayStack'])->name('update-paystack');
-        Route::put('update-flutterwave', [PaymentMethodController::class, 'updateflutterwave'])->name('update-flutterwave');
-        Route::put('update-instamojo', [PaymentMethodController::class, 'updateInstamojo'])->name('update-instamojo');
-        Route::put('update-paymongo', [PaymentMethodController::class, 'updatePaymongo'])->name('update-paymongo');
+
         Route::put('update-cash-on-delivery', [PaymentMethodController::class, 'updateCashOnDelivery'])->name('update-cash-on-delivery');
 
         Route::resource('mega-menu-category', MegaMenuController::class);
