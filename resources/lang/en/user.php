@@ -13,6 +13,7 @@ return array(
     'address' => 'address',
     'edit' => 'edit',
     'Shipping Address' => 'Shipping Address',
+    'Bank Payment' => 'Bank Payment',
     'You must agree to our terms and condition' => 'You must agree to our terms and condition',
     'add new address' => 'Add New Address',
     'Change Password' => 'Change Password',

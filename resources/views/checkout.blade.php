@@ -7,9 +7,31 @@
 @endsection
 
 @section('public-content')
-    <!--============================
-                                                                                                                                                                                                                                                                                                                                                                                                         BREADCRUMB START
-                                                                                                                                                                                                                                                                                                                                                                                                    ==============================-->
+    <style>
+        .cursor-pointer {
+            cursor: pointer;
+        }
+
+        .selected {
+            position: relative;
+            text-align: center;
+            width: 100%;
+            font-size: small;
+            color: #0d0d0d;
+            /* Assuming qgreen is a shade of green like limegreen */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-left: 1rem;
+            padding-right: 1rem;
+            text-transform: uppercase;
+            cursor: pointer;
+            border: 2px solid rgb(215, 204, 245);
+        }
+    </style>
+    {{-- <!--============================
+            BREADCRUMB START
+    ==============================--> --}}
     <section id="wsus__breadcrumb" style="background: url({{ asset($banner->image) }});">
         <div class="wsus_breadcrumb_overlay">
             <div class="container">
@@ -36,8 +58,7 @@
     <section id="wsus__cart_view">
         <div class="container">
             <div class="row">
-                <form class="wsus__checkout_form" action="{{ route('user.checkout.update-shipping-address') }}"
-                    method="POST">
+                <form class="wsus__checkout_form" action="{{ route('checkout.payment') }}" method="POST">
                     @csrf
                     <div class="row">
                         <div class="col-xl-7 col-lg-6">
@@ -182,7 +203,7 @@
                                                                     <div class="wsus__check_single_form">
                                                                         <select name="billing_state_id"
                                                                             class="state form-control select_2">
-                                                                            <option selected disabled>
+                                                                            <option selected disabled value="">
                                                                                 {{ __('user.Select State') }}
                                                                             </option>
                                                                             @foreach ($states as $state)
@@ -196,7 +217,7 @@
                                                                     <div class="wsus__check_single_form">
                                                                         <select name="billing_city_id"
                                                                             class="city form-control select_2">
-                                                                            <option selected disabled>
+                                                                            <option selected disabled value="">
                                                                                 {{ __('user.Select City') }}
                                                                             </option>
                                                                         </select>
@@ -226,6 +247,7 @@
                                 <div class="item-details">
                                     @include('components.website.checkout-item-total')
                                 </div>
+                                @include('components.website.payment-method')
                                 <div class="terms_area">
                                     <div class="form-check">
                                         <input required name="agree_terms_condition" class="form-check-input"
@@ -360,11 +382,13 @@
                 $('.place_order').on('click', function(e) {
                     e.preventDefault();
                     // check if terms and condition checked
-                    if (!$('[name="agree_terms_condition"]:checked')) {
+                    if (!$('[name="agree_terms_condition"]:checked').length) {
                         toastr.error("{{ __('user.You must agree to our terms and condition') }}");
+                        return;
                     }
-                    console.log($('.wsus__checkout_form').serialize())
-                    // wsus__checkout_form
+
+                    $('.wsus__checkout_form').submit();
+
                 })
             });
         })(jQuery);
@@ -394,5 +418,19 @@
                 })
             });
         })(jQuery);
+    </script>
+
+
+    <script>
+        $('.payment-item').on('click', function() {
+            $('.payment-item').removeClass('selected')
+
+            $(this).addClass('selected')
+        })
+
+        function setPaymentMethod(ship) {
+            // Set the selected payment method
+            $('input[name="payment_method"]').val(ship);
+        }
     </script>
 @endsection

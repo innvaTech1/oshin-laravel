@@ -203,40 +203,11 @@ Route::group(['middleware' => ['XSS']], function () {
 
         Route::group(['as' => 'checkout.', 'prefix' => 'checkout'], function () {
             Route::get('/', [CheckoutController::class, 'checkout'])->name('checkout');
-            Route::get('/billing-address', [CheckoutController::class, 'checkoutBillingAddress'])->name('billing-address');
-            Route::post('/update-billing-address', [CheckoutController::class, 'updateCheckoutBillingAddress'])->name('update-billing-address');
-            Route::post('/update-shipping-address', [CheckoutController::class, 'updateShippingBillingAddress'])->name('update-shipping-address');
-            Route::get('/payment', [CheckoutController::class, 'payment'])->name('payment');
-
-            Route::post('/cash-on-delivery', [PaymentController::class, 'cashOnDelivery'])->name('cash-on-delivery');
-            Route::post('/pay-with-stripe', [PaymentController::class, 'payWithStripe'])->name('pay-with-stripe');
-
-            Route::get('/paypal-web-view', [PaypalController::class, 'paypalWebView'])->name('paypal-web-view');
-
-            Route::get('/pay-with-paypal-from-api', [PaypalController::class, 'payWithPaypalFromApi'])->name('pay-with-paypal-from-api');
-            Route::get('/paypal-payment-success-from-api', [PaypalController::class, 'paypalPaymentSuccessFromApi'])->name('paypal-payment-success-from-api');
-            Route::get('/paypal-payment-cancled-from-api', [PaypalController::class, 'paypalPaymentCancledFromApi'])->name('paypal-payment-cancled-from-api');
-
-
-
-            Route::get('/pay-with-paypal', [PaypalController::class, 'payWithPaypal'])->name('pay-with-paypal');
-            Route::get('/paypal-payment-success', [PaypalController::class, 'paypalPaymentSuccess'])->name('paypal-payment-success');
-            Route::get('/paypal-payment-cancled', [PaypalController::class, 'paypalPaymentCancled'])->name('paypal-payment-cancled');
-            Route::post('/pay-with-razorpay', [PaymentController::class, 'payWithRazorpay'])->name('pay-with-razorpay');
-            Route::post('/pay-with-flutterwave', [PaymentController::class, 'payWithFlutterwave'])->name('pay-with-flutterwave');
-            Route::get('/pay-with-mollie', [PaymentController::class, 'payWithMollie'])->name('pay-with-mollie');
-            Route::get('/mollie-payment-success', [PaymentController::class, 'molliePaymentSuccess'])->name('mollie-payment-success');
-            Route::post('/pay-with-paystack', [PaymentController::class, 'payWithPayStack'])->name('pay-with-paystack');
-            Route::get('/pay-with-instamojo', [PaymentController::class, 'payWithInstamojo'])->name('pay-with-instamojo');
-            Route::get('/instamojo-response', [PaymentController::class, 'instamojoResponse'])->name('instamojo-response');
-            Route::post('/pay-with-bank', [PaymentController::class, 'payWithBank'])->name('pay-with-bank');
-
-
-            Route::post('/pay-with-paymongo', [PaymentController::class, 'payWithPaymongo'])->name('pay-with-paymongo');
-            Route::get('/pay-with-grab-pay', [PaymentController::class, 'payWithPaymongoGrabPay'])->name('pay-with-grab-pay');
-            Route::get('/pay-with-gcash', [PaymentController::class, 'payWithPaymongoGcash'])->name('pay-with-gcash');
-            Route::get('/paymongo-payment-success', [PaymentController::class, 'paymongoPaymentSuccess'])->name('paymongo-payment-success');
-            Route::get('/paymongo-payment-cancled', [PaymentController::class, 'paymongoPaymentCancled'])->name('paymongo-payment-cancled');
+            Route::post('/payment', [CheckoutController::class, 'payment'])->name('payment');
+            //You need declear your success & fail route in "app\Middleware\VerifyCsrfToken.php"
+            Route::post('success', [CheckoutController::class, 'success'])->name('success');
+            Route::post('fail', [CheckoutController::class, 'fail'])->name('fail');
+            Route::get('cancel', [CheckoutController::class, 'cancel'])->name('cancel');
         });
 
         Route::get('state-by-country/{id}', [UserProfileController::class, 'stateByCountry'])->name('state-by-country');

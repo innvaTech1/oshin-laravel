@@ -115,6 +115,9 @@
         @endif
     @endforeach --}}
 
+
+
+
 <div class="wsus__order_details_summery">
     <p>{{ __('user.subtotal') }}:
         <span>{{ currency_icon() }}{{ $subTotal }}</span>
@@ -131,4 +134,6 @@
         <span>{{ currency_icon() }}<span id="total_price">{{ $total_price + $deliveryCharge }}</span></span>
     </p>
     <input type="hidden" value="{{ $total_price + $deliveryCharge }}" id="hidden_total_price">
+    <input type="hidden" name="delivery_fee" id="delivery_fee" value="{{ $deliveryCharge }}">
+    <input type="hidden" name="payment_method" value="Cash on Delivery">
 </div>
