@@ -257,6 +257,9 @@
                                                 @enderror
                                             </div>
                                         </div>
+                                        @if (session('product_type') == 'Digital')
+                                            @include('admin/products/digital-products-field')
+                                        @endif
                                         <div class="form-group col-12">
                                             <label>{{ __('admin.Status') }} <span class="text-danger">*</span></label>
                                             <select name="status" class="form-control">

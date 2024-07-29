@@ -76,6 +76,16 @@ class ProductController extends Controller
 
     public function create()
     {
+        $productType = request('product_type');
+
+        if ($productType) {
+            session()->put('product_type', $productType);
+        }
+
+        if (!$productType || !session('product_type')) {
+            return view('admin.products.product-type');
+        }
+
         $categories = Category::all();
         $brands = Brand::all();
         $productTaxs = ProductTax::where('status', 1)->get();
@@ -118,6 +128,8 @@ class ProductController extends Controller
         if ($request->is_partial) {
             $rules['partial_amount'] = 'required';
         }
+
+
         $customMessages = [
             'short_name.required' => trans('Short name is required'),
             'short_name.unique' => trans('Short name is required'),
@@ -138,16 +150,31 @@ class ProductController extends Controller
             'max_product.required' => __('Pre order Quantity is Required'),
             'partial_amount.required' => __('Partial Amount Quantity is Required'),
         ];
+
+        if (session('product_type') != null && session('product_type') == 'Digital') {
+            $rules['type_check'] = 'required';
+            $rules['file'] = 'required_if:type_check,1';
+            $rules['link'] = 'required_if:type_check,2';
+
+            $customMessages['type_check.required'] = trans('Upload Type is required');
+            $customMessages['file.required_if'] = trans('File is required');
+            $customMessages['link.required_if'] = trans('Link is required');
+        }
         $this->validate($request, $rules, $customMessages);
 
         $product = new Product();
         if ($request->thumb_image) {
-            $extention = $request->thumb_image->getClientOriginalExtension();
-            $image_name = Str::slug($request->name) . date('-Y-m-d-h-i-s-') . rand(999, 9999) . '.' . $extention;
-            $image_name = 'uploads/custom-images/' . $image_name;
-            Image::make($request->thumb_image)
-                ->save(public_path() . '/' . $image_name);
+            $image_name = file_upload($request->thumb_image, null, 'uploads/custom-images/', Str::slug($request->name));
             $product->thumb_image = $image_name;
+        }
+
+        $fileName = '';
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $fileName = file_upload($file, null, 'uploads/custom-files/', Str::slug($request->name));
+            $product->link = $fileName;
+        } else {
+            $product->link = $request->link;
         }
 
         $product->short_name = $request->short_name;
@@ -175,7 +202,7 @@ class ProductController extends Controller
         $product->new_product = $request->new_arrival ? 1 : 0;
         $product->is_best = $request->best_product ? 1 : 0;
         $product->is_featured = $request->is_featured ? 1 : 0;
-
+        $product->type = session('product_type');
 
         $product->is_pre_order = $request->is_pre_order ? 1 : 0;
         $product->is_partial = $request->is_partial ? 1 : 0;
@@ -209,6 +236,8 @@ class ProductController extends Controller
                 }
             }
         }
+
+        session()->forget('product_type');
         $notification = trans('admin_validation.Created Successfully');
         $notification = array('messege' => $notification, 'alert-type' => 'success');
         return redirect()->route('admin.product.index')->with($notification);
@@ -295,20 +324,24 @@ class ProductController extends Controller
             'max_product.required' => __('Pre order Quantity is Required'),
             'partial_amount.required' => __('Partial Amount Quantity is Required'),
         ];
+
+
+
         $this->validate($request, $rules, $customMessages);
 
         if ($request->thumb_image) {
             $old_thumbnail = $product->thumb_image;
-            $extention = $request->thumb_image->getClientOriginalExtension();
-            $image_name = Str::slug($request->name) . date('-Y-m-d-h-i-s-') . rand(999, 9999) . '.' . $extention;
-            $image_name = 'uploads/custom-images/' . $image_name;
-            Image::make($request->thumb_image)
-                ->save(public_path() . '/' . $image_name);
+            $image_name = file_upload($request->thumb_image, $old_thumbnail, 'uploads/custom-images/');
             $product->thumb_image = $image_name;
             $product->save();
-            if ($old_thumbnail) {
-                if (File::exists(public_path() . '/' . $old_thumbnail)) unlink(public_path() . '/' . $old_thumbnail);
-            }
+        }
+
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $fileName = file_upload($file, $product->link, 'uploads/custom-files/', Str::slug($request->name));
+            $product->link = $fileName;
+        } else {
+            $product->link = $request->link;
         }
 
 

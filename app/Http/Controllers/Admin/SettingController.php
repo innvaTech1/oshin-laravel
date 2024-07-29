@@ -310,32 +310,16 @@ class SettingController extends Controller
         $setting = Setting::first();
         if ($request->logo) {
             $old_logo = $setting->logo;
-            $image = $request->logo;
-            $ext = $image->getClientOriginalExtension();
-            $logo_name = 'logo-' . date('Y-m-d-h-i-s-') . rand(999, 9999) . '.' . $ext;
-            $logo_name = 'uploads/website-images/' . $logo_name;
-            $logo = Image::make($image)
-                ->save(public_path() . '/' . $logo_name);
+            $logo_name = file_upload($request->logo, $old_logo, 'uploads/website-images/', 'logo-');
             $setting->logo = $logo_name;
             $setting->save();
-            if ($old_logo) {
-                if (File::exists(public_path() . '/' . $old_logo)) unlink(public_path() . '/' . $old_logo);
-            }
         }
 
         if ($request->favicon) {
             $old_favicon = $setting->favicon;
-            $favicon = $request->favicon;
-            $ext = $favicon->getClientOriginalExtension();
-            $favicon_name = 'favicon-' . date('Y-m-d-h-i-s-') . rand(999, 9999) . '.' . $ext;
-            $favicon_name = 'uploads/website-images/' . $favicon_name;
-            Image::make($favicon)
-                ->save(public_path() . '/' . $favicon_name);
+            $favicon_name = file_upload($request->favicon, $old_favicon, 'uploads/website-images/', 'favicon-');
             $setting->favicon = $favicon_name;
             $setting->save();
-            if ($old_favicon) {
-                if (File::exists(public_path() . '/' . $old_favicon)) unlink(public_path() . '/' . $old_favicon);
-            }
         }
 
         $notification = trans('admin_validation.Update Successfully');

@@ -148,7 +148,7 @@ img.admin-banner-img {
 }
 
 table .rounded-circle {
-    border-radius: 50%!important;
+    border-radius: 50% !important;
     width: 80px !important;
     height: 80px !important;
     object-fit: cover !important;
@@ -186,4 +186,8 @@ img.mr-3.ml-3.rounded-circle {
 
 #toast-container>.toast:before {
     display: none !important;
+}
+
+.hidden {
+    display: none;
 }

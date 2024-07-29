@@ -305,6 +305,7 @@ class CheckoutController extends Controller
             $productStock->qty = $qty;
             $productStock->save();
 
+
             if (count($cartContent->options->variants) > 0) {
                 foreach ($cartContent->options->variants as $index => $variant) {
                     $productVariant = new OrderProductVariant();

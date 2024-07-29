@@ -333,6 +333,7 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::resource('specification-key', SpecificationKeyController::class);
         Route::put('specification-key-status/{id}', [SpecificationKeyController::class, 'changeStatus'])->name('specification-key.status');
 
+        // Route::get(ProductController::class);
         Route::resource('product', ProductController::class);
         Route::put('product-status/{id}', [ProductController::class, 'changeStatus'])->name('product.status');
         Route::put('removed-product-exist-specification/{id}', [ProductController::class, 'removedProductExistSpecification'])->name('removed-product-exist-specification');

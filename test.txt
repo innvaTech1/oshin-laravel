@@ -1,1 +1,0 @@
-quantity=1&product_id=34&image=uploads%2Fcustom-images%2Ftest-product-2024-06-30-08-36-45-1125.jpg&slug=test-product&variants%5B%5D=18&variantNames%5B%5D=Color&items%5B%5D=49&variants%5B%5D=19&variantNames%5B%5D=Size&items%5B%5D=52
