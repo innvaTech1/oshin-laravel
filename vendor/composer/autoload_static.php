@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit78d7f14912a59351f96b74c7def4e3cc
+class ComposerStaticInitb88eda4492aafe9a5e9bc5434af23456
 {
     public static $files = array (
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
@@ -367,13 +367,13 @@ class ComposerStaticInit78d7f14912a59351f96b74c7def4e3cc
         ),
         'Spatie\\LaravelIgnition\\' => 
         array (
-            0 => __DIR__ . '/..' . '/spatie/error-solutions/legacy/laravel-ignition',
-            1 => __DIR__ . '/..' . '/spatie/laravel-ignition/src',
+            0 => __DIR__ . '/..' . '/spatie/laravel-ignition/src',
+            1 => __DIR__ . '/..' . '/spatie/error-solutions/legacy/laravel-ignition',
         ),
         'Spatie\\Ignition\\' => 
         array (
-            0 => __DIR__ . '/..' . '/spatie/error-solutions/legacy/ignition',
-            1 => __DIR__ . '/..' . '/spatie/ignition/src',
+            0 => __DIR__ . '/..' . '/spatie/ignition/src',
+            1 => __DIR__ . '/..' . '/spatie/error-solutions/legacy/ignition',
         ),
         'Spatie\\FlareClient\\' => 
         array (
@@ -417,8 +417,8 @@ class ComposerStaticInit78d7f14912a59351f96b74c7def4e3cc
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-factory/src',
-            1 => __DIR__ . '/..' . '/psr/http-message/src',
+            0 => __DIR__ . '/..' . '/psr/http-message/src',
+            1 => __DIR__ . '/..' . '/psr/http-factory/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -588,8 +588,8 @@ class ComposerStaticInit78d7f14912a59351f96b74c7def4e3cc
         ),
         'Fruitcake\\Cors\\' => 
         array (
-            0 => __DIR__ . '/..' . '/fruitcake/laravel-cors/src',
-            1 => __DIR__ . '/..' . '/fruitcake/php-cors/src',
+            0 => __DIR__ . '/..' . '/fruitcake/php-cors/src',
+            1 => __DIR__ . '/..' . '/fruitcake/laravel-cors/src',
         ),
         'Firebase\\JWT\\' => 
         array (
@@ -756,6 +756,7 @@ class ComposerStaticInit78d7f14912a59351f96b74c7def4e3cc
         'App\\Http\\Controllers\\Admin\\OrderController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/OrderController.php',
         'App\\Http\\Controllers\\Admin\\PaymentMethodController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/PaymentMethodController.php',
         'App\\Http\\Controllers\\Admin\\PopularBlogController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/PopularBlogController.php',
+        'App\\Http\\Controllers\\Admin\\PosController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/PosController.php',
         'App\\Http\\Controllers\\Admin\\PrivacyPolicyController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/PrivacyPolicyController.php',
         'App\\Http\\Controllers\\Admin\\ProductBrandController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/ProductBrandController.php',
         'App\\Http\\Controllers\\Admin\\ProductCategoryController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/ProductCategoryController.php',
@@ -791,6 +792,7 @@ class ComposerStaticInit78d7f14912a59351f96b74c7def4e3cc
         'App\\Http\\Controllers\\Seller\\SellerDashboardController' => __DIR__ . '/../..' . '/app/Http/Controllers/Seller/SellerDashboardController.php',
         'App\\Http\\Controllers\\Seller\\SellerMessageContoller' => __DIR__ . '/../..' . '/app/Http/Controllers/Seller/SellerMessageContoller.php',
         'App\\Http\\Controllers\\Seller\\SellerOrderController' => __DIR__ . '/../..' . '/app/Http/Controllers/Seller/SellerOrderController.php',
+        'App\\Http\\Controllers\\Seller\\SellerProductController' => __DIR__ . '/../..' . '/app/Http/Controllers/Seller/SellerProductController.php',
         'App\\Http\\Controllers\\Seller\\SellerProductGalleryController' => __DIR__ . '/../..' . '/app/Http/Controllers/Seller/SellerProductGalleryController.php',
         'App\\Http\\Controllers\\Seller\\SellerProductReportControler' => __DIR__ . '/../..' . '/app/Http/Controllers/Seller/SellerProductReportControler.php',
         'App\\Http\\Controllers\\Seller\\SellerProductReviewController' => __DIR__ . '/../..' . '/app/Http/Controllers/Seller/SellerProductReviewController.php',
@@ -833,6 +835,7 @@ class ComposerStaticInit78d7f14912a59351f96b74c7def4e3cc
         'App\\Mail\\SubscriptionVerification' => __DIR__ . '/../..' . '/app/Mail/SubscriptionVerification.php',
         'App\\Mail\\UserForgetPassword' => __DIR__ . '/../..' . '/app/Mail/UserForgetPassword.php',
         'App\\Mail\\UserRegistration' => __DIR__ . '/../..' . '/app/Mail/UserRegistration.php',
+        'App\\Models\\AamarpayPayment' => __DIR__ . '/../..' . '/app/Models/AamarpayPayment.php',
         'App\\Models\\AboutUs' => __DIR__ . '/../..' . '/app/Models/AboutUs.php',
         'App\\Models\\Address' => __DIR__ . '/../..' . '/app/Models/Address.php',
         'App\\Models\\Admin' => __DIR__ . '/../..' . '/app/Models/Admin.php',
@@ -7983,13 +7986,11 @@ class ComposerStaticInit78d7f14912a59351f96b74c7def4e3cc
         'Symfony\\Component\\CssSelector\\Node\\ElementNode' => __DIR__ . '/..' . '/symfony/css-selector/Node/ElementNode.php',
         'Symfony\\Component\\CssSelector\\Node\\FunctionNode' => __DIR__ . '/..' . '/symfony/css-selector/Node/FunctionNode.php',
         'Symfony\\Component\\CssSelector\\Node\\HashNode' => __DIR__ . '/..' . '/symfony/css-selector/Node/HashNode.php',
-        'Symfony\\Component\\CssSelector\\Node\\MatchingNode' => __DIR__ . '/..' . '/symfony/css-selector/Node/MatchingNode.php',
         'Symfony\\Component\\CssSelector\\Node\\NegationNode' => __DIR__ . '/..' . '/symfony/css-selector/Node/NegationNode.php',
         'Symfony\\Component\\CssSelector\\Node\\NodeInterface' => __DIR__ . '/..' . '/symfony/css-selector/Node/NodeInterface.php',
         'Symfony\\Component\\CssSelector\\Node\\PseudoNode' => __DIR__ . '/..' . '/symfony/css-selector/Node/PseudoNode.php',
         'Symfony\\Component\\CssSelector\\Node\\SelectorNode' => __DIR__ . '/..' . '/symfony/css-selector/Node/SelectorNode.php',
         'Symfony\\Component\\CssSelector\\Node\\Specificity' => __DIR__ . '/..' . '/symfony/css-selector/Node/Specificity.php',
-        'Symfony\\Component\\CssSelector\\Node\\SpecificityAdjustmentNode' => __DIR__ . '/..' . '/symfony/css-selector/Node/SpecificityAdjustmentNode.php',
         'Symfony\\Component\\CssSelector\\Parser\\Handler\\CommentHandler' => __DIR__ . '/..' . '/symfony/css-selector/Parser/Handler/CommentHandler.php',
         'Symfony\\Component\\CssSelector\\Parser\\Handler\\HandlerInterface' => __DIR__ . '/..' . '/symfony/css-selector/Parser/Handler/HandlerInterface.php',
         'Symfony\\Component\\CssSelector\\Parser\\Handler\\HashHandler' => __DIR__ . '/..' . '/symfony/css-selector/Parser/Handler/HashHandler.php',
@@ -9256,10 +9257,10 @@ class ComposerStaticInit78d7f14912a59351f96b74c7def4e3cc
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit78d7f14912a59351f96b74c7def4e3cc::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit78d7f14912a59351f96b74c7def4e3cc::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit78d7f14912a59351f96b74c7def4e3cc::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit78d7f14912a59351f96b74c7def4e3cc::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitb88eda4492aafe9a5e9bc5434af23456::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitb88eda4492aafe9a5e9bc5434af23456::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitb88eda4492aafe9a5e9bc5434af23456::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInitb88eda4492aafe9a5e9bc5434af23456::$classMap;
 
         }, null, ClassLoader::class);
     }

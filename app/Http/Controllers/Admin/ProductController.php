@@ -202,6 +202,7 @@ class ProductController extends Controller
         $product->new_product = $request->new_arrival ? 1 : 0;
         $product->is_best = $request->best_product ? 1 : 0;
         $product->is_featured = $request->is_featured ? 1 : 0;
+        $product->type_check = $request->type_check;
         $product->type = session('product_type');
 
         $product->is_pre_order = $request->is_pre_order ? 1 : 0;
@@ -370,7 +371,7 @@ class ProductController extends Controller
         $product->new_product = $request->new_arrival ? 1 : 0;
         $product->is_best = $request->best_product ? 1 : 0;
         $product->is_featured = $request->is_featured ? 1 : 0;
-
+        $product->type_check = $request->type_check;
         $product->is_pre_order = $request->is_pre_order ? 1 : 0;
         $product->is_partial = $request->is_partial ? 1 : 0;
 
