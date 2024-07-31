@@ -155,7 +155,10 @@ class CheckoutController extends Controller
                 return redirect()->back()->with(['messege' => 'Order Failed', 'alert-type' => 'error']);
             }
         } else {
-            $this->aamarpay($request);
+            $url = $this->aamarpay($request);
+            if ($url) {
+                return redirect()->away($url);
+            }
         }
     }
 
@@ -346,8 +349,8 @@ class CheckoutController extends Controller
 
     public function aamarpay(Request $request)
     {
-
         $aamarpayCred = AamarpayPayment::first();
+
 
         $tran_id = $aamarpayCred->prefix . rand(1111111, 9999999); //unique transection id for every transection
 
@@ -363,7 +366,7 @@ class CheckoutController extends Controller
         $url = null;
 
         if ($aamarpayCred->mode == 'sandbox') {
-            $url = "https://sandbox.aamarpay.com/jsonpost.php";
+            $url = "https://​sandbox​.aamarpay.com/jsonpost.php";
         } else {
             $url = "https://secure.aamarpay.com/jsonpost.php"; // for Live Transection use "https://secure.aamarpay.com/jsonpost.php"
         }
@@ -385,8 +388,9 @@ class CheckoutController extends Controller
             $customer = $request;
         }
 
+        $email = $customer->email ?? 'oshin@gmail.com';
         curl_setopt_array($curl, array(
-            CURLOPT_URL => $url,
+            CURLOPT_URL => "$url",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
@@ -395,39 +399,36 @@ class CheckoutController extends Controller
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => 'POST',
             CURLOPT_POSTFIELDS => '{
-            "store_id": "' . $store_id . '",
-            "tran_id": "' . $tran_id . '",
-            "success_url": "' . route('checkout.success') . '",
-            "fail_url": "' . route('checkout.fail') . '",
-            "cancel_url": "' . route('checkout.cancel') . '",
-            "amount": "' . $amount . '",
-            "currency": "' . $currency . '",
-            "signature_key": "' . $signature_key . '",
-            "desc": "Order Payment",
-            "cus_name": "' . $customer->name .  '",
-            "cus_email": "' . $customer->email . '",
-            "cus_add1": "' . $customer->address . '",
-            "cus_add2": "",
-            "cus_city": "' . $customer->city?->name . '",
-            "cus_state": "' . $customer->state?->name . '",
-            "cus_postcode": "",
-            "cus_country": "Bangladesh",
-            "cus_phone": "' . $customer->phone . '",
-            "cus_company": "",
-            "type": "json"
-        }',
+    "store_id": "' . $store_id . '",
+    "tran_id": "' . $tran_id . '",
+    "success_url": "' . route('checkout.success') . '",
+    "fail_url": "' . route('checkout.fail') . '",
+    "cancel_url": "' . route('checkout.cancel') . '",
+    "amount": "' . $amount . '",
+    "currency": "' . $currency . '",
+    "signature_key": "' . $signature_key . '",
+    "desc": "Merchant Registration Payment",
+    "cus_name": "' . $customer->name .  '",
+    "cus_email": "' . $email . '",
+    "cus_add1": "' . $customer->address . '",
+    "cus_add2": "",
+    "cus_city": "' . $customer->city?->name . '",
+    "cus_state": "' . $customer->state?->name . '",
+    "cus_postcode": "",
+    "cus_country": "Bangladesh",
+    "cus_phone": "' . $customer->phone . '",
+    "cus_company": "",
+    "type": "json"
+}',
             CURLOPT_HTTPHEADER => array(
-                'Content-Type: application/json',
+                'Content-Type: application/json'
             ),
         ));
 
         $response = curl_exec($curl);
         curl_close($curl);
         $responseObj = json_decode($response);
-
-
         if (isset($responseObj->payment_url) && !empty($responseObj->payment_url)) {
-
             $request->merge(['transaction_info' => $tran_id]);
             $this->orderStore($request, auth('web')->user(),  $request->delivery_fee, $address_id, $billing_id);
 
@@ -439,7 +440,7 @@ class CheckoutController extends Controller
 
             $paymentUrl = $responseObj->payment_url;
 
-            return redirect()->away($paymentUrl);
+            return $paymentUrl;
         } else {
             echo $response;
         }
@@ -459,9 +460,9 @@ class CheckoutController extends Controller
         //verify the transection using Search Transection API
 
         if ($aamarpayCred->mode == 'sandbox') {
-            $url = "http://secure.aamarpay.com/api/v1/trxcheck/request.php?request_id=$request_id&store_id=$aamarpayCred->store_id&signature_key=$aamarpayCred->signature_key&type=json";
-        } else {
             $url = "http://sandbox.aamarpay.com/api/v1/trxcheck/request.php?request_id=$request_id&store_id=$aamarpayCred->store_id&signature_key=$aamarpayCred->signature_key&type=json";
+        } else {
+            $url = "http://secure.aamarpay.com/api/v1/trxcheck/request.php?request_id=$request_id&store_id=$aamarpayCred->store_id&signature_key=$aamarpayCred->signature_key&type=json";
         }
 
         //For Live Transection Use "http://secure.aamarpay.com/api/v1/trxcheck/request.php"

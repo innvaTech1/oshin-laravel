@@ -10,15 +10,18 @@ class Order extends Model
     use HasFactory;
 
 
-    public function user(){
-        return $this->belongsTo(User::class);
+    public function user()
+    {
+        return $this->belongsTo(User::class)->withDefault();
     }
 
-    public function orderProducts(){
+    public function orderProducts()
+    {
         return $this->hasMany(OrderProduct::class);
     }
 
-    public function orderAddress(){
+    public function orderAddress()
+    {
         return $this->hasOne(OrderAddress::class);
     }
 
