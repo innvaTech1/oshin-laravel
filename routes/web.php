@@ -209,6 +209,7 @@ Route::group(['middleware' => ['XSS']], function () {
             Route::post('fail', [CheckoutController::class, 'fail'])->name('fail');
             Route::get('cancel', [CheckoutController::class, 'cancel'])->name('cancel');
         });
+        Route::get('order/success', [CheckoutController::class, 'orderSuccess'])->name('order.success');
 
         Route::get('state-by-country/{id}', [UserProfileController::class, 'stateByCountry'])->name('state-by-country');
         Route::get('city-by-state/{id}', [HomeController::class, 'cityByState'])->name('city-by-state');

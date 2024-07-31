@@ -111,7 +111,6 @@ class CheckoutController extends Controller
             'name' => 'required',
             'phone' => 'required',
             'delivery_fee' => 'required',
-            'shipping_method' => 'required',
             'state_id' => 'required',
             'city_id' => 'required',
             'address' => 'required',
@@ -125,7 +124,6 @@ class CheckoutController extends Controller
             'address.required' => trans('user_validation.Address is required'),
             'state_id.required' => trans('user_validation.State is required'),
             'city_id.required' => trans('user_validation.City is required'),
-            'payment_method.required' => trans('user_validation.Payment method is required'),
             'delivery_fee.required' => trans('user_validation.Delivery fee is required'),
             'agree_terms_condition.required' => trans('user.You must agree to our terms and condition'),
         ];
@@ -149,7 +147,13 @@ class CheckoutController extends Controller
 
 
         if ($request->payment_method == 'Cash on Delivery') {
-            $this->placeOrder($request);
+            $order = $this->placeOrder($request);
+
+            if ($order) {
+                return redirect()->route('order.success');
+            } else {
+                return redirect()->back()->with(['messege' => 'Order Failed', 'alert-type' => 'error']);
+            }
         } else {
             $this->aamarpay($request);
         }
@@ -172,24 +176,17 @@ class CheckoutController extends Controller
                 Address::where('id', $billing_id)->delete();
             }
 
-            $notification = trans('user_validation.Order submitted successfully. please wait for admin approval');
-            $notification = array('messege' => $notification, 'alert-type' => 'success');
-
-            $route = 'user.order';
-            if (!auth('web')->user()) {
-                $route = 'track-order';
-            }
             DB::commit();
 
             // forget cart
             Cart::destroy();
-            return redirect()->route($route)->with($notification);
+
+
+            return true;
         } catch (Exception $e) {
             DB::rollBack();
             Log::error($e->getMessage());
-            $notification = trans('user_validation.Something went wrong, please try again');
-            $notification = array('messege' => $notification, 'alert-type' => 'error');
-            return redirect()->back()->with($notification);
+            return false;
         }
     }
 
@@ -332,12 +329,10 @@ class CheckoutController extends Controller
         $orderAddress->billing_email = $billing->email;
         $orderAddress->billing_phone = $billing->phone;
         $orderAddress->billing_address = $billing->address;
-        $orderAddress->billing_address_type = $billing->type;
         $orderAddress->shipping_name = $shipping->name;
         $orderAddress->shipping_email = $shipping->email;
         $orderAddress->shipping_phone = $shipping->phone;
         $orderAddress->shipping_address = $shipping->address;
-        $orderAddress->shipping_address_type = $shipping->type;
         $orderAddress->save();
 
 
@@ -516,5 +511,10 @@ class CheckoutController extends Controller
     public function cancel()
     {
         return back();
+    }
+
+    public function orderSuccess()
+    {
+        return view('order-success');
     }
 }

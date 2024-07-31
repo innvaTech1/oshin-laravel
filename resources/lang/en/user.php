@@ -17,6 +17,8 @@ return array(
     'You must agree to our terms and condition' => 'You must agree to our terms and condition',
     'add new address' => 'Add New Address',
     'Change Password' => 'Change Password',
+    'Order Success' => 'Order Success',
+    'Login/Register' => 'Login/Register',
     'Current Password' => 'Current Password',
     'New Password' => 'New Password',
     'Place Order' => 'Place Order',

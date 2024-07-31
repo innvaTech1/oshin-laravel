@@ -431,6 +431,12 @@
         function setPaymentMethod(ship) {
             // Set the selected payment method
             $('input[name="payment_method"]').val(ship);
+
+            if (ship == 'aamarpay') {
+                $('.place_order').html('Pay Now');
+            } else {
+                $('.place_order').html('Place Order');
+            }
         }
     </script>
 @endsection
