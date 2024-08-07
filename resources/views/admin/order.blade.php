@@ -39,7 +39,7 @@
                                             @foreach ($orders as $index => $order)
                                                 <tr>
                                                     <td>{{ ++$index }}</td>
-                                                    <td>{{ $order->user->name }}</td>
+                                                    <td>{{ $order->user->name ?? $order->orderAddress->billing_name }}</td>
                                                     <td>{{ $order->order_id }}</td>
                                                     <td>{{ $order->created_at->format('d F, Y') }}</td>
                                                     <td>{{ $order->product_qty }}</td>
