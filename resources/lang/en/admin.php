@@ -25,6 +25,7 @@ return array(
     'User Registration/Login' => 'User Registration/Login',
     'Image Preview' => 'Image Preview',
     'Name' => 'Name',
+    'Delivery Area' => 'Delivery Area',
     'Aamarpay' => 'Aamarpay',
     'Select File' => 'Select File',
     'Select Upload Type' => 'Select Upload Type',
