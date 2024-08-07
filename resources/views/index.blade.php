@@ -51,34 +51,6 @@
         BANNER PART END
     ==============================--> --}}
 
-    {{-- <!--============================
-        BRAND SLIDER START
-    ==============================--> --}}
-    {{-- @php
-        $brandVisibility = $visibilities->where('id', 2)->first();
-    @endphp --}}
-    {{-- @if ($brandVisibility->status == 1)
-        <section id="wsus__brand_sleder">
-            <div class="container">
-                <div class="brand_border">
-                    <div class="row brand_slider">
-                        @foreach ($brands->take($brandVisibility->qty) as $brand)
-                            <div class="col-xl-2">
-                                <div class="wsus__brand_logo">
-                                    <a href="{{ route('product', ['brand' => $brand->slug]) }}"><img
-                                            src="{{ asset($brand->logo) }}" alt="brand" class="img-fluid w-100"></a>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-        </section>
-    @endif --}}
-    {{-- <!--============================
-        BRAND SLIDER END
-    ==============================--> --}}
-
     {{-- <!-- =========================
         HOME FEATURED START
     ========================== --> --}}
@@ -87,11 +59,11 @@
             <div class="row">
                 <div class="col-xl-12 col-12">
                     <div class="wsus__features_section">
-                        <a href="brands.html">
+                        <a href="{{ route('brand') }}">
                             <div class="wsus__section_content">
                                 <img src="{{ asset('user/images/features_service/brand.png') }}" alt=""
                                     class="img-fluid">
-                                <h2>Brands</h2>
+                                <h2>{{ __('Brands') }}</h2>
                             </div>
                         </a>
                         <a href="#">

@@ -10,8 +10,8 @@
 
 
     <!--============================
-                                                     BREADCRUMB START
-                                                ==============================-->
+                                                                 BREADCRUMB START
+                                                            ==============================-->
     <section id="wsus__breadcrumb" style="background: url({{ asset($banner->image) }});">
         <div class="wsus_breadcrumb_overlay">
             <div class="container">
@@ -27,15 +27,15 @@
             </div>
         </div>
     </section>
-    <!--============================
-                                                    BREADCRUMB END
-                                                ==============================-->
+    {{-- <!--============================
+        BREADCRUMB END
+    ==============================--> --}}
 
     <div id="CartResponse">
         @if ($cartContents->count() != 0)
-            <!--============================
-                                                      CART VIEW PAGE START
-                                                ==============================-->
+            {{-- <!--============================
+                    CART VIEW PAGE START
+            ==============================--> --}}
             <section id="wsus__cart_view">
                 <div class="container">
                     <div class="row">
@@ -195,7 +195,7 @@
                                     <button type="submit" class="common_btn">{{ __('user.apply') }}</button>
                                 </form>
                                 <a class="common_btn mt-4 w-100 text-center"
-                                    href="{{ route('user.checkout.billing-address') }}">{{ __('user.checkout') }}</a>
+                                    href="{{ route('checkout.checkout') }}">{{ __('user.checkout') }}</a>
                                 <a class="common_btn mt-4 w-100 text-center" href="{{ route('product') }}"><i
                                         class="fab fa-shopify"></i> {{ __('user.go to shop') }}</a>
                             </div>
@@ -241,12 +241,12 @@
                 </section>
             @endif
             <!--============================
-                                                      CART VIEW PAGE END
-                                                ==============================-->
+                                                                  CART VIEW PAGE END
+                                                            ==============================-->
         @else
             <!--============================
-                                                            CART VIEW PAGE START
-                                                        ==============================-->
+                                                                        CART VIEW PAGE START
+                                                                    ==============================-->
             <section id="wsus__cart_view">
                 <div class="container">
                     <div class="row">
@@ -261,8 +261,8 @@
                 </div>
             </section>
             <!--============================
-                                                      CART VIEW PAGE END
-                                                ==============================-->
+                                                                  CART VIEW PAGE END
+                                                            ==============================-->
         @endif
 
     </div>
