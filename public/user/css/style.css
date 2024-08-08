@@ -690,7 +690,7 @@ Mobile bottom menu start
     bottom: 0;
     min-height: 60px;
     width: 100%;
-    background: #930A02;
+    background: #fff;
     z-index: 99999;
     display: flex;
     align-items: center;
@@ -707,12 +707,12 @@ Mobile bottom menu start
 }
 
 .wsus__mobile_bottom_menu i {
-    color: #fff;
+    color: #930A02;
     font-size: 20px;
 }
 
 .wsus__mobile_bottom_menu span {
-    color: #fff;
+    color: #930A02;
     font-weight: 600;
     font-size: 12px;
 }
@@ -1822,6 +1822,10 @@ Home Features End
     -o-transition: all linear 0.3s;
     /* border: 1px solid #eee; */
     background: #fff;
+    box-shadow: rgb(50 50 93 / 35%) 0px 0px 5px 0px;
+}
+.wsus__product_item:hover{
+    
     box-shadow: rgb(50 50 93 / 15%) 0px 0px 5px 0px;
 }
 
@@ -1832,11 +1836,11 @@ Home Features End
     height: 25px;
     text-align: center;
     line-height: 25px;
-    top: 10px;
-    left: 10px;
+    top: 15px;
+    left: 14px;
     color: #fff;
     text-transform: capitalize;
-    font-size: 12px;
+    font-size: 9px;
     font-weight: 500;
     border-radius: 3px;
     z-index: 1;
@@ -1850,11 +1854,11 @@ Home Features End
     height: 25px;
     text-align: center;
     line-height: 25px;
-    top: 10px;
-    right: 10px;
+    top: 15px;
+    right: 14px;
     color: #fff;
     text-transform: uppercase;
-    font-size: 12px;
+    font-size: 9px;
     font-weight: 500;
     border-radius: 3px;
     z-index: 1;
@@ -8865,9 +8869,9 @@ header .wsus__call_text a:hover {
 /* product start */
 .wsus__new,
 .wsus__minus {
-    width: 50px;
+    width: auto;
     border-radius: 30px;
-    opacity: 0.3;
+    opacity: 0.6;
     transition: all linear 0.3s;
     -webkit-transition: all linear 0.3s ease;
     -moz-transition: all linear 0.3s ease;

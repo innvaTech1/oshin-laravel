@@ -3710,6 +3710,11 @@
 }
 
 @media (max-width: 575.99px) {
+
+  .row>* {
+    padding-right: calc(var(--bs-gutter-x)/ 8) !important;
+    padding-left: calc(var(--bs-gutter-x)/ 8) !important;
+}
   /* TOPBAR START */
   #wsus__topbar {
     position: fixed;
@@ -3744,9 +3749,10 @@
     position: fixed;
     top: 0px;
     left: 0;
-    background: #930A02;
+    background: #fff;
     z-index: 999;
     border: none;
+    box-shadow: rgb(50 50 93 / 15%) 0px 0px 5px 0px;
   }
 
   .wsus_logo_area {
@@ -5416,6 +5422,9 @@
 
   #wsus__hot_deals {
     padding-top: 0px;
+  }
+  .wsus__product_item{
+    margin-top: 10px;
   }
 
   .wsus__product_details .wsus__pro_name {
