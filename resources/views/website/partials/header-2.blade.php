@@ -28,7 +28,7 @@
             <div class="col-xl-6 col-md-6 col-lg-6 d-block">
                 <div class="wsus__search">
                     <form action="{{ route('product') }}">
-                        <input type="text" placeholder="{{ __('user.Search in Oshin...') }}" name="search"
+                        <input type="text" placeholder="{{ __('Search in Oshin...') }}" name="search"
                             value="{{ request()->has('search') ? request()->get('search') : '' }}">
                         <button type="submit"><i class="far fa-search"></i></button>
                     </form>
