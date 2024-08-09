@@ -51,6 +51,58 @@
         BANNER PART END
     ==============================--> --}}
 
+    {{-- <!--============================
+        HOME SERVICES START
+    ==============================--> --}}
+    <section id="wsus__home_services" class="d-none d-sm-block">
+        <div class="container">
+            <div class="wsus__home_services_bg">
+                <div class="row">
+                    <div class="col-xl-2 col-sm-3 col-lg-2 col-4">
+                        <div class="wsus__home_services_single">
+                            <img src="{{ asset('user/images/icons/verified.png') }}" alt="" class="img-fluid">
+                            <h5>Safe Payments</h5>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-sm-3 col-lg-2 col-4">
+                        <div class="wsus__home_services_single">
+                            <img src="{{ asset('user/images/icons/shipped.png') }}" alt="" class="img-fluid">
+                            <h5>Nationalwide Delevery</h5>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-sm-3 col-lg-2 col-4">
+                        <div class="wsus__home_services_single">
+                            <img src="{{ asset('user/images/icons/product-return.png') }}" alt=""
+                                class="img-fluid">
+                            <h5>Free & Easy Return</h5>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-sm-3 col-lg-2 col-4">
+                        <div class="wsus__home_services_single">
+                            <img src="{{ asset('user/images/icons/tag.png') }}" alt="" class="img-fluid">
+                            <h5>Best Price Guaranteed</h5>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-sm-3 col-lg-2 col-4">
+                        <div class="wsus__home_services_single">
+                            <img src="{{ asset('user/images/icons/high-quality.png') }}" alt="" class="img-fluid">
+                            <h5>100% Authentic Products</h5>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-sm-3 col-lg-2 col-4">
+                        <div class="wsus__home_services_single">
+                            <img src="{{ asset('user/images/icons/verify.png') }}" alt="" class="img-fluid">
+                            <h5>Oshin verified</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {{-- <!--============================
+        HOME SERVICES END
+    ==============================--> --}}
+
     {{-- <!-- =========================
         HOME FEATURED START
     ========================== --> --}}
@@ -104,65 +156,13 @@
     ========================= --> --}}
 
     {{-- <!--============================
-        HOME SERVICES START
-    ==============================--> --}}
-    <section id="wsus__home_services">
-        <div class="container">
-            <div class="wsus__home_services_bg">
-                <div class="row">
-                    <div class="col-xl-2 col-sm-3 col-lg-2 col-4">
-                        <div class="wsus__home_services_single">
-                            <img src="{{ asset('user/images/icons/verified.png') }}" alt="" class="img-fluid">
-                            <h5>Safe Payments</h5>
-                        </div>
-                    </div>
-                    <div class="col-xl-2 col-sm-3 col-lg-2 col-4">
-                        <div class="wsus__home_services_single">
-                            <img src="{{ asset('user/images/icons/shipped.png') }}" alt="" class="img-fluid">
-                            <h5>Nationalwide Delevery</h5>
-                        </div>
-                    </div>
-                    <div class="col-xl-2 col-sm-3 col-lg-2 col-4">
-                        <div class="wsus__home_services_single">
-                            <img src="{{ asset('user/images/icons/product-return.png') }}" alt=""
-                                class="img-fluid">
-                            <h5>Free & Easy Return</h5>
-                        </div>
-                    </div>
-                    <div class="col-xl-2 col-sm-3 col-lg-2 col-4">
-                        <div class="wsus__home_services_single">
-                            <img src="{{ asset('user/images/icons/tag.png') }}" alt="" class="img-fluid">
-                            <h5>Best Price Guaranteed</h5>
-                        </div>
-                    </div>
-                    <div class="col-xl-2 col-sm-3 col-lg-2 col-4">
-                        <div class="wsus__home_services_single">
-                            <img src="{{ asset('user/images/icons/high-quality.png') }}" alt="" class="img-fluid">
-                            <h5>100% Authentic Products</h5>
-                        </div>
-                    </div>
-                    <div class="col-xl-2 col-sm-3 col-lg-2 col-4">
-                        <div class="wsus__home_services_single">
-                            <img src="{{ asset('user/images/icons/verify.png') }}" alt="" class="img-fluid">
-                            <h5>Oshin verified</h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    {{-- <!--============================
-        HOME SERVICES END
-    ==============================--> --}}
-
-    {{-- <!--============================
         FLASH SELL START
     ==============================--> --}}
     @php
         $campaignVisibility = $visibilities->where('id', 3)->first();
     @endphp
     @if ($campaignVisibility->status == 1)
-        <section id="wsus__flash_sell" class="wsus__flash_sell_2">
+        <section id="wsus__flash_sell" class="wsus__flash_sell_2 d-none">
             <div class="container">
                 <div class="row">
                     <div class="col-xl-12">
@@ -235,7 +235,7 @@
     @if ($popularCategoryVisible->status == 1)
         <section id="wsus__monthly_top" class="wsus__monthly_top_2">
             <div class="container">
-                <div class="row">
+                {{-- <div class="row d-none d-sm-block">
                     <div class="col-xl-12 col-lg-12">
                         <div class="wsus__monthly_top_banner">
                             <div class="wsus__monthly_top_banner_img">
@@ -249,7 +249,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 <div class="row">
                     <div class="col-xl-12">
                         <div class="wsus__section_header for_md">
@@ -268,7 +268,7 @@
                                             <img src="{{ asset($category->image) }}" alt="bag"
                                                 class="img-fluid w-100">
                                         </div>
-                                        <div class="wsus__hot_deals__single_text">
+                                        <div class="wsus__hot_deals__single_text mt-1">
                                             <h5>{{ $category->name }}</h5>
                                         </div>
                                     </a>
@@ -289,7 +289,7 @@
         $brandVisibility = $visibilities->where('id', 2)->first();
     @endphp
     @if ($brandVisibility->status == 1)
-        <section id="wsus__brand_sleder" class="brand_slider_2">
+        <section id="wsus__brand_sleder" class="brand_slider_2 d-none">
             <div class="container">
                 <div class="brand_border">
                     <div class="row brand_slider">
@@ -322,7 +322,7 @@
         $bannerVisibility = $visibilities->where('id', 5)->first();
     @endphp
     @if ($bannerVisibility->status == 1)
-        <section id="wsus__single_banner">
+        <section id="wsus__single_banner" class="d-none d-sm-block">
             <div class="container">
                 <div class="row">
                     @php
@@ -367,7 +367,7 @@
     ==============================--> --}}
 
 
-    <section id="wsus__hot_deals" class="wsus__hot_deals_2">
+    <section id="wsus__hot_deals" class="wsus__hot_deals_2 d-none">
         <div class="container">
             @php
                 $flashDealVisibility = $visibilities->where('id', 6)->first();
@@ -526,7 +526,7 @@
         {{-- <!--============================
             Featured Products START
         ==============================--> --}}
-        <section id="wsus__electronic2">
+        <section id="wsus__electronic2" class="d-none d-sm-block">
             <div class="container">
                 <div class="row">
                     <div class="col-xl-12">
@@ -558,7 +558,7 @@
     {{-- <!--============================
         LARGE BANNER  START
     ==============================--> --}}
-    {{-- <section id="wsus__large_banner">
+    {{-- <section id="wsus__large_banner" class="d-none d-sm-block">
         <div class="container">
             <div class="row">
                 <div class="cl-xl-12">
@@ -598,7 +598,7 @@
         $bannerVisiblity = $visibilities->where('id', 8)->first();
     @endphp
     @if ($bannerVisiblity->status == 1)
-        <section id="wsus__single_banner">
+        <section id="wsus__single_banner" class="d-none">
             <div class="">
                 <div class="row">
                     @php
@@ -649,7 +649,7 @@
         $bannerVisibility = $visibilities->where('id', 10)->first();
     @endphp
     @if ($bannerVisibility->status == 1)
-        <section id="wsus__single_banner">
+        <section id="wsus__single_banner" class="d-none">
             <div class="container">
                 <div class="row">
                     @php
@@ -692,7 +692,7 @@
     {{-- <!--============================
         Best selling products START
     ==============================--> --}}
-    <section id="wsus__electronic2" class="section_separate">
+    <section id="wsus__electronic2" class="section_separate d-none d-sm-block">
         <div class="container">
             <div class="row">
                 <div class="col-xl-12">
