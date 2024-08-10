@@ -106,7 +106,7 @@
     {{-- <!-- =========================
         HOME FEATURED START
     ========================== --> --}}
-    <section class="section_separate">
+    {{-- <section class="section_separate">
         <div class="container">
             <div class="row">
                 <div class="col-xl-12 col-12">
@@ -150,7 +150,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
     {{-- <!-- =====================
         HOME FEATURED END
     ========================= --> --}}

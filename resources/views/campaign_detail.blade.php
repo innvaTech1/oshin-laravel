@@ -12,7 +12,7 @@
     <!--============================
          BREADCRUMB START
     ==============================-->
-    <section id="wsus__breadcrumb" style="background: url({{  asset($banner->image) }});">
+    {{-- <section id="wsus__breadcrumb" style="background: url({{  asset($banner->image) }});">
         <div class="wsus_breadcrumb_overlay">
             <div class="container">
                 <div class="row">
@@ -26,7 +26,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
     <!--============================
         BREADCRUMB END
     ==============================-->

@@ -29,28 +29,7 @@
             border: 2px solid rgb(215, 204, 245);
         }
     </style>
-    {{-- <!--============================
-            BREADCRUMB START
-    ==============================--> --}}
-    <section id="wsus__breadcrumb" style="background: url({{ asset($banner->image) }});">
-        <div class="wsus_breadcrumb_overlay">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <h4>{{ __('user.Checkout') }}</h4>
-                        <ul>
-                            <li><a href="{{ route('home') }}">{{ __('user.home') }}</a></li>
-                            <li><a href="{{ route('user.checkout.checkout') }}">{{ __('user.Checkout') }}</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    {{-- <!--============================
-        BREADCRUMB END
-    ==============================--> --}}
-
+    
 
     {{-- <!--============================
             CHECK OUT PAGE START

@@ -1624,7 +1624,7 @@ PRODUCT MODAL VIEW END
     border-left: 0;
     border-right: 0;
     /* background: #fff; */
-    /* box-shadow: rgb(50 50 93 / 15%) 0px 0px 5px 0px; */
+    /* box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 5px 0px; */
 }
 
 .wsus__brand_logo {
@@ -1832,7 +1832,7 @@ Home Features End
 }
 .wsus__product_item:hover{
     
-    box-shadow: rgb(50 50 93 / 15%) 0px 0px 5px 0px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 5px 0px;
 }
 
 .wsus__new {
@@ -2376,7 +2376,7 @@ HOME BLOGS END
     position: relative;
     height: 400px;
     background: #fff;
-    box-shadow: rgb(50 50 93 / 15%) 0px 0px 5px 0px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 5px 0px;
 }
 
 .wsus__hot_deals_img {
@@ -2516,7 +2516,7 @@ HOME BLOGS END
     border-radius: 5px;
     /* margin: 25px 12px 0px 12px; */
     background: #fff;
-    box-shadow: rgb(50 50 93 / 15%) 0px 0px 5px 0px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 5px 0px;
 }
 
 .wsus__hot_deals__single_img {
@@ -3272,7 +3272,7 @@ PPRODUCT PAGE START
     -moz-border-radius: 5px;
     -ms-border-radius: 5px;
     -o-border-radius: 5px;
-    box-shadow: rgb(50 50 93 / 15%) 0px 0px 5px 0px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 5px 0px;
     background: #fff;
     padding: 15px;
 }
@@ -3624,7 +3624,7 @@ PRODUCT DETAILS START
 
 .wsus__details_bg {
     background: #fff;
-    box-shadow: rgb(50 50 93 / 15%) 0px 0px 5px 0px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 5px 0px;
     padding: 20px;
     border-radius: 5px;
 }
@@ -4504,7 +4504,7 @@ CART VIEW PAGE START
     border-radius: 5px;
     overflow: hidden;
     /* border: 1px solid #eee; */
-    box-shadow: rgb(50 50 93 / 15%) 0px 0px 5px 0px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 5px 0px;
 }
 
 .wsus__cart_list table tbody tr {
@@ -4735,7 +4735,7 @@ CART VIEW PAGE START
     background: #fff;
     border-radius: 5px;
     padding: 20px;
-    box-shadow: rgb(50 50 93 / 15%) 0px 0px 5px 0px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 5px 0px;
 }
 
 .wsus__cart_list_footer_button h6 {
@@ -4786,7 +4786,7 @@ CHECKOUT PAGE START
     background: #fff;
     padding: 25px;
     border-radius: 5px;
-    box-shadow: rgb(50 50 93 / 15%) 0px 0px 5px 0px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 5px 0px;
 }
 
 .wsus__checkout_form h5 {
@@ -4905,7 +4905,7 @@ CHECKOUT PAGE START
     background: #fff;
     padding: 25px;
     border-radius: 5px;
-    box-shadow: rgb(50 50 93 / 15%) 0px 0px 5px 0px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 5px 0px;
 }
 .wsus__order_details_item li{
     display: flex;
@@ -5070,7 +5070,7 @@ INVOICE PAGE SATAR
     padding: 40px;
     margin-top: 25px;
     border-radius: 10px;
-    box-shadow: rgb(50 50 93 / 15%) 0px 0px 5px 0px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 5px 0px;
 }
 
 .wsus__invoice_single h5 {
@@ -5278,7 +5278,7 @@ WISHLIST PAGE START
     background: #fff;
     padding: 25px;
     border-radius: 5px;
-    box-shadow: rgb(50 50 93 / 15%) 0px 0px 5px 0px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 5px 0px;
 }
 
 .wsus__compare_list table {
@@ -5421,7 +5421,7 @@ WISHLIST PAGE START
     background: #fff;
     padding: 25px;
     border-radius: 5px;
-    box-shadow: rgb(50 50 93 / 15%) 0px 0px 5px 0px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 5px 0px;
 }
 
 .wsus__contact_single {
@@ -5767,7 +5767,7 @@ WISHLIST PAGE START
     padding: 55px 40px 40px 40px;
     text-align: center;
     background: #fff;
-    box-shadow: rgb(50 50 93 / 15%) 0px 0px 5px 0px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 5px 0px;
 }
 
 .wsus__about_counter_single span {
@@ -5798,7 +5798,7 @@ WISHLIST PAGE START
     padding: 30px 15px;
     text-align: center;
     background: #fff;
-    box-shadow: rgb(50 50 93 / 15%) 0px 0px 5px 0px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 5px 0px;
 }
 
 .wsus__why_shop_single i {
@@ -5823,7 +5823,7 @@ WISHLIST PAGE START
     -o-border-radius: 5px;
     background: #fff;
     margin-top: 30px;
-    box-shadow: rgb(50 50 93 / 15%) 0px 0px 5px 0px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 5px 0px;
 }
 
 .wsus__about_award h4,
@@ -5967,7 +5967,7 @@ WISHLIST PAGE START
     border-radius: 10px;
     padding: 20px;
     background: #fff;
-    box-shadow: rgb(50 50 93 / 15%) 0px 0px 5px 0px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 5px 0px;
 }
 
 .wsus__team_details_img {
@@ -6137,7 +6137,7 @@ WISHLIST PAGE START
     border-radius: 10px;
     padding: 20px;
     background: #fff;
-    box-shadow: rgb(50 50 93 / 15%) 0px 0px 5px 0px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 5px 0px;
 }
 
 .wsus__team_det_rev_single img {
@@ -6146,7 +6146,7 @@ WISHLIST PAGE START
     /* border: 1px solid #930A02; */
     margin: -65px auto 0 auto;
     border-radius: 50%;
-    box-shadow: rgb(50 50 93 / 15%) 0px 0px 5px 0px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 5px 0px;
 }
 
 .wsus__team_det_rev_single h3 {
@@ -6380,7 +6380,7 @@ WISHLIST PAGE START
     overflow: hidden;
     height: 500px;
     padding: 15px;
-    box-shadow: rgb(50 50 93 / 15%) 0px 0px 5px 0px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 5px 0px;
     background: #fff;
 }
 
@@ -6415,7 +6415,7 @@ WISHLIST PAGE START
     padding: 40px;
     border-radius: 5px;
     margin: 35px 0px;
-    box-shadow: rgb(50 50 93 / 15%) 0px 0px 5px 0px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 5px 0px;
     background: #fff;
 }
 
@@ -6484,7 +6484,7 @@ WISHLIST PAGE START
     border-radius: 5px;
     margin: 30px 0px;
     justify-content: center;
-    box-shadow: rgb(50 50 93 / 15%) 0px 0px 5px 0px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 5px 0px;
     background: #fff;
 }
 
@@ -6558,7 +6558,7 @@ WISHLIST PAGE START
 
 .wsus__comment_area {
     border: 1px solid #eee;
-    box-shadow: rgb(50 50 93 / 15%) 0px 0px 5px 0px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 5px 0px;
     background: #fff;
     padding: 20px;
     border-radius: 5px;
@@ -6657,7 +6657,7 @@ WISHLIST PAGE START
     border-radius: 5px;
     padding: 20px;
     border: 1px solid #eee;
-    box-shadow: rgb(50 50 93 / 15%) 0px 0px 5px 0px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 5px 0px;
     background: #fff;
     margin-top: 25px;
 }
@@ -6679,7 +6679,7 @@ WISHLIST PAGE START
     margin-bottom: 30px;
     padding: 20px;
     border-radius: 5px;
-    box-shadow: rgb(50 50 93 / 15%) 0px 0px 5px 0px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 5px 0px;
     background: #fff;
 }
 
@@ -6715,7 +6715,7 @@ WISHLIST PAGE START
     margin-bottom: 30px;
     padding: 20px;
     border-radius: 5px;
-    box-shadow: rgb(50 50 93 / 15%) 0px 0px 5px 0px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 5px 0px;
     background: #fff;
 }
 
@@ -6738,7 +6738,7 @@ WISHLIST PAGE START
     margin-bottom: 30px;
     border-radius: 5px;
     padding: 20px 20px 1px 20px;
-    box-shadow: rgb(50 50 93 / 15%) 0px 0px 5px 0px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 5px 0px;
     background: #fff;
 }
 
@@ -7715,7 +7715,7 @@ FORGET PASSWORD START
     border: 1px solid #eee;
     padding: 30px;
     border-radius: 5px;
-    box-shadow: rgb(50 50 93 / 15%) 0px 0px 5px 0px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 5px 0px;
     background: #fff;
 }
 
@@ -7769,7 +7769,7 @@ CHANGE PASSWORD START
     padding: 50px;
     background: #fff;
     border-radius: 5px;
-    box-shadow: rgb(50 50 93 / 15%) 0px 0px 5px 0px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 5px 0px;
 }
 
 .wsus__change_password h4 {
@@ -7818,7 +7818,7 @@ PAYMENT PAGE  START
 .wsus__payment_menu {
     padding: 15px;
     background: #fff;
-    box-shadow: rgb(50 50 93 / 15%) 0px 0px 5px 0px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 5px 0px;
     border-radius: 5px;
 }
 
@@ -7839,7 +7839,7 @@ PAYMENT PAGE  START
     -o-border-radius: 5px;
     padding: 20px;
     background: #fff;
-    box-shadow: rgb(50 50 93 / 15%) 0px 0px 5px 0px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 5px 0px;
 }
 
 .wsus__pay_caed_header {
@@ -7969,7 +7969,7 @@ PAYMENT PAGE  START
     padding: 20px;
     background: #fff;
     border-radius: 5px;
-    box-shadow: rgb(50 50 93 / 15%) 0px 0px 5px 0px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 5px 0px;
 }
 
 .wsus__pay_booking_summary h5 {
@@ -8447,7 +8447,7 @@ CUSTOM PAGE END
     margin-top: 30px;
     background: #fff;
     border-radius: 5px;
-    box-shadow: rgb(50 50 93 / 15%) 0px 0px 5px 0px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 5px 0px;
 }
 
 .wsus__daily_deals_single_img {
@@ -8596,7 +8596,7 @@ DAILY DEALS DETAILS START
     border-radius: 5px;
     margin-top: 25px;
     background: #fff;
-    box-shadow: rgb(50 50 93 / 15%) 0px 0px 5px 0px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 5px 0px;
 }
 
 .wsus__offer_det_single .wsus__product_item {
@@ -9109,7 +9109,7 @@ header .wsus__call_text a:hover {
     padding: 50px 0px 25px 0px;
     border-radius: 5px;
     /* border-left: 1px solid #eee; */
-    box-shadow: rgb(50 50 93 / 15%) 0px 0px 5px 0px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 5px 0px;
     text-align: center;
 }
 
