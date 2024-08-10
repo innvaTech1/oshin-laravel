@@ -16,22 +16,7 @@
     <section id="wsus__product_page">
         <div class="container">
             <div class="row">
-                @if ($shop_page->status == 1)
-                    <div class="col-xl-12">
-                        <div class="wsus__pro_page_bammer">
-                            <img src="{{ asset($shop_page->banner) }}" alt="banner" class="img-fluid w-100">
-                            <div class="wsus__pro_page_bammer_text">
-                                <div class="wsus__pro_page_bammer_text_center">
-                                    <p>{{ $shop_page->header_one }} <span>{{ $shop_page->header_two }}</span></p>
-                                    <h5>{{ $shop_page->title_one }}</h5>
-                                    <h3>{{ $shop_page->title_two }}</h3>
-                                    <a href="{{ $shop_page->link }}" class="add_cart">{{ $shop_page->button_text }}</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @endif
-
+                
                 <div class="col-xl-3 col-lg-4">
                     <div class="wsus__sidebar_filter ">
                         <p>{{__('user.filter')}}</p>
