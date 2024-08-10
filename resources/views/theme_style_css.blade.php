@@ -128,7 +128,7 @@
 
 .wsus__login_reg_area .nav-pills .nav-link.active,
 .wsus__login_reg_area .nav-pills .show > .nav-link {
-    color: {{ $setting->theme_one }} !important;
+    /* color: {{ $setting->theme_one }} !important; */
     border-color: {{ $setting->theme_one }} !important;
 }
 
@@ -251,7 +251,7 @@
 .wsus__order_active,
 .wsus__pro_name a:hover,
 .wsus__pro_status p,
-.wsus__login_input i,
+/* .wsus__login_input i, */
 .wsus__pro_report,
 .wsus__order_details .form-check label a,
 .wsus__invoice_description .name p a:hover,

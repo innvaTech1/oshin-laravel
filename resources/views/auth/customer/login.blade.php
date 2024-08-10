@@ -10,32 +10,9 @@
 
 
     <!--============================
-                                     BREADCRUMB START
-                                ==============================-->
-    <section id="wsus__breadcrumb" style="background: url({{ asset($banner->image) }});">
-        <div class="wsus_breadcrumb_overlay">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <h4>{{ __('user.Login') }}</h4>
-                        <ul>
-                            <li><a href="{{ route('home') }}">{{ __('user.Home') }}</a></li>
-                            <li><a href="{{ route('login') }}">{{ __('user.Login') }}</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!--============================
-                                    BREADCRUMB END
-                                ==============================-->
-
-
-    <!--============================
-                                   LOGIN/REGISTER PAGE START
-                                ==============================-->
-    <section id="wsus__login_register">
+        LOGIN/REGISTER PAGE START
+    ==============================-->
+    <section id="wsus__login_register" style="margin-bottom: 30px">
         <div class="container">
             <div class="row">
                 <div class="col-xl-5 m-auto">

@@ -5572,7 +5572,7 @@ WISHLIST PAGE START
     color: #930A02;
     background: #eeeeee;
     outline: none;
-    border-radius: 30px;
+    border-radius: 5px;
     border: none;
 }
 
@@ -5590,13 +5590,15 @@ WISHLIST PAGE START
 }
 
 .wsus__login_input i {
+    font-size: 20px;
     width: 57px;
     height: 47px;
-    background: #930A02;
+    /* background: #930A02; */
     line-height: 45px;
     text-align: center;
     margin-right: 10px;
-    color: #fff;
+    color: #930A02;
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.2);
     border-radius: 50%;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
@@ -5607,7 +5609,7 @@ WISHLIST PAGE START
 .wsus__login_input input {
     width: 100%;
     padding: 10px 20px;
-    border-radius: 30px;
+    border-radius: 5px;
     font-size: 16px;
     font-weight: 400;
     color: #353535;
@@ -5638,7 +5640,7 @@ WISHLIST PAGE START
 
 .wsus__login button {
     width: 100%;
-    border-radius: 30px;
+    border-radius: 5px;
 }
 
 .wsus__login .social_text {
