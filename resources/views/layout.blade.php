@@ -589,7 +589,7 @@
     <footer>
         <div class="container">
             <div class="row justify-content-between">
-                <div class="col-xl-3 col-sm-7 col-md-6 col-lg-3">
+                <div class="col-xl-3 col-sm-6 col-md-6 col-lg-3 col-6">
                     <div class="wsus__footer_content">
                         <img src="{{ asset($setting->logo) }}" alt="logo">
                         <a class="action" href="callto:{{ $footer->phone }}"><i class="fas fa-phone-alt"></i>
@@ -605,7 +605,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-xl-2 col-sm-5 col-md-6 col-lg-2">
+                <div class="col-xl-2 col-sm-6 col-md-6 col-lg-2 col-6">
                     <div class="wsus__footer_content">
 
                         <h5>{{ $footer->first_column }}</h5>
@@ -617,7 +617,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-xl-2 col-sm-7 col-md-6 col-lg-2">
+                <div class="col-xl-2 col-sm-6 col-md-6 col-lg-2 col-6">
                     <div class="wsus__footer_content">
                         <h5>{{ $footer->second_column }}</h5>
                         <ul class="wsus__footer_menu">
@@ -628,7 +628,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-xl-2 col-sm-5 col-md-6 col-lg-3">
+                <div class="col-xl-2 col-sm-6 col-md-6 col-lg-3 col-6">
                     <div class="wsus__footer_content">
                         <h5>{{ $footer->third_column }}</h5>
                         <ul class="wsus__footer_menu">

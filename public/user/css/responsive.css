@@ -4113,7 +4113,9 @@
     font-size: 12px;
     padding: 0px 10px;
   }
-
+footer{
+  padding-top: 30px;
+}
   .wsus__footer_content img {
     width: 120px;
   }
@@ -4140,8 +4142,8 @@
   }
 
   .wsus__footer_bottom {
-    padding: 20px 0px;
-    margin-top: 30px;
+    margin-top: 0px;
+    margin-bottom: 40px;
   }
 
   .wsus__copyright {

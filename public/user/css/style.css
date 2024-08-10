@@ -2913,16 +2913,16 @@ footer {
 }
 
 .wsus__footer_social li {
-    margin-right: 10px;
+    margin-right: 8px;
 }
 
 .wsus__footer_social li a {
-    width: 35px;
-    height: 35px;
+    width: 30px;
+    height: 30px;
     text-align: center;
-    line-height: 37px;
+    line-height: 31px;
     border-radius: 50%;
-    font-size: 15px;
+    font-size: 13px;
     background: #fff;
     color: #353535;
     transition: all linear 0.3s;
