@@ -9,29 +9,7 @@
 @section('public-content')
 
 
-    <!--============================
-         BREADCRUMB START
-    ==============================-->
-    {{-- <section id="wsus__breadcrumb" style="background: url({{  asset($banner->image) }});">
-        <div class="wsus_breadcrumb_overlay">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <h4>{{__('user.Brand')}}</h4>
-                        <ul>
-                            <li><a href="{{ route('home') }}">{{__('user.home')}}</a></li>
-                            <li><a href="{{ route('brand') }}">{{__('user.Brand')}}</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section> --}}
-    <!--============================
-        BREADCRUMB END
-    ==============================-->
-
-
+  
     <!--============================
         BRANDS PAGE START
     ==============================-->
@@ -39,17 +17,17 @@
         <div class="container">
             <div class="row">
                 @foreach ($brands as $brand)
-                    <div class="col-xl-3 col-sm-6 col-lg-4">
+                    <div class="col-xl-2 col-sm-4 col-lg-2 col-4">
                         <a href="{{ route('product',['brand' => $brand->slug]) }}" class="wsus__single_brand">
                             <img src="{{ asset($brand->logo) }}" alt="brand"
                             class="img-fluid w-100">
-                            <span class="new">{{ $brand->name }}</span>
+                            {{-- <span class="new">{{ $brand->name }}</span> --}}
                             <span class="rating">{{ $brand->rating }} <i class="fas fa-star"></i></span>
                         </a>
                     </div>
                 @endforeach
 
-                <div class="col-xl-12">
+                <div class="col-xl-12" style="margin-bottom:30px">
                     {{ $brands->links('custom_paginator') }}
                 </div>
             </div>
