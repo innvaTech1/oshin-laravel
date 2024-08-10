@@ -285,7 +285,7 @@
     {{-- <!--============================
         BRAND SLIDER START
     ==============================--> --}}
-    @php
+    {{-- @php
         $brandVisibility = $visibilities->where('id', 2)->first();
     @endphp
     @if ($brandVisibility->status == 1)
@@ -305,7 +305,7 @@
                 </div>
             </div>
         </section>
-    @endif
+    @endif --}}
     {{-- <!--============================
         BRAND SLIDER END
     ==============================--> --}}
@@ -705,7 +705,7 @@
             </div>
             <div class="row">
                 @foreach ($bestProducts as $product)
-                    <div class="col-xl-2 col-sm-6 col-lg-3 col-6">
+                    <div class="col-xl-2 col-lg-2-3 col-sm-6 col-6">
                         @include('components/website.product-card')
                     </div>
                 @endforeach

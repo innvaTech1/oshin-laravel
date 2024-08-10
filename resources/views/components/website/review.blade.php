@@ -7,4 +7,5 @@
         <i class="far fa-star"></i>
     @endif
 @endfor
-<span>({{ $product->totalReviews() }} {{ __('user.review') }})</span>
+<span>({{ $product->totalReviews() }})</span>
+{{-- <span>({{ $product->totalReviews() }} {{ __('user.review') }})</span> --}}

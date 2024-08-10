@@ -1,12 +1,4 @@
 <div class="product__item">
-    @if ($product->new_arrival == 1)
-    <span class="wsus__new">{{ __('user.Sales') }}</span>
-@elseif ($product->is_featured == 1)
-    <span class="wsus__new">{{ __('user.Featured') }}</span>
-@elseif ($product->is_best == 1)
-    <span class="wsus__new">{{ __('user.Best') }}</span>
-@endif
-
 @php
     $variantPrice = 0;
     $variants = $product->variants->where('status', 1);

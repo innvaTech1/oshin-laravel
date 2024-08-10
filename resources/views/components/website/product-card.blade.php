@@ -1,11 +1,11 @@
 <div class="wsus__product_item">
-    @if ($product->new_arrival == 1)
+    {{-- @if ($product->new_arrival == 1)
         <span class="wsus__new">{{ __('user.Sales') }}</span>
     @elseif ($product->is_featured == 1)
         <span class="wsus__new">{{ __('user.Featured') }}</span>
     @elseif ($product->is_best == 1)
         <span class="wsus__new">{{ __('user.Best') }}</span>
-    @endif
+    @endif --}}
 
     @php
         $variantPrice = 0;
@@ -67,12 +67,10 @@
         </li>
     </ul>
     <div class="wsus__product_details">
-        <a class="wsus__category"
+        {{-- <a class="wsus__category"
             href="{{ route('product', ['category' => $product->category->slug]) }}">{{ $product->category->name }}
-        </a>
-        <p class="wsus__pro_rating">
-            @include('components.website.review')
-        </p>
+        </a> --}}
+        
         <a class="wsus__pro_name" href="{{ route('product-detail', $product->slug) }}">{{ $product->short_name }}</a>
         @if ($isCampaign)
             <p class="wsus__price">
@@ -91,7 +89,10 @@
                 </p>
             @endif
         @endif
-        <a class="add_cart" onclick="addToCartMainProduct('{{ $product->id }}')" href="javascript:;"><i
-                class="far fa-shopping-basket"></i> {{ __('user.ADD TO CART') }}</a>
+        <p class="wsus__pro_rating">
+            @include('components.website.review')
+        </p>
+        {{-- <a class="add_cart" onclick="addToCartMainProduct('{{ $product->id }}')" href="javascript:;"><i
+                class="far fa-shopping-basket"></i> {{ __('user.ADD TO CART') }}</a> --}}
     </div>
 </div>
