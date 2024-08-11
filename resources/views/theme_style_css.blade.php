@@ -225,7 +225,7 @@
 .wsus__hot_deals_proce,
 .wsus__home_services_single i,
 .wsus__home_services_single:hover h5,
-.see_btn,
+/* .see_btn, */
 .wsus__blog_text_center a:hover,
 .wsus__blog_text_center .date span,
 .wsus__footer_content .action:hover,

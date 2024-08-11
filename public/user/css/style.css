@@ -88,7 +88,7 @@ p {
     font-size: 16px;
     font-weight: 400;
     color: #930A02;
-    border: 1px solid #eee;
+    border: 1px solid #930A02;
     padding: 5px 23px 5px 10px;
     border-radius: 3px;
     background: #fff;
@@ -1723,6 +1723,7 @@ Home Features End
 }
 
 .wsus__section_header h3 {
+    color: #930A02;
     text-transform: capitalize;
     font-weight: 600;
     font-size: 25px;
@@ -1732,7 +1733,7 @@ Home Features End
 }
 
 .wsus__section_header .see_btn {
-    margin-bottom: -1px;
+    margin-bottom: 1px;
 }
 
 .wsus__offer_countdown {

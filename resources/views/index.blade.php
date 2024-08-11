@@ -258,7 +258,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-xl-12 col-lg-12">
+                    {{-- <div class="col-xl-12 col-lg-12">
                         <div class="row grid">
                             @foreach ($topCategories as $category)
                                 <div class="col-xl-2 col-sm-4 col-4 col-md-3 col-lg-2">
@@ -275,7 +275,19 @@
                                 </div>
                             @endforeach
                         </div>
-                    </div>
+                    </div> --}}
+                        <div class="col-xl-12 col-12">
+                            <div class="wsus__features_section">
+                                <a href="{{ route('product', ['category' => $category->slug]) }}">
+                                    <div class="wsus__section_content">
+                                        <img src="{{ asset($category->image) }}" alt="{{ $category->name }}"
+                                            class="img-fluid">
+                                        <h2>{{ $category->name }}</h2>
+                                    </div>
+                                </a>
+                                
+                            </div>
+                        </div>
                 </div>
             </div>
         </section>
