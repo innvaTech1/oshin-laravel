@@ -8,61 +8,66 @@
                         <span class="wsus__mobile_menu_icon"><i class="fal fa-bars"></i></span>
                     </div>
                 </div>
-                <div class="col-xl-2 col-3 col-md-3 col-lg-3 d-none d-md-block">
-                    <div class="wsus_logo_area">
-                        <a class="wsus__header_logo" href="{{ route('home') }}">
-                            <img src="{{ asset($setting->logo) }}" alt="logo" class="img-fluid w-100">
-                        </a>
-                    </div>
-                </div>
-                <div class="col-xl-6 col-md-6 col-lg-6 d-block">
-                    <div class="wsus__search">
-                        <form action="{{ route('product') }}">
-                            <input type="text" placeholder="{{ __('Search in Oshin...') }}" name="search"
-                                value="{{ request()->has('search') ? request()->get('search') : '' }}">
-                            <button type="submit"><i class="far fa-search"></i></button>
-                        </form>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-3 col-md-3 col-lg-3 d-none d-md-block">
-                    <div class="wsus__call_icon_area">
-                        <div class="wsus__call_area">
-                            <div class="wsus__call">
-                                <i class="fas fa-user-alt"></i>
-                            </div>
-                            <div class="wsus__call_text">
-                                @auth
-                                    <a href="{{ route('user.dashboard') }}">{{ __('user.Account') }}</a>
-                                @else
-                                    <a href="{{ route('login') }}">{{ __('user.Login/Register') }}</a>
-                                @endauth
-                            </div>
+                
+            </div>
+            <div class="header__content">
+                <div class="row">
+                    <div class="col-xl-2 col-3 col-md-3 col-lg-3 d-none d-md-block">
+                        <div class="wsus_logo_area">
+                            <a class="wsus__header_logo" href="{{ route('home') }}">
+                                <img src="{{ asset($setting->logo) }}" alt="logo" class="img-fluid w-100">
+                            </a>
                         </div>
-                        <ul class="wsus__icon_area">
-                            <li><a href="{{ route('user.wishlist') }}"><i class="fal fa-heart"></i>
+                    </div>
+                    <div class="col-xl-6 col-md-6 col-lg-6 d-block">
+                        <div class="wsus__search">
+                            <form action="{{ route('product') }}">
+                                <input type="text" placeholder="{{ __('Search in Oshin...') }}" name="search"
+                                    value="{{ request()->has('search') ? request()->get('search') : '' }}">
+                                <button type="submit"><i class="far fa-search"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-3 col-md-3 col-lg-3 d-none d-md-block">
+                        <div class="wsus__call_icon_area">
+                            <div class="wsus__call_area">
+                                <div class="wsus__call">
+                                    <i class="fas fa-user-alt"></i>
+                                </div>
+                                <div class="wsus__call_text">
                                     @auth
-                                        @php
-                                            $user = Auth::guard('web')->user();
-                                            $wishlist = App\Models\Wishlist::where('user_id', $user->id)->count();
-                                        @endphp
-                                        <span id="wishlistQty">{{ $wishlist }}</span>
+                                        <a href="{{ route('user.dashboard') }}">{{ __('user.Account') }}</a>
+                                    @else
+                                        <a href="{{ route('login') }}">{{ __('user.Login/Register') }}</a>
                                     @endauth
-                                </a>
-                            </li>
-                            {{-- <li>
-                                <a href="{{ route('compare') }}">
-                                    <i class="fal fa-random"></i>
-                                    <span id="compareQty">{{ Cart::instance('compare')->count() }}</span>
-                                </a>
-                            </li> --}}
-                            @if ($menus->where('id', 19)->first()->status == 1)
-                                <li><a class="wsus__cart_icon" href="javascript:;">
-                                        <i class="fal fa-shopping-bag"></i>
-                                        <span id="cartQty">{{ Cart::instance('default')->count() }}</span>
+                                </div>
+                            </div>
+                            <ul class="wsus__icon_area">
+                                <li><a href="{{ route('user.wishlist') }}"><i class="fal fa-heart"></i>
+                                        @auth
+                                            @php
+                                                $user = Auth::guard('web')->user();
+                                                $wishlist = App\Models\Wishlist::where('user_id', $user->id)->count();
+                                            @endphp
+                                            <span id="wishlistQty">{{ $wishlist }}</span>
+                                        @endauth
                                     </a>
                                 </li>
-                            @endif
-                        </ul>
+                                {{-- <li>
+                                    <a href="{{ route('compare') }}">
+                                        <i class="fal fa-random"></i>
+                                        <span id="compareQty">{{ Cart::instance('compare')->count() }}</span>
+                                    </a>
+                                </li> --}}
+                                @if ($menus->where('id', 19)->first()->status == 1)
+                                    <li><a class="wsus__cart_icon" href="javascript:;">
+                                            <i class="fal fa-shopping-bag"></i>
+                                            <span id="cartQty">{{ Cart::instance('default')->count() }}</span>
+                                        </a>
+                                    </li>
+                                @endif
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -115,7 +120,7 @@
     <nav class="wsus__main_menu d-none d-md-block">
         <div class="container">
             <div class="row">
-                <div class="col-2 col-sm-2">
+                <div class="col-3 col-sm-3 col-md-3 col-lg-2">
                     <div class="wsus_header_cate_wra d-none d-md-block">
                         <div class="wsus_header_cate">
                             <div class="wsus_header_icon">
@@ -129,8 +134,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-10 col-sm-10">
-                    <div class="relative_contect d-flex justify-content-between">
+                <div class="col-9 col-sm-9 col-md-9 col-lg-10">
+                    <div class="wsus_header_menu relative_contect d-flex justify-content-between">
                         <ul class="wsus__menu_item">
                             <li><a href="{{ route('product') }}">{{ __('user.Shop') }}</a></li>
                             <li><a href="{{ route('brand') }}">{{ __('Brands') }}</a></li>

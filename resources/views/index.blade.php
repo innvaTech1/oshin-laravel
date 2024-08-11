@@ -17,14 +17,14 @@
         <section id="wsus__banner">
             <div class="container">
                 <div class="row">
-                    <div class="col-xl-2 col-md-2">
+                    <div class="col-xl-2 col-md-2 d-none d-lg-block">
                         <div class="innva__cate_area">
                             <div class="relative_contect d-flex">
                                 @include('website.partials.menu-item')
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-10">
+                    <div class="col-xl-10 col-lg-10">
                         <div class="wsus__banner_content">
                             <div class="row banner_slider">
                                 @foreach ($sliders->take($sliderVisibility->qty) as $slider)
@@ -58,38 +58,38 @@
         <div class="container">
             <div class="wsus__home_services_bg">
                 <div class="row">
-                    <div class="col-xl-2 col-sm-3 col-lg-2 col-4">
+                    <div class="col-xl-2 col-sm-4 col-lg-3 col-4">
                         <div class="wsus__home_services_single">
                             <img src="{{ asset('user/images/icons/verified.png') }}" alt="" class="img-fluid">
                             <h5>Safe Payments</h5>
                         </div>
                     </div>
-                    <div class="col-xl-2 col-sm-3 col-lg-2 col-4">
+                    <div class="col-xl-2 col-sm-4 col-lg-3 col-4">
                         <div class="wsus__home_services_single">
                             <img src="{{ asset('user/images/icons/shipped.png') }}" alt="" class="img-fluid">
                             <h5>Nationalwide Delevery</h5>
                         </div>
                     </div>
-                    <div class="col-xl-2 col-sm-3 col-lg-2 col-4">
+                    <div class="col-xl-2 col-sm-4 col-lg-3 col-4">
                         <div class="wsus__home_services_single">
                             <img src="{{ asset('user/images/icons/product-return.png') }}" alt=""
                                 class="img-fluid">
                             <h5>Free & Easy Return</h5>
                         </div>
                     </div>
-                    <div class="col-xl-2 col-sm-3 col-lg-2 col-4">
+                    <div class="col-xl-2 col-sm-4 col-lg-3 col-4">
                         <div class="wsus__home_services_single">
                             <img src="{{ asset('user/images/icons/tag.png') }}" alt="" class="img-fluid">
                             <h5>Best Price Guaranteed</h5>
                         </div>
                     </div>
-                    <div class="col-xl-2 col-sm-3 col-lg-2 col-4">
+                    <div class="col-xl-2 col-sm-4 col-lg-3 col-4">
                         <div class="wsus__home_services_single">
                             <img src="{{ asset('user/images/icons/high-quality.png') }}" alt="" class="img-fluid">
                             <h5>100% Authentic Products</h5>
                         </div>
                     </div>
-                    <div class="col-xl-2 col-sm-3 col-lg-2 col-4">
+                    <div class="col-xl-2 col-sm-4 col-lg-3 col-4">
                         <div class="wsus__home_services_single">
                             <img src="{{ asset('user/images/icons/verify.png') }}" alt="" class="img-fluid">
                             <h5>Oshin verified</h5>
@@ -251,7 +251,7 @@
                     </div>
                 </div> --}}
                 <div class="row">
-                    <div class="col-xl-12">
+                    <div class="col-12 col-lg-12">
                         <div class="wsus__section_header for_md">
                             <h3>Top Categories</h3>
                         </div>
@@ -261,7 +261,7 @@
                     <div class="col-xl-12 col-lg-12">
                         <div class="row grid">
                             @foreach ($topCategories as $category)
-                                <div class="col-xl-2 col-sm-4 col-4">
+                                <div class="col-xl-2 col-sm-4 col-4 col-md-3 col-lg-2">
                                     <a class="wsus__hot_deals__single"
                                         href="{{ route('product', ['category' => $category->slug]) }}">
                                         <div class="wsus__hot_deals__single_img">
@@ -501,7 +501,7 @@
         <section id="wsus__electronic">
             <div class="container">
                 <div class="row">
-                    <div class="col-xl-12">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                         <div class="wsus__section_header">
                             <h3>{{ __('user.Sale Products') }}</h3>
                             <a class="see_btn" href="{{ route('product', ['type' => 'new']) }}">see more <i
@@ -511,7 +511,7 @@
                 </div>
                 <div class="row">
                     @foreach ($newProducts as $product)
-                        <div class="col-xl-2 col-sm-6 col-lg-2 col-6">
+                    <div class="col-6 col-sm-3 col-md-3 col-lg-2">
                             @include('components/website.product-card')
                         </div>
                     @endforeach
@@ -526,10 +526,10 @@
         {{-- <!--============================
             Featured Products START
         ==============================--> --}}
-        <section id="wsus__electronic2" class="d-none d-sm-block">
+        <section id="wsus__electronic2">
             <div class="container">
                 <div class="row">
-                    <div class="col-xl-12">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                         <div class="wsus__section_header">
                             <h3>Featured Products</h3>
                             <a class="see_btn" href="{{ route('product', ['type' => 'featured']) }}">see more <i
@@ -539,7 +539,7 @@
                 </div>
                 <div class="row">
                     @foreach ($featuredProducts as $product)
-                        <div class="col-xl-2 col-sm-6 col-lg-3 col-6">
+                    <div class="col-6 col-sm-3 col-md-3 col-lg-2">
                             @include('components/website.product-card')
                         </div>
                     @endforeach
@@ -692,10 +692,10 @@
     {{-- <!--============================
         Best selling products START
     ==============================--> --}}
-    <section id="wsus__electronic2" class="section_separate d-none d-sm-block">
+    <section id="wsus__electronic2" class="section_separate">
         <div class="container">
             <div class="row">
-                <div class="col-xl-12">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                     <div class="wsus__section_header">
                         <h3>{{ __('user.Best Selling Products') }}</h3>
                         <a class="see_btn" href="{{ route('product', ['type' => 'best']) }}">{{ __('user.see more') }}
@@ -705,7 +705,7 @@
             </div>
             <div class="row">
                 @foreach ($bestProducts as $product)
-                    <div class="col-xl-2 col-lg-2-3 col-sm-6 col-6">
+                <div class="col-6 col-sm-3 col-md-3 col-lg-2">
                         @include('components/website.product-card')
                     </div>
                 @endforeach
@@ -726,7 +726,7 @@
     <section id="wsus__electronic2" class="section_separate">
         <div class="container">
             <div class="row">
-                <div class="col-xl-12">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                     <div class="wsus__section_header">
                         <h3>{{ __('user.Just for You') }}</h3>
                         <a class="see_btn" href="{{ route('product', ['type' => 'top']) }}">{{ __('see more') }} <i
@@ -736,7 +736,7 @@
             </div>
             <div class="row">
                 @foreach ($topProducts as $product)
-                    <div class="col-xl-2 col-sm-6 col-lg-3 col-6">
+                <div class="col-6 col-sm-3 col-md-3 col-lg-2">
                         @include('components/website.product-card')
                     </div>
                 @endforeach
