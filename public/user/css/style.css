@@ -1723,7 +1723,7 @@ Home Features End
 }
 
 .wsus__section_header h3 {
-    color: #930A02;
+    color: #930A02 !important;
     text-transform: capitalize;
     font-weight: 600;
     font-size: 25px;
