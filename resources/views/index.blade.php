@@ -276,6 +276,8 @@
                             @endforeach
                         </div>
                     </div> --}}
+
+                    @foreach ($topCategories as $category)
                         <div class="col-xl-12 col-12">
                             <div class="wsus__features_section">
                                 <a href="{{ route('product', ['category' => $category->slug]) }}">
@@ -288,6 +290,7 @@
                                 
                             </div>
                         </div>
+                    @endforeach
                 </div>
             </div>
         </section>
