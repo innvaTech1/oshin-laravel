@@ -143,7 +143,6 @@
                             <li><a href="">{{ __('Wholesale') }}</a></li>
                             <li><a href="">{{ __('Pre-Order') }}</a></li>
                             <li><a href="">{{ __('Campaign') }}</a></li>
-                            
                         </ul>
                     </div>
                 </div>
