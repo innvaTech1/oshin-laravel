@@ -4355,6 +4355,7 @@ footer{
 
   .wsus__sidebar_filter {
     display: flex;
+    margin-top: 30px;
   }
 
   .wsus__product_sidebar {
