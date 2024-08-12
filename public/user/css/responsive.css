@@ -4781,7 +4781,7 @@ footer{
   .wsus__offer_time .simply-hours-section,
   .wsus__offer_time .simply-minutes-section,
   .wsus__offer_time .simply-seconds-section {
-    width: 60px;
+    width: 100%;
   }
 
   /* FAQ PAGE START */
@@ -5452,6 +5452,9 @@ footer{
     margin-top: 10px;
   }
 
+  #wsus__product_details{
+    margin-top: 35px;
+  }
   .wsus__product_details .wsus__pro_name {
     font-size: 15px;
   }
@@ -5507,4 +5510,10 @@ footer{
 
     padding: 0px 8px;
   }
+}
+#wsus__login_register{
+  margin-top: 35px;
+}
+#wsus__daily_deals{
+  margin-top: 55px;
 }

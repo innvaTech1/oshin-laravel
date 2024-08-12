@@ -17,7 +17,7 @@
         <div class="container">
             <div class="wsus__offer_details_area">
                 <div class="row">
-                    <div class="col-xl-12">
+                    <div class="col-6 col-sm-6 col-md-6 col-lg-2 ">
                         <div class="wsus__section_header rounded-0">
                             <h3>{{__('user.Flash Deal')}}</h3>
                         </div>
@@ -47,7 +47,7 @@
 
                 <div class="row">
                     @foreach ($products as $product)
-                        <div class="col-xl-4 col-sm-6 col-lg-4">
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-4 ">
                             <div class="wsus__offer_det_single">
                                 @php
                                     $variantPrice = 0;
@@ -103,7 +103,7 @@
                                     <ul class="wsus__single_pro_icon">
                                         <li><a data-bs-toggle="modal" data-bs-target="#productModalView-{{ $product->id }}"><i class="fal fa-eye"></i></a></li>
                                         <li><a href="javascript:;" onclick="addToWishlist('{{ $product->id }}')"><i class="far fa-heart"></i></a></li>
-                                        <li><a href="javascript:;" onclick="addToCompare('{{ $product->id }}')"><i class="far fa-random"></i></a></li>
+                                         <li><a href="javascript:;" onclick="addToCompare('{{ $product->id }}')"><i class="far fa-random"></i></a></li>
                                     </ul>
 
                                     @php
