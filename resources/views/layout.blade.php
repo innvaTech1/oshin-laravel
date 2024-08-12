@@ -488,7 +488,7 @@
             <div class="row justify-content-between">
                 <div class="col-xl-3 col-sm-6 col-md-6 col-lg-3 col-6">
                     <div class="wsus__footer_content">
-                        <img src="{{ asset($setting->logo) }}" alt="logo">
+                        <a href="{{ url('/') }}"><img src="{{ asset($setting->logo) }}" alt="Oshin_logo"></a>
                         <a class="action" href="callto:{{ $footer->phone }}"><i class="fas fa-phone-alt"></i>
                             {{ $footer->phone }}</a>
                         <a class="action" href="mailto:{{ $footer->email }}"><i class="far fa-envelope"></i>

@@ -153,11 +153,11 @@
                             <div class="wsus__quentity">
                                 <h5>{{ __('user.Quantity') }} :</h5>
                                 <div class="modal_btn">
-                                    <button type="button" class="btn btn-danger btn-sm decrementProduct">-</button>
+                                    <button type="button" class="btn btn_bg btn-sm decrementProduct">-</button>
                                     <input class="form-control product_qty" name="quantity" readonly type="text"
                                         min="1" max="{{ $product->qty }}" value="1"
                                         data-qty="{{ $product->qty }}" />
-                                    <button type="button" class="btn btn-success btn-sm incrementProduct">+</button>
+                                    <button type="button" class="btn btn_bg btn-sm incrementProduct">+</button>
                                 </div>
                                 <h3 class="d-none">{{ $currencySetting->currency_icon }}<span
                                         id="product_price">{{ sprintf('%.2f', $productPrice) }}</span></h3>
@@ -173,8 +173,8 @@
                                 </li>
                                 <li><a href="javascript:;" onclick="addToWishlist('{{ $product->id }}')"><i
                                             class="fal fa-heart"></i></a></li>
-                                <li><a href="javascript:;" onclick="addToCompare('{{ $product->id }}')"><i
-                                            class="far fa-random"></i></a></li>
+                                {{-- <li><a href="javascript:;" onclick="addToCompare('{{ $product->id }}')"><i
+                                            class="far fa-random"></i></a></li> --}}
                             </ul>
                         </form>
                         @if ($product->sku)

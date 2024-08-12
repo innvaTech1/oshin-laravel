@@ -63,15 +63,16 @@
                     class="far fa-eye"></i></a>
         </li>
         <li><a href="javascript:;" onclick="addToWishlist('{{ $product->id }}')"><i class="far fa-heart"></i></a></li>
-        <li><a href="javascript:;" onclick="addToCompare('{{ $product->id }}')"><i class="far fa-random"></i></a>
-        </li>
+        {{-- <li><a href="javascript:;" onclick="addToCompare('{{ $product->id }}')"><i class="far fa-random"></i></a>
+        </li> --}}
     </ul>
+    <a href="{{ route('product-detail', $product->slug) }}">
     <div class="wsus__product_details">
         {{-- <a class="wsus__category"
             href="{{ route('product', ['category' => $product->category->slug]) }}">{{ $product->category->name }}
         </a> --}}
         
-        <a class="wsus__pro_name" href="{{ route('product-detail', $product->slug) }}">{{ $product->short_name }}</a>
+        <a class="wsus__pro_name" href="{{ route('product-detail', $product->slug) }}">{{ $product->short_name }}
         @if ($isCampaign)
             <p class="wsus__price">
                 {{ currency_icon() }}{{ sprintf('%.2f', $campaignOfferPrice + $variantPrice) }}
@@ -94,5 +95,7 @@
         </p>
         {{-- <a class="add_cart" onclick="addToCartMainProduct('{{ $product->id }}')" href="javascript:;"><i
                 class="far fa-shopping-basket"></i> {{ __('user.ADD TO CART') }}</a> --}}
-    </div>
+            </a>
+        </div>
+    </a>
 </div>

@@ -333,7 +333,7 @@
 
 .wsus__icon_area li a:hover, .wsus__icon_area li .active {
     color: {{ $setting->theme_one }} !important;
-    border-color: {{ $setting->theme_one }} !important;
+    /* border-color: {{ $setting->theme_one }} !important; */
 }
 
 .select2-container--default .select2-results__option--highlighted.select2-results__option--selectable {

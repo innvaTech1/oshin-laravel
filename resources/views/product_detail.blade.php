@@ -192,9 +192,9 @@
                         <div class="wsus__quentity">
                             <h5>{{__('user.Quantity')}} :</h5>
                             <div class="modal_btn">
-                                <button type="button" class="btn btn-danger btn-sm decrementProduct">-</button>
+                                <button type="button" class="btn btn-sm btn_bg decrementProduct">-</button>
                                 <input class="form-control product_qty" name="quantity" readonly type="text" min="1" max="{{ $product->qty }}" value="1" data-qty="{{ $product->qty }}"/>
-                                <button type="button" class="btn btn-success btn-sm incrementProduct">+</button>
+                                <button type="button" class="btn btn-sm btn_bg incrementProduct">+</button>
                             </div>
                             <h3 class="d-none">{{ $currencySetting->currency_icon }}<span id="product_price">{{ sprintf("%.2f",$productPrice) }}</span></h3>
                         </div>
@@ -931,9 +931,9 @@
                                                 <div class="wsus__quentity">
                                                     <h5>{{__('user.quantity') }} :</h5>
                                                     <div class="modal_btn">
-                                                        <button onclick="productModalDecrement('{{ $relatedProduct->id }}')" type="button" class="btn btn-danger btn-sm">-</button>
+                                                        <button onclick="productModalDecrement('{{ $relatedProduct->id }}')" type="button" class="btn btn-sm btn_bg">-</button>
                                                         <input id="productModalQty-{{ $relatedProduct->id }}" name="quantity"  readonly class="form-control" type="text" min="1" max="100" value="1" />
-                                                        <button onclick="productModalIncrement('{{ $relatedProduct->id }}', '{{ $relatedProduct->qty }}')" type="button" class="btn btn-success btn-sm">+</button>
+                                                        <button onclick="productModalIncrement('{{ $relatedProduct->id }}', '{{ $relatedProduct->qty }}')" type="button" class="btn btn-sm btn_bg">+</button>
                                                     </div>
                                                     <h3 class="d-none">{{ $currencySetting->currency_icon }}<span id="productModalPrice-{{ $relatedProduct->id }}">{{ sprintf("%.2f",$productPrice) }}</span></h3>
 
@@ -975,7 +975,7 @@
                                                     <li><button type="button" onclick="addToCartInProductModal('{{ $relatedProduct->id }}')" class="add_cart">{{__('user.add to cart')}}</button></li>
                                                     <li><a class="buy_now" href="javascript:;" onclick="addToBuyNow('{{ $relatedProduct->id }}')">{{__('user.buy now')}}</a></li>
                                                     <li><a href="javascript:;" onclick="addToWishlist('{{ $relatedProduct->id }}')"><i class="fal fa-heart"></i></a></li>
-                                                    <li><a href="javascript:;" onclick="addToCompare('{{ $relatedProduct->id }}')"><i class="far fa-random"></i></a></li>
+                                                    {{-- <li><a href="javascript:;" onclick="addToCompare('{{ $relatedProduct->id }}')"><i class="far fa-random"></i></a></li> --}}
                                                 </ul>
                                             </form>
                                             @if ($relatedProduct->sku)
