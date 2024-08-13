@@ -42,7 +42,7 @@
                     <div class="row">
                         <div class="col-xl-7 col-lg-6">
                             <div class="wsus__check_form">
-                                <h5>{{ __('user.Shipping Address') }}
+                                <h5>{{ __('Billing Details') }}
                                     @auth('web')
                                         <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                             {{ __('user.add new address') }}
@@ -135,7 +135,7 @@
                                                                     value="1" id="flexCheckDefault" checked
                                                                     name="same_shipping">
                                                                 <label class="form-check-label" for="flexCheckDefault">
-                                                                    {{ __('user.Same as shipping address') }}
+                                                                    {{ __('Ship to a different address') }}
                                                                 </label>
                                                             </div>
                                                         </div>

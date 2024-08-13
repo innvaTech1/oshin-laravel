@@ -1955,7 +1955,7 @@ Home Features End
 .wsus__single_pro_icon li a:hover {
     color: #fff !important;
     border-color: #930A02;
-    background: #930A02;
+    background: #930A02 !important;
 }
 
 .wsus__product_details {
@@ -2029,16 +2029,16 @@ Home Features End
     color: #f6bc3e;
 }
 
-.wsus__product_details .add_cart {
+/* .wsus__product_details .add_cart {
     position: absolute;
     top: -30px;
     left: 0;
     padding: 7px 10px;
-    /* opacity: 0; */
+    opacity: 0;
     width: 100%;
     text-align: center;
     border-radius: 0;
-}
+} */
 
 /* .wsus__product_item:hover
 .wsus__product_details .add_cart {
@@ -8909,7 +8909,7 @@ header .wsus__call_text a:hover {
 }
 
 .wsus__product_details .wsus__price {
-    margin-bottom: 5px;
+    margin-bottom: 2px;
 }
 
 .wsus__single_pro_icon li a {

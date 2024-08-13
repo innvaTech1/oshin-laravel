@@ -67,11 +67,7 @@
         </li> --}}
     </ul>
     <a href="{{ route('product-detail', $product->slug) }}">
-    <div class="wsus__product_details">
-        {{-- <a class="wsus__category"
-            href="{{ route('product', ['category' => $product->category->slug]) }}">{{ $product->category->name }}
-        </a> --}}
-        
+    <div class="wsus__product_details">        
         <a class="wsus__pro_name" href="{{ route('product-detail', $product->slug) }}">{{ $product->short_name }}
         @if ($isCampaign)
             <p class="wsus__price">
