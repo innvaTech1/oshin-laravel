@@ -4,7 +4,6 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use App\Models\Setting;
 class Timezone
 {
     /**
@@ -16,9 +15,6 @@ class Timezone
      */
     public function handle(Request $request, Closure $next)
     {
-        $setting = Setting::first();
-        config(['app.timezone' => $setting->timezone]);
-        date_default_timezone_set($setting->timezone);
 
         return $next($request);
     }
