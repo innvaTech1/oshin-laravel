@@ -97,6 +97,9 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Admin\InventoryController;
 use App\Http\Controllers\Admin\PosController;
+use App\Http\Controllers\GiftCornerController;
+use App\Http\Controllers\PreOrderController;
+use App\Http\Controllers\WholesaleController;
 
 Route::group(['middleware' => ['XSS']], function () {
 
@@ -123,6 +126,10 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::get('/sellers', [HomeController::class, 'seller'])->name('sellers');
         Route::get('/seller-detail', [HomeController::class, 'sellerDetail'])->name('seller-detail');
         Route::get('/product', [HomeController::class, 'product'])->name('product');
+        Route::get('wholesale', [WholesaleController::class, 'index'])->name('wholesale');
+        Route::get('pre-order', [PreOrderController::class, 'index'])->name('pre-order');
+        Route::get('gift-corner', [GiftCornerController::class, 'index'])->name('gift-corner');
+        Route::get('campaign', [CampaignController::class, 'index'])->name('campaign');
         Route::get('/search-product', [HomeController::class, 'searchProduct'])->name('search-product');
         Route::get('/product-detail/{slug}', [HomeController::class, 'productDetail'])->name('product-detail');
         Route::get('/compare', [HomeController::class, 'compare'])->name('compare');

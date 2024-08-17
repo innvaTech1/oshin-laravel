@@ -1,4 +1,3 @@
-
 <header>
     <div class="header__wrapper">
         <div class="container">
@@ -8,7 +7,7 @@
                         <span class="wsus__mobile_menu_icon"><i class="fal fa-bars"></i></span>
                     </div>
                 </div>
-                
+
             </div>
             <div class="header__content">
                 <div class="row">
@@ -116,38 +115,37 @@
                     </div>
                 @endif
             </div>
-    </div>
-    <nav class="wsus__main_menu d-none d-md-block">
-        <div class="container">
-            <div class="row">
-                <div class="col-3 col-sm-3 col-md-3 col-lg-2">
-                    <div class="wsus_header_cate_wra d-none d-md-block">
-                        <div class="wsus_header_cate">
-                            <div class="wsus_header_icon">
-                                <p> <i class="far fa-bars"></i> {{ __('user.All Categories') }}</p>
+        </div>
+        <nav class="wsus__main_menu d-none d-md-block">
+            <div class="container">
+                <div class="row">
+                    <div class="col-3 col-sm-3 col-md-3 col-lg-2">
+                        <div class="wsus_header_cate_wra d-none d-md-block">
+                            <div class="wsus_header_cate">
+                                <div class="wsus_header_icon">
+                                    <p> <i class="far fa-bars"></i> {{ __('user.All Categories') }}</p>
+                                </div>
+                                <span><i class="fas fa-caret-down"></i></span>
                             </div>
-                            <span><i class="fas fa-caret-down"></i></span>
-                        </div>
-                        <div class="dropdown_menu">
-                            {{-- wsus_menu_cat_item show_home toggle_menu --}}
-                             @include('website.partials.menu-item')
+                            <div class="dropdown_menu">
+                                {{-- wsus_menu_cat_item show_home toggle_menu --}}
+                                @include('website.partials.menu-item')
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-9 col-sm-9 col-md-9 col-lg-10">
-                    <div class="wsus_header_menu relative_contect d-flex justify-content-between">
-                        <ul class="wsus__menu_item">
-                            <li><a href="{{ route('product') }}">{{ __('user.Shop') }}</a></li>
-                            <li><a href="{{ route('brand') }}">{{ __('Brands') }}</a></li>
-                            <li><a href="">{{ __('Gift Corner') }}</a></li>
-                            <li><a href="">{{ __('Wholesale') }}</a></li>
-                            <li><a href="">{{ __('Pre-Order') }}</a></li>
-                            <li><a href="">{{ __('Campaign') }}</a></li>
-                        </ul>
+                    <div class="col-9 col-sm-9 col-md-9 col-lg-10">
+                        <div class="wsus_header_menu relative_contect d-flex justify-content-between">
+                            <ul class="wsus__menu_item">
+                                <li><a href="{{ route('product') }}">{{ __('user.Shop') }}</a></li>
+                                <li><a href="{{ route('brand') }}">{{ __('Brands') }}</a></li>
+                                <li><a href="{{ route('gift-corner') }}">{{ __('Gift Corner') }}</a></li>
+                                <li><a href="{{ route('wholesale') }}">{{ __('Wholesale') }}</a></li>
+                                <li><a href="{{ route('pre-order') }}">{{ __('Pre-Order') }}</a></li>
+                                <li><a href="{{ route('campaign') }}">{{ __('Campaign') }}</a></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </nav>    
+        </nav>
 </header>
-
