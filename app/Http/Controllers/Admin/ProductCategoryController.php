@@ -70,6 +70,7 @@ class ProductCategoryController extends Controller
         $category->city_id = $request->city_id;
         $category->commission_rate = $request->commission_rate;
         $category->status = $request->status;
+        $category->is_top = $request->is_top;
         $category->save();
 
 
@@ -118,6 +119,7 @@ class ProductCategoryController extends Controller
         $category->city_id = $request->city_id;
         $category->commission_rate = $request->commission_rate;
         $category->status = $request->status;
+        $category->is_top = $request->is_top;
         $category->save();
 
         $notification = trans('admin_validation.Update Successfully');

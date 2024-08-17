@@ -26,6 +26,7 @@ return array(
     'Image Preview' => 'Image Preview',
     'Name' => 'Name',
     'Delivery Area' => 'Delivery Area',
+    'Top Category' => 'Top Category',
     'Aamarpay' => 'Aamarpay',
     'Select File' => 'Select File',
     'Select Upload Type' => 'Select Upload Type',

@@ -56,10 +56,10 @@ class ProductSubCategoryController extends Controller
         $subCategory->category_id = $request->category;
         $subCategory->name = $request->name;
         $subCategory->slug = $request->slug;
-        $subCategory->delivery_charge = $request->delivery_charge;
         $subCategory->city_id = $request->city_id;
         $subCategory->commission_rate = $request->commission_rate;
         $subCategory->status = $request->status;
+
         $subCategory->save();
 
         $notification = trans('admin_validation.Created Successfully');
@@ -97,7 +97,6 @@ class ProductSubCategoryController extends Controller
         $subCategory->category_id = $request->category;
         $subCategory->name = $request->name;
         $subCategory->slug = $request->slug;
-        $subCategory->delivery_charge = $request->delivery_charge;
         $subCategory->city_id = $request->city_id;
         $subCategory->commission_rate = $request->commission_rate;
         $subCategory->status = $request->status;

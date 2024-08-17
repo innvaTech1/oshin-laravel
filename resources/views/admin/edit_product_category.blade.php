@@ -87,6 +87,16 @@
                                                     {{ __('admin.InActive') }}</option>
                                             </select>
                                         </div>
+                                        <div class="form-group col-12">
+                                            <label>{{ __('admin.Top Category') }} <span
+                                                    class="text-danger">*</span></label>
+                                            <select name="is_top" class="form-control">
+                                                <option value="0" {{ $category->is_top == 0 ? 'selected' : '' }}>
+                                                    {{ __('admin.No') }}</option>
+                                                <option value="1" {{ $category->is_top == 1 ? 'selected' : '' }}>
+                                                    {{ __('admin.Yes') }}</option>
+                                            </select>
+                                        </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-12">

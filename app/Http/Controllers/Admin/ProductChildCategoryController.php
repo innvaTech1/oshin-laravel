@@ -80,7 +80,6 @@ class ProductChildCategoryController extends Controller
         $childCategory->sub_category_id = $request->sub_category;
         $childCategory->name = $request->name;
         $childCategory->slug = $request->slug;
-        $childCategory->delivery_charge = $request->delivery_charge;
         $childCategory->city_id = $request->city_id;
         $childCategory->commission_rate = $request->commission_rate;
         $childCategory->status = $request->status;
@@ -124,7 +123,6 @@ class ProductChildCategoryController extends Controller
         $childCategory->sub_category_id = $request->sub_category;
         $childCategory->name = $request->name;
         $childCategory->slug = $request->slug;
-        $childCategory->delivery_charge = $request->delivery_charge;
         $childCategory->city_id = $request->city_id;
         $childCategory->commission_rate = $request->commission_rate;
         $childCategory->status = $request->status;
