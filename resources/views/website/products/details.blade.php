@@ -7,7 +7,7 @@
 @endsection
 
 @section('public-content')
-    
+
     {{-- <!--============================
         PRODUCT DETAILS START
     ==============================--> --}}
@@ -633,7 +633,7 @@
                     if (qty > 1) {
                         qty = qty - 1;
                         $(".product_qty").val(qty);
-                        calculateProductPrice();
+                        // calculateProductPrice();
                     }
                 })
 
@@ -644,7 +644,7 @@
                     if (parseInt(qty) < parseInt(stock_qty)) {
                         qty = qty * 1 + 1 * 1;
                         $(".product_qty").val(qty);
-                        calculateProductPrice();
+                        // calculateProductPrice();
                     }
                 })
 
