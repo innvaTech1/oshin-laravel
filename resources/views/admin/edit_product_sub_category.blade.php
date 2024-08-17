@@ -58,19 +58,6 @@
                                                 name="commission_rate" value="{{ $subCategory->commission_rate }}">
                                         </div>
                                         <div class="form-group col-12">
-                                            <label>{{ __('admin.Delivery Charge') }} <span
-                                                    class="text-danger">*</span></label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text">
-                                                        {{ currency_icon() }}
-                                                    </div>
-                                                </div>
-                                                <input type="text" class="form-control currency" id="delivery_charge"
-                                                    name="delivery_charge" value="{{ $subCategory->delivery_charge }}">
-                                            </div>
-                                        </div>
-                                        <div class="form-group col-12">
                                             <label>{{ __('admin.Delivery Location') }}</label>
                                             <select name="city_id" class="form-control select2" id="city_id">
                                                 <option value="">{{ __('admin.Delivery Location') }}</option>
