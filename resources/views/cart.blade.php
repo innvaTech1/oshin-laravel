@@ -219,12 +219,12 @@
                 </section>
             @endif
             <!--============================
-                                                                  CART VIEW PAGE END
-                                                            ==============================-->
+                                                                          CART VIEW PAGE END
+                                                                    ==============================-->
         @else
             <!--============================
-                                                                        CART VIEW PAGE START
-                                                                    ==============================-->
+                                                                                CART VIEW PAGE START
+                                                                            ==============================-->
             <section id="wsus__cart_view">
                 <div class="container">
                     <div class="row">
@@ -239,8 +239,8 @@
                 </div>
             </section>
             <!--============================
-                                                                  CART VIEW PAGE END
-                                                            ==============================-->
+                                                                          CART VIEW PAGE END
+                                                                    ==============================-->
         @endif
 
     </div>

@@ -3,6 +3,7 @@
         $selected = [];
     @endphp
     @foreach ($productVariants as $productVariant)
+        {{-- @dd($productVariant) --}}
         @php
             $items = App\Models\ProductVariantItem::orderBy('is_default', 'desc')
                 ->where([
@@ -27,14 +28,15 @@
                         <li>
                             @if ($variName == 'color')
                                 <a href="javascript:;" style="background:{{ strtolower($item->name) }}"
-                                    data-id = "{{ $item->id }}"
+                                    data-id = "{{ $item->id }}" data-parent-variant="{{ $productVariant->id }}"
                                     class="variant {{ $item->is_default == 1 ? 'select-variant' : '' }}">
                                     <i class="far fa-check"
                                         @if ($item->is_default == 1) style="opacity:1" @endif></i>
                                 </a>
                             @else
                                 <a href="javascript:;" data-id = "{{ $item->id }}"
-                                    class="variant {{ $item->is_default == 1 ? 'active-variant select-variant' : '' }}">{{ $item->name }}</a>
+                                    class="variant {{ $item->is_default == 1 ? 'active-variant select-variant' : '' }}"
+                                    data-parent-variant="{{ $productVariant->id }}">{{ $item->name }}</a>
                             @endif
                         </li>
                     @endforeach
@@ -42,5 +44,5 @@
             </div>
         @endif
     @endforeach
-    <input type="hidden" name="items[]" value="{{ join(',', $selected) }}">
+    <input type="hidden" name="items" value="{{ join(',', $selected) }}">
 @endif

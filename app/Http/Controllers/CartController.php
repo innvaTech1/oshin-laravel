@@ -27,6 +27,7 @@ class CartController extends Controller
 
     public function addToCart(Request $request)
     {
+        $cartVariant = explode(',', $request->items);
         $itemExist = false;
         $cartContents = Cart::content();
         foreach ($cartContents as $cartContent) {
@@ -62,7 +63,7 @@ class CartController extends Controller
             //         $values[] = $item->name;
             //         $prices[] = $item->price;
             //     }
-            $items = ProductVariantItem::whereIn('id', $request->items)->get(['name', 'price', 'product_variant_id'])->toArray();
+            $items = ProductVariantItem::whereIn('id', $cartVariant)->get(['name', 'price', 'product_variant_id'])->toArray();
             foreach ($items as $item) {
                 $variants[]  = $item['product_variant_id'];
                 $values[] = $item['name'];

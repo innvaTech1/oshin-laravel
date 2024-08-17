@@ -411,7 +411,7 @@
                             <li><a href="">{{ __('Wholesale') }}</a></li>
                             <li><a href="">{{ __('Pre-Order') }}</a></li>
                             <li><a href="">{{ __('Campaign') }}</a></li>
-                            
+
                         </ul>
                     </div>
                 </div>
@@ -781,6 +781,7 @@
 
                 $('.variant').on('click', function() {
                     var itemId = $(this).data('id');
+                    const parentVar = $(this).data('parent-variant');
                     if ($(this).children('i').length) {
                         $('.variant').each(function(index, item) {
                             $(item).children('i').css('opacity', '0');
@@ -793,7 +794,8 @@
                         $(this).addClass('select-variant');
                     } else {
                         $('.variant').each(function(index, item) {
-                            if (!$(item).children('i').length) {
+                            if (!$(item).children('i').length && $(item).data(
+                                    'parent-variant') == parentVar) {
                                 $(item).removeClass('active-variant');
                                 $(item).removeClass('select-variant');
                             }
@@ -807,7 +809,7 @@
                         selectedItems.push($(item).data('id'));
                     })
 
-                    $('[name="items[]"]').val(selectedItems.join(','));
+                    $('[name="items"]').val(selectedItems.join(','));
 
                 })
             });
