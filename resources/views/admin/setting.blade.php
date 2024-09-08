@@ -482,48 +482,6 @@
                                                     </div>
 
 
-
-                                                    <div class="tab-pane fade" id="blogCommentTab" role="tabpanel"
-                                                        aria-labelledby="blog-comment-tab">
-                                                        <div class="card m-0">
-                                                            <div class="card-body">
-                                                                <form
-                                                                    action="{{ route('admin.update-facebook-comment') }}"
-                                                                    method="POST">
-                                                                    @csrf
-                                                                    @method('PUT')
-                                                                    <div class="form-group">
-                                                                        <label
-                                                                            for="">{{ __('admin.Blog Comment Type') }}</label>
-                                                                        <select name="comment_type" id="comment_type"
-                                                                            class="form-control">
-                                                                            <option
-                                                                                {{ $facebookComment->comment_type == 1 ? 'selected' : '' }}
-                                                                                value="1">
-                                                                                {{ __('admin.Menual Comment') }}</option>
-                                                                            <option
-                                                                                {{ $facebookComment->comment_type == 0 ? 'selected' : '' }}
-                                                                                value="0">
-                                                                                {{ __('admin.Facebook Comment') }}
-                                                                            </option>
-                                                                        </select>
-                                                                    </div>
-
-                                                                    <div class="form-group">
-                                                                        <label
-                                                                            for="">{{ __('admin.Facebook App Id') }}</label>
-                                                                        <input type="text" class="form-control"
-                                                                            name="app_id"
-                                                                            value="{{ $facebookComment->app_id }}">
-                                                                    </div>
-
-                                                                    <button
-                                                                        class="btn btn-primary">{{ __('admin.Update') }}</button>
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
                                                     <div class="tab-pane fade" id="tawkChatTab" role="tabpanel"
                                                         aria-labelledby="tawk-chat-tab">
                                                         <div class="card m-0">

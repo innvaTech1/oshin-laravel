@@ -508,7 +508,7 @@
                         <h5>{{ $footer->first_column }}</h5>
                         <ul class="wsus__footer_menu">
                             @foreach ($footerLinks->where('column', 1) as $footerLink)
-                                <li><a href="{{ $footerLink->link }}"><i class="fas fa-caret-right"></i>
+                                <li><a href="{{ url($footerLink->link) }}"><i class="fas fa-caret-right"></i>
                                         {{ $footerLink->title }}</a></li>
                             @endforeach
                         </ul>
@@ -519,7 +519,7 @@
                         <h5>{{ $footer->second_column }}</h5>
                         <ul class="wsus__footer_menu">
                             @foreach ($footerLinks->where('column', 2) as $footerLink)
-                                <li><a href="{{ $footerLink->link }}"><i class="fas fa-caret-right"></i>
+                                <li><a href="{{ url($footerLink->link) }}"><i class="fas fa-caret-right"></i>
                                         {{ $footerLink->title }}</a></li>
                             @endforeach
                         </ul>
@@ -530,7 +530,7 @@
                         <h5>{{ $footer->third_column }}</h5>
                         <ul class="wsus__footer_menu">
                             @foreach ($footerLinks->where('column', 3) as $footerLink)
-                                <li><a href="{{ $footerLink->link }}"><i class="fas fa-caret-right"></i>
+                                <li><a href="{{ url($footerLink->link) }}"><i class="fas fa-caret-right"></i>
                                         {{ $footerLink->title }}</a></li>
                             @endforeach
                         </ul>
