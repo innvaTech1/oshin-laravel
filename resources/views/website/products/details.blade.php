@@ -611,6 +611,9 @@
                         </div>
                     @endforeach
                 </div>
+                @foreach ($relatedProducts as $relatedProduct)
+                    @include('components.website.product-modal', ['product' => $relatedProduct])
+                @endforeach
             </div>
         </section>
     @endif
