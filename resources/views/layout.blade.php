@@ -779,7 +779,7 @@
 
                 })
 
-                $('.variant').on('click', function() {
+                $(document).on('click', '.variant', function() {
                     var itemId = $(this).data('id');
                     const parentVar = $(this).data('parent-variant');
                     if ($(this).children('i').length) {

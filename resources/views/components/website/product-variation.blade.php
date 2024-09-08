@@ -3,7 +3,6 @@
         $selected = [];
     @endphp
     @foreach ($productVariants as $productVariant)
-        {{-- @dd($productVariant) --}}
         @php
             $items = App\Models\ProductVariantItem::orderBy('is_default', 'desc')
                 ->where([

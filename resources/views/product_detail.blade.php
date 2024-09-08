@@ -8,9 +8,10 @@
 
 @section('public-content')
 
+
     <!--============================
-                    PRODUCT DETAILS START
-                ==============================-->
+                            PRODUCT DETAILS START
+                        ==============================-->
     <section id="wsus__product_details">
         <div class="container">
             <div class="row">
@@ -318,8 +319,8 @@
                     </div>
 
                     <!--==========================
-                                PRODUCT  REPORT MODAL VIEW
-                                ===========================-->
+                                        PRODUCT  REPORT MODAL VIEW
+                                        ===========================-->
                     @auth
                         @if ($isExist)
                             <section class="product_popup_modal report_modal">
@@ -363,8 +364,8 @@
                         @endif
                     @endauth
                     <!--==========================
-                                PRODUCT REPORT MODAL VIEW
-                                ===========================-->
+                                        PRODUCT REPORT MODAL VIEW
+                                        ===========================-->
                 </div>
 
                 <div class="col-xl-3 col-md-12 mt-md-5 mt-lg-0">
@@ -682,13 +683,13 @@
         </div>
     </section>
     <!--============================
-                    PRODUCT DETAILS END
-                ==============================-->
+                            PRODUCT DETAILS END
+                        ==============================-->
 
 
     <!--============================
-                    RELATED PRODUCT START
-                ==============================-->
+                            RELATED PRODUCT START
+                        ==============================-->
     @if ($relatedProducts->count() > 0)
         <section id="wsus__flash_sell">
             <div class="container">
@@ -1067,6 +1068,7 @@
                             'product_id' => $relatedProduct->id,
                         ])->get();
                     @endphp
+                    {{-- productVariants --}}
                     @if ($productVariants->count() != 0)
                         <div class="wsus__selectbox">
                             <div class="row">
@@ -1150,8 +1152,8 @@
     </section>
     @endif
     <!--============================
-                    RELATED PRODUCT END
-                ==============================-->
+                            RELATED PRODUCT END
+                        ==============================-->
 
 
     <script>

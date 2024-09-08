@@ -373,7 +373,9 @@
     @php
         $productVariants = App\Models\ProductVariant::where(['status' => 1, 'product_id' => $product->id])->get();
     @endphp
-    @if ($productVariants->count() != 0)
+
+    @include('components.website.product-variation')
+    {{-- @if ($productVariants->count() != 0)
         <div class="wsus__selectbox">
             <div class="row">
                 @foreach ($productVariants as $productVariant)
@@ -401,7 +403,7 @@
                 @endforeach
             </div>
         </div>
-    @endif
+    @endif --}}
     <ul class="wsus__button_area">
         <li><button type="button" onclick="addToCartInProductModal('{{ $product->id }}')"
                 class="add_cart">{{ __('user.add to cart') }}</button></li>
@@ -456,6 +458,9 @@
     (function($) {
         "use strict";
         $(document).ready(function() {
+            $(".productVariant").on("change", function() {
+                // calculateProductPrice();
+            })
             $('.modal_slider').not('.slick-initialized').slick({
                 slidesToShow: 1,
                 slidesToScroll: 1,
@@ -485,5 +490,23 @@
 
         });
     })(jQuery);
+
+    function calculateProductPrice() {
+        $.ajax({
+            type: 'get',
+            data: $('#shoppingCartForm').serialize(),
+            url: "{{ route('calculate-product-price') }}",
+            success: function(response) {
+                let qty = $(".product_qty").val();
+                let price = response.productPrice * qty;
+                price = price.toFixed(2);
+                $("#product_price").text(price);
+                $("#mainProductPrice").text(price);
+            },
+            error: function(err) {
+                alert('error')
+            }
+        });
+    }
 </script>
 @endforeach

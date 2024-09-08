@@ -161,7 +161,8 @@ p {
 .section_separate {
     margin: 30px 0;
 }
-.btn_bg{
+
+.btn_bg {
     background: #930A02;
     color: #fff;
 }
@@ -343,7 +344,7 @@ p {
     color: #0d0d0e;
 }
 
-header{
+header {
     margin-bottom: 10px;
 }
 
@@ -727,10 +728,11 @@ Mobile bottom menu end
 /* ======================
 HEADER CATEGORIES MENU START
 =========================*/
-.header__menu_area_wrapper{
+.header__menu_area_wrapper {
     background: #930A02;
     padding: 8px 0px;
 }
+
 .wsus_header_cate_wra {
     display: inline-block;
     align-items: center;
@@ -1801,7 +1803,8 @@ Home Features End
 .wsus__flash_coundown .common_btn i {
     margin-left: 5px;
 }
-.product__card_wrapper{
+
+.product__card_wrapper {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     grid-gap: 20px;
@@ -1834,13 +1837,14 @@ Home Features End
     /* border: 1px solid #eee; */
     background: #fff;
 }
-.wsus__product_item:hover{
+
+.wsus__product_item:hover {
     transition: all linear 0.3s;
     -webkit-transition: all linear 0.3s;
     -moz-transition: all linear 0.3s;
     -ms-transition: all linear 0.3s;
     -o-transition: all linear 0.3s;
-    
+
     /* box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 5px 0px; */
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px
 }
@@ -3547,7 +3551,7 @@ PPRODUCT PAGE START
     width: auto;
     height: 40px;
     /* color: #fff; */
-    border: 1px solid ;
+    border: 1px solid;
     /* background: #930A02; */
 }
 
@@ -4918,18 +4922,20 @@ CHECKOUT PAGE START
     border-radius: 5px;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 5px 0px;
 }
-.wsus__order_details_item li{
+
+.wsus__order_details_item li {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 12px;
 }
-.wsus__order_details_img{
+
+.wsus__order_details_img {
     height: 60px;
     width: 60px;
     background-color: #ddd;
     border-radius: 5px;
-    box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.25);
+    box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.25);
 }
 
 .wsus__order_details_summery {
@@ -9681,16 +9687,25 @@ a:not([href]):not([class]):hover {
 /* extra css end here */
 
 /* product card by mohi*/
-.product__item{
+.product__item {
     background: #fff;
     padding: 10px;
     border-radius: 5px;
-    margin-bottom: 15px;    
+    margin-bottom: 15px;
 }
-.product__item:hover{
+
+.product__item:hover {
     border: 0.5px solid #930A02;
     transition: all 0.3s;
 }
-.wsus__offer_time{
+
+.wsus__offer_time {
     color: #fff;
+}
+
+
+.select2 span,
+input,
+select {
+    color: #000 !important;
 }
