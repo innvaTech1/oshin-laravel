@@ -7,11 +7,9 @@
 @endsection
 
 @section('public-content')
-
-
     <!--============================
-        LOGIN/REGISTER PAGE START
-    ==============================-->
+                                                                                LOGIN/REGISTER PAGE START
+                                                                            ==============================-->
     <section id="wsus__login_register" style="margin-bottom: 30px">
         <div class="container">
             <div class="row">
@@ -43,6 +41,7 @@
                                         <div class="wsus__login_input">
                                             <i class="fas fa-key"></i>
                                             <input type="password" placeholder="{{ __('user.Password') }}" name="password">
+                                            <a href="javascript:;" class="show-pass"><i class="fas fa-eye"></i></a>
                                         </div>
                                         <div class="wsus__login_save">
                                             <div class="form-check form-switch">
@@ -97,13 +96,14 @@
                                         </div>
                                         <div class="wsus__login_input">
                                             <i class="fas fa-key"></i>
-                                            <input type="password" placeholder="{{ __('user.Password') }}"
-                                                name="password">
+                                            <input type="password" placeholder="{{ __('user.Password') }}" name="password">
+                                            <a href="javascript:;" class="show-pass"><i class="fas fa-eye"></i></a>
                                         </div>
                                         <div class="wsus__login_input">
                                             <i class="fas fa-key"></i>
                                             <input type="password" placeholder="{{ __('user.Confirm Password') }}"
                                                 name="password_confirmation">
+                                            <a href="javascript:;" class="show-pass"><i class="fas fa-eye"></i></a>
                                         </div>
                                         <div class="wsus__login_save">
                                             <div class="form-check form-switch">
@@ -136,8 +136,35 @@
     </section>
 
 
-    <!--============================
-                                   LOGIN/REGISTER PAGE END
-                                ==============================-->
+    {{-- <!--============================
+            LOGIN/REGISTER PAGE END
+        ==============================--> --}}
 
 @endsection
+
+
+
+@push('js')
+    <script>
+        $(document).ready(function() {
+            $('.show-pass').on('click', function() {
+                let password = $(this).siblings('[name="password"]')
+
+                if (!password.length) {
+                    password = $(this).siblings('[name="password_confirmation"]')
+                }
+                const type = password.attr('type');
+
+                if (type == 'password') {
+                    password.attr('type', 'text')
+                    $(this).children('i').removeClass('fa-eye')
+                    $(this).children('i').addClass('fa-eye-slash')
+                } else {
+                    password.attr('type', 'password')
+                    $(this).children('i').addClass('fa-eye')
+                    $(this).children('i').removeClass('fa-eye-slash')
+                }
+            })
+        })
+    </script>
+@endpush
