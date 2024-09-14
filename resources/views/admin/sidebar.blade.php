@@ -114,7 +114,7 @@
             <li class="{{ Route::is('admin.inventory') || Route::is('admin.stock-history') ? 'active' : '' }}"><a
                     class="nav-link" href="{{ route('admin.inventory') }}"><i class="fas fa-th-large"></i>
                     <span>{{ __('admin.Inventory') }}</span></a></li>
-            <li
+            {{-- <li
                 class="nav-item dropdown {{ Route::is('admin.pos.index') || Route::is('admin.pos.bulk.order') ? 'active' : '' }}">
                 <a href="#" class="nav-link has-dropdown">
                     <div class="icon">
@@ -131,7 +131,7 @@
                             href="{{ route('admin.pos.bulk.order') }}">{{ __('admin.Bulk Order Accept') }}</a></li>
                 </ul>
 
-            </li>
+            </li> --}}
             <li
                 class="nav-item dropdown {{ Route::is('admin.state.*') || Route::is('admin.city.*') ? 'active' : '' }}">
                 <a href="#" class="nav-link has-dropdown"><i
