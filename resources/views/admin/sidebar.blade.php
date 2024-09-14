@@ -206,7 +206,7 @@
             </li>
 
             <li
-                class="nav-item dropdown {{ Route::is('admin.customer-list') || Route::is('admin.customer-show') || Route::is('admin.pending-customer-list') || Route::is('admin.seller-list') || Route::is('admin.seller-show') || Route::is('admin.pending-seller-list') || Route::is('admin.seller-shop-detail') || Route::is('admin.seller-reviews') || Route::is('admin.show-seller-review-details') || Route::is('admin.send-email-to-seller') || Route::is('admin.email-history') || Route::is('admin.product-by-seller') || Route::is('admin.send-email-to-all-seller') || Route::is('admin.send-email-to-all-customer') || Route::is('admin.seller-create') ? 'active' : '' }}">
+                class="nav-item dropdown {{ Route::is('admin.customer-list') || Route::is('admin.customer-show') || Route::is('admin.pending-customer-list') || Route::is('admin.seller-list') || Route::is('admin.seller-show') || Route::is('admin.pending-seller-list') || Route::is('admin.seller-shop-detail') || Route::is('admin.seller-reviews') || Route::is('admin.show-seller-review-details') || Route::is('admin.send-email-to-seller') || Route::is('admin.email-history') || Route::is('admin.product-by-seller') || Route::is('admin.send-email-to-all-seller') || Route::is('admin.send-email-to-all-customer') || Route::is('admin.seller-create') || Route::is('admin.deleted-user-list') ? 'active' : '' }}">
                 <a href="#" class="nav-link has-dropdown"><i
                         class="fas fa-user"></i><span>{{ __('admin.Users') }}</span></a>
                 <ul class="dropdown-menu">
@@ -214,6 +214,10 @@
                         class="{{ Route::is('admin.customer-list') || Route::is('admin.customer-show') || Route::is('admin.send-email-to-all-customer') ? 'active' : '' }}">
                         <a class="nav-link"
                             href="{{ route('admin.customer-list') }}">{{ __('admin.Customer List') }}</a>
+                    </li>
+                    <li class="{{ Route::is('admin.deleted-user-list') ? 'active' : '' }}">
+                        <a class="nav-link"
+                            href="{{ route('admin.deleted-user-list') }}">{{ __('admin.Deleted User') }}</a>
                     </li>
 
                     <li class="{{ Route::is('admin.pending-customer-list') ? 'active' : '' }}"><a class="nav-link"

@@ -9,6 +9,8 @@ return array(
     'Image' => 'Image',
     'Save' => 'Save',
     'Admin' => 'Admin',
+    'Deleted User List' => 'Deleted User List',
+    'Deleted User' => 'Deleted User',
     'Add New' => 'Add New',
     'Create Seller' => 'Create Seller',
     'Commission Rate' => 'Commission Rate',

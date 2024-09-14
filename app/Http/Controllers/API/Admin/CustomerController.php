@@ -17,6 +17,7 @@ use Mail;
 use App\Mail\SendSingleSellerMail;
 use Image;
 use File;
+
 class CustomerController extends Controller
 {
     public function __construct()
@@ -24,63 +25,65 @@ class CustomerController extends Controller
         $this->middleware('auth:admin-api');
     }
 
-    public function index(){
-        $customers = User::with('city','seller','state', 'country')->orderBy('id','desc')->where('status',1)->get();
+    public function index()
+    {
+        $customers = User::with('city', 'seller', 'state', 'country')->orderBy('id', 'desc')->where('status', 1)->get();
         $defaultProfile = BannerImage::whereId('15')->first();
         $orders = Order::all();
 
         return response()->json(['customers' => $customers, 'defaultProfile' => $defaultProfile, 'orders' => $orders], 200);
     }
 
-    public function pendingCustomerList(){
-        $customers = User::with('city','seller','state', 'country')->orderBy('id','desc')->where('status',0)->get();
+    public function pendingCustomerList()
+    {
+        $customers = User::with('city', 'seller', 'state', 'country')->orderBy('id', 'desc')->where('status', 0)->get();
         $defaultProfile = BannerImage::whereId('15')->first();
         $orders = Order::all();
 
         return response()->json(['customers' => $customers, 'defaultProfile' => $defaultProfile, 'orders' => $orders], 200);
-
     }
 
-    public function show($id){
-        $customer = User::with('city','seller','state', 'country')->find($id);
-        if($customer){
+    public function show($id)
+    {
+        $customer = User::with('city', 'seller', 'state', 'country')->find($id);
+        if ($customer) {
             $defaultProfile = BannerImage::whereId('15')->first();
 
             return response()->json(['customer' => $customer, 'defaultProfile' => $defaultProfile], 200);
-
-        }else{
-            $notification= trans('admin_validation.Something Went Wrong');
+        } else {
+            $notification = trans('admin_validation.Something Went Wrong');
             return response()->json(['notification' => $notification], 500);
         }
-
     }
+
+
 
     public function destroy($id)
     {
         $user = User::find($id);
         $user_image = $user->image;
         $user->delete();
-        if($user_image){
-            if(File::exists(public_path().'/'.$user_image))unlink(public_path().'/'.$user_image);
+        if ($user_image) {
+            if (File::exists(public_path() . '/' . $user_image)) unlink(public_path() . '/' . $user_image);
         }
-        ProductReport::where('user_id',$id)->delete();
-        ProductReview::where('user_id',$id)->delete();
-        ShippingAddress::where('user_id',$id)->delete();
-        BillingAddress::where('user_id',$id)->delete();
-        Wishlist::where('user_id',$id)->delete();
+        ProductReport::where('user_id', $id)->delete();
+        ProductReview::where('user_id', $id)->delete();
+        ShippingAddress::where('user_id', $id)->delete();
+        BillingAddress::where('user_id', $id)->delete();
+        Wishlist::where('user_id', $id)->delete();
 
         $notification = trans('admin_validation.Delete Successfully');
         return response()->json(['notification' => $notification], 200);
-
     }
 
-    public function changeStatus($id){
+    public function changeStatus($id)
+    {
         $customer = User::find($id);
-        if($customer->status == 1){
+        if ($customer->status == 1) {
             $customer->status = 0;
             $customer->save();
             $message = trans('admin_validation.Inactive Successfully');
-        }else{
+        } else {
             $customer->status = 1;
             $customer->save();
             $message = trans('admin_validation.Active Successfully');
@@ -88,48 +91,50 @@ class CustomerController extends Controller
         return response()->json($message);
     }
 
-    public function sendEmailToAllUser(){
+    public function sendEmailToAllUser()
+    {
         return view('admin.send_email_to_all_customer');
     }
 
-    public function sendMailToAllUser(Request $request){
+    public function sendMailToAllUser(Request $request)
+    {
         $rules = [
-            'subject'=>'required',
-            'message'=>'required'
+            'subject' => 'required',
+            'message' => 'required'
         ];
         $customMessages = [
             'subject.required' => trans('admin_validation.Subject is required'),
             'message.required' => trans('admin_validation.Message is required'),
         ];
-        $this->validate($request, $rules,$customMessages);
+        $this->validate($request, $rules, $customMessages);
 
-        $users = User::where('status',1)->get();
+        $users = User::where('status', 1)->get();
         MailHelper::setMailConfig();
-        foreach($users as $user){
-            Mail::to($user->email)->send(new SendSingleSellerMail($request->subject,$request->message));
+        foreach ($users as $user) {
+            Mail::to($user->email)->send(new SendSingleSellerMail($request->subject, $request->message));
         }
 
         $notification = trans('admin_validation.Email Send Successfully');
         return response()->json(['notification' => $notification], 200);
     }
 
-    public function sendMailToSingleUser(Request $request, $id){
+    public function sendMailToSingleUser(Request $request, $id)
+    {
         $rules = [
-            'subject'=>'required',
-            'message'=>'required'
+            'subject' => 'required',
+            'message' => 'required'
         ];
         $customMessages = [
             'subject.required' => trans('admin_validation.Subject is required'),
             'message.required' => trans('admin_validation.Message is required'),
         ];
-        $this->validate($request, $rules,$customMessages);
+        $this->validate($request, $rules, $customMessages);
 
         $user = User::find($id);
         MailHelper::setMailConfig();
-        Mail::to($user->email)->send(new SendSingleSellerMail($request->subject,$request->message));
+        Mail::to($user->email)->send(new SendSingleSellerMail($request->subject, $request->message));
 
         $notification = trans('admin_validation.Email Send Successfully');
         return response()->json(['notification' => $notification], 200);
     }
-
 }
