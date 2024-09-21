@@ -496,6 +496,7 @@ Route::group(['middleware' => ['XSS']], function () {
 
         Route::get('customer-list', [CustomerController::class, 'index'])->name('customer-list');
         Route::get('customer-show/{id}', [CustomerController::class, 'show'])->name('customer-show');
+        Route::post('reset-user-password/{id}', [CustomerController::class, 'resetPassword'])->name('reset-user-password');
         Route::get('deleted-user-list', [CustomerController::class, 'deletedUserList'])->name('deleted-user-list');
         Route::get('deleted-user-remove/{id}', [CustomerController::class, 'deletedUserRemove'])->name('deleted-user-remove');
         Route::delete('deleted-user-delete/{id}', [CustomerController::class, 'deletedUserDelete'])->name('deleted-user-delete');

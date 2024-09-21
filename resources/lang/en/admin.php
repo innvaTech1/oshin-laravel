@@ -8,6 +8,7 @@ return array(
     'Update' => 'Update',
     'Image' => 'Image',
     'Save' => 'Save',
+    'Zip Code' => 'Zip Code',
     'Admin' => 'Admin',
     'Deleted User List' => 'Deleted User List',
     'Deleted User' => 'Deleted User',

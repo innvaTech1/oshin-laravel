@@ -17,6 +17,7 @@ use Mail;
 use App\Mail\SendSingleSellerMail;
 use Image;
 use File;
+use Illuminate\Support\Facades\Hash;
 
 class CustomerController extends Controller
 {
@@ -163,6 +164,21 @@ class CustomerController extends Controller
         Mail::to($user->email)->send(new SendSingleSellerMail($request->subject, $request->message));
 
         $notification = trans('admin_validation.Email Send Successfully');
+        $notification = array('messege' => $notification, 'alert-type' => 'success');
+        return redirect()->back()->with($notification);
+    }
+
+    public function resetPassword(Request $request, $id)
+    {
+        $request->validate(
+            [
+                'password' => 'required|confirmed'
+            ],
+        );
+        $user = User::find($id);
+        $user->password = Hash::make($user->email);
+        $user->save();
+        $notification = 'Password Reset Successfully';
         $notification = array('messege' => $notification, 'alert-type' => 'success');
         return redirect()->back()->with($notification);
     }
