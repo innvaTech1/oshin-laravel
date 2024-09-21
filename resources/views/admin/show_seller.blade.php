@@ -315,6 +315,35 @@
 
                             </form>
                         </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <form action="{{ route('admin.reset-user-password', $user->id) }}" method="POST">
+                                    @csrf
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="">{{ __('admin.Password') }}</label>
+                                                <input type="password" class="form-control" name="password"
+                                                    placeholder="{{ __('admin.Password') }}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="">{{ __('admin.Confirm Password') }}</label>
+                                                <input type="password" class="form-control" name="password_confirmation"
+                                                    placeholder="{{ __('admin.Confirm Password') }}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <button class="btn btn-primary btn-lg btn-block"
+                                                    type="submit">{{ __('admin.Reset Password') }}</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

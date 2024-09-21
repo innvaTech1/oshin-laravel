@@ -7,9 +7,9 @@
 @endsection
 
 @section('public-content')
-    <!--============================
-                                                                                LOGIN/REGISTER PAGE START
-                                                                            ==============================-->
+    {{-- <!--============================
+        LOGIN/REGISTER PAGE START
+    ==============================--> --}}
     <section id="wsus__login_register" style="margin-bottom: 30px">
         <div class="container">
             <div class="row">
@@ -19,7 +19,7 @@
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link active" id="pills-home-tab2" data-bs-toggle="pill"
                                     data-bs-target="#pills-homes" type="button" role="tab" aria-controls="pills-homes"
-                                    aria-selected="true">{{ __('user.SignIn') }}</button>
+                                    aria-selected="true">{{ __('user.Login') }}</button>
                             </li>
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="pills-profile-tab2" data-bs-toggle="pill"
