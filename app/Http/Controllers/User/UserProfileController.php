@@ -2,40 +2,36 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Auth;
-use App\Models\Country;
-use App\Models\CountryState;
 use App\Models\City;
-use App\Models\BillingAddress;
-use App\Models\ShippingAddress;
-use App\Models\Vendor;
-use App\Models\Order;
-use App\Models\Setting;
-use App\Models\Product;
-use App\Models\ProductReview;
-use App\Models\OrderProduct;
-use App\Models\Wishlist;
-use App\Models\ProductReport;
-use App\Models\GoogleRecaptcha;
-use App\Models\BannerImage;
 use App\Models\User;
+
+use App\Models\Order;
+use App\Models\Vendor;
 use App\Rules\Captcha;
-use App\Models\Message;
-
-use App\Models\OrderProductVariant;
-use App\Models\OrderAddress;
-
-use Image;
-use File;
-use Str;
-use Hash;
-use Slug;
-
-use App\Events\SellerToUser;
 use App\Models\Address;
+use App\Models\Country;
+use App\Models\Message;
+use App\Models\Product;
+use App\Models\Setting;
 use App\Models\Category;
+use App\Models\Wishlist;
+use App\Models\BannerImage;
+use Illuminate\Support\Str;
+use App\Models\CountryState;
+use App\Models\OrderAddress;
+use App\Models\OrderProduct;
+use Illuminate\Http\Request;
+use App\Models\ProductReport;
+use App\Models\ProductReview;
+
+use App\Models\BillingAddress;
+use App\Models\GoogleRecaptcha;
+
+use App\Models\ShippingAddress;
+use App\Models\OrderProductVariant;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserProfileController extends Controller
 {
@@ -147,19 +143,9 @@ class UserProfileController extends Controller
 
         if ($request->file('image')) {
             $old_image = $user->image;
-            $user_image = $request->image;
-            $extention = $user_image->getClientOriginalExtension();
-            $image_name = Str::slug($request->name) . date('-Y-m-d-h-i-s-') . rand(999, 9999) . '.' . $extention;
-            $image_name = 'uploads/custom-images/' . $image_name;
-
-            Image::make($user_image)
-                ->save(public_path() . '/' . $image_name);
-
-            $user->image = $image_name;
+            $user_image = file_upload($request->image, $old_image, 'uploads/custom-images/');
+            $user->image = $user_image;
             $user->save();
-            if ($old_image) {
-                if (File::exists(public_path() . '/' . $old_image)) unlink(public_path() . '/' . $old_image);
-            }
         }
 
         $notification = trans('user_validation.Update Successfully');
@@ -227,24 +213,6 @@ class UserProfileController extends Controller
 
     public function updateBillingAddress(Request $request)
     {
-        $rules = [
-            'name' => 'required',
-            'email' => 'required',
-            'phone' => 'required',
-            'country' => 'required',
-            'address' => 'required',
-        ];
-
-        $customMessages = [
-            'name.required' => trans('user_validation.Name is required'),
-            'email.required' => trans('user_validation.Email is required'),
-            'email.unique' => trans('user_validation.Email already exist'),
-            'phone.required' => trans('user_validation.Phone is required'),
-            'country.required' => trans('user_validation.Country is required'),
-            'zip_code.required' => trans('user_validation.Zip code is required'),
-            'address.required' => trans('user_validation.Address is required'),
-        ];
-        $this->validate($request, $rules, $customMessages);
 
         $user = Auth::guard('web')->user();
         $billing = BillingAddress::where('user_id', $user->id)->first();
@@ -300,25 +268,6 @@ class UserProfileController extends Controller
 
     public function updateShippingAddress(Request $request)
     {
-        $rules = [
-            'name' => 'required',
-            'email' => 'required',
-            'phone' => 'required',
-            'country' => 'required',
-            'address' => 'required',
-        ];
-
-        $customMessages = [
-            'name.required' => trans('user_validation.Name is required'),
-            'email.required' => trans('user_validation.Email is required'),
-            'email.unique' => trans('user_validation.Email already exist'),
-            'phone.required' => trans('user_validation.Phone is required'),
-            'country.required' => trans('user_validation.Country is required'),
-            'zip_code.required' => trans('user_validation.Zip code is required'),
-            'address.required' => trans('user_validation.Address is required'),
-        ];
-        $this->validate($request, $rules, $customMessages);
-
         $user = Auth::guard('web')->user();
         $shipping = ShippingAddress::where('user_id', $user->id)->first();
         if ($shipping) {

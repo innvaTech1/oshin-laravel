@@ -29,7 +29,7 @@
             border: 2px solid rgb(215, 204, 245);
         }
     </style>
-    
+
 
     {{-- <!--============================
             CHECK OUT PAGE START
@@ -348,15 +348,6 @@
                         }
                     });
                 });
-                // $(".shipping_method").on('click', function() {
-                //     let id = $(this).val();
-                //     let fee = $("#shipping_price-" + id).val()
-                //     $("#shipping_amount").text(fee)
-                //     let total = $("#hidden_total_price").val();
-                //     total = (total * 1) + (fee * 1);
-                //     total = total.toFixed(2);
-                //     $("#total_price").text(total);
-                // })
 
                 $('.place_order').on('click', function(e) {
                     e.preventDefault();
