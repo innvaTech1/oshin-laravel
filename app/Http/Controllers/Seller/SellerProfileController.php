@@ -91,20 +91,13 @@ class SellerProfileController extends Controller
         $user = Auth::guard('web')->user();
         $rules = [
             'name' => 'required',
-            'email' => 'required|unique:users,email,' . $user->id,
+            'email' => 'nullable|unique:users,email,' . $user->id,
             'phone' => 'required',
-            'country' => 'required',
-            'zip_code' => 'required',
-            'address' => 'required',
         ];
         $customMessages = [
             'name.required' => trans('user_validation.Name is required'),
-            'email.required' => trans('user_validation.Email is required'),
             'email.unique' => trans('user_validation.Email already exist'),
             'phone.required' => trans('user_validation.Phone is required'),
-            'country.required' => trans('user_validation.Country is required'),
-            'zip_code.required' => trans('user_validation.Zip code is required'),
-            'address.required' => trans('user_validation.Address is required'),
         ];
         $this->validate($request, $rules, $customMessages);
 
@@ -119,19 +112,9 @@ class SellerProfileController extends Controller
 
         if ($request->file('image')) {
             $old_image = $user->image;
-            $user_image = $request->image;
-            $extention = $user_image->getClientOriginalExtension();
-            $image_name = Str::slug($request->name) . date('-Y-m-d-h-i-s-') . rand(999, 9999) . '.' . $extention;
-            $image_name = 'uploads/custom-images/' . $image_name;
-
-            Image::make($user_image)
-                ->save(public_path() . '/' . $image_name);
-
-            $user->image = $image_name;
+            $user_image = file_upload($request->image, $old_image, 'uploads/custom-images/');
+            $user->image = $user_image;
             $user->save();
-            if ($old_image) {
-                if (File::exists(public_path() . '/' . $old_image)) unlink(public_path() . '/' . $old_image);
-            }
         }
 
         $notification = trans('user_validation.Update Successfully');
@@ -209,16 +192,10 @@ class SellerProfileController extends Controller
 
         if ($request->banner_image) {
             $exist_banner = $seller->banner_image;
-            $extention = $request->banner_image->getClientOriginalExtension();
-            $banner_name = 'seller-banner' . date('-Y-m-d-h-i-s-') . rand(999, 9999) . '.' . $extention;
-            $banner_name = 'uploads/custom-images/' . $banner_name;
-            Image::make($request->banner_image)
-                ->save(public_path() . '/' . $banner_name);
+            $banner_name = file_upload($request->banner_image, $exist_banner, 'uploads/custom-images/');
+
             $seller->banner_image = $banner_name;
             $seller->save();
-            if ($exist_banner) {
-                if (File::exists(public_path() . '/' . $exist_banner)) unlink(public_path() . '/' . $exist_banner);
-            }
         }
 
         if (count($request->links) > 0) {
