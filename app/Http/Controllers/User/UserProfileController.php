@@ -104,7 +104,7 @@ class UserProfileController extends Controller
     {
         $user = Auth::guard('web')->user();
         $countries = Country::orderBy('name', 'asc')->where('status', 1)->get();
-        $states = CountryState::orderBy('name', 'asc')->where(['status' => 1, 'country_id' => $user->country_id])->get();
+        $states = CountryState::orderBy('name', 'asc')->get();
         $cities = City::orderBy('name', 'asc')->where(['status' => 1, 'country_state_id' => $user->state_id])->get();
         $defaultProfile = BannerImage::whereId('15')->first();
         return view('user.my_profile', compact('user', 'countries', 'cities', 'states', 'defaultProfile'));
@@ -115,20 +115,13 @@ class UserProfileController extends Controller
         $user = Auth::guard('web')->user();
         $rules = [
             'name' => 'required',
-            'email' => 'required|unique:users,email,' . $user->id,
+            'email' => 'nullable|unique:users,email,' . $user->id,
             'phone' => 'required',
-            'country' => 'required',
-            'zip_code' => 'required',
-            'address' => 'required',
         ];
         $customMessages = [
             'name.required' => trans('user_validation.Name is required'),
-            'email.required' => trans('user_validation.Email is required'),
             'email.unique' => trans('user_validation.Email already exist'),
             'phone.required' => trans('user_validation.Phone is required'),
-            'country.required' => trans('user_validation.Country is required'),
-            'zip_code.required' => trans('user_validation.Zip code is required'),
-            'address.required' => trans('user_validation.Address is required'),
         ];
         $this->validate($request, $rules, $customMessages);
 
