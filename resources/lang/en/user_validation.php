@@ -1,5 +1,10 @@
 <?php
 return array(
+    'seller_name' => 'Seller name is required',
+    'state_id' => 'Select a state',
+    'city_id' => 'Select a city',
+    'category_id' => 'Select a category',
+    'product_info' => 'Product info is required',
     'Email / Phone does not exist' => 'Email / Phone does not exist',
     'Your Shopping Cart is Empty' => 'Your Shopping Cart is Empty',
     'Name is required' => 'Name is required',

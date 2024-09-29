@@ -35,6 +35,7 @@ use Slug;
 
 use App\Events\SellerToUser;
 use App\Models\Address;
+use App\Models\Category;
 
 class UserProfileController extends Controller
 {
@@ -419,7 +420,9 @@ class UserProfileController extends Controller
     public function sellerRegistration()
     {
         $setting = Setting::first();
-        return view('user.seller_registration', compact('setting'));
+        $states = CountryState::where(['status' => 1])->get();
+        $categories = Category::where(['status' => 1])->get();
+        return view('user.seller_registration', compact('setting', 'states', 'categories'));
     }
 
     public function sellerRequest(Request $request)
@@ -434,11 +437,15 @@ class UserProfileController extends Controller
         }
 
         $rules = [
-            'banner_image' => 'required',
             'shop_name' => 'required|unique:vendors',
+            'seller_name' => 'required|unique:vendors',
             'email' => 'required|unique:vendors',
             'phone' => 'required',
             'address' => 'required',
+            'state_id' => 'required',
+            'city_id' => 'required',
+            'category_id' => 'required',
+            'product_info' => 'required_if:category_id,0',
             'agree_terms_condition' => 'required'
         ];
 
@@ -451,6 +458,11 @@ class UserProfileController extends Controller
             'phone.required' => trans('user_validation.Phone is required'),
             'address.required' => trans('user_validation.Address is required'),
             'agree_terms_condition.required' => trans('user_validation.Agree field is required'),
+            'seller_name.required' => trans('user_validation.Seller name is required'),
+            'state_id.required' => trans('user_validation.Select a state'),
+            'city_id.required' => trans('user_validation.Select a city'),
+            'category_id.required' => trans('user_validation.Select a category'),
+            'product_info.required_if' => trans('user_validation.Product info is required'),
         ];
         $this->validate($request, $rules, $customMessages);
 
@@ -463,8 +475,11 @@ class UserProfileController extends Controller
         $seller->address = $request->address;
         $seller->description = $request->about;
         $seller->greeting_msg = trans('user_validation.Welcome to') . ' ' . $request->shop_name;
-        $seller->open_at = $request->open_at;
-        $seller->closed_at = $request->closed_at;
+        $seller->category_id = $request->category_id != 0 ? $request->category_id : null;
+        $seller->state_id = $request->state_id;
+        $seller->city_id = $request->city_id;
+        $seller->product_info = $request->product_info;
+        $seller->seller_name = $request->seller_name;
         $seller->user_id = $user->id;
         $seller->seo_title = $request->shop_name;
         $seller->seo_description = $request->shop_name;
@@ -478,6 +493,13 @@ class UserProfileController extends Controller
         $notification = trans('user_validation.Request submitted successfully');
         $notification = array('messege' => $notification, 'alert-type' => 'success');
         return redirect()->route('user.dashboard')->with($notification);
+    }
+
+
+    public function sellerTerms()
+    {
+        $setting = Setting::first();
+        return view('user.seller-terms-condition', compact('setting'));
     }
 
 

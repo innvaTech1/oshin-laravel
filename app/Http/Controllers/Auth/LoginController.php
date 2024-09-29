@@ -2,26 +2,25 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Http\Request;
-use App\Models\BannerImage;
-use App\Models\BreadcrumbImage;
-use App\Models\GoogleRecaptcha;
+
 use App\Models\User;
 use App\Models\Vendor;
 use App\Rules\Captcha;
-use Auth;
-use Hash;
-use App\Mail\UserForgetPassword;
 use App\Helpers\MailHelper;
+use App\Models\BannerImage;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 use App\Models\EmailTemplate;
+use App\Models\BreadcrumbImage;
+use App\Models\GoogleRecaptcha;
+use App\Mail\UserForgetPassword;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use App\Models\SocialLoginInformation;
-use Mail;
-use Str;
-use Validator, Redirect, Response, File;
-use Socialite;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Mail;
+use Laravel\Socialite\Facades\Socialite;
 
 class LoginController extends Controller
 {

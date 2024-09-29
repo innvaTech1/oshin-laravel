@@ -97,6 +97,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Admin\InventoryController;
 use App\Http\Controllers\Admin\PosController;
+use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\GiftCornerController;
 use App\Http\Controllers\PreOrderController;
 use App\Http\Controllers\WholesaleController;
@@ -155,6 +156,10 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::get('/get-cart-qty', [CartController::class, 'calculateCartQty'])->name('get-cart-qty');
         Route::get('/load-main-cart', [CartController::class, 'loadMainCart'])->name('load-main-cart');
 
+        Route::controller(SocialiteController::class)->group(function () {
+            Route::get('auth/{driver}', 'redirectToDriver')->name('auth.social');
+            Route::get('auth/{driver}/callback', 'handleDriverCallback')->name('auth.social.callback');
+        });
         Route::get('login/google', [LoginController::class, 'redirectToGoogle'])->name('login-google');
         Route::get('/callback/google', [LoginController::class, 'googleCallBack'])->name('callback-google');
 
@@ -187,6 +192,7 @@ Route::group(['middleware' => ['XSS']], function () {
             Route::get('change-password', [UserProfileController::class, 'changePassword'])->name('change-password');
             Route::post('update-password', [UserProfileController::class, 'updatePassword'])->name('update-password');
             Route::get('seller-registration', [UserProfileController::class, 'sellerRegistration'])->name('seller-registration');
+            Route::get('seller/terms-condition', [UserProfileController::class, 'sellerTerms'])->name('seller-terms-condition');
             Route::get('billing-address', [UserProfileController::class, 'editBillingAddress'])->name('billing-address');
             Route::post('update-billing-address', [UserProfileController::class, 'updateBillingAddress'])->name('update-billing-address');
             Route::get('shipping-address', [UserProfileController::class, 'editShippingAddress'])->name('shipping-address');
@@ -236,6 +242,8 @@ Route::group(['middleware' => ['XSS']], function () {
 
             Route::resource('product', SellerProductController::class);
             Route::put('product-status/{id}', [SellerProductController::class, 'changeStatus'])->name('product.status');
+            Route::get('bank-details', [SellerProfileController::class, 'bankDetails'])->name('bank-details');
+            Route::put('update-bank-details', [SellerProfileController::class, 'updateBankDetails'])->name('update-bank-details');
             Route::put('removed-product-exist-specification/{id}', [SellerProductController::class, 'removedProductExistSpecification'])->name('removed-product-exist-specification');
             Route::get('pending-product', [SellerProductController::class, 'pendingProduct'])->name('pending-product');
             Route::get('product-highlight/{id}', [SellerProductController::class, 'productHighlight'])->name('product-highlight');

@@ -64,18 +64,26 @@
                                         @endif
 
                                         <button class="common_btn" type="submit">{{ __('user.login') }}</button>
-                                        @if ($socialLogin->is_gmail == 1 || $socialLogin->is_facebook == 1)
-                                            <p class="social_text">{{ __('user.Sign in with social account') }}</p>
-                                            <ul class="wsus__login_link">
-                                                @if ($socialLogin->is_gmail == 1)
-                                                    <li><a href="{{ route('login-google') }}"><i
-                                                                class="fab fa-google"></i></a></li>
+                                        @if (enum_exists('App\Enums\SocialiteDriverType'))
+                                            @php
+                                                $socialiteEnum = 'App\Enums\SocialiteDriverType';
+                                                $icons = $socialiteEnum::getIcons();
+                                            @endphp
+                                            @foreach ($socialiteEnum::cases() as $index => $case)
+                                                @php
+                                                    if ($case->value != 'google') {
+                                                        continue;
+                                                    }
+                                                    $driverName = $case->value . '_login_status';
+                                                @endphp
+                                                @if ($setting->$driverName == 'active')
+                                                    <a href="{{ route('auth.social', $case->value) }}"
+                                                        class="wsus__login_others_option">
+                                                        <img src="{{ asset('website/images/google_login.png') }}"
+                                                            alt="google" class="img-fluid w-100">{{ __('Google') }}
+                                                    </a>
                                                 @endif
-                                                @if ($socialLogin->is_facebook == 1)
-                                                    <li><a href="{{ route('login-facebook') }}"><i
-                                                                class="fab fa-facebook-f"></i></a></li>
-                                                @endif
-                                            </ul>
+                                            @endforeach
                                         @endif
                                     </form>
                                 </div>

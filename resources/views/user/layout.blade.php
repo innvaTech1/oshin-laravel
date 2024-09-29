@@ -10,8 +10,7 @@
     <meta charset="UTF-8">
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densityDpi=device-dpi" />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     @yield('title')
     <link rel="icon" type="image/png" href="{{ asset($setting->favicon) }}">
     <link rel="stylesheet" href="{{ asset('user/css/all.min.css') }}">
@@ -31,7 +30,7 @@
     <link rel="stylesheet" href="{{ asset('backend/clockpicker/dist/bootstrap-clockpicker.css') }}">
 
     @if ($setting->text_direction == 'rtl')
-    <link rel="stylesheet" href="{{ asset('user/css/rtl.css') }}">
+        <link rel="stylesheet" href="{{ asset('user/css/rtl.css') }}">
     @endif
     <link rel="stylesheet" href="{{ asset('user/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('user/css/responsive.css') }}">
@@ -66,101 +65,127 @@
 
 <body>
 
-<div id="app">
-  <!--=============================
+    <div id="app">
+        <!--=============================
         DASHBOARD MENU START
   ==============================-->
-  <div class="wsus__dashboard_menu">
-    <div class="wsusd__dashboard_user">
-        @if ($user->image)
-            <img src="{{ asset($user->image) }}" alt="img" class="img-fluid">
-        @else
-            @php
-                $defaultProfile = App\Models\BannerImage::whereId('15')->first();
-            @endphp
-            <img src="{{ asset($defaultProfile->image) }}" alt="img" class="img-fluid">
-        @endif
-      <p>{{ $user->name }}</p>
-    </div>
-  </div>
-  <!--=============================
+        <div class="wsus__dashboard_menu">
+            <div class="wsusd__dashboard_user">
+                @if ($user->image)
+                    <img src="{{ asset($user->image) }}" alt="img" class="img-fluid">
+                @else
+                    @php
+                        $defaultProfile = App\Models\BannerImage::whereId('15')->first();
+                    @endphp
+                    <img src="{{ asset($defaultProfile->image) }}" alt="img" class="img-fluid">
+                @endif
+                <p>{{ $user->name }}</p>
+            </div>
+        </div>
+        <!--=============================
         DASHBOARD MENU END
   ==============================-->
 
 
-  <!--=============================
+        <!--=============================
         DASHBOARD START
   ==============================-->
-  <section id="wsus__dashboard">
-    <div class="container-fluid">
-      <div class="dashboard_sidebar">
-        <span class="close_icon">
-          <i class="far fa-bars dash_bar"></i>
-          <i class="far fa-times dash_close"></i>
-        </span>
-        <a href="{{ route('user.dashboard') }}" class="dash_logo"><img src="{{ asset($setting->logo) }}" alt="logo" class="img-fluid"></a>
-        <ul class="dashboard_link">
-          <li><a class="{{ Route::is('user.dashboard') ? 'active' : '' }}" href="{{ route('user.dashboard') }}"><i class="fas fa-tachometer"></i>{{__('user.Dashboard')}}</a></li>
-          <li><a class="{{ Route::is('user.message') ? 'active' : '' }}" href="{{ route('user.message') }}"><i class="fas fa-envelope"></i>{{__('user.Message')}}</a></li>
+        <section id="wsus__dashboard">
+            <div class="container-fluid">
+                <div class="dashboard_sidebar">
+                    <span class="close_icon">
+                        <i class="far fa-bars dash_bar"></i>
+                        <i class="far fa-times dash_close"></i>
+                    </span>
+                    <a href="{{ route('user.dashboard') }}" class="dash_logo"><img src="{{ asset($setting->logo) }}"
+                            alt="logo" class="img-fluid"></a>
+                    <ul class="dashboard_link">
+                        <li><a class="{{ Route::is('user.dashboard') ? 'active' : '' }}"
+                                href="{{ route('user.dashboard') }}"><i
+                                    class="fas fa-tachometer"></i>{{ __('user.Dashboard') }}</a></li>
+                        <li><a class="{{ Route::is('user.message') ? 'active' : '' }}"
+                                href="{{ route('user.message') }}"><i
+                                    class="fas fa-envelope"></i>{{ __('user.Message') }}</a></li>
 
-          <li><a href="{{ route('home') }}"><i class="fal fa fa-globe"></i> {{__('user.Go to Homepage')}}</a></li>
-          <li><a class="{{ Route::is('user.order') || Route::is('user.order-show') ? 'active' : '' }}" href="{{ route('user.order') }}"><i class="fas fa-list-ul"></i> {{__('user.Orders')}}</a></li>
-          <li><a class="{{ Route::is('user.review') ? 'active' : '' }}" href="{{ route('user.review') }}"><i class="far fa-star"></i> {{__('user.Reviews')}}</a></li>
-          <li><a class="{{ Route::is('user.wishlist') ? 'active' : '' }}" href="{{ route('user.wishlist') }}"><i class="far fa-heart"></i> {{__('user.Wishlist')}}</a></li>
-          <li><a class="{{ Route::is('user.my-profile') ? 'active' : '' }}" href="{{ route('user.my-profile') }}"><i class="far fa-user"></i> {{__('user.My Profile')}}</a></li>
-          <li><a class="{{ Route::is('user.address') ? 'active' : '' }}" href="{{ route('user.address') }}"><i class="fal fa-gift-card"></i> {{__('user.Address')}}</a></li>
-        @if ($setting->enable_multivendor == 1)
-            @php
-                $authUser = Auth::guard('web')->user();
-                $isSeller = App\Models\Vendor::where('user_id', $authUser->id)->first();
-            @endphp
-            @if ($isSeller)
-                <li><a class="" href="{{ route('seller.dashboard') }}"><i class="fal fa-gift-card"></i> {{__('user.Visit Seller Dashboard')}}</a></li>
-            @else
-                <li><a class="{{ Route::is('user.seller-registration') ? 'active' : '' }}" href="{{ route('user.seller-registration') }}"><i class="fal fa-gift-card"></i> {{__('user.Become a Seller')}}</a></li>
-            @endif
+                        <li><a href="{{ route('home') }}"><i class="fal fa fa-globe"></i>
+                                {{ __('user.Go to Homepage') }}</a></li>
+                        <li><a class="{{ Route::is('user.order') || Route::is('user.order-show') ? 'active' : '' }}"
+                                href="{{ route('user.order') }}"><i class="fas fa-list-ul"></i>
+                                {{ __('user.Orders') }}</a></li>
+                        <li><a class="{{ Route::is('user.review') ? 'active' : '' }}"
+                                href="{{ route('user.review') }}"><i class="far fa-star"></i>
+                                {{ __('user.Reviews') }}</a></li>
+                        <li><a class="{{ Route::is('user.wishlist') ? 'active' : '' }}"
+                                href="{{ route('user.wishlist') }}"><i class="far fa-heart"></i>
+                                {{ __('user.Wishlist') }}</a></li>
+                        <li><a class="{{ Route::is('user.my-profile') ? 'active' : '' }}"
+                                href="{{ route('user.my-profile') }}"><i class="far fa-user"></i>
+                                {{ __('user.My Profile') }}</a></li>
+                        <li><a class="{{ Route::is('user.address') ? 'active' : '' }}"
+                                href="{{ route('user.address') }}"><i class="fal fa-gift-card"></i>
+                                {{ __('user.Address') }}</a></li>
+                        @if ($setting->enable_multivendor == 1)
+                            @php
+                                $authUser = Auth::guard('web')->user();
+                                $isSeller = App\Models\Vendor::where('user_id', $authUser->id)->first();
+                            @endphp
+                            @if ($isSeller)
+                                <li><a class="" href="{{ route('seller.dashboard') }}"><i
+                                            class="fal fa-gift-card"></i> {{ __('user.Visit Seller Dashboard') }}</a>
+                                </li>
+                            @else
+                                <li><a class="{{ Route::is('user.seller-registration') ? 'active' : '' }}"
+                                        href="{{ route('user.seller-registration') }}"><i class="fal fa-gift-card"></i>
+                                        {{ __('user.Become a Seller') }}</a></li>
+                            @endif
 
-        @endif
+                        @endif
 
 
-          <li><a class="{{ Route::is('user.change-password') ? 'active' : '' }}" href="{{ route('user.change-password') }}"><i class="fal fa-gift-card"></i> {{__('user.Change Password')}}</a></li>
+                        <li><a class="{{ Route::is('user.change-password') ? 'active' : '' }}"
+                                href="{{ route('user.change-password') }}"><i class="fal fa-gift-card"></i>
+                                {{ __('user.Change Password') }}</a></li>
 
-          <li><a onclick="return confirm('Are you sure ?')" class="{{ Route::is('user.delete-account') ? 'active' : '' }}" href="{{ route('user.delete-account') }}"><i class="fal fa-trash"></i> {{__('user.Delete Account')}}</a></li>
+                        <li><a onclick="return confirm('Are you sure ?')"
+                                class="{{ Route::is('user.delete-account') ? 'active' : '' }}"
+                                href="{{ route('user.delete-account') }}"><i class="fal fa-trash"></i>
+                                {{ __('user.Delete Account') }}</a></li>
 
-          <li><a href="{{ route('user.logout') }}"><i class="far fa-sign-out-alt"></i> {{__('user.Log out')}}</a></li>
-        </ul>
-      </div>
+                        <li><a href="{{ route('user.logout') }}"><i class="far fa-sign-out-alt"></i>
+                                {{ __('user.Log out') }}</a></li>
+                    </ul>
+                </div>
 
-      @yield('user-content')
-    </div>
-  </section>
-  <!--=============================
+                @yield('user-content')
+            </div>
+        </section>
+        <!--=============================
         DASHBOARD START
   ==============================-->
 
 
-  <!--============================
+        <!--============================
         SCROLL BUTTON START
   ==============================-->
-  <div class="wsus__scroll_btn">
-    <i class="fas fa-chevron-up"></i>
-  </div>
-  <!--============================
+        <div class="wsus__scroll_btn">
+            <i class="fas fa-chevron-up"></i>
+        </div>
+        <!--============================
       SCROLL BUTTON  END
   ==============================-->
 
 
-   <!--============================
+        <!--============================
         SCROLL BUTTON START
     ==============================-->
-    <div class="wsus__scroll_btn">
-      <i class="fas fa-chevron-up"></i>
-  </div>
-  <!--============================
+        <div class="wsus__scroll_btn">
+            <i class="fas fa-chevron-up"></i>
+        </div>
+        <!--============================
       SCROLL BUTTON  END
   ==============================-->
 
-</div>
+    </div>
 
     <!--bootstrap js-->
     <script src="{{ asset('user/js/bootstrap.bundle.min.js') }}"></script>
@@ -207,106 +232,106 @@
     <script src="{{ asset('toastr/toastr.min.js') }}"></script>
 
     <script>
-        @if(Session::has('messege'))
-        var type="{{Session::get('alert-type','info')}}"
-        switch(type){
-            case 'info':
-                toastr.info("{{ Session::get('messege') }}");
-                break;
-            case 'success':
-                toastr.success("{{ Session::get('messege') }}");
-                break;
-            case 'warning':
-                toastr.warning("{{ Session::get('messege') }}");
-                break;
-            case 'error':
-                toastr.error("{{ Session::get('messege') }}");
-                break;
-        }
+        @if (Session::has('messege'))
+            var type = "{{ Session::get('alert-type', 'info') }}"
+            switch (type) {
+                case 'info':
+                    toastr.info("{{ Session::get('messege') }}");
+                    break;
+                case 'success':
+                    toastr.success("{{ Session::get('messege') }}");
+                    break;
+                case 'warning':
+                    toastr.warning("{{ Session::get('messege') }}");
+                    break;
+                case 'error':
+                    toastr.error("{{ Session::get('messege') }}");
+                    break;
+            }
         @endif
     </script>
 
     @if ($errors->any())
-    @foreach ($errors->all() as $error)
-        <script>
-            toastr.error('{{ $error }}');
-        </script>
-    @endforeach
+        @foreach ($errors->all() as $error)
+            <script>
+                toastr.error('{{ $error }}');
+            </script>
+        @endforeach
     @endif
 
 
-<script>
-    (function($) {
-    "use strict";
-    $(document).ready(function () {
-
-    });
-
-    })(jQuery);
-</script>
-<script src="{{ asset('js/app.js') }}"></script>
-
-<script>
-    let activeSellerId= '';
-    let myId = {{ Auth::guard('web')->user()->id; }};
-    function loadChatBox(id){
-        $(".seller").removeClass('active');
-        $("#seller-list-"+id).addClass('active')
-        $("#pending-"+ id).addClass('d-none')
-        $("#pending-"+ id).html(0)
-        activeSellerId = id
-        $.ajax({
-            type:"get",
-            url: "{{ url('user/load-chat-box/') }}" + "/" + id,
-            success:function(response){
-                $("#chat_box").html(response)
-                scrollToBottomFunc()
-            },
-            error:function(err){
-            }
-        })
-    }
-
-
-  (function($) {
-      "use strict";
-      $(document).ready(function () {
-            $('.clockpicker').clockpicker();
-
-            Echo.private("App.Models.User.{{$user->id}}")
-            .listen('SellerToUser', (e) => {
-                if(e.seller_id == activeSellerId){
-                    $.ajax({
-                        type:"get",
-                        url: "{{ url('user/load-new-message/') }}" + "/" + e.seller_id,
-                        success:function(response){
-                            $(".wsus__chat_area_body").html(response)
-                            scrollToBottomFunc()
-                        },
-                        error:function(err){
-                        }
-                    })
-                }else{
-                    var pending = parseInt($("#pending-"+ e.seller_id).html());
-                    if (pending) {
-                        $("#pending-"+ e.seller_id).html(pending + 1)
-                        $("#pending-"+ e.seller_id).removeClass('d-none')
-                    } else {
-                        $("#pending-"+ e.seller_id).html(pending + 1)
-                        $("#pending-"+ e.seller_id).removeClass('d-none')
-                    }
-                }
+    <script>
+        (function($) {
+            "use strict";
+            $(document).ready(function() {
 
             });
-      });
-  })(jQuery);
 
-    function scrollToBottomFunc() {
-        $('.wsus__chat_area_body').animate({
-            scrollTop: $('.wsus__chat_area_body').get(0).scrollHeight
-        }, 100);
-    }
-</script>
+        })(jQuery);
+    </script>
+    <script src="{{ asset('js/app.js') }}"></script>
+
+    <script>
+        let activeSellerId = '';
+        let myId = {{ Auth::guard('web')->user()->id }};
+
+        function loadChatBox(id) {
+            $(".seller").removeClass('active');
+            $("#seller-list-" + id).addClass('active')
+            $("#pending-" + id).addClass('d-none')
+            $("#pending-" + id).html(0)
+            activeSellerId = id
+            $.ajax({
+                type: "get",
+                url: "{{ url('user/load-chat-box/') }}" + "/" + id,
+                success: function(response) {
+                    $("#chat_box").html(response)
+                    scrollToBottomFunc()
+                },
+                error: function(err) {}
+            })
+        }
+
+
+        (function($) {
+            "use strict";
+            $(document).ready(function() {
+                $('.clockpicker').clockpicker();
+
+                Echo.private("App.Models.User.{{ $user->id }}")
+                    .listen('SellerToUser', (e) => {
+                        if (e.seller_id == activeSellerId) {
+                            $.ajax({
+                                type: "get",
+                                url: "{{ url('user/load-new-message/') }}" + "/" + e.seller_id,
+                                success: function(response) {
+                                    $(".wsus__chat_area_body").html(response)
+                                    scrollToBottomFunc()
+                                },
+                                error: function(err) {}
+                            })
+                        } else {
+                            var pending = parseInt($("#pending-" + e.seller_id).html());
+                            if (pending) {
+                                $("#pending-" + e.seller_id).html(pending + 1)
+                                $("#pending-" + e.seller_id).removeClass('d-none')
+                            } else {
+                                $("#pending-" + e.seller_id).html(pending + 1)
+                                $("#pending-" + e.seller_id).removeClass('d-none')
+                            }
+                        }
+
+                    });
+            });
+        })(jQuery);
+
+        function scrollToBottomFunc() {
+            $('.wsus__chat_area_body').animate({
+                scrollTop: $('.wsus__chat_area_body').get(0).scrollHeight
+            }, 100);
+        }
+    </script>
+    @stack('js')
 
 </body>
 
