@@ -35,6 +35,19 @@
                                 </div>
                                 <div class="col-xl-6 col-md-6">
                                     <div class="wsus__add_address_single">
+                                        <label>{{ __('user.Country') }} </label>
+                                        <div class="wsus__topbar_select">
+                                            <select class="select_2" name="country" id="country_id">
+                                                <option value="">{{ __('user.Select Country') }}</option>
+                                                @foreach ($countries as $country)
+                                                    <option value="{{ $country->id }}">{{ $country->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-md-6">
+                                    <div class="wsus__add_address_single">
                                         <label>{{ __('user.state') }} </label>
                                         <div class="wsus__topbar_select">
                                             <select class="select_2" name="state" id="state_id">
@@ -96,6 +109,20 @@
                                 </div>
                                 <div class="col-xl-6 col-md-6">
                                     <div class="wsus__add_address_single">
+                                        <label>{{ __('user.country') }} </label>
+                                        <div class="wsus__topbar_select">
+                                            <select class="select_2" name="country" id="country_id">
+                                                <option value="">{{ __('user.Select Country') }}</option>
+                                                @foreach ($countries as $country)
+                                                    <option {{ $country->id == $user->country_id ? 'selected' : '' }}
+                                                        value="{{ $country->id }}">{{ $country->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-md-6">
+                                    <div class="wsus__add_address_single">
                                         <label>{{ __('user.state') }} </label>
                                         <div class="wsus__topbar_select">
                                             <select class="select_2" name="state" id="state_id">
@@ -148,6 +175,30 @@
             (function($) {
                 "use strict";
                 $(document).ready(function() {
+                    $("#country_id").on("change", function() {
+                        var countryId = $("#country_id").val();
+                        if (countryId) {
+                            $.ajax({
+                                type: "get",
+                                url: "{{ url('state-by-country/') }}" + "/" + countryId,
+                                success: function(response) {
+                                    $("#state_id").html(response.states);
+                                    var response =
+                                        "<option value=''>{{ __('user.Select a City') }}</option>";
+                                    $("#city_id").html(response);
+                                },
+                                error: function(err) {
+                                    console.log(err);
+                                }
+                            })
+                        } else {
+                            var response = "<option value=''>{{ __('user.Select a State') }}</option>";
+                            $("#state_id").html(response);
+                            var response = "<option value=''>{{ __('user.Select a City') }}</option>";
+                            $("#city_id").html(response);
+                        }
+
+                    })
                     $('#state_id').on('change', function() {
                         $('.preloader_area').removeClass('d-none');
                         let state_id = $(this).val();

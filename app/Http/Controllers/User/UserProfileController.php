@@ -117,6 +117,7 @@ class UserProfileController extends Controller
             'name' => 'required',
             'email' => 'nullable|unique:users,email,' . $user->id,
             'phone' => 'required',
+            'address' => 'required',
         ];
         $customMessages = [
             'name.required' => trans('user_validation.Name is required'),
@@ -206,6 +207,10 @@ class UserProfileController extends Controller
 
     public function updateBillingAddress(Request $request)
     {
+        $request->validate([
+            'phone' => 'required',
+            'address' => 'required',
+        ]);
 
         $user = Auth::guard('web')->user();
         $billing = BillingAddress::where('user_id', $user->id)->first();
@@ -261,6 +266,10 @@ class UserProfileController extends Controller
 
     public function updateShippingAddress(Request $request)
     {
+        $request->validate([
+            'phone' => 'required',
+            'address' => 'required',
+        ]);
         $user = Auth::guard('web')->user();
         $shipping = ShippingAddress::where('user_id', $user->id)->first();
         if ($shipping) {

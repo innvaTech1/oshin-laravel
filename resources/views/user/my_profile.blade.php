@@ -32,6 +32,23 @@
                                                     placeholder="{{ __('user.phone') }}">
                                             </div>
                                         </div>
+
+
+                                        <div class="col-md-12">
+                                            <div class="wsus__add_address_single">
+                                                <div class="wsus__topbar_select">
+                                                    <select class="select_2" name="country" id="country_id">
+                                                        <option value="">{{ __('user.Select Country') }}</option>
+                                                        @foreach ($countries as $country)
+                                                            <option
+                                                                {{ $country->id == $user->country_id ? 'selected' : '' }}
+                                                                value="{{ $country->id }}">{{ $country->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                         <div class="col-md-12">
                                             <div class="wsus__add_address_single">
                                                 <div class="wsus__topbar_select">
@@ -105,24 +122,53 @@
                 "use strict";
                 $(document).ready(function() {
 
-                    $('#state_id').on('change', function() {
-                        $('.preloader_area').removeClass('d-none');
-                        let state_id = $(this).val();
-                        let url = "{{ route('city-by-state', ':state_id') }}";
-                        url = url.replace(':state_id', state_id);
-                        $.ajax({
-                            url: url,
-                            method: 'GET',
-                            success: function(response) {
-                                $('#city_id').html(response.cities).select2();
-                                $('.preloader_area').addClass('d-none');
-                            },
-                            error: function(...errors) {
+                    $("#country_id").on("change", function() {
+                        var countryId = $("#country_id").val();
+                        if (countryId) {
+                            $.ajax({
+                                type: "get",
+                                url: "{{ url('state-by-country/') }}" + "/" + countryId,
+                                success: function(response) {
+                                    $("#state_id").html(response.states);
+                                    var response =
+                                        "<option value=''>{{ __('user.Select a City') }}</option>";
+                                    $("#city_id").html(response);
+                                },
+                                error: function(err) {
+                                    console.log(err);
+                                }
+                            })
+                        } else {
+                            var response = "<option value=''>{{ __('user.Select a State') }}</option>";
+                            $("#state_id").html(response);
+                            var response = "<option value=''>{{ __('user.Select a City') }}</option>";
+                            $("#city_id").html(response);
+                        }
 
-                                $('.preloader_area').addClass('d-none');
-                            }
-                        });
-                    });
+                    })
+
+                    $("#state_id").on("change", function() {
+                        var countryId = $("#state_id").val();
+                        if (countryId) {
+                            $.ajax({
+                                type: "get",
+                                url: "{{ url('/user/city-by-state/') }}" + "/" + countryId,
+                                success: function(response) {
+                                    console.log(response);
+                                    $("#city_id").html(response.cities);
+                                },
+                                error: function(err) {
+                                    console.log(err);
+                                }
+                            })
+                        } else {
+                            var response = "<option value=''>{{ __('user.Select a City') }}</option>";
+                            $("#city_id").html(response);
+                        }
+
+                    })
+
+
                 });
             })(jQuery);
         </script>
