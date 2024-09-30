@@ -1,22 +1,22 @@
 @extends('admin.master_layout')
 @section('title')
-<title>{{__('admin.Campaign Product')}}</title>
+<title>{{__('Campaign Product')}}</title>
 @endsection
 @section('admin-content')
       <!-- Main Content -->
       <div class="main-content">
         <section class="section">
           <div class="section-header">
-            <h1>{{__('admin.Campaign Product')}}</h1>
+            <h1>{{__('Campaign Product')}}</h1>
             <div class="section-header-breadcrumb">
-              <div class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">{{__('admin.Dashboard')}}</a></div>
-              <div class="breadcrumb-item active"><a href="{{ route('admin.campaign.index') }}">{{__('admin.Campaign')}}</a></div>
-              <div class="breadcrumb-item">{{__('admin.Campaign Product')}}</div>
+              <div class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">{{__('Dashboard')}}</a></div>
+              <div class="breadcrumb-item active"><a href="{{ route('admin.campaign.index') }}">{{__('Campaign')}}</a></div>
+              <div class="breadcrumb-item">{{__('Campaign Product')}}</div>
             </div>
           </div>
 
         <div class="section-body">
-            <a href="{{ route('admin.campaign.index') }}" class="btn btn-primary"><i class="fas fa-list"></i> {{__('admin.Campaign')}}</a>
+            <a href="{{ route('admin.campaign.index') }}" class="btn btn-primary"><i class="fas fa-list"></i> {{__('Campaign')}}</a>
             <div class="row mt-4">
                 <div class="col">
                   <div class="card">
@@ -24,13 +24,13 @@
                             <form action="{{ route('admin.store-campaign-product') }}" method="post">
                                 @csrf
                                 <div class="form-group">
-                                    <label for="">{{__('admin.Campaign')}}</label>
+                                    <label for="">{{__('Campaign')}}</label>
                                     <input type="text" value="{{ $campaign->name }}" readonly class="form-control">
                                 </div>
                                 <div class="form-group">
-                                    <label for="">{{__('admin.Product')}}</label>
+                                    <label for="">{{__('Product')}}</label>
                                     <select name="product_id" id="product_id" class="form-control select2">
-                                        <option value="">{{__('admin.Select Product')}}</option>
+                                        <option value="">{{__('Select Product')}}</option>
                                         @foreach ($products as $index => $product)
                                         <option value="{{ $product->id }}">{{ $product->name }}</option>
                                         @endforeach
@@ -41,27 +41,27 @@
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <label for="">{{__('admin.Show Homepage?')}}</label>
+                                            <label for="">{{__('Show Homepage?')}}</label>
                                             <select name="show_homepage" id="show_homepage" class="form-control">
-                                                <option value="0">{{__('admin.No')}}</option>
-                                                <option value="1">{{__('admin.Yes')}}</option>
+                                                <option value="0">{{__('No')}}</option>
+                                                <option value="1">{{__('Yes')}}</option>
                                             </select>
                                             <input type="hidden" name="campaign_id" value="{{ $campaign->id }}">
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <label for="">{{__('admin.Status')}}</label>
+                                            <label for="">{{__('Status')}}</label>
                                             <select name="status" id="status" class="form-control">
-                                                <option value="1">{{__('admin.Yes')}}</option>
-                                                <option value="0">{{__('admin.No')}}</option>
+                                                <option value="1">{{__('Yes')}}</option>
+                                                <option value="0">{{__('No')}}</option>
                                             </select>
                                             <input type="hidden" name="campaign_id" value="{{ $campaign->id }}">
                                         </div>
                                     </div>
                                 </div>
 
-                                <button class="btn btn-primary" type="submit">{{__('admin.Save')}}</button>
+                                <button class="btn btn-primary" type="submit">{{__('Save')}}</button>
                             </form>
                         </div>
                     </div>
@@ -78,11 +78,11 @@
                         <table class="table table-striped" id="dataTable">
                             <thead>
                                 <tr>
-                                    <th width="5%">{{__('admin.SN')}}</th>
-                                    <th width="50%">{{__('admin.Product')}}</th>
-                                    <th width="10%">{{__('admin.Show Homepage')}}</th>
-                                    <th width="10%">{{__('admin.Status')}}</th>
-                                    <th width="5%">{{__('admin.Action')}}</th>
+                                    <th width="5%">{{__('SN')}}</th>
+                                    <th width="50%">{{__('Product')}}</th>
+                                    <th width="10%">{{__('Show Homepage')}}</th>
+                                    <th width="10%">{{__('Status')}}</th>
+                                    <th width="5%">{{__('Action')}}</th>
                                   </tr>
                             </thead>
                             <tbody>
@@ -93,22 +93,22 @@
                                         <td>
                                             @if ($campaignProduct->show_homepage == 1)
                                                 <a href="javascript:;" onclick="changeCamapaignProductHomepageVisibility({{ $campaignProduct->id }})">
-                                                    <input id="status_toggle" type="checkbox" checked data-toggle="toggle" data-on="{{__('admin.Enable')}}" data-off="{{__('admin.Disable')}}" data-onstyle="success" data-offstyle="danger">
+                                                    <input id="status_toggle" type="checkbox" checked data-toggle="toggle" data-on="{{__('Enable')}}" data-off="{{__('Disable')}}" data-onstyle="success" data-offstyle="danger">
                                                 </a>
                                             @else
                                             <a href="javascript:;" onclick="changeCamapaignProductHomepageVisibility({{ $campaignProduct->id }})">
-                                                <input id="status_toggle" type="checkbox" data-toggle="toggle" data-on="{{__('admin.Enable')}}" data-off="{{__('admin.Disable')}}" data-onstyle="success" data-offstyle="danger">
+                                                <input id="status_toggle" type="checkbox" data-toggle="toggle" data-on="{{__('Enable')}}" data-off="{{__('Disable')}}" data-onstyle="success" data-offstyle="danger">
                                             </a>
                                             @endif
                                         </td>
                                         <td>
                                             @if($campaignProduct->status == 1)
                                                 <a href="javascript:;" onclick="changeCamapaignProductStatus({{ $campaignProduct->id }})">
-                                                    <input id="status_toggle" type="checkbox" checked data-toggle="toggle" data-on="{{__('admin.Active')}}" data-off="{{__('admin.Inactive')}}" data-onstyle="success" data-offstyle="danger">
+                                                    <input id="status_toggle" type="checkbox" checked data-toggle="toggle" data-on="{{__('Active')}}" data-off="{{__('Inactive')}}" data-onstyle="success" data-offstyle="danger">
                                                 </a>
                                             @else
                                                 <a href="javascript:;" onclick="changeCamapaignProductStatus({{ $campaignProduct->id }})">
-                                                    <input id="status_toggle" type="checkbox" data-toggle="toggle" data-on="{{__('admin.Active')}}" data-off="{{__('admin.Inactive')}}" data-onstyle="success" data-offstyle="danger">
+                                                    <input id="status_toggle" type="checkbox" data-toggle="toggle" data-on="{{__('Active')}}" data-off="{{__('Inactive')}}" data-onstyle="success" data-offstyle="danger">
                                                 </a>
                                             @endif
                                         </td>
@@ -133,7 +133,7 @@
         $("#deleteForm").attr("action",'{{ url("admin/delete-campaign-product/") }}'+"/"+id)
     }
     function changeCamapaignProductStatus(id){
-        
+
         $.ajax({
             type:"put",
             data: { _token : '{{ csrf_token() }}' },
@@ -149,7 +149,7 @@
     }
 
     function changeCamapaignProductHomepageVisibility(id){
-        
+
         $.ajax({
             type:"put",
             data: { _token : '{{ csrf_token() }}' },

@@ -1,22 +1,22 @@
 @extends('admin.master_layout')
 @section('title')
-<title>{{__('admin.Product Child Category')}}</title>
+<title>{{__('Product Child Category')}}</title>
 @endsection
 @section('admin-content')
       <!-- Main Content -->
       <div class="main-content">
         <section class="section">
           <div class="section-header">
-            <h1>{{__('admin.Product Child Category')}}</h1>
+            <h1>{{__('Product Child Category')}}</h1>
             <div class="section-header-breadcrumb">
-              <div class="breadcrumb-item active"><a href="{{ route('admin.product-category.index') }}">{{__('admin.Product Category')}}</a></div>
-              <div class="breadcrumb-item active"><a href="{{ route('admin.product-sub-category.index') }}">{{__('admin.Product Sub Category')}}</a></div>
-              <div class="breadcrumb-item">{{__('admin.Product Child Category')}}</div>
+              <div class="breadcrumb-item active"><a href="{{ route('admin.product-category.index') }}">{{__('Product Category')}}</a></div>
+              <div class="breadcrumb-item active"><a href="{{ route('admin.product-sub-category.index') }}">{{__('Product Sub Category')}}</a></div>
+              <div class="breadcrumb-item">{{__('Product Child Category')}}</div>
             </div>
           </div>
 
           <div class="section-body">
-            <a href="{{ route('admin.product-child-category.create') }}" class="btn btn-primary"><i class="fas fa-plus"></i> {{__('admin.Add New')}}</a>
+            <a href="{{ route('admin.product-child-category.create') }}" class="btn btn-primary"><i class="fas fa-plus"></i> {{__('Add New')}}</a>
             <div class="row mt-4">
                 <div class="col">
                   <div class="card">
@@ -25,13 +25,13 @@
                         <table class="table table-striped" id="dataTable">
                             <thead>
                                 <tr>
-                                    <th>{{__('admin.SN')}}</th>
-                                    <th>{{__('admin.Child Category')}}</th>
-                                    <th>{{__('admin.Slug')}}</th>
-                                    <th>{{__('admin.Sub Category')}}</th>
-                                    <th>{{__('admin.Category')}}</th>
-                                    <th>{{__('admin.Status')}}</th>
-                                    <th>{{__('admin.Action')}}</th>
+                                    <th>{{__('SN')}}</th>
+                                    <th>{{__('Child Category')}}</th>
+                                    <th>{{__('Slug')}}</th>
+                                    <th>{{__('Sub Category')}}</th>
+                                    <th>{{__('Category')}}</th>
+                                    <th>{{__('Status')}}</th>
+                                    <th>{{__('Action')}}</th>
                                   </tr>
                             </thead>
                             <tbody>
@@ -45,12 +45,12 @@
                                         <td>
                                             @if($childCategory->status == 1)
                                             <a href="javascript:;" onclick="changeProductSubCategoryStatus({{ $childCategory->id }})">
-                                                <input id="status_toggle" type="checkbox" checked data-toggle="toggle" data-on="{{__('admin.Active')}}" data-off="{{__('admin.InActive')}}" data-onstyle="success" data-offstyle="danger">
+                                                <input id="status_toggle" type="checkbox" checked data-toggle="toggle" data-on="{{__('Active')}}" data-off="{{__('InActive')}}" data-onstyle="success" data-offstyle="danger">
                                             </a>
 
                                             @else
                                             <a href="javascript:;" onclick="changeProductSubCategoryStatus({{ $childCategory->id }})">
-                                                <input id="status_toggle" type="checkbox" data-toggle="toggle" data-on="{{__('admin.Active')}}" data-off="{{__('admin.InActive')}}" data-onstyle="success" data-offstyle="danger">
+                                                <input id="status_toggle" type="checkbox" data-toggle="toggle" data-on="{{__('Active')}}" data-off="{{__('InActive')}}" data-onstyle="success" data-offstyle="danger">
                                             </a>
 
                                             @endif
@@ -102,11 +102,11 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                       <div class="modal-body">
-                          {{__('admin.You can not delete this child category. Because there are one or more popular child categories or home page three column categories or products has been created in this child category.')}}
+                          {{__('You can not delete this child category. Because there are one or more popular child categories or home page three column categories or products has been created in this child category.')}}
                       </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">{{__('admin.Close')}}</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">{{__('Close')}}</button>
                 </div>
             </div>
         </div>
@@ -117,7 +117,7 @@
         $("#deleteForm").attr("action",'{{ url("admin/product-child-category/") }}'+"/"+id)
     }
     function changeProductSubCategoryStatus(id){
-        
+
         $.ajax({
             type:"put",
             data: { _token : '{{ csrf_token() }}' },

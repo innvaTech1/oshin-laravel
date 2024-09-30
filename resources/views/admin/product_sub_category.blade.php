@@ -1,21 +1,21 @@
 @extends('admin.master_layout')
 @section('title')
-<title>{{__('admin.Product Sub Category')}}</title>
+<title>{{__('Product Sub Category')}}</title>
 @endsection
 @section('admin-content')
       <!-- Main Content -->
       <div class="main-content">
         <section class="section">
           <div class="section-header">
-            <h1>{{__('admin.Product Sub Category')}}</h1>
+            <h1>{{__('Product Sub Category')}}</h1>
             <div class="section-header-breadcrumb">
-              <div class="breadcrumb-item active"><a href="{{ route('admin.product-category.index') }}">{{__('admin.Product Category')}}</a></div>
-              <div class="breadcrumb-item">{{__('admin.Product Sub Category')}}</div>
+              <div class="breadcrumb-item active"><a href="{{ route('admin.product-category.index') }}">{{__('Product Category')}}</a></div>
+              <div class="breadcrumb-item">{{__('Product Sub Category')}}</div>
             </div>
           </div>
 
           <div class="section-body">
-            <a href="{{ route('admin.product-sub-category.create') }}" class="btn btn-primary"><i class="fas fa-plus"></i> {{__('admin.Add New')}}</a>
+            <a href="{{ route('admin.product-sub-category.create') }}" class="btn btn-primary"><i class="fas fa-plus"></i> {{__('Add New')}}</a>
             <div class="row mt-4">
                 <div class="col">
                   <div class="card">
@@ -24,12 +24,12 @@
                         <table class="table table-striped" id="dataTable">
                             <thead>
                                 <tr>
-                                    <th>{{__('admin.SN')}}</th>
-                                    <th>{{__('admin.Sub Category')}}</th>
-                                    <th>{{__('admin.Slug')}}</th>
-                                    <th>{{__('admin.Category')}}</th>
-                                    <th>{{__('admin.Status')}}</th>
-                                    <th>{{__('admin.Action')}}</th>
+                                    <th>{{__('SN')}}</th>
+                                    <th>{{__('Sub Category')}}</th>
+                                    <th>{{__('Slug')}}</th>
+                                    <th>{{__('Category')}}</th>
+                                    <th>{{__('Status')}}</th>
+                                    <th>{{__('Action')}}</th>
                                   </tr>
                             </thead>
                             <tbody>
@@ -42,12 +42,12 @@
                                         <td>
                                             @if($subCategory->status == 1)
                                             <a href="javascript:;" onclick="changeProductSubCategoryStatus({{ $subCategory->id }})">
-                                                <input id="status_toggle" type="checkbox" checked data-toggle="toggle" data-on="{{__('admin.Active')}}" data-off="{{__('admin.Inactive')}}" data-onstyle="success" data-offstyle="danger">
+                                                <input id="status_toggle" type="checkbox" checked data-toggle="toggle" data-on="{{__('Active')}}" data-off="{{__('Inactive')}}" data-onstyle="success" data-offstyle="danger">
                                             </a>
 
                                             @else
                                             <a href="javascript:;" onclick="changeProductSubCategoryStatus({{ $subCategory->id }})">
-                                                <input id="status_toggle" type="checkbox" data-toggle="toggle" data-on="{{__('admin.Active')}}" data-off="{{__('admin.Inactive')}}" data-onstyle="success" data-offstyle="danger">
+                                                <input id="status_toggle" type="checkbox" data-toggle="toggle" data-on="{{__('Active')}}" data-off="{{__('Inactive')}}" data-onstyle="success" data-offstyle="danger">
                                             </a>
 
                                             @endif
@@ -101,11 +101,11 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                       <div class="modal-body">
-                          {{__('admin.You can not delete this sub category. Because there are one or more child categories or popular sub categories or home page three column categories or products has been created in this sub category.')}}
+                          {{__('You can not delete this sub category. Because there are one or more child categories or popular sub categories or home page three column categories or products has been created in this sub category.')}}
                       </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">{{__('admin.Close')}}</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">{{__('Close')}}</button>
                 </div>
             </div>
         </div>
@@ -116,7 +116,7 @@
         $("#deleteForm").attr("action",'{{ url("admin/product-sub-category/") }}'+"/"+id)
     }
     function changeProductSubCategoryStatus(id){
-        
+
         $.ajax({
             type:"put",
             data: { _token : '{{ csrf_token() }}' },

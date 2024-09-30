@@ -1,21 +1,21 @@
 @extends('admin.master_layout')
 @section('title')
-<title>{{__('admin.Campaign')}}</title>
+<title>{{__('Campaign')}}</title>
 @endsection
 @section('admin-content')
       <!-- Main Content -->
       <div class="main-content">
         <section class="section">
           <div class="section-header">
-            <h1>{{__('admin.Campaign')}}</h1>
+            <h1>{{__('Campaign')}}</h1>
             <div class="section-header-breadcrumb">
-              <div class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">{{__('admin.Dashboard')}}</a></div>
-              <div class="breadcrumb-item">{{__('admin.Campaign')}}</div>
+              <div class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">{{__('Dashboard')}}</a></div>
+              <div class="breadcrumb-item">{{__('Campaign')}}</div>
             </div>
           </div>
 
           <div class="section-body">
-            <a href="{{ route('admin.campaign.create') }}" class="btn btn-primary"><i class="fas fa-plus"></i> {{__('admin.Add New')}}</a>
+            <a href="{{ route('admin.campaign.create') }}" class="btn btn-primary"><i class="fas fa-plus"></i> {{__('Add New')}}</a>
             <div class="row mt-4">
                 <div class="col">
                   <div class="card">
@@ -24,15 +24,15 @@
                         <table class="table table-striped" id="dataTable">
                             <thead>
                                 <tr>
-                                    <th width="5%">{{__('admin.SN')}}</th>
-                                    <th width="15%">{{__('admin.Campaign')}}</th>
-                                    <th width="15%">{{__('admin.Start Time')}}</th>
-                                    <th width="15%">{{__('admin.End Time')}}</th>
-                                    <th width="10%">{{__('admin.Banner')}}</th>
-                                    <th width="10%">{{__('admin.Offer')}}</th>
-                                    <th width="5%">{{__('admin.Show Homepage')}}</th>
-                                    <th width="10%">{{__('admin.Status')}}</th>
-                                    <th width="20%">{{__('admin.Action')}}</th>
+                                    <th width="5%">{{__('SN')}}</th>
+                                    <th width="15%">{{__('Campaign')}}</th>
+                                    <th width="15%">{{__('Start Time')}}</th>
+                                    <th width="15%">{{__('End Time')}}</th>
+                                    <th width="10%">{{__('Banner')}}</th>
+                                    <th width="10%">{{__('Offer')}}</th>
+                                    <th width="5%">{{__('Show Homepage')}}</th>
+                                    <th width="10%">{{__('Status')}}</th>
+                                    <th width="20%">{{__('Action')}}</th>
                                   </tr>
                             </thead>
                             <tbody>
@@ -46,19 +46,19 @@
                                         <td>{{ $campaign->offer }}%</td>
                                         <td>
                                             @if ($campaign->show_homepage == 1)
-                                                <span class="badge badge-success">{{__('admin.Yes')}}</span>
+                                                <span class="badge badge-success">{{__('Yes')}}</span>
                                             @else
-                                                <span class="badge badge-danger">{{__('admin.No')}}</span>
+                                                <span class="badge badge-danger">{{__('No')}}</span>
                                             @endif
                                         </td>
                                         <td>
                                             @if($campaign->status == 1)
                                                 <a href="javascript:;" onclick="changeProductCategoryStatus({{ $campaign->id }})">
-                                                    <input id="status_toggle" type="checkbox" checked data-toggle="toggle" data-on="{{__('admin.Active')}}" data-off="{{__('admin.InActive')}}" data-onstyle="success" data-offstyle="danger">
+                                                    <input id="status_toggle" type="checkbox" checked data-toggle="toggle" data-on="{{__('Active')}}" data-off="{{__('InActive')}}" data-onstyle="success" data-offstyle="danger">
                                                 </a>
                                             @else
                                                 <a href="javascript:;" onclick="changeProductCategoryStatus({{ $campaign->id }})">
-                                                    <input id="status_toggle" type="checkbox" data-toggle="toggle" data-on="{{__('admin.Active')}}" data-off="{{__('admin.InActive')}}" data-onstyle="success" data-offstyle="danger">
+                                                    <input id="status_toggle" type="checkbox" data-toggle="toggle" data-on="{{__('Active')}}" data-off="{{__('InActive')}}" data-onstyle="success" data-offstyle="danger">
                                                 </a>
                                             @endif
                                         </td>
@@ -85,7 +85,7 @@
         $("#deleteForm").attr("action",'{{ url("admin/campaign/") }}'+"/"+id)
     }
     function changeProductCategoryStatus(id){
-        
+
         $.ajax({
             type:"put",
             data: { _token : '{{ csrf_token() }}' },

@@ -1,21 +1,21 @@
 @extends('admin.master_layout')
 @section('title')
-<title>{{__('admin.Coupon')}}</title>
+<title>{{__('Coupon')}}</title>
 @endsection
 @section('admin-content')
       <!-- Main Content -->
       <div class="main-content">
         <section class="section">
           <div class="section-header">
-            <h1>{{__('admin.Coupon')}}</h1>
+            <h1>{{__('Coupon')}}</h1>
             <div class="section-header-breadcrumb">
-              <div class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">{{__('admin.Dashboard')}}</a></div>
-              <div class="breadcrumb-item">{{__('admin.Coupon')}}</div>
+              <div class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">{{__('Dashboard')}}</a></div>
+              <div class="breadcrumb-item">{{__('Coupon')}}</div>
             </div>
           </div>
 
           <div class="section-body">
-            <a href="javascript:;" data-toggle="modal" data-target="#createCoupon" class="btn btn-primary"><i class="fas fa-plus"></i> {{__('admin.Add New')}}</a>
+            <a href="javascript:;" data-toggle="modal" data-target="#createCoupon" class="btn btn-primary"><i class="fas fa-plus"></i> {{__('Add New')}}</a>
             <div class="row mt-4">
                 <div class="col">
                   <div class="card">
@@ -24,15 +24,15 @@
                         <table class="table table-striped" id="dataTable">
                             <thead>
                                 <tr>
-                                    <th>{{__('admin.SN')}}</th>
-                                    <th>{{__('admin.Name')}}</th>
-                                    <th>{{__('admin.Code')}}</th>
-                                    <th>{{__('admin.Discount')}}</th>
-                                    <th>{{__('admin.Number of Times')}}</th>
-                                    <th>{{__('admin.Apply Qty')}}</th>
-                                    <th>{{__('admin.Expired Date')}}</th>
-                                    <th>{{__('admin.Status')}}</th>
-                                    <th>{{__('admin.Action')}}</th>
+                                    <th>{{__('SN')}}</th>
+                                    <th>{{__('Name')}}</th>
+                                    <th>{{__('Code')}}</th>
+                                    <th>{{__('Discount')}}</th>
+                                    <th>{{__('Number of Times')}}</th>
+                                    <th>{{__('Apply Qty')}}</th>
+                                    <th>{{__('Expired Date')}}</th>
+                                    <th>{{__('Status')}}</th>
+                                    <th>{{__('Action')}}</th>
                                   </tr>
                             </thead>
                             <tbody>
@@ -48,12 +48,12 @@
                                         <td>
                                             @if($coupon->status == 1)
                                             <a href="javascript:;" onclick="changeCouponStatus({{ $coupon->id }})">
-                                                <input id="status_toggle" type="checkbox" checked data-toggle="toggle" data-on="{{__('admin.Active')}}" data-off="{{__('admin.Inactive')}}" data-onstyle="success" data-offstyle="danger">
+                                                <input id="status_toggle" type="checkbox" checked data-toggle="toggle" data-on="{{__('Active')}}" data-off="{{__('Inactive')}}" data-onstyle="success" data-offstyle="danger">
                                             </a>
 
                                             @else
                                             <a href="javascript:;" onclick="changeCouponStatus({{ $coupon->id }})">
-                                                <input id="status_toggle" type="checkbox" data-toggle="toggle" data-on="{{__('admin.Active')}}" data-off="{{__('admin.Inactive')}}" data-onstyle="success" data-offstyle="danger">
+                                                <input id="status_toggle" type="checkbox" data-toggle="toggle" data-on="{{__('Active')}}" data-off="{{__('Inactive')}}" data-onstyle="success" data-offstyle="danger">
                                             </a>
 
                                             @endif
@@ -81,7 +81,7 @@
           <div class="modal-dialog" role="document">
               <div class="modal-content">
                       <div class="modal-header">
-                              <h5 class="modal-title">{{__('admin.Create Coupon')}}</h5>
+                              <h5 class="modal-title">{{__('Create Coupon')}}</h5>
                                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                       <span aria-hidden="true">&times;</span>
                                   </button>
@@ -92,30 +92,30 @@
                             @csrf
                             <div class="row">
                                 <div class="form-group col-12">
-                                    <label>{{__('admin.Name')}} <span class="text-danger">*</span></label>
+                                    <label>{{__('Name')}} <span class="text-danger">*</span></label>
                                     <input type="text" id="name" class="form-control"  name="name">
                                 </div>
                                 <div class="form-group col-12">
-                                    <label>{{__('admin.Code')}} <span class="text-danger">*</span></label>
+                                    <label>{{__('Code')}} <span class="text-danger">*</span></label>
                                     <input type="text" id="code" class="form-control"  name="code">
                                 </div>
                                 <div class="form-group col-12">
-                                    <label>{{__('admin.Number of times')}} <span class="text-danger">*</span></label>
+                                    <label>{{__('Number of times')}} <span class="text-danger">*</span></label>
                                     <input type="number" id="number_of_time" class="form-control"  name="number_of_time">
                                 </div>
 
                                 <div class="form-group col-12">
-                                    <label>{{__('admin.Expired Date')}} <span class="text-danger">*</span></label>
+                                    <label>{{__('Expired Date')}} <span class="text-danger">*</span></label>
                                     <input type="text" id="expired_date" class="form-control datepicker"  name="expired_date" autocomplete="off">
                                 </div>
 
                                 <div class="form-group col-12">
-                                    <label>{{__('admin.Discount')}} <span class="text-danger">*</span></label>
+                                    <label>{{__('Discount')}} <span class="text-danger">*</span></label>
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
                                             <select name="offer_type" id="" class="form-control">
-                                                <option value="1">{{__('admin.Percentage')}}(%)</option>
-                                                <option value="2">{{__('admin.Amount')}}({{ $setting->currency_icon }})</option>
+                                                <option value="1">{{__('Percentage')}}(%)</option>
+                                                <option value="2">{{__('Amount')}}({{ $setting->currency_icon }})</option>
                                             </select>
                                         </div>
                                         <input type="text" name="discount" class="form-control" placeholder="Discount" aria-label="Discount" aria-describedby="basic-addon1">
@@ -123,17 +123,17 @@
                                 </div>
 
                                 <div class="form-group col-12">
-                                    <label>{{__('admin.Status')}} <span class="text-danger">*</span></label>
+                                    <label>{{__('Status')}} <span class="text-danger">*</span></label>
                                     <select name="status" class="form-control">
-                                        <option value="1">{{__('admin.Active')}}</option>
-                                        <option  value="0">{{__('admin.Inactive')}}</option>
+                                        <option value="1">{{__('Active')}}</option>
+                                        <option  value="0">{{__('Inactive')}}</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-12">
-                                    <button type="submit" class="btn btn-primary">{{__('admin.Save')}}</button>
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal">{{__('admin.Close')}}</button>
+                                    <button type="submit" class="btn btn-primary">{{__('Save')}}</button>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">{{__('Close')}}</button>
                                 </div>
                             </div>
                         </form>
@@ -149,7 +149,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                     <div class="modal-header">
-                            <h5 class="modal-title">{{__('admin.Edit Coupon')}}</h5>
+                            <h5 class="modal-title">{{__('Edit Coupon')}}</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -161,30 +161,30 @@
                           @method('PUT')
                           <div class="row">
                               <div class="form-group col-12">
-                                  <label>{{__('admin.Name')}} <span class="text-danger">*</span></label>
+                                  <label>{{__('Name')}} <span class="text-danger">*</span></label>
                                   <input type="text" id="name" class="form-control"  name="name" value="{{ $coupon->name }}">
                               </div>
                               <div class="form-group col-12">
-                                  <label>{{__('admin.Code')}} <span class="text-danger">*</span></label>
+                                  <label>{{__('Code')}} <span class="text-danger">*</span></label>
                                   <input type="text" id="code" class="form-control"  name="code" value="{{ $coupon->code }}">
                               </div>
                               <div class="form-group col-12">
-                                  <label>{{__('admin.Number of times')}} <span class="text-danger">*</span></label>
+                                  <label>{{__('Number of times')}} <span class="text-danger">*</span></label>
                                   <input type="number" id="number_of_time" class="form-control"  name="number_of_time" value="{{ $coupon->max_quantity }}">
                               </div>
 
                               <div class="form-group col-12">
-                                <label>{{__('admin.Expired Date')}} <span class="text-danger">*</span></label>
+                                <label>{{__('Expired Date')}} <span class="text-danger">*</span></label>
                                 <input type="text" id="expired_date" class="form-control datepicker" value="{{ $coupon->expired_date }}"  name="expired_date" autocomplete="off">
                             </div>
 
                               <div class="form-group col-12">
-                                  <label>{{__('admin.Discount')}} <span class="text-danger">*</span></label>
+                                  <label>{{__('Discount')}} <span class="text-danger">*</span></label>
                                   <div class="input-group mb-3">
                                       <div class="input-group-prepend">
                                           <select name="offer_type" id="" class="form-control">
-                                              <option {{ $coupon->offer_type == 1 ? 'selected' : '' }} value="1">{{__('admin.Percentage')}}(%)</option>
-                                              <option {{ $coupon->offer_type == 2 ? 'selected' : '' }} value="2">{{__('admin.Amount')}}({{ $setting->currency_icon }})</option>
+                                              <option {{ $coupon->offer_type == 1 ? 'selected' : '' }} value="1">{{__('Percentage')}}(%)</option>
+                                              <option {{ $coupon->offer_type == 2 ? 'selected' : '' }} value="2">{{__('Amount')}}({{ $setting->currency_icon }})</option>
                                           </select>
                                       </div>
                                       <input type="text" name="discount" class="form-control" placeholder="Discount" aria-label="Discount" aria-describedby="basic-addon1" value="{{ $coupon->discount }}">
@@ -192,17 +192,17 @@
                               </div>
 
                               <div class="form-group col-12">
-                                  <label>{{__('admin.Status')}} <span class="text-danger">*</span></label>
+                                  <label>{{__('Status')}} <span class="text-danger">*</span></label>
                                   <select name="status" class="form-control">
-                                      <option {{ $coupon->status == 1 ? 'selected' : '' }} value="1">{{__('admin.Active')}}</option>
-                                      <option {{ $coupon->status == 0 ? 'selected' : '' }}  value="0">{{__('admin.Inactive')}}</option>
+                                      <option {{ $coupon->status == 1 ? 'selected' : '' }} value="1">{{__('Active')}}</option>
+                                      <option {{ $coupon->status == 0 ? 'selected' : '' }}  value="0">{{__('Inactive')}}</option>
                                   </select>
                               </div>
                           </div>
                           <div class="row">
                               <div class="col-12">
-                                  <button type="submit" class="btn btn-primary">{{__('admin.Save')}}</button>
-                                  <button type="button" class="btn btn-danger" data-dismiss="modal">{{__('admin.Close')}}</button>
+                                  <button type="submit" class="btn btn-primary">{{__('Save')}}</button>
+                                  <button type="button" class="btn btn-danger" data-dismiss="modal">{{__('Close')}}</button>
                               </div>
                           </div>
                       </form>
@@ -218,7 +218,7 @@
         $("#deleteForm").attr("action",'{{ url("admin/coupon/") }}'+"/"+id)
     }
     function changeCouponStatus(id){
-        
+
         $.ajax({
             type:"put",
             data: { _token : '{{ csrf_token() }}' },

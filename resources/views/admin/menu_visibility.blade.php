@@ -1,16 +1,16 @@
 @extends('admin.master_layout')
 @section('title')
-<title>{{__('admin.Menu visibility')}}</title>
+<title>{{__('Menu visibility')}}</title>
 @endsection
 @section('admin-content')
       <!-- Main Content -->
       <div class="main-content">
         <section class="section">
           <div class="section-header">
-            <h1>{{__('admin.Menu visibility')}}</h1>
+            <h1>{{__('Menu visibility')}}</h1>
             <div class="section-header-breadcrumb">
-              <div class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">{{__('admin.Dashboard')}}</a></div>
-              <div class="breadcrumb-item">{{__('admin.Menu visibility')}}</div>
+              <div class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">{{__('Dashboard')}}</a></div>
+              <div class="breadcrumb-item">{{__('Menu visibility')}}</div>
             </div>
           </div>
 
@@ -21,8 +21,8 @@
                     <div class="card-body">
                         <table class="table table-bordered">
                             <thead>
-                                <th>{{__('admin.Menu')}}</th>
-                                <th>{{__('admin.Visibility')}}</th>
+                                <th>{{__('Menu')}}</th>
+                                <th>{{__('Visibility')}}</th>
                             </thead>
                             <tbody>
                                 @foreach ($menus as $menu)
@@ -31,11 +31,11 @@
                                         <td width="50%">
                                             @if ($menu->status)
                                                 <a href="javascript:;" onclick="changeMenuVisibility({{ $menu->id }})">
-                                                    <input id="status_toggle" type="checkbox" checked data-toggle="toggle" data-on="{{__('admin.Active')}}" data-off="{{__('admin.InActive')}}" data-onstyle="success" data-offstyle="danger">
+                                                    <input id="status_toggle" type="checkbox" checked data-toggle="toggle" data-on="{{__('Active')}}" data-off="{{__('InActive')}}" data-onstyle="success" data-offstyle="danger">
                                                 </a>
                                             @else
                                                 <a href="javascript:;" onclick="changeMenuVisibility({{ $menu->id }})">
-                                                    <input id="status_toggle" type="checkbox" data-toggle="toggle" data-on="{{__('admin.Active')}}" data-off="{{__('admin.InActive')}}" data-onstyle="success" data-offstyle="danger">
+                                                    <input id="status_toggle" type="checkbox" data-toggle="toggle" data-on="{{__('Active')}}" data-off="{{__('InActive')}}" data-onstyle="success" data-offstyle="danger">
                                                 </a>
                                             @endif
                                         </td>
@@ -52,7 +52,7 @@
 
       <script>
           function changeMenuVisibility(id){
-            
+
             $.ajax({
                 type:"put",
                 data: { _token : '{{ csrf_token() }}' },

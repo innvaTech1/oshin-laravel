@@ -467,6 +467,14 @@
                                             $totalPrice = $productPrice;
                                             $campaignOfferPrice = $totalPrice - $campaignOfferPrice;
                                         }
+
+                                        $totalPrice = $flashDealProduct->price;
+                                        if ($flashDealProduct->offer_price != null) {
+                                            $offerPrice = $flashDealProduct->offer_price;
+                                            $offer = $totalPrice - $offerPrice;
+                                            $percentage = ($offer * 100) / $totalPrice;
+                                            $percentage = round($percentage);
+                                        }
                                     @endphp
                                     @if ($isCampaign)
                                         <p class="wsus__hot_deals_proce">
@@ -506,6 +514,37 @@
         </div>
     </section>
 
+
+    {{-- <!--============================
+        Just for START
+    ==============================--> --}}
+    <section id="wsus__electronic2" class="section_separate">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                    <div class="wsus__section_header">
+                        <h3>{{ __('user.Just for You') }}</h3>
+                        <a class="see_btn" href="{{ route('product', ['type' => 'top']) }}">{{ __('see more') }} <i
+                                class="fas fa-caret-right"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                @foreach ($topProducts as $product)
+                    <div class="col-6 col-sm-3 col-md-3 col-lg-2">
+                        @include('components/website.product-card')
+                    </div>
+                @endforeach
+            </div>
+            @foreach ($topProducts as $product)
+                @include('components.website.product-modal')
+            @endforeach
+        </div>
+    </section>
+    {{-- <!--============================
+        Just for END
+    ==============================--> --}}
+
     @php
         $productHighlightVisibility = $visibilities->where('id', 7)->first();
     @endphp
@@ -533,37 +572,6 @@
                 @endforeach
             </div>
         </section>
-
-
-        {{-- <!--============================
-            Featured Products START
-        ==============================--> --}}
-        <section id="wsus__electronic2">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                        <div class="wsus__section_header">
-                            <h3>Featured Products</h3>
-                            <a class="see_btn" href="{{ route('product', ['type' => 'featured']) }}">see more <i
-                                    class="fas fa-caret-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    @foreach ($featuredProducts as $product)
-                        <div class="col-6 col-sm-3 col-md-3 col-lg-2">
-                            @include('components/website.product-card')
-                        </div>
-                    @endforeach
-                </div>
-                @foreach ($featuredProducts as $product)
-                    @include('components.website.product-modal')
-                @endforeach
-            </div>
-        </section>
-        {{-- <!--============================
-            Featured Products END
-        ==============================--> --}}
     @endif
 
 
@@ -730,33 +738,34 @@
     ==============================--> --}}
 
 
+
     {{-- <!--============================
-        Just for START
-    ==============================--> --}}
-    <section id="wsus__electronic2" class="section_separate">
+            Featured Products START
+        ==============================--> --}}
+    <section id="wsus__electronic2">
         <div class="container">
             <div class="row">
                 <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                     <div class="wsus__section_header">
-                        <h3>{{ __('user.Just for You') }}</h3>
-                        <a class="see_btn" href="{{ route('product', ['type' => 'top']) }}">{{ __('see more') }} <i
+                        <h3>Feature Products</h3>
+                        <a class="see_btn" href="{{ route('product', ['type' => 'featured']) }}">see more <i
                                 class="fas fa-caret-right"></i></a>
                     </div>
                 </div>
             </div>
             <div class="row">
-                @foreach ($topProducts as $product)
+                @foreach ($featuredProducts as $product)
                     <div class="col-6 col-sm-3 col-md-3 col-lg-2">
                         @include('components/website.product-card')
                     </div>
                 @endforeach
             </div>
-            @foreach ($topProducts as $product)
+            @foreach ($featuredProducts as $product)
                 @include('components.website.product-modal')
             @endforeach
         </div>
     </section>
     {{-- <!--============================
-        Just for END
-    ==============================--> --}}
+            Featured Products END
+        ==============================--> --}}
 @endsection

@@ -1,17 +1,17 @@
 @extends('admin.master_layout')
 @section('title')
-<title>{{__('admin.Seller Product Review')}}</title>
+<title>{{__('Seller Product Review')}}</title>
 @endsection
 @section('admin-content')
       <!-- Main Content -->
       <div class="main-content">
         <section class="section">
           <div class="section-header">
-            <h1>{{__('admin.Seller Product Review')}}</h1>
+            <h1>{{__('Seller Product Review')}}</h1>
             <div class="section-header-breadcrumb">
-              <div class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">{{__('admin.Dashboard')}}</a></div>
-              <div class="breadcrumb-item active"><a href="{{ route('admin.product.index') }}">{{__('admin.Product')}}</a></div>
-              <div class="breadcrumb-item">{{__('admin.Seller Product Review')}}</div>
+              <div class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">{{__('Dashboard')}}</a></div>
+              <div class="breadcrumb-item active"><a href="{{ route('admin.product.index') }}">{{__('Product')}}</a></div>
+              <div class="breadcrumb-item">{{__('Seller Product Review')}}</div>
             </div>
           </div>
 
@@ -25,12 +25,12 @@
                         <table class="table table-striped" id="dataTable">
                             <thead>
                                 <tr>
-                                    <th width="5%">{{__('admin.SN')}}</th>
-                                    <th width="15%">{{__('admin.Name')}}</th>
-                                    <th width="50%">{{__('admin.Product')}}</th>
-                                    <th width="5%">{{__('admin.Rating')}}</th>
-                                    <th width="15%">{{__('admin.Status')}}</th>
-                                    <th width="10%">{{__('admin.Action')}}</th>
+                                    <th width="5%">{{__('SN')}}</th>
+                                    <th width="15%">{{__('Name')}}</th>
+                                    <th width="50%">{{__('Product')}}</th>
+                                    <th width="5%">{{__('Rating')}}</th>
+                                    <th width="15%">{{__('Status')}}</th>
+                                    <th width="10%">{{__('Action')}}</th>
                                   </tr>
                             </thead>
                             <tbody>
@@ -44,12 +44,12 @@
                                         <td>
                                             @if($review->status == 1)
                                             <a href="javascript:;" onclick="manageReviewStatus({{ $review->id }})">
-                                                <input id="status_toggle" type="checkbox" checked data-toggle="toggle" data-on="{{__('admin.Active')}}" data-off="{{__('admin.Inactive')}}" data-onstyle="success" data-offstyle="danger">
+                                                <input id="status_toggle" type="checkbox" checked data-toggle="toggle" data-on="{{__('Active')}}" data-off="{{__('Inactive')}}" data-onstyle="success" data-offstyle="danger">
                                             </a>
 
                                             @else
                                             <a href="javascript:;" onclick="manageReviewStatus({{ $review->id }})">
-                                                <input id="status_toggle" type="checkbox" data-toggle="toggle" data-on="{{__('admin.Active')}}" data-off="{{__('admin.Inactive')}}" data-onstyle="success" data-offstyle="danger">
+                                                <input id="status_toggle" type="checkbox" data-toggle="toggle" data-on="{{__('Active')}}" data-off="{{__('Inactive')}}" data-onstyle="success" data-offstyle="danger">
                                             </a>
 
                                             @endif
@@ -78,7 +78,7 @@
         $("#deleteForm").attr("action",'{{ url("admin/delete-product-review/") }}'+"/"+id)
     }
     function manageReviewStatus(id){
-        
+
         $.ajax({
             type:"put",
             data: { _token : '{{ csrf_token() }}' },

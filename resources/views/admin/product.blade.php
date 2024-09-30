@@ -1,21 +1,21 @@
 @extends('admin.master_layout')
 @section('title')
-<title>{{__('admin.Products')}}</title>
+<title>{{__('Products')}}</title>
 @endsection
 @section('admin-content')
       <!-- Main Content -->
       <div class="main-content">
         <section class="section">
           <div class="section-header">
-            <h1>{{__('admin.Products')}}</h1>
+            <h1>{{__('Products')}}</h1>
             <div class="section-header-breadcrumb">
-              <div class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">{{__('admin.Dashboard')}}</a></div>
-              <div class="breadcrumb-item">{{__('admin.Products')}}</div>
+              <div class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">{{__('Dashboard')}}</a></div>
+              <div class="breadcrumb-item">{{__('Products')}}</div>
             </div>
           </div>
 
           <div class="section-body">
-            <a href="{{ route('admin.product.create') }}" class="btn btn-primary"><i class="fas fa-plus"></i> {{__('admin.Add New')}}</a>
+            <a href="{{ route('admin.product.create') }}" class="btn btn-primary"><i class="fas fa-plus"></i> {{__('Add New')}}</a>
             <div class="row mt-4">
                 <div class="col">
                   <div class="card">
@@ -24,13 +24,13 @@
                         <table class="table table-striped" id="dataTable">
                             <thead>
                                 <tr>
-                                    <th width="5%">{{__('admin.SN')}}</th>
-                                    <th width="30%">{{__('admin.Name')}}</th>
-                                    <th width="10%">{{__('admin.Price')}}</th>
-                                    <th width="15%">{{__('admin.Photo')}}</th>
-                                    <th width="15%">{{__('admin.Type')}}</th>
-                                    <th width="10%">{{__('admin.Status')}}</th>
-                                    <th width="15%">{{__('admin.Action')}}</th>
+                                    <th width="5%">{{__('SN')}}</th>
+                                    <th width="30%">{{__('Name')}}</th>
+                                    <th width="10%">{{__('Price')}}</th>
+                                    <th width="15%">{{__('Photo')}}</th>
+                                    <th width="15%">{{__('Type')}}</th>
+                                    <th width="10%">{{__('Status')}}</th>
+                                    <th width="15%">{{__('Action')}}</th>
                                   </tr>
                             </thead>
                             <tbody>
@@ -42,29 +42,29 @@
                                         <td> <img class="rounded-circle" src="{{ asset($product->thumb_image) }}" alt="" width="100px" height="100px"></td>
                                         <td>
                                             @if ($product->is_undefine == 1)
-                                                {{__('admin.Undefine Product')}}
+                                                {{__('Undefine Product')}}
                                             @elseif ($product->new_product == 1)
-                                                {{__('admin.New Arrival')}}
+                                                {{__('New Arrival')}}
                                             @elseif ($product->is_featured == 1)
-                                                {{__('admin.Featured Product')}}
+                                                {{__('Featured Product')}}
                                             @elseif ($product->is_top == 1)
-                                                {{__('admin.Top Product')}}
+                                                {{__('Top Product')}}
                                             @elseif ($product->is_best == 1)
-                                                {{__('admin.Best Product')}}
+                                                {{__('Best Product')}}
                                             @elseif ($product->is_flash_deal == 1)
-                                                {{__('admin.Flash Deal')}}
+                                                {{__('Flash Deal')}}
                                             @endif
 
                                         </td>
                                         <td>
                                             @if($product->status == 1)
                                             <a href="javascript:;" onclick="changeProductStatus({{ $product->id }})">
-                                                <input id="status_toggle" type="checkbox" checked data-toggle="toggle" data-on="{{__('admin.Active')}}" data-off="{{__('admin.InActive')}}" data-onstyle="success" data-offstyle="danger">
+                                                <input id="status_toggle" type="checkbox" checked data-toggle="toggle" data-on="{{__('Active')}}" data-off="{{__('InActive')}}" data-onstyle="success" data-offstyle="danger">
                                             </a>
 
                                             @else
                                             <a href="javascript:;" onclick="changeProductStatus({{ $product->id }})">
-                                                <input id="status_toggle" type="checkbox" data-toggle="toggle" data-on="{{__('admin.Active')}}" data-off="{{__('admin.InActive')}}" data-onstyle="success" data-offstyle="danger">
+                                                <input id="status_toggle" type="checkbox" data-toggle="toggle" data-on="{{__('Active')}}" data-off="{{__('InActive')}}" data-onstyle="success" data-offstyle="danger">
                                             </a>
 
                                             @endif
@@ -89,11 +89,11 @@
                                             </button>
 
                                             <div class="dropdown-menu" x-placement="top-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, -131px, 0px);">
-                                              <a class="dropdown-item has-icon" href="{{ route('admin.product-gallery',$product->id) }}"><i class="far fa-image"></i> {{__('admin.Image Gallery')}}</a>
+                                              <a class="dropdown-item has-icon" href="{{ route('admin.product-gallery',$product->id) }}"><i class="far fa-image"></i> {{__('Image Gallery')}}</a>
 
-                                              <a class="dropdown-item has-icon" href="{{ route('admin.product-highlight',$product->id) }}"><i class="fas fa-lightbulb"></i> {{__('admin.Highlight')}}</a>
+                                              <a class="dropdown-item has-icon" href="{{ route('admin.product-highlight',$product->id) }}"><i class="fas fa-lightbulb"></i> {{__('Highlight')}}</a>
 
-                                              <a class="dropdown-item has-icon" href="{{ route('admin.product-variant',$product->id) }}"><i class="fas fa-cog"></i>{{__('admin.Product Variant')}}</a>
+                                              <a class="dropdown-item has-icon" href="{{ route('admin.product-variant',$product->id) }}"><i class="fas fa-cog"></i>{{__('Product Variant')}}</a>
 
                                             </div>
                                           </div>
@@ -116,11 +116,11 @@
           <div class="modal-dialog" role="document">
               <div class="modal-content">
                         <div class="modal-body">
-                            {{__('admin.You can not delete this product. Because there are one or more order has been created in this product.')}}
+                            {{__('You can not delete this product. Because there are one or more order has been created in this product.')}}
                         </div>
 
                   <div class="modal-footer">
-                      <button type="button" class="btn btn-danger" data-dismiss="modal">{{__('admin.Close')}}</button>
+                      <button type="button" class="btn btn-danger" data-dismiss="modal">{{__('Close')}}</button>
                   </div>
               </div>
           </div>
@@ -130,7 +130,7 @@
         $("#deleteForm").attr("action",'{{ url("admin/product/") }}'+"/"+id)
     }
     function changeProductStatus(id){
-        
+
         $.ajax({
             type:"put",
             data: { _token : '{{ csrf_token() }}' },

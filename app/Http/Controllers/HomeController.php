@@ -75,11 +75,11 @@ class HomeController extends Controller
         $oneColumnBanner = BannerImage::whereId('2')->first();
         $banners  = BannerImage::all();
         $paginateQty = $visibilities->where('id', 7)->first()->qty;
-        $flashDealProducts = Product::where(['status' => 1, 'is_flash_deal' => 1])->get();
-        $featuredProducts = Product::where(['status' => 1, 'is_featured' => 1])->get()->take($paginateQty);
-        $bestProducts = Product::where(['status' => 1, 'is_best' => 1])->get()->take($paginateQty);
-        $topProducts = Product::where(['status' => 1, 'is_top' => 1])->get()->take($paginateQty);
-        $newProducts = Product::where(['status' => 1, 'new_product' => 1])->get()->take($paginateQty);
+        $flashDealProducts = Product::where(['status' => 1, 'is_flash_deal' => 1])->inRandomOrder()->get();
+        $featuredProducts = Product::where(['status' => 1, 'is_featured' => 1])->inRandomOrder()->get()->take($paginateQty);
+        $bestProducts = Product::where(['status' => 1, 'is_best' => 1])->inRandomOrder()->get()->take($paginateQty);
+        $topProducts = Product::where(['status' => 1, 'is_top' => 1])->inRandomOrder()->get()->take($paginateQty);
+        $newProducts = Product::where(['status' => 1, 'new_product' => 1])->inRandomOrder()->get()->take($paginateQty);
 
         $seoSetting = SeoSetting::find(1);
         $currencySetting = cache('setting');

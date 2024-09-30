@@ -681,7 +681,6 @@
                                                                     <input type="text" name="button_link"
                                                                         class="form-control" value="{{ $banner->link }}">
                                                                 </div>
-
                                                             </div>
                                                             <div class="row">
                                                                 <div class="col-12">

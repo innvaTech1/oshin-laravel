@@ -1,38 +1,38 @@
 @extends('admin.master_layout')
 @section('title')
-<title>{{__('admin.Mega Menu Sub Category')}}</title>
+<title>{{__('Mega Menu Sub Category')}}</title>
 @endsection
 @section('admin-content')
       <!-- Main Content -->
       <div class="main-content">
         <section class="section">
           <div class="section-header">
-            <h1>{{__('admin.Mega Menu Sub Category')}}</h1>
+            <h1>{{__('Mega Menu Sub Category')}}</h1>
             <div class="section-header-breadcrumb">
-              <div class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">{{__('admin.Dashboard')}}</a></div>
-              <div class="breadcrumb-item">{{__('admin.Mega Menu Sub Category')}}</div>
+              <div class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">{{__('Dashboard')}}</a></div>
+              <div class="breadcrumb-item">{{__('Mega Menu Sub Category')}}</div>
             </div>
           </div>
 
           <div class="section-body">
-            <a href="{{ route('admin.mega-menu-category.index') }}" class="btn btn-primary"><i class="fas fa-backward"></i> {{__('admin.Go Back')}}</a>
-            <a href="{{ route('admin.create-mega-menu-sub-category',$megaMenuCategory->id) }}" class="btn btn-primary"><i class="fas fa-plus"></i> {{__('admin.Add New')}}</a>
+            <a href="{{ route('admin.mega-menu-category.index') }}" class="btn btn-primary"><i class="fas fa-backward"></i> {{__('Go Back')}}</a>
+            <a href="{{ route('admin.create-mega-menu-sub-category',$megaMenuCategory->id) }}" class="btn btn-primary"><i class="fas fa-plus"></i> {{__('Add New')}}</a>
             <div class="row mt-4">
                 <div class="col">
                   <div class="card">
                     <div class="card-header">
-                        <h1>{{__('admin.Category')}} : {{ $megaMenuCategory->category->name }}</h1>
+                        <h1>{{__('Category')}} : {{ $megaMenuCategory->category->name }}</h1>
                     </div>
                     <div class="card-body">
                       <div class="table-responsive table-invoice">
                         <table class="table table-striped" id="dataTable">
                             <thead>
                                 <tr>
-                                    <th>{{__('admin.SN')}}</th>
-                                    <th>{{__('admin.Sub Category')}}</th>
-                                    <th>{{__('admin.Serial')}}</th>
-                                    <th>{{__('admin.Status')}}</th>
-                                    <th>{{__('admin.Action')}}</th>
+                                    <th>{{__('SN')}}</th>
+                                    <th>{{__('Sub Category')}}</th>
+                                    <th>{{__('Serial')}}</th>
+                                    <th>{{__('Status')}}</th>
+                                    <th>{{__('Action')}}</th>
                                   </tr>
                             </thead>
                             <tbody>
@@ -44,12 +44,12 @@
                                         <td>
                                             @if($subCategory->status == 1)
                                             <a href="javascript:;" onclick="changeProductCategoryStatus({{ $subCategory->id }})">
-                                                <input id="status_toggle" type="checkbox" checked data-toggle="toggle" data-on="{{__('admin.Active')}}" data-off="{{__('admin.Inactive')}}" data-onstyle="success" data-offstyle="danger">
+                                                <input id="status_toggle" type="checkbox" checked data-toggle="toggle" data-on="{{__('Active')}}" data-off="{{__('Inactive')}}" data-onstyle="success" data-offstyle="danger">
                                             </a>
 
                                             @else
                                             <a href="javascript:;" onclick="changeProductCategoryStatus({{ $subCategory->id }})">
-                                                <input id="status_toggle" type="checkbox" data-toggle="toggle" data-on="{{__('admin.Active')}}" data-off="{{__('admin.Inactive')}}" data-onstyle="success" data-offstyle="danger">
+                                                <input id="status_toggle" type="checkbox" data-toggle="toggle" data-on="{{__('Active')}}" data-off="{{__('Inactive')}}" data-onstyle="success" data-offstyle="danger">
                                             </a>
 
                                             @endif
@@ -77,7 +77,7 @@
         $("#deleteForm").attr("action",'{{ url("admin/delete-mega-menu-sub-category/") }}'+"/"+id)
     }
     function changeProductCategoryStatus(id){
-        
+
         $.ajax({
             type:"put",
             data: { _token : '{{ csrf_token() }}' },

@@ -1,21 +1,21 @@
 @extends('admin.master_layout')
 @section('title')
-<title>{{__('admin.Product Tax')}}</title>
+<title>{{__('Product Tax')}}</title>
 @endsection
 @section('admin-content')
       <!-- Main Content -->
       <div class="main-content">
         <section class="section">
           <div class="section-header">
-            <h1>{{__('admin.Product Tax')}}</h1>
+            <h1>{{__('Product Tax')}}</h1>
             <div class="section-header-breadcrumb">
-              <div class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">{{__('admin.Dashboard')}}</a></div>
-              <div class="breadcrumb-item">{{__('admin.Product Tax')}}</div>
+              <div class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">{{__('Dashboard')}}</a></div>
+              <div class="breadcrumb-item">{{__('Product Tax')}}</div>
             </div>
           </div>
 
           <div class="section-body">
-            <a href="{{ route('admin.product-tax.create') }}" class="btn btn-primary"><i class="fas fa-plus"></i> {{__('admin.Add New')}}</a>
+            <a href="{{ route('admin.product-tax.create') }}" class="btn btn-primary"><i class="fas fa-plus"></i> {{__('Add New')}}</a>
             <div class="row mt-4">
                 <div class="col">
                   <div class="card">
@@ -24,11 +24,11 @@
                         <table class="table table-striped" id="dataTable">
                             <thead>
                                 <tr>
-                                    <th>{{__('admin.SN')}}</th>
-                                    <th>{{__('admin.Title')}}</th>
-                                    <th>{{__('admin.Tax')}}</th>
-                                    <th>{{__('admin.Status')}}</th>
-                                    <th>{{__('admin.Action')}}</th>
+                                    <th>{{__('SN')}}</th>
+                                    <th>{{__('Title')}}</th>
+                                    <th>{{__('Tax')}}</th>
+                                    <th>{{__('Status')}}</th>
+                                    <th>{{__('Action')}}</th>
                                   </tr>
                             </thead>
                             <tbody>
@@ -40,12 +40,12 @@
                                         <td>
                                             @if($tax->status == 1)
                                             <a href="javascript:;" onclick="changeProductTaxStatus({{ $tax->id }})">
-                                                <input id="status_toggle" type="checkbox" checked data-toggle="toggle" data-on="{{__('admin.Active')}}" data-off="{{__('admin.InActive')}}" data-onstyle="success" data-offstyle="danger">
+                                                <input id="status_toggle" type="checkbox" checked data-toggle="toggle" data-on="{{__('Active')}}" data-off="{{__('InActive')}}" data-onstyle="success" data-offstyle="danger">
                                             </a>
 
                                             @else
                                             <a href="javascript:;" onclick="changeProductTaxStatus({{ $tax->id }})">
-                                                <input id="status_toggle" type="checkbox" data-toggle="toggle" data-on="{{__('admin.Active')}}" data-off="{{__('admin.Active')}}" data-onstyle="success" data-offstyle="danger">
+                                                <input id="status_toggle" type="checkbox" data-toggle="toggle" data-on="{{__('Active')}}" data-off="{{__('Active')}}" data-onstyle="success" data-offstyle="danger">
                                             </a>
 
                                             @endif
@@ -76,11 +76,11 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                             <div class="modal-body">
-                                {{__('admin.You can not delete this item. Because there are one or more products has been created in this item.')}}
+                                {{__('You can not delete this item. Because there are one or more products has been created in this item.')}}
                             </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">{{__('admin.Close')}}</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">{{__('Close')}}</button>
                     </div>
                 </div>
             </div>
@@ -91,7 +91,7 @@
         $("#deleteForm").attr("action",'{{ url("admin/product-tax/") }}'+"/"+id)
     }
     function changeProductTaxStatus(id){
-        
+
         $.ajax({
             type:"put",
             data: { _token : '{{ csrf_token() }}' },

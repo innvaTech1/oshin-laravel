@@ -1,18 +1,18 @@
 
 @extends('admin.master_layout')
 @section('title')
-<title>{{__('admin.Shop Details')}}</title>
+<title>{{__('Shop Details')}}</title>
 @endsection
 @section('admin-content')
       <!-- Main Content -->
       <div class="main-content">
         <section class="section">
           <div class="section-header">
-            <h1>{{__('admin.Shop Details')}}</h1>
+            <h1>{{__('Shop Details')}}</h1>
             <div class="section-header-breadcrumb">
-              <div class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">{{__('admin.Dashboard')}}</a></div>
-              <div class="breadcrumb-item active"><a href="{{ route('admin.seller-show',$seller->id) }}">{{__('admin.Seller Profile')}}</a></div>
-              <div class="breadcrumb-item">{{__('admin.Shop Details')}}</div>
+              <div class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">{{__('Dashboard')}}</a></div>
+              <div class="breadcrumb-item active"><a href="{{ route('admin.seller-show',$seller->id) }}">{{__('Seller Profile')}}</a></div>
+              <div class="breadcrumb-item">{{__('Shop Details')}}</div>
             </div>
           </div>
 
@@ -27,56 +27,56 @@
                     @method('PUT')
                         <div class="row">
                             <div class="form-group col-12">
-                                <label>{{__('admin.Current Banner Image')}}</label>
+                                <label>{{__('Current Banner Image')}}</label>
                                 <div>
                                     <img src="{{ asset($seller->banner_image) }}" width="300px" alt="">
                                 </div>
                             </div>
 
                             <div class="form-group col-12">
-                                <label>{{__('admin.New Banner Image')}}</label>
+                                <label>{{__('New Banner Image')}}</label>
                                 <input type="file" class="form-control-file" name="banner_image">
                             </div>
 
 
                             <div class="form-group col-12">
-                                <label>{{__('admin.Shop Name')}} <span class="text-danger">*</span></label>
+                                <label>{{__('Shop Name')}} <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" value="{{ $seller->shop_name }}" name="shop_name" readonly>
                             </div>
 
                             <div class="form-group col-12">
-                                <label>{{__('admin.Email')}} <span class="text-danger">*</span></label>
+                                <label>{{__('Email')}} <span class="text-danger">*</span></label>
                                 <input type="email" class="form-control" value="{{ $seller->email }}" name="email" readonly>
                             </div>
 
                             <div class="form-group col-12">
-                                <label>{{__('admin.Phone')}} <span class="text-danger">*</span></label>
+                                <label>{{__('Phone')}} <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" value="{{ $seller->phone }}" name="phone">
                             </div>
 
                             <div class="form-group col-12">
-                                <label>{{__('admin.Opens at')}} <span class="text-danger">*</span></label>
+                                <label>{{__('Opens at')}} <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control clockpicker" value="{{ $seller->open_at }}" data-align="top" data-autoclose="true" name="opens_at">
                             </div>
 
                             <div class="form-group col-12">
-                                <label>{{__('admin.Closed at')}} <span class="text-danger">*</span></label>
+                                <label>{{__('Closed at')}} <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control clockpicker" value="{{ $seller->closed_at }}" data-align="top" data-autoclose="true" name="closed_at">
 
                             </div>
 
                             <div class="form-group col-12">
-                                <label>{{__('admin.Address')}} <span class="text-danger">*</span></label>
+                                <label>{{__('Address')}} <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" value="{{ $seller->address }}" name="address">
                             </div>
 
                             <div class="form-group col-12">
-                                <label>{{__('admin.Greeting Message for Chatbox')}} <span class="text-danger">*</span></label>
+                                <label>{{__('Greeting Message for Chatbox')}} <span class="text-danger">*</span></label>
                                 <textarea name="greeting_msg" id="greeting_msg" class="form-control text-area-5" cols="30" rows="10">{{ $seller->greeting_msg }}</textarea>
                             </div>
 
                             <div class="form-group col-12">
-                                <label>{{__('admin.Description')}} <span class="text-danger">*</span></label>
+                                <label>{{__('Description')}} <span class="text-danger">*</span></label>
                                 <textarea name="description" id="description" class="summernote" cols="30" rows="10">{{ $seller->description }}</textarea>
                             </div>
 
@@ -86,13 +86,13 @@
                                         <div class="row" id="existingSocialLink-{{ $socialLink->id }}">
                                             <div class="col-5">
                                                 <div class="form-group">
-                                                    <label for="">{{__('admin.Social Icon')}}</label>
+                                                    <label for="">{{__('Social Icon')}}</label>
                                                     <input type="text" class="form-control custom-icon-picker" value="{{ $socialLink->icon }}" name="icons[]">
                                                 </div>
                                             </div>
                                             <div class="col-5">
                                                 <div class="form-group">
-                                                    <label for="">{{__('admin.Social Link')}}</label>
+                                                    <label for="">{{__('Social Link')}}</label>
                                                     <input type="text" class="form-control" value="{{ $socialLink->link }}" name="links[]">
                                                 </div>
                                             </div>
@@ -105,13 +105,13 @@
                                 <div class="row">
                                     <div class="col-5">
                                         <div class="form-group">
-                                            <label for="">{{__('admin.Social Icon')}}</label>
+                                            <label for="">{{__('Social Icon')}}</label>
                                             <input type="text" class="form-control custom-icon-picker" name="icons[]">
                                         </div>
                                     </div>
                                     <div class="col-5">
                                         <div class="form-group">
-                                            <label for="">{{__('admin.Social Link')}}</label>
+                                            <label for="">{{__('Social Link')}}</label>
                                             <input type="text" class="form-control" name="links[]">
                                         </div>
                                     </div>
@@ -126,13 +126,13 @@
                                 <div class="row remove-box">
                                     <div class="col-5">
                                         <div class="form-group">
-                                            <label for="">{{__('admin.Social Icon')}}</label>
+                                            <label for="">{{__('Social Icon')}}</label>
                                             <input type="text" class="form-control custom-icon-picker" name="icons[]">
                                         </div>
                                     </div>
                                     <div class="col-5">
                                         <div class="form-group">
-                                            <label for="">{{__('admin.Social Link')}}</label>
+                                            <label for="">{{__('Social Link')}}</label>
                                             <input type="text" class="form-control" name="links[]">
                                         </div>
                                     </div>
@@ -145,21 +145,21 @@
 
 
                             <div class="form-group col-12">
-                                <label>{{__('admin.Seo Title')}}</label>
+                                <label>{{__('Seo Title')}}</label>
                                 <input type="text" class="form-control" value="{{ $seller->seo_title }}" name="seo_title">
                             </div>
 
 
 
                             <div class="form-group col-12">
-                                <label>{{__('admin.Seo Description')}}</label>
+                                <label>{{__('Seo Description')}}</label>
                                 <textarea name="seo_description" class="form-control text-area-5" id="" cols="30" rows="10">{{ $seller->seo_description }}</textarea>
                             </div>
 
                         </div>
                         <div class="row">
                             <div class="col-12">
-                                <button class="btn btn-primary">{{__('admin.Save Changes')}}</button>
+                                <button class="btn btn-primary">{{__('Save Changes')}}</button>
                             </div>
                         </div>
                         </div>
@@ -204,7 +204,7 @@
     })(jQuery);
 
     function deleteSocialLink(id){
-        
+
         $.ajax({
             type:"put",
             data: { _token : '{{ csrf_token() }}' },

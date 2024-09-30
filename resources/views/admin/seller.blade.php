@@ -1,21 +1,21 @@
 @extends('admin.master_layout')
 @section('title')
-<title>{{__('admin.Seller List')}}</title>
+<title>{{__('Seller List')}}</title>
 @endsection
 @section('admin-content')
       <!-- Main Content -->
       <div class="main-content">
         <section class="section">
           <div class="section-header">
-            <h1>{{__('admin.Seller List')}}</h1>
+            <h1>{{__('Seller List')}}</h1>
             <div class="section-header-breadcrumb">
-              <div class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">{{__('admin.Dashboard')}}</a></div>
-              <div class="breadcrumb-item">{{__('admin.Seller List')}}</div>
+              <div class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">{{__('Dashboard')}}</a></div>
+              <div class="breadcrumb-item">{{__('Seller List')}}</div>
             </div>
           </div>
 
           <div class="section-body">
-              <a href="{{ route('admin.send-email-to-all-seller') }}" class="btn btn-primary">{{__('admin.Send email to all seller')}}</a>
+              <a href="{{ route('admin.send-email-to-all-seller') }}" class="btn btn-primary">{{__('Send email to all seller')}}</a>
             <div class="row mt-4">
                 <div class="col">
                   <div class="card">
@@ -24,12 +24,12 @@
                         <table class="table table-striped" id="dataTable">
                             <thead>
                                 <tr>
-                                    <th >{{__('admin.SN')}}</th>
-                                    <th >{{__('admin.Seller Name')}}</th>
-                                    <th >{{__('admin.Email')}}</th>
-                                    <th >{{__('admin.Image')}}</th>
-                                    <th >{{__('admin.Status')}}</th>
-                                    <th >{{__('admin.Action')}}</th>
+                                    <th >{{__('SN')}}</th>
+                                    <th >{{__('Seller Name')}}</th>
+                                    <th >{{__('Email')}}</th>
+                                    <th >{{__('Image')}}</th>
+                                    <th >{{__('Status')}}</th>
+                                    <th >{{__('Action')}}</th>
                                   </tr>
                             </thead>
                             <tbody>
@@ -46,12 +46,12 @@
                                         <td>
                                             @if($seller->status == 1)
                                             <a href="javascript:;" onclick="manageCustomerStatus({{ $seller->id }})">
-                                                <input id="status_toggle" type="checkbox" checked data-toggle="toggle" data-on="{{__('admin.Active')}}" data-off="{{__('admin.Inctive')}}" data-onstyle="success" data-offstyle="danger">
+                                                <input id="status_toggle" type="checkbox" checked data-toggle="toggle" data-on="{{__('Active')}}" data-off="{{__('Inctive')}}" data-onstyle="success" data-offstyle="danger">
                                             </a>
 
                                             @else
                                             <a href="javascript:;" onclick="manageCustomerStatus({{ $seller->id }})">
-                                                <input id="status_toggle" type="checkbox" data-toggle="toggle" data-on="{{__('admin.Active')}}" data-off="{{__('admin.InActive')}}" data-onstyle="success" data-offstyle="danger">
+                                                <input id="status_toggle" type="checkbox" data-toggle="toggle" data-on="{{__('Active')}}" data-off="{{__('InActive')}}" data-onstyle="success" data-offstyle="danger">
                                             </a>
 
                                             @endif
@@ -94,11 +94,11 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                       <div class="modal-body">
-                          {{__('admin.You can not delete this seller. Because there are one or more products and shop account has been created in this seller.')}}
+                          {{__('You can not delete this seller. Because there are one or more products and shop account has been created in this seller.')}}
                       </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">{{__('admin.Close')}}</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">{{__('Close')}}</button>
                 </div>
             </div>
         </div>
@@ -109,7 +109,7 @@
         $("#deleteForm").attr("action",'{{ url("admin/seller-delete/") }}'+"/"+id)
     }
     function manageCustomerStatus(id){
-        
+
         $.ajax({
             type:"put",
             data: { _token : '{{ csrf_token() }}' },
