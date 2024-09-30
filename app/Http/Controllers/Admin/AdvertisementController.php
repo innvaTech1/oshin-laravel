@@ -143,6 +143,7 @@ class AdvertisementController extends Controller
         $firstTwoColumnBannerOne->title = $request->title_one;
         $firstTwoColumnBannerOne->description = $request->description_one;
         $firstTwoColumnBannerOne->link = $request->button_link_one;
+        $firstTwoColumnBannerOne->status = isset($request->status);
         $firstTwoColumnBannerOne->save();
 
 
@@ -198,6 +199,7 @@ class AdvertisementController extends Controller
         $secondTwoColumnBannerOne->title = $request->title_one;
         $secondTwoColumnBannerOne->description = $request->description_one;
         $secondTwoColumnBannerOne->link = $request->button_link_one;
+        $secondTwoColumnBannerOne->status = isset($request->status);
         $secondTwoColumnBannerOne->save();
 
 
@@ -253,6 +255,7 @@ class AdvertisementController extends Controller
         $thirdTwoColumnBannerOne->title = $request->title_one;
         $thirdTwoColumnBannerOne->description = $request->description_one;
         $thirdTwoColumnBannerOne->link = $request->button_link_one;
+        $thirdTwoColumnBannerOne->status = isset($request->status);
         $thirdTwoColumnBannerOne->save();
 
 
@@ -385,7 +388,7 @@ class AdvertisementController extends Controller
         $bannerOne->title = $request->title_one;
         $bannerOne->description = $request->description_one;
         $bannerOne->link = $request->button_link_one;
-        $bannerOne->status = $request->status ? 1 : 0;;
+        $bannerOne->status = isset($request->status);
         $bannerOne->save();
 
 

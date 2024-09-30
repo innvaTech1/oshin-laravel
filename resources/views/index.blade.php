@@ -72,8 +72,7 @@
                     </div>
                     <div class="col-xl-2 col-sm-4 col-lg-3 col-4">
                         <div class="wsus__home_services_single">
-                            <img src="{{ asset('user/images/icons/product-return.png') }}" alt=""
-                                class="img-fluid">
+                            <img src="{{ asset('user/images/icons/product-return.png') }}" alt="" class="img-fluid">
                             <h5>Free & Easy Return</h5>
                         </div>
                     </div>
@@ -287,7 +286,7 @@
                                         <h2>{{ $category->name }}</h2>
                                     </div>
                                 </a>
-                                
+
                             </div>
                         </div>
                     @endforeach
@@ -334,16 +333,14 @@
         SINGLE BANNER START
     ==============================--> --}}
     @php
-        $bannerVisibility = $visibilities->where('id', 5)->first();
+        $bannerOne = $banners->where('id', 3)->first();
+        $bannerTwo = $banners->where('id', 4)->first();
     @endphp
-    @if ($bannerVisibility->status == 1)
+    @if ($bannerOne->status == 1)
         <section id="wsus__single_banner" class="d-none d-sm-block">
             <div class="container">
                 <div class="row">
-                    @php
-                        $bannerOne = $banners->where('id', 3)->first();
-                        $bannerTwo = $banners->where('id', 4)->first();
-                    @endphp
+
                     <div class="col-xl-6 col-lg-6">
                         <div class="wsus__single_banner_content">
                             <div class="wsus__single_banner_img">
@@ -526,7 +523,7 @@
                 </div>
                 <div class="row">
                     @foreach ($newProducts as $product)
-                    <div class="col-6 col-sm-3 col-md-3 col-lg-2">
+                        <div class="col-6 col-sm-3 col-md-3 col-lg-2">
                             @include('components/website.product-card')
                         </div>
                     @endforeach
@@ -554,7 +551,7 @@
                 </div>
                 <div class="row">
                     @foreach ($featuredProducts as $product)
-                    <div class="col-6 col-sm-3 col-md-3 col-lg-2">
+                        <div class="col-6 col-sm-3 col-md-3 col-lg-2">
                             @include('components/website.product-card')
                         </div>
                     @endforeach
@@ -660,17 +657,15 @@
         LARGE BANNER  START
     ==============================--> --}}
 
-    @php
-        $bannerVisibility = $visibilities->where('id', 10)->first();
+    {{-- @php
+        $bannerOne = $banners->where('id', 3)->first();
+        $bannerTwo = $banners->where('id', 4)->first();
     @endphp
-    @if ($bannerVisibility->status == 1)
+    @if ($bannerOne->status == 1)
         <section id="wsus__single_banner" class="d-none">
             <div class="container">
                 <div class="row">
-                    @php
-                        $bannerOne = $banners->where('id', 7)->first();
-                        $bannerTwo = $banners->where('id', 8)->first();
-                    @endphp
+
                     <div class="col-xl-6 col-lg-6">
                         <div class="wsus__single_banner_content">
                             <div class="wsus__single_banner_img">
@@ -698,7 +693,7 @@
                 </div>
             </div>
         </section>
-    @endif
+    @endif --}}
     {{-- <!--============================
         LARGE BANNER  END
     ==============================--> --}}
@@ -720,7 +715,7 @@
             </div>
             <div class="row">
                 @foreach ($bestProducts as $product)
-                <div class="col-6 col-sm-3 col-md-3 col-lg-2">
+                    <div class="col-6 col-sm-3 col-md-3 col-lg-2">
                         @include('components/website.product-card')
                     </div>
                 @endforeach
@@ -751,7 +746,7 @@
             </div>
             <div class="row">
                 @foreach ($topProducts as $product)
-                <div class="col-6 col-sm-3 col-md-3 col-lg-2">
+                    <div class="col-6 col-sm-3 col-md-3 col-lg-2">
                         @include('components/website.product-card')
                     </div>
                 @endforeach
