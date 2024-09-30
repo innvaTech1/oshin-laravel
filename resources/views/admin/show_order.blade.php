@@ -42,9 +42,9 @@
                                     $orderAddress = $order->orderAddress;
                                 @endphp
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <address>
-                                            <strong>{{ __('admin.Billing Information') }}:</strong><br>
+                                            <strong>{{ __('Billing Address') }}:</strong><br>
                                             {{ $orderAddress->billing_name }}<br>
                                             @if ($orderAddress->billing_email)
                                                 {{ $orderAddress->billing_email }}<br>
@@ -56,9 +56,9 @@
                                             {{ $orderAddress->billing_city . ', ' . $orderAddress->billing_state . ', ' . $orderAddress->billing_country }}<br>
                                         </address>
                                     </div>
-                                    <div class="col-md-6 text-md-right">
+                                    <div class="col-md-4">
                                         <address>
-                                            <strong>{{ __('admin.Shipping Information') }} :</strong><br>
+                                            <strong>{{ __('Shipping Address') }} :</strong><br>
                                             {{ $orderAddress->shipping_name }}<br>
                                             @if ($orderAddress->shipping_email)
                                                 {{ $orderAddress->shipping_email }}<br>
@@ -70,8 +70,22 @@
                                             {{ $orderAddress->shipping_city . ', ' . $orderAddress->shipping_state . ', ' . $orderAddress->shipping_country }}<br>
                                         </address>
                                     </div>
+                                    <div class="col-md-4 invoice_details">
+                                        <p>
+                                            <strong>Invoice Date: </strong>{{ $order->created_at->format('d-m-Y') }}
+                                        </p>
+                                        <p>
+                                            <strong>Order No: </strong>{{ $order->order_id }}
+                                        </p>
+                                        <p>
+                                            <strong>Order Date: </strong>{{ $order->created_at->format('d-m-Y') }}
+                                        </p>
+                                        <p>
+                                            <strong>Customer Note: </strong>{{ $order->additional_info }}
+                                        </p>
+                                    </div>
                                 </div>
-                                <div class="row">
+                                {{-- <div class="row">
                                     <div class="col-md-6">
                                         <address>
                                             <strong>{{ __('admin.Payment Information') }}:</strong><br>
@@ -110,7 +124,7 @@
                                             @endif
                                         </address>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
 
@@ -187,40 +201,9 @@
 
                                 <div class="row mt-3">
                                     <div class="col-lg-6 order-status">
-                                        <div class="section-title">{{ __('admin.Order Status') }}</div>
-
-                                        <form action="{{ route('admin.update-order-status', $order->id) }}" method="POST">
-                                            @csrf
-                                            @method('PUT')
-                                            <div class="form-group">
-                                                <label for="">{{ __('admin.Payment') }}</label>
-                                                <select name="payment_status" id="" class="form-control">
-                                                    <option {{ $order->payment_status == 0 ? 'selected' : '' }}
-                                                        value="0">{{ __('admin.Pending') }}</option>
-                                                    <option {{ $order->payment_status == 1 ? 'selected' : '' }}
-                                                        value="1">{{ __('admin.Success') }}</option>
-                                                </select>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="">{{ __('admin.Order') }}</label>
-                                                <select name="order_status" id="" class="form-control">
-                                                    <option {{ $order->order_status == 0 ? 'selected' : '' }}
-                                                        value="0">{{ __('admin.Pending') }}</option>
-                                                    <option {{ $order->order_status == 1 ? 'selected' : '' }}
-                                                        value="1">{{ __('admin.In Progress') }}</option>
-                                                    <option {{ $order->order_status == 2 ? 'selected' : '' }}
-                                                        value="2">{{ __('admin.Delivered') }}</option>
-                                                    <option {{ $order->order_status == 3 ? 'selected' : '' }}
-                                                        value="3">{{ __('admin.Completed') }}</option>
-                                                    <option {{ $order->order_status == 4 ? 'selected' : '' }}
-                                                        value="4">{{ __('admin.Declined') }}</option>
-                                                </select>
-                                            </div>
-
-                                            <button class="btn btn-primary"
-                                                type="submit">{{ __('admin.Update Status') }}</button>
-                                        </form>
+                                        <div class="">
+                                            <strong>{{ __('Payment Method') }} : </strong> {{ $order->payment_method }}
+                                        </div>
                                     </div>
 
                                     <div class="col-lg-6 text-right">
@@ -272,4 +255,69 @@
             $("#deleteForm").attr("action", '{{ url('admin/delete-order/') }}' + "/" + id)
         }
     </script>
+@endsection
+
+
+@section('style')
+    <style>
+        @media print {
+            body {
+                background: #fff !important;
+            }
+
+            .navbar,
+            .main-sidebar,
+            .section-header,
+            .print-btn,
+            .edit-btn,
+            .order-status,
+            .print-area,
+            .section-title,
+            .main-navbar,
+            .navbar-bg,
+            .main-footer {
+                display: none !important;
+            }
+
+            .invoice {
+                box-shadow: none !important;
+                width: 100% !important;
+                margin: 0 !important;
+                border: none !important;
+            }
+
+            .text-md-end {
+                text-align: right !important;
+            }
+
+            .section-body {
+                width: 100% !important;
+            }
+
+            table {
+                margin-bottom: 0 !important;
+            }
+
+            td,
+            th {
+                padding: 0 !important;
+                height: auto !important;
+            }
+
+            .col-md-6 {
+                padding: 0 !important;
+                width: 50% !important;
+            }
+
+        }
+
+        .invoice hr {
+            margin-top: 10px;
+            margin-bottom: 30px;
+        }
+
+        address {
+            margin-bottom: 0 !important;
+        }
+    </style>
 @endsection
