@@ -2,35 +2,33 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Exports\ProductExport;
-use App\Http\Controllers\Controller;
-use App\Imports\ProductImport;
-use App\Models\Product;
-use Illuminate\Http\Request;
-use App\Models\Category;
-use App\Models\SubCategory;
-use App\Models\ChildCategory;
-use App\Models\ProductGallery;
-use App\Models\Brand;
-use App\Models\ProductTax;
-use App\Models\ReturnPolicy;
-use App\Models\ProductSpecificationKey;
-use App\Models\ProductSpecification;
-use App\Models\OrderProduct;
-use App\Models\ProductVariant;
-use App\Models\ProductVariantItem;
-use App\Models\CampaignProduct;
+use Exception;
 use App\Models\City;
-use App\Models\OrderProductVariant;
+use App\Models\Brand;
+use App\Models\Product;
+use App\Models\Setting;
+use App\Models\Category;
+use App\Models\Wishlist;
+use App\Models\ProductTax;
+use App\Models\SubCategory;
+use Illuminate\Support\Str;
+use App\Models\OrderProduct;
+use App\Models\ReturnPolicy;
+use Illuminate\Http\Request;
+use App\Models\ChildCategory;
 use App\Models\ProductReport;
 use App\Models\ProductReview;
-use App\Models\Wishlist;
-use App\Models\Setting;
-use Exception;
-use Image;
-use File;
+use App\Exports\ProductExport;
+use App\Imports\ProductImport;
+use App\Models\ProductGallery;
+use App\Models\ProductVariant;
+use App\Models\CampaignProduct;
+use App\Models\ProductVariantItem;
+use App\Models\OrderProductVariant;
+use App\Http\Controllers\Controller;
+use App\Models\ProductSpecification;
 use Maatwebsite\Excel\Facades\Excel;
-use Str;
+use App\Models\ProductSpecificationKey;
 
 class ProductController extends Controller
 {
@@ -420,15 +418,11 @@ class ProductController extends Controller
         $gallery = $product->gallery;
         $old_thumbnail = $product->thumb_image;
         $product->delete();
-        if ($old_thumbnail) {
-            if (File::exists(public_path() . '/' . $old_thumbnail)) unlink(public_path() . '/' . $old_thumbnail);
-        }
+        file_delete($old_thumbnail);
         foreach ($gallery as $image) {
             $old_image = $image->image;
             $image->delete();
-            if ($old_image) {
-                if (File::exists(public_path() . '/' . $old_image)) unlink(public_path() . '/' . $old_image);
-            }
+            file_delete($old_image);
         }
         ProductVariant::where('product_id', $id)->delete();
         ProductVariantItem::where('product_id', $id)->delete();

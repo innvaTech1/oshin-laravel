@@ -121,6 +121,7 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::get('/track-order', [HomeController::class, 'trackOrder'])->name('track-order');
         Route::get('/track-order-response/{id}', [HomeController::class, 'trackOrderResponse'])->name('track-order-response');
         Route::get('/faq', [HomeController::class, 'faq'])->name('faq');
+        Route::get('/help-support', [HomeController::class, 'helpAndSupport'])->name('help-support');
         Route::get('/page/{slug}', [HomeController::class, 'customPage'])->name('page');
         Route::get('/terms-and-conditions', [HomeController::class, 'termsAndCondition'])->name('terms-and-conditions');
         Route::get('/privacy-policy', [HomeController::class, 'privacyPolicy'])->name('privacy-policy');
@@ -569,7 +570,7 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::put('update-home-page-first-two-column-banner', [AdvertisementController::class, 'updateHomePageFirstTwoColumnBanner'])->name('update-home-page-first-two-column-banner');
         Route::put('update-home-page-second-two-column-banner', [AdvertisementController::class, 'updateHomePageSecondTwoColumnBanner'])->name('update-home-page-second-two-column-banner');
         Route::put('update-home-page-third-two-column-banner', [AdvertisementController::class, 'updateHomePageThirdTwoColumnBanner'])->name('update-home-page-third-two-column-banner');
-        Route::put('update-shop-page', [AdvertisementController::Class, 'updateShopPage'])->name('update-shop-page');
+        Route::put('update-shop-page', [AdvertisementController::class, 'updateShopPage'])->name('update-shop-page');
         Route::put('update-product-detail-banner', [AdvertisementController::class, 'updateProductDetailBanner'])->name('update-product-detail-banner');
         Route::put('update-cart-bottom-banner', [AdvertisementController::class, 'updateShoppingCartBottomBanner'])->name('update-cart-bottom-banner');
         Route::put('update-campaign-page-banner', [AdvertisementController::class, 'updateCampaignPageBanner'])->name('update-campaign-page-banner');
@@ -577,11 +578,11 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::get('login-page', [ContentController::class, 'loginPage'])->name('login-page');
         Route::put('update-login-page', [ContentController::class, 'updateloginPage'])->name('update-login-page');
 
-        Route::get('shop-page', [ContentController::Class, 'shopPage'])->name('shop-page');
-        Route::put('update-filter-price', [ContentController::Class, 'updateFilterPrice'])->name('update-filter-price');
+        Route::get('shop-page', [ContentController::class, 'shopPage'])->name('shop-page');
+        Route::put('update-filter-price', [ContentController::class, 'updateFilterPrice'])->name('update-filter-price');
 
-        Route::get('seo-setup', [ContentController::Class, 'seoSetup'])->name('seo-setup');
-        Route::put('update-seo-setup/{id}', [ContentController::Class, 'updateSeoSetup'])->name('update-seo-setup');
+        Route::get('seo-setup', [ContentController::class, 'seoSetup'])->name('seo-setup');
+        Route::put('update-seo-setup/{id}', [ContentController::class, 'updateSeoSetup'])->name('update-seo-setup');
 
 
 

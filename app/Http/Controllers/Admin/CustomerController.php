@@ -13,11 +13,10 @@ use App\Models\ShippingAddress;
 use App\Models\BillingAddress;
 use App\Models\Wishlist;
 use App\Helpers\MailHelper;
-use Mail;
+
 use App\Mail\SendSingleSellerMail;
-use Image;
-use File;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class CustomerController extends Controller
 {
@@ -89,9 +88,7 @@ class CustomerController extends Controller
         $user = User::find($id);
         $user_image = $user->image;
         $user->delete();
-        if ($user_image) {
-            if (File::exists(public_path() . '/' . $user_image)) unlink(public_path() . '/' . $user_image);
-        }
+        file_delete($user_image);
 
         ProductReport::where('user_id', $id)->delete();
         ProductReview::where('user_id', $id)->delete();

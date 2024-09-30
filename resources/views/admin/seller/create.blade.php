@@ -65,7 +65,7 @@
                                         </div>
 
                                         <div class="form-group col-12">
-                                            <label>{{ __('admin.State') }}</label>
+                                            <label>{{ __('admin.State') }}<span class="text-danger">*</span></label>
                                             <select name="state_id" class="form-control select2" id="state">
                                                 <option value="">{{ __('admin.Select State') }}</option>
                                                 @foreach ($states as $state)
@@ -74,7 +74,7 @@
                                             </select>
                                         </div>
                                         <div class="form-group col-12">
-                                            <label>{{ __('admin.City') }}</label>
+                                            <label>{{ __('admin.City') }}<span class="text-danger">*</span></label>
                                             <select name="city_id" class="form-control select2" id="city">
                                                 <option value="">{{ __('admin.Select City') }}</option>
                                             </select>
@@ -82,7 +82,7 @@
 
 
                                         <div class="form-group col-12">
-                                            <label>{{ __('admin.Address') }}</label>
+                                            <label>{{ __('admin.Address') }}<span class="text-danger">*</span></label>
                                             <input type="text" id="address" class="form-control" name="address"
                                                 value="{{ old('address') }}">
                                         </div>
@@ -121,9 +121,11 @@
                                                     for="top_rated" class="mr-3">{{ __('admin.Top Rated') }}</label>
 
                                                 <input type="checkbox" name="is_featured" id="is_featured"> <label
-                                                    for="is_featured" class="mr-3">{{ __('admin.Featured Seller') }}</label>
+                                                    for="is_featured"
+                                                    class="mr-3">{{ __('admin.Featured Seller') }}</label>
                                                 <input type="checkbox" name="is_featured" id="is_featured"> <label
-                                                    for="is_verified" class="mr-3">{{ __('admin.Verified Seller') }}</label>
+                                                    for="is_verified"
+                                                    class="mr-3">{{ __('admin.Verified Seller') }}</label>
                                             </div>
                                         </div>
 

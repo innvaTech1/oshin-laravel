@@ -267,6 +267,12 @@ class HomeController extends Controller
         return view('faq', compact('banner', 'faqs'));
     }
 
+    public function helpAndSupport()
+    {
+        $banner = BreadcrumbImage::where(['id' => 5])->first();
+        return view('help_and_support', compact('banner'));
+    }
+
     public function customPage($slug)
     {
         $page = CustomPage::where(['slug' => $slug, 'status' => 1])->first();

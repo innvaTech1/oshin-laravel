@@ -6,9 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\ProductGallery;
 use App\Models\Product;
 use Illuminate\Http\Request;
-use Image;
-use File;
-use Str;
+
 class ProductGalleryController extends Controller
 {
     public function __construct()
@@ -19,15 +17,14 @@ class ProductGalleryController extends Controller
     public function index($productId)
     {
         $product = Product::find($productId);
-        if($product){
-            $gallery = ProductGallery::where('product_id',$productId)->get();
-            return view('admin.product_image_gallery',compact('gallery','product'));
-        }else{
+        if ($product) {
+            $gallery = ProductGallery::where('product_id', $productId)->get();
+            return view('admin.product_image_gallery', compact('gallery', 'product'));
+        } else {
             $notification = trans('admin_validation.Something went wrong');
-            $notification=array('messege'=>$notification,'alert-type'=>'error');
+            $notification = array('messege' => $notification, 'alert-type' => 'error');
             return redirect()->route('admin.product.index')->with($notification);
         }
-
     }
 
     public function store(Request $request)
@@ -38,14 +35,12 @@ class ProductGalleryController extends Controller
         $this->validate($request, $rules);
 
         $product = Product::find($request->product_id)->first();
-        if($product){
-            if($request->images){
-                foreach($request->images as $index => $image){
-                    $extention = $image->getClientOriginalExtension();
-                    $image_name = 'Gallery'.date('-Y-m-d-h-i-s-').rand(999,9999).'.'.$extention;
-                    $image_name = 'uploads/custom-images/'.$image_name;
-                    Image::make($image)
-                        ->save(public_path().'/'.$image_name);
+        if ($product) {
+            if ($request->images) {
+                foreach ($request->images as $index => $image) {
+
+                    $image_name = file_upload($image, null, 'uploads/custom-images/');
+
                     $gallery = new ProductGallery();
                     $gallery->product_id = $request->product_id;
                     $gallery->image = $image_name;
@@ -53,15 +48,14 @@ class ProductGalleryController extends Controller
                 }
 
                 $notification = trans('admin_validation.Uploaded Successfully');
-                $notification=array('messege'=>$notification,'alert-type'=>'success');
+                $notification = array('messege' => $notification, 'alert-type' => 'success');
                 return redirect()->back()->with($notification);
             }
-        }else{
+        } else {
             $notification = trans('admin_validation.Something went wrong');
-            $notification=array('messege'=>$notification,'alert-type'=>'error');
+            $notification = array('messege' => $notification, 'alert-type' => 'error');
             return redirect()->back()->with($notification);
         }
-
     }
 
 
@@ -70,22 +64,21 @@ class ProductGalleryController extends Controller
         $gallery = ProductGallery::find($id);
         $old_image = $gallery->image;
         $gallery->delete();
-        if($old_image){
-            if(File::exists(public_path().'/'.$old_image))unlink(public_path().'/'.$old_image);
-        }
+        file_delete($old_image);
 
         $notification = trans('admin_validation.Delete Successfully');
-        $notification = array('messege'=>$notification,'alert-type'=>'success');
+        $notification = array('messege' => $notification, 'alert-type' => 'success');
         return redirect()->back()->with($notification);
     }
 
-    public function changeStatus($id){
+    public function changeStatus($id)
+    {
         $gallery = ProductGallery::find($id);
-        if($gallery->status == 1){
+        if ($gallery->status == 1) {
             $gallery->status = 0;
             $gallery->save();
             $message = trans('admin_validation.Inactive Successfully');
-        }else{
+        } else {
             $gallery->status = 1;
             $gallery->save();
             $message = trans('admin_validation.Active Successfully');

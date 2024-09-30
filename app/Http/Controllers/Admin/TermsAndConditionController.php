@@ -5,8 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\TermsAndCondition;
 use Illuminate\Http\Request;
-use Image;
-use File;
+
 class TermsAndConditionController extends Controller
 {
     public function __construct()
@@ -18,10 +17,10 @@ class TermsAndConditionController extends Controller
     {
         $termsAndCondition = TermsAndCondition::first();
         $isTermsCondition = false;
-        if($termsAndCondition){
+        if ($termsAndCondition) {
             $isTermsCondition = true;
         }
-        return view('admin.terms_and_condition',compact('termsAndCondition','isTermsCondition'));
+        return view('admin.terms_and_condition', compact('termsAndCondition', 'isTermsCondition'));
     }
 
 
@@ -35,24 +34,22 @@ class TermsAndConditionController extends Controller
             'terms_and_condition.required' => trans('admin_validation.Terms and condition is required'),
             'banner_image.required' => trans('admin_validation.Banner image is required'),
         ];
-        $this->validate($request, $rules,$customMessages);
+        $this->validate($request, $rules, $customMessages);
 
         $termsAndCondition = new TermsAndCondition();
 
         $termsAndCondition->terms_and_condition = $request->terms_and_condition;
         $termsAndCondition->save();
-        if($request->banner_image){
-            $extention = $request->banner_image->getClientOriginalExtension();
-            $banner_name = 'terms-condition'.date('-Y-m-d-h-i-s-').rand(999,9999).'.'.$extention;
-            $banner_name = 'uploads/custom-images/'.$banner_name;
-            Image::make($request->banner_image)
-                ->save(public_path().'/'.$banner_name);
+        if ($request->banner_image) {
+
+            $banner_name = file_upload($request->banner_image, null, 'uploads/custom-images/');
+
             $termsAndCondition->terms_condition_banner = $banner_name;
             $termsAndCondition->save();
         }
 
         $notification = trans('admin_validation.Created Successfully');
-        $notification = array('messege'=>$notification,'alert-type'=>'success');
+        $notification = array('messege' => $notification, 'alert-type' => 'success');
         return redirect()->route('admin.terms-and-condition.index')->with($notification);
     }
 
@@ -69,30 +66,21 @@ class TermsAndConditionController extends Controller
             'terms_and_condition.required' => trans('admin_validation.Terms and condition is required'),
             'banner_image.required' => trans('admin_validation.Banner image is required'),
         ];
-        $this->validate($request, $rules,$customMessages);
+        $this->validate($request, $rules, $customMessages);
 
         $termsAndCondition->terms_and_condition = $request->terms_and_condition;
         $termsAndCondition->save();
-        if($request->banner_image){
+        if ($request->banner_image) {
             $exist_banner = $termsAndCondition->terms_condition_banner;
-            $extention = $request->banner_image->getClientOriginalExtension();
-            $banner_name = 'terms-condition'.date('-Y-m-d-h-i-s-').rand(999,9999).'.'.$extention;
-            $banner_name = 'uploads/custom-images/'.$banner_name;
-            Image::make($request->banner_image)
-                ->save(public_path().'/'.$banner_name);
+
+            $banner_name = file_upload($request->banner_image, $exist_banner, 'uploads/custom-images/');
+
             $termsAndCondition->terms_condition_banner = $banner_name;
             $termsAndCondition->save();
-
-            if($exist_banner){
-                if(File::exists(public_path().'/'.$exist_banner))unlink(public_path().'/'.$exist_banner);
-            }
         }
 
         $notification = trans('admin_validation.Update Successfully');
-        $notification = array('messege'=>$notification,'alert-type'=>'success');
+        $notification = array('messege' => $notification, 'alert-type' => 'success');
         return redirect()->route('admin.terms-and-condition.index')->with($notification);
     }
-
-
-
 }

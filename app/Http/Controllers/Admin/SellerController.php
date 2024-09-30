@@ -16,18 +16,14 @@ use App\Helpers\MailHelper;
 use App\Models\SellerMailLog;
 use App\Mail\SendSingleSellerMail;
 use App\Mail\ApprovedSellerAccount;
-use App\Models\WithdrawMethod;
 use App\Models\SellerWithdraw;
 use App\Models\OrderProduct;
 use App\Models\BannerImage;
 use App\Models\Setting;
 use App\Models\EmailTemplate;
-use Auth;
 use Exception;
-use Image;
-use File;
 use Illuminate\Support\Facades\Log;
-use Mail;
+use Illuminate\Support\Facades\Mail;
 
 class SellerController extends Controller
 {
@@ -85,8 +81,7 @@ class SellerController extends Controller
 
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
-                $filename = time() . '_' . $image->getClientOriginalName();
-                public_path('uploads/custom-images/seller/' . $filename);
+                $filename = file_upload($image, null, 'uploads/custom-images/seller/');
                 $data['image'] = $filename;
             }
 
@@ -241,9 +236,7 @@ class SellerController extends Controller
         $seller = Vendor::find($id);
         $banner_image = $seller->banner_image;
         $seller->delete();
-        if ($banner_image) {
-            if (File::exists(public_path() . '/' . $banner_image)) unlink(public_path() . '/' . $banner_image);
-        }
+        file_delete($banner_image);
 
         SellerMailLog::where('seller_id', $id)->delete();
         SellerWithdraw::where('seller_id', $id)->delete();
@@ -317,16 +310,11 @@ class SellerController extends Controller
 
         if ($request->banner_image) {
             $exist_banner = $seller->banner_image;
-            $extention = $request->banner_image->getClientOriginalExtension();
-            $banner_name = 'seller-banner' . date('-Y-m-d-h-i-s-') . rand(999, 9999) . '.' . $extention;
-            $banner_name = 'uploads/custom-images/' . $banner_name;
-            Image::make($request->banner_image)
-                ->save(public_path() . '/' . $banner_name);
+
+            $banner_name = file_upload($request->banner_image, $exist_banner, 'uploads/custom-images/');
+
             $seller->banner_image = $banner_name;
             $seller->save();
-            if ($exist_banner) {
-                if (File::exists(public_path() . '/' . $exist_banner)) unlink(public_path() . '/' . $exist_banner);
-            }
         }
 
         if (count($request->links) > 0) {

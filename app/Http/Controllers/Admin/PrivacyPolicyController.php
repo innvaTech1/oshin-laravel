@@ -5,8 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\TermsAndCondition;
 use Illuminate\Http\Request;
-use Image;
-use File;
+
 class PrivacyPolicyController extends Controller
 {
     public function __construct()
@@ -18,10 +17,10 @@ class PrivacyPolicyController extends Controller
     {
         $privacyPolicy = TermsAndCondition::first();
         $isPrivacyPolicy = false;
-        if($privacyPolicy){
+        if ($privacyPolicy) {
             $isPrivacyPolicy = true;
         }
-        return view('admin.privacy_policy',compact('privacyPolicy','isPrivacyPolicy'));
+        return view('admin.privacy_policy', compact('privacyPolicy', 'isPrivacyPolicy'));
     }
 
 
@@ -35,24 +34,21 @@ class PrivacyPolicyController extends Controller
             'privacy_policy.required' => trans('admin_validation.Privacy policy is required'),
             'banner_image.required' => trans('admin_validation.Banner image is required'),
         ];
-        $this->validate($request, $rules,$customMessages);
+        $this->validate($request, $rules, $customMessages);
 
         $privacyPolicy = new TermsAndCondition();
 
         $privacyPolicy->privacy_policy = $request->privacy_policy;
         $privacyPolicy->save();
-        if($request->banner_image){
-            $extention = $request->banner_image->getClientOriginalExtension();
-            $banner_name = 'privacy-policy'.date('-Y-m-d-h-i-s-').rand(999,9999).'.'.$extention;
-            $banner_name = 'uploads/custom-images/'.$banner_name;
-            Image::make($request->banner_image)
-                ->save(public_path().'/'.$banner_name);
+        if ($request->banner_image) {
+
+            $banner_name = file_upload($request->banner_image, null, 'uploads/custom-images/');
             $privacyPolicy->privacy_banner = $banner_name;
             $privacyPolicy->save();
         }
 
         $notification = trans('admin_validation.Created Successfully');
-        $notification = array('messege'=>$notification,'alert-type'=>'success');
+        $notification = array('messege' => $notification, 'alert-type' => 'success');
         return redirect()->route('admin.privacy-policy.index')->with($notification);
     }
 
@@ -69,27 +65,21 @@ class PrivacyPolicyController extends Controller
             'privacy_policy.required' => trans('admin_validation.Privacy policy is required'),
             'banner_image.required' => trans('admin_validation.Banner image is required'),
         ];
-        $this->validate($request, $rules,$customMessages);
+        $this->validate($request, $rules, $customMessages);
 
         $privacyPolicy->privacy_policy = $request->privacy_policy;
         $privacyPolicy->save();
-        if($request->banner_image){
+        if ($request->banner_image) {
             $exist_banner = $privacyPolicy->privacy_banner;
-            $extention = $request->banner_image->getClientOriginalExtension();
-            $banner_name = 'privacy-policy'.date('-Y-m-d-h-i-s-').rand(999,9999).'.'.$extention;
-            $banner_name = 'uploads/custom-images/'.$banner_name;
-            Image::make($request->banner_image)
-                ->save(public_path().'/'.$banner_name);
+
+            $banner_name = file_upload($request->banner_image, $exist_banner, 'uploads/custom-images/');
+
             $privacyPolicy->privacy_banner = $banner_name;
             $privacyPolicy->save();
-
-            if($exist_banner){
-                if(File::exists(public_path().'/'.$exist_banner))unlink(public_path().'/'.$exist_banner);
-            }
         }
 
         $notification = trans('admin_validation.Updated Successfully');
-        $notification = array('messege'=>$notification,'alert-type'=>'success');
+        $notification = array('messege' => $notification, 'alert-type' => 'success');
         return redirect()->route('admin.privacy-policy.index')->with($notification);
     }
 }

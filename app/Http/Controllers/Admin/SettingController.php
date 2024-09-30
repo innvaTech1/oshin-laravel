@@ -70,10 +70,10 @@ use App\Models\Subscriber;
 use App\Models\Admin;
 use App\Models\PusherCredentail;
 use App\Models\Message;
-use Image;
-use File;
+
+
 use Artisan;
-use Validator;
+
 
 class SettingController extends Controller
 {

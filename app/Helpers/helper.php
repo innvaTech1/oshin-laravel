@@ -28,9 +28,7 @@ function file_upload($request_file, $old_file, $file_path, $prefix = 'oshin-img'
 }
 
 if (!function_exists('allLanguages')) {
-    function allLanguages()
-    {
-    }
+    function allLanguages() {}
 }
 
 if (!function_exists('checkAdminHasPermissionAndThrowException')) {
@@ -38,6 +36,15 @@ if (!function_exists('checkAdminHasPermissionAndThrowException')) {
     {
         if (!checkAdminHasPermission($permission)) {
             throw new AccessPermissionDeniedException();
+        }
+    }
+}
+
+if (!function_exists('file_delete')) {
+    function file_delete($file)
+    {
+        if (File::exists(public_path($file))) {
+            File::delete(public_path($file));
         }
     }
 }

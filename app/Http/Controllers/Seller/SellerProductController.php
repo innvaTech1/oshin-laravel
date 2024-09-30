@@ -25,10 +25,6 @@ use App\Models\ShoppingCart;
 use App\Models\FlashSaleProduct;
 use App\Models\ShoppingCartVariant;
 use App\Models\CompareProduct;
-use Image;
-use File;
-use Str;
-use Auth;
 
 use App\Exports\ProductExport;
 use App\Imports\ProductImport;
@@ -36,6 +32,8 @@ use App\Models\ProductTax;
 use App\Models\ReturnPolicy;
 use Maatwebsite\Excel\Facades\Excel;
 use Exception;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 
 class SellerProductController extends Controller
 {
@@ -141,11 +139,8 @@ class SellerProductController extends Controller
         $seller = Auth::guard('web')->user()->seller;
         $product = new Product();
         if ($request->thumb_image) {
-            $extention = $request->thumb_image->getClientOriginalExtension();
-            $image_name = Str::slug($request->name) . date('-Y-m-d-h-i-s-') . rand(999, 9999) . '.' . $extention;
-            $image_name = 'uploads/custom-images/' . $image_name;
-            Image::make($request->thumb_image)
-                ->save(public_path() . '/' . $image_name);
+
+            $image_name = file_upload($request->thumb_image, null, 'uploads/custom-images/');
             $product->thumb_image = $image_name;
         }
 
@@ -268,16 +263,10 @@ class SellerProductController extends Controller
 
         if ($request->thumb_image) {
             $old_thumbnail = $product->thumb_image;
-            $extention = $request->thumb_image->getClientOriginalExtension();
-            $image_name = Str::slug($request->name) . date('-Y-m-d-h-i-s-') . rand(999, 9999) . '.' . $extention;
-            $image_name = 'uploads/custom-images/' . $image_name;
-            Image::make($request->thumb_image)
-                ->save(public_path() . '/' . $image_name);
+            $image_name = file_upload($request->thumb_image, $old_thumbnail, 'uploads/custom-images/');
+
             $product->thumb_image = $image_name;
             $product->save();
-            if ($old_thumbnail) {
-                if (File::exists(public_path() . '/' . $old_thumbnail)) unlink(public_path() . '/' . $old_thumbnail);
-            }
         }
 
 

@@ -10,7 +10,7 @@
                         <a href="{{ route('track-order') }}">Track Your Order</a>
                     </li>
                     <li>
-                        <a href="#">Help & Support</a>
+                        <a href="{{ route('help-support') }}">Help & Support</a>
                     </li>
                 </ul>
             </div>

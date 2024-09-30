@@ -6,8 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Campaign;
 use App\Models\CampaignProduct;
 use Illuminate\Http\Request;
-use Image;
-use File;
+
 class CampaignController extends Controller
 {
     public function __construct()
@@ -18,7 +17,7 @@ class CampaignController extends Controller
     public function index()
     {
         $campaigns = Campaign::all();
-        return view('admin.campaign',compact('campaigns'));
+        return view('admin.campaign', compact('campaigns'));
     }
 
 
@@ -31,15 +30,15 @@ class CampaignController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'name'=>'required|unique:campaigns',
-            'slug'=>'required|unique:campaigns',
-            'image'=>'required',
-            'title'=>'required',
-            'offer'=>'required|numeric',
-            'start_date'=>'required|date',
-            'end_date'=>'required|date',
-            'status'=>'required',
-            'show_homepage'=>'required',
+            'name' => 'required|unique:campaigns',
+            'slug' => 'required|unique:campaigns',
+            'image' => 'required',
+            'title' => 'required',
+            'offer' => 'required|numeric',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date',
+            'status' => 'required',
+            'show_homepage' => 'required',
         ];
         $customMessages = [
             'name.required' => trans('admin_validation.Name is required'),
@@ -54,15 +53,12 @@ class CampaignController extends Controller
             'status.required' => trans('admin_validation.Status is required'),
             'show_homepage.required' => trans('admin_validation.Show homepage is required'),
         ];
-        $this->validate($request, $rules,$customMessages);
+        $this->validate($request, $rules, $customMessages);
 
         $campaign = new Campaign();
-        if($request->image){
-            $extention=$request->image->getClientOriginalExtension();
-            $image_name = 'campaign-'.date('-Y-m-d-h-i-s-').rand(999,9999).'.'.$extention;
-            $image_name ='uploads/custom-images/'.$image_name;
-            Image::make($request->image)
-                ->save(public_path().'/'.$image_name);
+        if ($request->image) {
+
+            $image_name = file_upload($request->image, null, 'uploads/custom-images/');
             $campaign->image = $image_name;
         }
 
@@ -76,34 +72,34 @@ class CampaignController extends Controller
         $campaign->show_homepage = $request->show_homepage;
         $campaign->save();
 
-        if($request->show_homepage == 1){
-            Campaign::where('id','!=',$campaign->id)->update(['show_homepage' => 0]);
+        if ($request->show_homepage == 1) {
+            Campaign::where('id', '!=', $campaign->id)->update(['show_homepage' => 0]);
         }
 
-        $notification=trans('admin_validation.Created Successfully');
-        $notification=array('messege'=>$notification,'alert-type'=>'success');
+        $notification = trans('admin_validation.Created Successfully');
+        $notification = array('messege' => $notification, 'alert-type' => 'success');
         return redirect()->route('admin.campaign.index')->with($notification);
     }
 
     public function edit($id)
     {
         $campaign = Campaign::find($id);
-        return view('admin.edit_campaign',compact('campaign'));
+        return view('admin.edit_campaign', compact('campaign'));
     }
 
 
-    public function update(Request $request,$id)
+    public function update(Request $request, $id)
     {
         $campaign = Campaign::find($id);
         $rules = [
-            'name'=>'required|unique:campaigns,name,'.$campaign->id,
-            'slug'=>'required|unique:campaigns,slug,'.$campaign->id,
-            'title'=>'required',
-            'offer'=>'required|numeric',
-            'start_date'=>'required|date',
-            'end_date'=>'required|date',
-            'status'=>'required',
-            'show_homepage'=>'required',
+            'name' => 'required|unique:campaigns,name,' . $campaign->id,
+            'slug' => 'required|unique:campaigns,slug,' . $campaign->id,
+            'title' => 'required',
+            'offer' => 'required|numeric',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date',
+            'status' => 'required',
+            'show_homepage' => 'required',
         ];
         $customMessages = [
             'name.required' => trans('admin_validation.Name is required'),
@@ -118,20 +114,15 @@ class CampaignController extends Controller
             'status.required' => trans('admin_validation.Status is required'),
             'show_homepage.required' => trans('admin_validation.Show homepage is required'),
         ];
-        $this->validate($request, $rules,$customMessages);
+        $this->validate($request, $rules, $customMessages);
 
-        if($request->image){
+        if ($request->image) {
             $old_image = $campaign->image;
-            $extention=$request->image->getClientOriginalExtension();
-            $image_name = 'campaign-'.date('-Y-m-d-h-i-s-').rand(999,9999).'.'.$extention;
-            $image_name ='uploads/custom-images/'.$image_name;
-            Image::make($request->image)
-                ->save(public_path().'/'.$image_name);
+
+            $image_name = file_upload($request->image, $old_image, 'uploads/custom-images/');
+
             $campaign->image = $image_name;
             $campaign->save();
-            if($old_image){
-                if(File::exists(public_path().'/'.$old_image))unlink(public_path().'/'.$old_image);
-            }
         }
 
         $campaign->name = $request->name;
@@ -144,12 +135,12 @@ class CampaignController extends Controller
         $campaign->show_homepage = $request->show_homepage;
         $campaign->save();
 
-        if($request->show_homepage == 1){
-            Campaign::where('id','!=',$campaign->id)->update(['show_homepage' => 0]);
+        if ($request->show_homepage == 1) {
+            Campaign::where('id', '!=', $campaign->id)->update(['show_homepage' => 0]);
         }
 
-        $notification=trans('admin_validation.Update Successfully');
-        $notification=array('messege'=>$notification,'alert-type'=>'success');
+        $notification = trans('admin_validation.Update Successfully');
+        $notification = array('messege' => $notification, 'alert-type' => 'success');
         return redirect()->route('admin.campaign.index')->with($notification);
     }
 
@@ -158,26 +149,25 @@ class CampaignController extends Controller
         $campaign = Campaign::find($id);
         $old_image = $campaign->image;
         $campaign->delete();
-        if($old_image){
-            if(File::exists(public_path().'/'.$old_image))unlink(public_path().'/'.$old_image);
-        }
+        file_delete($old_image);
         CampaignProduct::where('campaign_id', $id)->delete();
 
-        $notification=trans('admin_validation.Delete Successfully');
-        $notification=array('messege'=>$notification,'alert-type'=>'success');
+        $notification = trans('admin_validation.Delete Successfully');
+        $notification = array('messege' => $notification, 'alert-type' => 'success');
         return redirect()->route('admin.campaign.index')->with($notification);
     }
 
-    public function changeStatus($id){
+    public function changeStatus($id)
+    {
         $campaign = Campaign::find($id);
-        if($campaign->status==1){
-            $campaign->status=0;
+        if ($campaign->status == 1) {
+            $campaign->status = 0;
             $campaign->save();
-            $message= trans('admin_validation.Inactive Successfully');
-        }else{
-            $campaign->status=1;
+            $message = trans('admin_validation.Inactive Successfully');
+        } else {
+            $campaign->status = 1;
             $campaign->save();
-            $message= trans('admin_validation.Active Successfully');
+            $message = trans('admin_validation.Active Successfully');
         }
         return response()->json($message);
     }

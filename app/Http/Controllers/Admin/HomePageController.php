@@ -10,8 +10,7 @@ use App\Models\Category;
 use App\Models\SubCategory;
 use App\Models\ChildCategory;
 use App\Models\ThreeColumnCategory;
-use Image;
-use File;
+
 class HomePageController extends Controller
 {
     public function __construct()
@@ -19,19 +18,21 @@ class HomePageController extends Controller
         $this->middleware('auth:admin');
     }
 
-    public function index(){
+    public function index()
+    {
 
         $popularCategory = PopularCategory::first();
-        $categories = Category::whereStatus('1')->orderBy('name','asc')->get();
-        $subCategories = SubCategory::whereStatus('1')->orderBy('name','asc')->get();
-        $childCategories = ChildCategory::whereStatus('1')->orderBy('name','asc')->get();
+        $categories = Category::whereStatus('1')->orderBy('name', 'asc')->get();
+        $subCategories = SubCategory::whereStatus('1')->orderBy('name', 'asc')->get();
+        $childCategories = ChildCategory::whereStatus('1')->orderBy('name', 'asc')->get();
 
         $threeColumnCategory = ThreeColumnCategory::first();
 
-        return view('admin.home_page_banner', compact('popularCategory','categories','subCategories','childCategories','threeColumnCategory'));
+        return view('admin.home_page_banner', compact('popularCategory', 'categories', 'subCategories', 'childCategories', 'threeColumnCategory'));
     }
 
-    public function updatePopularCategory(Request $request){
+    public function updatePopularCategory(Request $request)
+    {
         $rules = [
             'category_one' => 'required',
             'category_two' => 'required',
@@ -48,7 +49,7 @@ class HomePageController extends Controller
             'title.required' => trans('admin_validation.Title is required'),
             'product_qty.required' => trans('admin_validation.Product Qty is required'),
         ];
-        $this->validate($request, $rules,$customMessages);
+        $this->validate($request, $rules, $customMessages);
 
         $popularCategory = PopularCategory::first();
         $popularCategory->title = $request->title;
@@ -62,17 +63,18 @@ class HomePageController extends Controller
         $popularCategory->category_id_three = $request->category_three;
         $popularCategory->sub_category_id_three = $request->sub_category_three ? $request->sub_category_three : 0;
         $popularCategory->child_category_id_three = $request->child_category_three ? $request->child_category_three : 0;
-         $popularCategory->category_id_four = $request->category_four;
+        $popularCategory->category_id_four = $request->category_four;
         $popularCategory->sub_category_id_four = $request->sub_category_four ? $request->sub_category_four : 0;
         $popularCategory->child_category_id_four = $request->child_category_four ? $request->child_category_four : 0;
         $popularCategory->save();
 
-        $notification= trans('admin_validation.Update Successfully');
-        $notification=array('messege'=>$notification,'alert-type'=>'success');
+        $notification = trans('admin_validation.Update Successfully');
+        $notification = array('messege' => $notification, 'alert-type' => 'success');
         return redirect()->back()->with($notification);
     }
 
-    public function updateThreeColumnCategory(Request $request){
+    public function updateThreeColumnCategory(Request $request)
+    {
         $rules = [
             'category_one' => 'required',
             'category_two' => 'required',
@@ -83,7 +85,7 @@ class HomePageController extends Controller
             'category_two.required' => trans('admin_validation.Category two is required'),
             'category_three.required' => trans('admin_validation.Category three is required'),
         ];
-        $this->validate($request, $rules,$customMessages);
+        $this->validate($request, $rules, $customMessages);
 
         $threeColumnCategory = ThreeColumnCategory::first();
         $threeColumnCategory->category_id_one = $request->category_one;
@@ -97,9 +99,8 @@ class HomePageController extends Controller
         $threeColumnCategory->child_category_id_three = $request->child_category_three ? $request->child_category_three : 0;
         $threeColumnCategory->save();
 
-        $notification= trans('admin_validation.Update Successfully');
-        $notification=array('messege'=>$notification,'alert-type'=>'success');
+        $notification = trans('admin_validation.Update Successfully');
+        $notification = array('messege' => $notification, 'alert-type' => 'success');
         return redirect()->back()->with($notification);
     }
-
 }
