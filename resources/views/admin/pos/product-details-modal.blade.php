@@ -4,7 +4,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLongTitle">
-                    {{ __('admin.Product Details') }}</h5>
+                    {{ __('Product Details') }}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -74,12 +74,12 @@
 
                         <div class="availabillity">
                             <h2>
-                                {{ __('admin.Availabillity :') }}
+                                {{ __('Availabillity :') }}
                                 @if ($product->qty == 0)
-                                    <span style="color: red;">{{ __('admin.Stock Out') }}</span>
+                                    <span style="color: red;">{{ __('Stock Out') }}</span>
                                 @else
                                     <span>{{ $product->qty }}
-                                        {{ __('admin.Products Available') }}</span>
+                                        {{ __('Products Available') }}</span>
                                 @endif
 
 
@@ -137,18 +137,18 @@
                                                 </g>
                                             </svg>
                                         </span>
-                                        {{ __('admin.Add to Cart') }}
+                                        {{ __('Add to Cart') }}
                                     </button>
                                 </div>
                             </div>
                         </form>
 
                         <div class="catagory">
-                            <p>{{ __('admin.Category') }} <span>:
+                            <p>{{ __('Category') }} <span>:
                                     {{ $product->category->name }}</span>
                             </p>
-                            {{-- <p>{{__('admin.Tags :')}}  <span>{{$product->tags}}</span></p> --}}
-                            <p>{{ __('admin.SKU :') }}
+                            {{-- <p>{{__('Tags :')}}  <span>{{$product->tags}}</span></p> --}}
+                            <p>{{ __('SKU :') }}
                                 <span>{{ $product->sku }}</span>
                             </p>
                         </div>
@@ -156,7 +156,7 @@
                         <div class="social-icon">
                             <div class="social-icon-item">
                                 <div class="text">
-                                    <p>{{ __('admin.Share This') }}</p>
+                                    <p>{{ __('Share This') }}</p>
                                 </div>
                                 <div class="icon">
                                     <a href="#" target="_blank">

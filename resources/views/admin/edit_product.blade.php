@@ -1,23 +1,23 @@
 @extends('admin.master_layout')
 @section('title')
-    <title>{{ __('admin.Products') }}</title>
+    <title>{{ __('Products') }}</title>
 @endsection
 @section('admin-content')
     <!-- Main Content -->
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>{{ __('admin.Edit Product') }}</h1>
+                <h1>{{ __('Edit Product') }}</h1>
                 <div class="section-header-breadcrumb">
-                    <div class="breadcrumb-item active"><a
-                            href="{{ route('admin.dashboard') }}">{{ __('admin.Dashboard') }}</a></div>
-                    <div class="breadcrumb-item">{{ __('admin.Edit Product') }}</div>
+                    <div class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">{{ __('Dashboard') }}</a>
+                    </div>
+                    <div class="breadcrumb-item">{{ __('Edit Product') }}</div>
                 </div>
             </div>
 
             <div class="section-body">
                 <a href="{{ route('admin.product.index') }}" class="btn btn-primary"><i class="fas fa-list"></i>
-                    {{ __('admin.Products') }}</a>
+                    {{ __('Products') }}</a>
                 <div class="row mt-4">
                     <div class="col-12">
                         <div class="card">
@@ -28,7 +28,7 @@
                                     @method('PUT')
                                     <div class="row">
                                         <div class="form-group col-12">
-                                            <label>{{ __('admin.Thumbnail Image Preview') }}</label>
+                                            <label>{{ __('Thumbnail Image Preview') }}</label>
                                             <div>
                                                 <img id="preview-img" class="admin-img"
                                                     src="{{ asset($product->thumb_image) }}" alt="">
@@ -37,34 +37,33 @@
                                         </div>
 
                                         <div class="form-group col-12">
-                                            <label>{{ __('admin.Thumnail Image') }} <span
-                                                    class="text-danger">*</span></label>
+                                            <label>{{ __('Thumnail Image') }} <span class="text-danger">*</span></label>
                                             <input type="file" class="form-control-file" name="thumb_image"
                                                 onchange="previewThumnailImage(event)">
                                         </div>
 
                                         <div class="form-group col-12">
-                                            <label>{{ __('admin.Short Name') }} <span class="text-danger">*</span></label>
+                                            <label>{{ __('Short Name') }} <span class="text-danger">*</span></label>
                                             <input type="text" id="short_name" class="form-control" name="short_name"
                                                 value="{{ $product->short_name }}">
                                         </div>
 
                                         <div class="form-group col-12">
-                                            <label>{{ __('admin.Name') }} <span class="text-danger">*</span></label>
+                                            <label>{{ __('Name') }} <span class="text-danger">*</span></label>
                                             <input type="text" id="name" class="form-control" name="name"
                                                 value="{{ $product->name }}">
                                         </div>
 
                                         <div class="form-group col-12">
-                                            <label>{{ __('admin.Slug') }} <span class="text-danger">*</span></label>
+                                            <label>{{ __('Slug') }} <span class="text-danger">*</span></label>
                                             <input type="text" id="slug" class="form-control" name="slug"
                                                 value="{{ $product->slug }}">
                                         </div>
 
                                         <div class="form-group col-12">
-                                            <label>{{ __('admin.Category') }} <span class="text-danger">*</span></label>
+                                            <label>{{ __('Category') }} <span class="text-danger">*</span></label>
                                             <select name="category" class="form-control select2" id="category">
-                                                <option value="">{{ __('admin.Select Category') }}</option>
+                                                <option value="">{{ __('Select Category') }}</option>
                                                 @foreach ($categories as $category)
                                                     <option {{ $product->category_id == $category->id ? 'selected' : '' }}
                                                         value="{{ $category->id }}">{{ $category->name }}</option>
@@ -73,9 +72,9 @@
                                         </div>
 
                                         <div class="form-group col-12">
-                                            <label>{{ __('admin.Sub Category') }}</label>
+                                            <label>{{ __('Sub Category') }}</label>
                                             <select name="sub_category" class="form-control select2" id="sub_category">
-                                                <option value="">{{ __('admin.Select Sub Category') }}</option>
+                                                <option value="">{{ __('Select Sub Category') }}</option>
                                                 @if ($product->sub_category_id != 0)
                                                     @foreach ($subCategories as $subCategory)
                                                         <option
@@ -88,9 +87,9 @@
                                         </div>
 
                                         <div class="form-group col-12">
-                                            <label>{{ __('admin.Child Category') }}</label>
+                                            <label>{{ __('Child Category') }}</label>
                                             <select name="child_category" class="form-control select2" id="child_category">
-                                                <option value="">{{ __('admin.Select Child Category') }}</option>
+                                                <option value="">{{ __('Select Child Category') }}</option>
                                                 @if ($product->child_category_id != 0)
                                                     @foreach ($childCategories as $childCategory)
                                                         <option
@@ -103,9 +102,9 @@
                                         </div>
 
                                         <div class="form-group col-12">
-                                            <label>{{ __('admin.Delivery Area') }} </label>
+                                            <label>{{ __('Delivery Area') }} </label>
                                             <select name="city_id" class="form-control select2" id="city_id">
-                                                <option value="">{{ __('admin.Delivery Area') }}</option>
+                                                <option value="">{{ __('Delivery Area') }}</option>
                                                 @foreach ($cities as $city)
                                                     <option {{ old('city_id') == $city->id ? 'selected' : '' }}
                                                         value="{{ $city->id }}">{{ $city->name }}</option>
@@ -114,9 +113,9 @@
                                         </div>
 
                                         <div class="form-group col-12">
-                                            <label>{{ __('admin.Brand') }}</label>
+                                            <label>{{ __('Brand') }}</label>
                                             <select name="brand" class="form-control select2" id="brand">
-                                                <option value="">{{ __('admin.Select Brand') }}</option>
+                                                <option value="">{{ __('Select Brand') }}</option>
                                                 @foreach ($brands as $brand)
                                                     <option {{ $product->brand_id == $brand->id ? 'selected' : '' }}
                                                         value="{{ $brand->id }}">{{ $brand->name }}</option>
@@ -125,7 +124,7 @@
                                         </div>
 
                                         <div class="form-group col-12">
-                                            <label>{{ __('admin.SKU') }} </label>
+                                            <label>{{ __('SKU') }} </label>
                                             <div class="input-group">
                                                 <input type="text" name="sku" class="form-control currency"
                                                     id="sku" required value="{{ $product->sku }}">
@@ -138,26 +137,25 @@
                                         </div>
 
                                         <div class="form-group col-12">
-                                            <label>{{ __('admin.Price') }} <span class="text-danger">* </span></label>
+                                            <label>{{ __('Price') }} <span class="text-danger">* </span></label>
                                             <input type="text" class="form-control" name="price"
                                                 value="{{ $product->price }}">
                                         </div>
 
                                         <div class="form-group col-12">
-                                            <label>{{ __('admin.Offer Price') }} <span class="text-danger"> </span></label>
+                                            <label>{{ __('Offer Price') }} <span class="text-danger"> </span></label>
                                             <input type="text" class="form-control" name="offer_price"
                                                 value="{{ $product->offer_price }}">
                                         </div>
 
                                         <div class="form-group col-12">
-                                            <label>{{ __('admin.Stock Quantity') }} <span
-                                                    class="text-danger">*</span></label>
+                                            <label>{{ __('Stock Quantity') }} <span class="text-danger">*</span></label>
                                             <input type="number" class="form-control" name="quantity"
                                                 value="{{ $product->qty }}">
                                         </div>
 
                                         <div class="form-group col-12">
-                                            <label>{{ __('admin.Weight') }} <span class="text-danger">*</span></label>
+                                            <label>{{ __('Weight') }} <span class="text-danger">*</span></label>
                                             <input type="text" class="form-control" name="weight"
                                                 value="{{ $product->weight }}">
                                         </div>
@@ -165,37 +163,35 @@
 
 
                                         <div class="form-group col-12">
-                                            <label>{{ __('admin.Short Description') }} <span
+                                            <label>{{ __('Short Description') }} <span
                                                     class="text-danger">*</span></label>
                                             <textarea name="short_description" id="" cols="30" rows="10" class="form-control text-area-5">{{ $product->short_description }}</textarea>
                                         </div>
 
                                         <div class="form-group col-12">
-                                            <label>{{ __('admin.Long Description') }} <span
-                                                    class="text-danger">*</span></label>
+                                            <label>{{ __('Long Description') }} <span class="text-danger">*</span></label>
                                             <textarea name="long_description" id="" cols="30" rows="10" class="summernote">{{ $product->long_description }}</textarea>
                                         </div>
 
                                         <div class="form-group col-12">
-                                            <label>{{ __('admin.Highlight') }}</label>
+                                            <label>{{ __('Highlight') }}</label>
                                             <div>
 
                                                 <input {{ $product->is_top == 1 ? 'checked' : '' }}
                                                     type="checkbox"name="top_product" id="top_product"> <label
-                                                    for="top_product"
-                                                    class="mr-3">{{ __('admin.Just for You') }}</label>
+                                                    for="top_product" class="mr-3">{{ __('Just for You') }}</label>
 
                                                 <input {{ $product->new_product == 1 ? 'checked' : '' }} type="checkbox"
                                                     name="new_arrival" id="new_arrival"> <label for="new_arrival"
-                                                    class="mr-3">{{ __('admin.Sale Products') }}</label>
+                                                    class="mr-3">{{ __('Sale Products') }}</label>
 
                                                 <input {{ $product->is_best == 1 ? 'checked' : '' }} type="checkbox"
                                                     name="best_product" id="best_product"> <label for="best_product"
-                                                    class="mr-3">{{ __('admin.Best Selling Product') }}</label>
+                                                    class="mr-3">{{ __('Best Selling Product') }}</label>
 
                                                 <input {{ $product->is_featured == 1 ? 'checked' : '' }} type="checkbox"
                                                     name="is_featured" id="is_featured"> <label for="is_featured"
-                                                    class="mr-3">{{ __('admin.Featured Product') }}</label>
+                                                    class="mr-3">{{ __('Featured Product') }}</label>
                                             </div>
                                         </div>
 
@@ -291,44 +287,44 @@
 
                                         @if ($product->vendor_id != 0)
                                             <div class="form-group col-12">
-                                                <label>{{ __('admin.Administrator Status') }} <span data-toggle="tooltip"
+                                                <label>{{ __('Administrator Status') }} <span data-toggle="tooltip"
                                                         data-placement="top" class="fa fa-info-circle text--primary"
                                                         title="Only for seller product"></span> <span
                                                         class="text-danger">*</span></label>
                                                 <select name="approve_by_admin" class="form-control">
                                                     <option {{ $product->approve_by_admin == 1 ? 'selected' : '' }}
-                                                        value="1">{{ __('admin.Approved') }}</option>
+                                                        value="1">{{ __('Approved') }}</option>
                                                     <option {{ $product->approve_by_admin == 0 ? 'selected' : '' }}
-                                                        value="0">{{ __('admin.Pending') }}</option>
+                                                        value="0">{{ __('Pending') }}</option>
                                                 </select>
                                             </div>
                                         @endif
 
                                         <div class="form-group col-12">
-                                            <label>{{ __('admin.Status') }} <span class="text-danger">*</span></label>
+                                            <label>{{ __('Status') }} <span class="text-danger">*</span></label>
                                             <select name="status" class="form-control">
                                                 <option {{ $product->status == 1 ? 'selected' : '' }} value="1">
-                                                    {{ __('admin.Active') }}</option>
+                                                    {{ __('Active') }}</option>
                                                 <option {{ $product->status == 0 ? 'selected' : '' }} value="0">
-                                                    {{ __('admin.Inactive') }}</option>
+                                                    {{ __('Inactive') }}</option>
                                             </select>
                                         </div>
 
 
                                         <div class="form-group col-12">
-                                            <label>{{ __('admin.SEO Title') }}</label>
+                                            <label>{{ __('SEO Title') }}</label>
                                             <input type="text" class="form-control" name="seo_title"
                                                 value="{{ $product->seo_title }}">
                                         </div>
 
                                         <div class="form-group col-12">
-                                            <label>{{ __('admin.SEO Description') }}</label>
+                                            <label>{{ __('SEO Description') }}</label>
                                             <textarea name="seo_description" id="" cols="30" rows="10" class="form-control text-area-5">{{ $product->seo_description }}</textarea>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-12">
-                                            <button class="btn btn-primary">{{ __('admin.Update') }}</button>
+                                            <button class="btn btn-primary">{{ __('Update') }}</button>
                                         </div>
                                     </div>
                                 </form>
@@ -359,7 +355,7 @@
                             success: function(response) {
                                 $("#sub_category").html(response.subCategories);
                                 var response =
-                                    "<option value=''>{{ __('admin.Select Child Category') }}</option>";
+                                    "<option value=''>{{ __('Select Child Category') }}</option>";
                                 $("#child_category").html(response);
 
                             },
@@ -370,10 +366,10 @@
                         })
                     } else {
                         var response =
-                            "<option value=''>{{ __('admin.Select Sub Category') }}</option>";
+                            "<option value=''>{{ __('Select Sub Category') }}</option>";
                         $("#sub_category").html(response);
                         var response =
-                            "<option value=''>{{ __('admin.Select Child Category') }}</option>";
+                            "<option value=''>{{ __('Select Child Category') }}</option>";
                         $("#child_category").html(response);
                     }
 
@@ -397,7 +393,7 @@
                         })
                     } else {
                         var response =
-                            "<option value=''>{{ __('admin.Select Child Category') }}</option>";
+                            "<option value=''>{{ __('Select Child Category') }}</option>";
                         $("#child_category").html(response);
                     }
 

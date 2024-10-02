@@ -1,6 +1,6 @@
 @extends('admin.master_layout')
 @section('title')
-    <title>{{ __('admin.Products') }}</title>
+    <title>{{ __('Products') }}</title>
 @endsection
 @section('admin-content')
     <style>
@@ -12,11 +12,11 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>{{ __('admin.Create Product') }}</h1>
+                <h1>{{ __('Create Product') }}</h1>
                 <div class="section-header-breadcrumb">
-                    <div class="breadcrumb-item active"><a
-                            href="{{ route('admin.dashboard') }}">{{ __('admin.Dashboard') }}</a></div>
-                    <div class="breadcrumb-item">{{ __('admin.Create Product') }}</div>
+                    <div class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">{{ __('Dashboard') }}</a>
+                    </div>
+                    <div class="breadcrumb-item">{{ __('Create Product') }}</div>
                 </div>
             </div>
 
@@ -26,7 +26,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="card-title" onclick="productType('Physical')">
-                                    {{ __('admin.Physical') }}
+                                    {{ __('Physical') }}
                                 </div>
                             </div>
                         </div>
@@ -35,7 +35,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="card-title" onclick="productType('Digital')">
-                                    {{ __('admin.Digital') }}
+                                    {{ __('Digital') }}
                                 </div>
                             </div>
                         </div>

@@ -1,6 +1,6 @@
 @extends('admin.master_layout')
 @section('title')
-    <title>{{ __('admin.Invoice') }}</title>
+    <title>{{ __('Invoice') }}</title>
 @endsection
 <style>
     @media print {
@@ -21,11 +21,11 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>{{ __('admin.Invoice') }}</h1>
+                <h1>{{ __('Invoice') }}</h1>
                 <div class="section-header-breadcrumb">
-                    <div class="breadcrumb-item active"><a
-                            href="{{ route('admin.dashboard') }}">{{ __('admin.Dashboard') }}</a></div>
-                    <div class="breadcrumb-item">{{ __('admin.Invoice') }}</div>
+                    <div class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">{{ __('Dashboard') }}</a>
+                    </div>
+                    <div class="breadcrumb-item">{{ __('Invoice') }}</div>
                 </div>
             </div>
             <div class="section-body">
@@ -88,39 +88,39 @@
                                 {{-- <div class="row">
                                     <div class="col-md-6">
                                         <address>
-                                            <strong>{{ __('admin.Payment Information') }}:</strong><br>
-                                            {{ __('admin.Method') }}: {{ $order->payment_method }}<br>
-                                            {{ __('admin.Status') }} : @if ($order->payment_status == 1)
-                                                <span class="badge badge-success">{{ __('admin.Success') }}</span>
+                                            <strong>{{ __('Payment Information') }}:</strong><br>
+                                            {{ __('Method') }}: {{ $order->payment_method }}<br>
+                                            {{ __('Status') }} : @if ($order->payment_status == 1)
+                                                <span class="badge badge-success">{{ __('Success') }}</span>
                                             @else
-                                                <span class="badge badge-danger">{{ __('admin.Pending') }}</span>
+                                                <span class="badge badge-danger">{{ __('Pending') }}</span>
                                             @endif <br>
-                                            {{ __('admin.Transaction') }}: {!! clean(nl2br($order->transection_id)) !!}
+                                            {{ __('Transaction') }}: {!! clean(nl2br($order->transection_id)) !!}
                                         </address>
                                     </div>
                                     <div class="col-md-6 text-md-right">
                                         <address>
-                                            <strong>{{ __('admin.Order Information') }}:</strong><br>
+                                            <strong>{{ __('Order Information') }}:</strong><br>
                                             @if ($order->agree_terms_condition == 'yes')
-                                                {{ __('admin.Agree with Terms & Conditions') }}: <span
-                                                    class="badge badge-success">{{ __('admin.Yes') }} </span><br>
+                                                {{ __('Agree with Terms & Conditions') }}: <span
+                                                    class="badge badge-success">{{ __('Yes') }} </span><br>
                                             @else
-                                                {{ __('admin.Agree with Terms & Conditions') }}: <span
-                                                    class="badge badge-danger">{{ __('admin.No') }} </span><br>
+                                                {{ __('Agree with Terms & Conditions') }}: <span
+                                                    class="badge badge-danger">{{ __('No') }} </span><br>
                                             @endif
-                                            {{ __('admin.Date') }}: {{ $order->created_at->format('d F, Y') }}<br>
-                                            {{ __('admin.Shipping') }}: {{ $order->shipping_method }}<br>
-                                            {{ __('admin.Status') }} :
+                                            {{ __('Date') }}: {{ $order->created_at->format('d F, Y') }}<br>
+                                            {{ __('Shipping') }}: {{ $order->shipping_method }}<br>
+                                            {{ __('Status') }} :
                                             @if ($order->order_status == 1)
-                                                <span class="badge badge-success">{{ __('admin.Pregress') }} </span>
+                                                <span class="badge badge-success">{{ __('Pregress') }} </span>
                                             @elseif ($order->order_status == 2)
-                                                <span class="badge badge-success">{{ __('admin.Delivered') }} </span>
+                                                <span class="badge badge-success">{{ __('Delivered') }} </span>
                                             @elseif ($order->order_status == 3)
-                                                <span class="badge badge-success">{{ __('admin.Completed') }} </span>
+                                                <span class="badge badge-success">{{ __('Completed') }} </span>
                                             @elseif ($order->order_status == 4)
-                                                <span class="badge badge-danger">{{ __('admin.Declined') }} </span>
+                                                <span class="badge badge-danger">{{ __('Declined') }} </span>
                                             @else
-                                                <span class="badge badge-danger">{{ __('admin.Pending') }}</span>
+                                                <span class="badge badge-danger">{{ __('Pending') }}</span>
                                             @endif
                                         </address>
                                     </div>
@@ -130,19 +130,19 @@
 
                         <div class="row mt-4">
                             <div class="col-md-12">
-                                <div class="section-title">{{ __('admin.Order Summary') }}</div>
+                                <div class="section-title">{{ __('Order Summary') }}</div>
                                 <div class="table-responsive">
                                     <table class="table table-striped table-hover table-md">
                                         <tr>
                                             <th width="5%">#</th>
-                                            <th width="25%">{{ __('admin.Product') }}</th>
-                                            <th width="20%">{{ __('admin.Variant') }}</th>
+                                            <th width="25%">{{ __('Product') }}</th>
+                                            <th width="20%">{{ __('Variant') }}</th>
                                             @if ($setting->enable_multivendor == 1)
-                                                <th width="10%">{{ __('admin.Shop Name') }}</th>
+                                                <th width="10%">{{ __('Shop Name') }}</th>
                                             @endif
-                                            <th width="10%" class="text-center">{{ __('admin.Unit Price') }}</th>
-                                            <th width="10%" class="text-center">{{ __('admin.Quantity') }}</th>
-                                            <th width="10%" class="text-right">{{ __('admin.Total') }}</th>
+                                            <th width="10%" class="text-center">{{ __('Unit Price') }}</th>
+                                            <th width="10%" class="text-center">{{ __('Quantity') }}</th>
+                                            <th width="10%" class="text-right">{{ __('Total') }}</th>
                                         </tr>
                                         @php
                                             $subTotal = 0;
@@ -192,7 +192,7 @@
                                     <div class="row additional_info">
                                         <div class="col">
                                             <hr>
-                                            <h5>{{ __('admin.Additional Information') }}: </h5>
+                                            <h5>{{ __('Additional Information') }}: </h5>
                                             <p>{!! clean(nl2br($order->additional_info)) !!}</p>
                                             <hr>
                                         </div>
@@ -208,26 +208,26 @@
 
                                     <div class="col-lg-6 text-right">
                                         <div class="invoice-detail-item">
-                                            <div class="invoice-detail-name">{{ __('admin.Subtotal') }} :
+                                            <div class="invoice-detail-name">{{ __('Subtotal') }} :
                                                 {{ $setting->currency_icon }}{{ $order->sub_total }}</div>
                                         </div>
                                         <div class="invoice-detail-item">
-                                            <div class="invoice-detail-name">{{ __('admin.Discount') }}(-) :
+                                            <div class="invoice-detail-name">{{ __('Discount') }}(-) :
                                                 {{ $setting->currency_icon }}{{ $order->coupon_coast }}</div>
                                         </div>
                                         <div class="invoice-detail-item">
-                                            <div class="invoice-detail-name">{{ __('admin.Shipping') }} :
+                                            <div class="invoice-detail-name">{{ __('Shipping') }} :
                                                 {{ $setting->currency_icon }}{{ $order->shipping_cost }}</div>
                                         </div>
                                         <div class="invoice-detail-item">
-                                            <div class="invoice-detail-name">{{ __('admin.Tax') }} :
+                                            <div class="invoice-detail-name">{{ __('Tax') }} :
                                                 {{ $setting->currency_icon }}{{ $order->order_vat }}</div>
                                         </div>
 
                                         <hr class="mt-2 mb-2">
                                         <div class="invoice-detail-item">
                                             <div class="invoice-detail-value invoice-detail-value-lg">
-                                                {{ __('admin.Total') }} :
+                                                {{ __('Total') }} :
                                                 {{ $setting->currency_icon }}{{ $order->total_amount }}</div>
                                         </div>
                                     </div>
@@ -240,10 +240,10 @@
                     <div class="text-md-right print-area">
                         <hr>
                         <button class="btn btn-success btn-icon icon-left" onclick="window.print()"><i
-                                class="fas fa-print"></i> {{ __('admin.Print') }}</button>
+                                class="fas fa-print"></i> {{ __('Print') }}</button>
                         <button class="btn btn-danger btn-icon icon-left" data-toggle="modal" data-target="#deleteModal"
                             onclick="deleteData({{ $order->id }})"><i class="fas fa-times"></i>
-                            {{ __('admin.Delete') }}</button>
+                            {{ __('Delete') }}</button>
                     </div>
                 </div>
             </div>

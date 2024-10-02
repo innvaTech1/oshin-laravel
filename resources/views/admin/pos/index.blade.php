@@ -14,12 +14,12 @@
     <div class="main-content">
         <section class="section pos-wrapper-section">
             <div class="section-header">
-                <h1>{{ __('admin.Pos') }}</h1>
+                <h1>{{ __('Pos') }}</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active" style="color: #AE1C9A;"><a
-                            href="{{ route('admin.dashboard') }}">{{ __('admin.Dashboard') }}</a>
+                            href="{{ route('admin.dashboard') }}">{{ __('Dashboard') }}</a>
                     </div>
-                    <div class="breadcrumb-item">{{ __('admin.Pos') }}</div>
+                    <div class="breadcrumb-item">{{ __('Pos') }}</div>
                 </div>
             </div>
             <div class="section-body">
@@ -41,14 +41,14 @@
                                                                         stroke-linecap="round" stroke-linejoin="round" />
                                                                 </svg>
                                                             </span>
-                                                            {{ __('admin.Back') }}
+                                                            {{ __('Back') }}
                                                         </a>
                                                     </div>
                                                 </div>
 
                                                 <div class="col-md-4 pt-1">
                                                     <div class="product-taitel">
-                                                        <h3>{{ __('admin.Product Section') }}</h3>
+                                                        <h3>{{ __('Product Section') }}</h3>
                                                     </div>
                                                 </div>
 
@@ -56,7 +56,7 @@
                                                     <button style=" background-color: #6777ef; color: #fff;" type="button"
                                                         class="btn btn-info btn-primary-two" data-toggle="modal"
                                                         data-target="#exampleModalLong-2">
-                                                        {{ __('admin.Add Product') }}
+                                                        {{ __('Add Product') }}
                                                     </button>
                                                 </div>
 
@@ -105,7 +105,7 @@
                                     <div class="col-lg-12">
                                         <div class="sub-categories-btn">
                                             <div class="sub-categories-btn-text">
-                                                <h6>{{ __('admin.Categories') }}</h6>
+                                                <h6>{{ __('Categories') }}</h6>
                                             </div>
 
                                             <div class="sub-categories-all-btn">
@@ -126,10 +126,10 @@
                                                     <div class="product-btn-item">
                                                         <div class="product-item-overlay-btn">
                                                             @if ($product->qty == 0)
-                                                                <p>{{ __('admin.stock:') }} <span
+                                                                <p>{{ __('stock:') }} <span
                                                                         style="color: red;"><b>0</b></span></p>
                                                             @else
-                                                                <p>{{ __('admin.stock:') }} <span
+                                                                <p>{{ __('stock:') }} <span
                                                                         style="color: yellow;"><b>{{ $product->qty }}</b></span>
                                                                 </p>
                                                             @endif
@@ -137,14 +137,14 @@
 
                                                             <button type="button" class="over-btn" data-toggle="modal"
                                                                 data-target="#exampleModalLong{{ $product->id }}">
-                                                                {{ __('admin.Details') }}
+                                                                {{ __('Details') }}
                                                             </button>
 
                                                         </div>
 
                                                         <div class="product-item-overlay-btn product-item-overlay-btn-two">
                                                             <a href="{{ route('admin.pos.add.product', $product->id) }}"
-                                                                class="over-btn-two">{{ __('admin.Select') }}</a>
+                                                                class="over-btn-two">{{ __('Select') }}</a>
                                                             {{-- <button  type="button" class="over-btn-two" data-bs-toggle="modal"
                                                             data-bs-target="">
                                                             Select
@@ -193,7 +193,7 @@
                                     <div class="col-lg-12 product-padding ">
                                         <div>
                                             <div class="billing-section-taitel">
-                                                <h3>{{ __('admin.Billing Section') }}</h3>
+                                                <h3>{{ __('Billing Section') }}</h3>
                                             </div>
 
                                             <div class="billing-btn-main">
@@ -202,7 +202,7 @@
                                                         <div class="billing-btn-three">
                                                             <button type="button" class="btn btn-primary-two"
                                                                 data-toggle="modal" data-target="#exampleModalLong-1">
-                                                                {{ __('admin.Add Customer') }}
+                                                                {{ __('Add Customer') }}
                                                             </button>
                                                             <!-- Modal -->
                                                             @include('admin.pos.customer-modal')
@@ -211,7 +211,7 @@
                                                     <div class="col-sm-6 d-flex justify-content-end">
                                                         <div class="form-group custom-form-group">
                                                             {{-- <button type="submit"
-                                                                    class="btn btn-one">{{ __('admin.Update Cart') }}</button> --}}
+                                                                    class="btn btn-one">{{ __('Update Cart') }}</button> --}}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -221,7 +221,7 @@
 
                                     <div class="delivery-information">
                                         <div class="delivery-information-taitel">
-                                            <h3>{{ __('admin.Selected Product') }}</h3>
+                                            <h3>{{ __('Selected Product') }}</h3>
                                         </div>
 
                                         <div class="delivery-information-top-item">
@@ -353,7 +353,7 @@
                                         </div>
 
                                         <div class="apply-promo-code">
-                                            <h3>{{ __('admin.Apply Promo Code') }}</h3>
+                                            <h3>{{ __('Apply Promo Code') }}</h3>
                                         </div>
 
                                         <div class="apply-promo-code-btn-main">
@@ -364,7 +364,7 @@
 
                                                 <!-- Button trigger modal -->
                                                 <button type="submit" class="promo-code-btn">
-                                                    {{ __('admin.Apply') }}
+                                                    {{ __('Apply') }}
                                                 </button>
                                             </form>
                                             <!-- Button trigger modal -->
@@ -377,7 +377,7 @@
                                                     <div class="modal-content">
                                                         <div class="modal-header">
                                                             <h5 class="modal-title" id="exampleModalLabel0">
-                                                                {{ __('admin.Modal title') }}</h5>
+                                                                {{ __('Modal title') }}</h5>
                                                             <button type="button" class="close" data-dismiss="modal"
                                                                 aria-label="Close">
                                                                 <span aria-hidden="true">&times;</span>
@@ -388,10 +388,10 @@
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary"
-                                                                data-dismiss="modal">{{ __('admin.Close') }}</button>
+                                                                data-dismiss="modal">{{ __('Close') }}</button>
                                                             <button type="button"
-                                                                class="btn btn-primary">{{ __('admin.Save') }}
-                                                                {{ __('admin.changes') }}</button>
+                                                                class="btn btn-primary">{{ __('Save') }}
+                                                                {{ __('changes') }}</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -402,9 +402,9 @@
 
                                         <div class="sub-total">
                                             <div class="sub-total-item">
-                                                <h6>{{ __('admin.Sub total :') }}</h6>
-                                                <h6>{{ __('admin.Discount :') }}</h6>
-                                                <h6>{{ __('admin.Tax :') }}</h6>
+                                                <h6>{{ __('Sub total :') }}</h6>
+                                                <h6>{{ __('Discount :') }}</h6>
+                                                <h6>{{ __('Tax :') }}</h6>
                                             </div>
                                             @if ($grandTotal == 0)
                                                 <div class="sub-total-inner">
@@ -423,7 +423,7 @@
 
                                         <div class="sub-total-btm">
                                             <div class="sub-total-btm-item">
-                                                <h6>{{ __('admin.Sub total :') }}</h6>
+                                                <h6>{{ __('Sub total :') }}</h6>
                                             </div>
                                             @if ($grandTotal == 0)
                                                 <div class="sub-total-btm-inner">
@@ -440,7 +440,7 @@
                                             <div class="sub-total-btn-one">
                                                 <button type="button" class="cancel-btn" data-toggle="modal"
                                                     data-target="#exampleModalLong-3">
-                                                    {{ __('admin.Cancel Order') }}
+                                                    {{ __('Cancel Order') }}
                                                 </button>
 
                                                 <!-- Modal -->
@@ -458,19 +458,19 @@
                                                                 </div>
 
                                                                 <div class="modal-img-text">
-                                                                    <h4>{{ __('admin.Are you sure') }}</h4>
-                                                                    <p>{{ __('admin.You want to remove all items from cart!!') }}
+                                                                    <h4>{{ __('Are you sure') }}</h4>
+                                                                    <p>{{ __('You want to remove all items from cart!!') }}
                                                                     </p>
                                                                 </div>
                                                             </div>
                                                             <div class="modal-footer">
 
                                                                 <button type="button" class="no-btn yes-btn"
-                                                                    data-dismiss="modal">{{ __('admin.No') }}</button>
+                                                                    data-dismiss="modal">{{ __('No') }}</button>
 
                                                                 <a class="no-btn"
                                                                     href="{{ route('admin.pos.cart.clear.product') }}">
-                                                                    {{ __('admin.Yes') }}
+                                                                    {{ __('Yes') }}
                                                                 </a>
 
                                                             </div>
@@ -484,7 +484,7 @@
                                                 <!-- Button trigger modal -->
                                                 <button type="button" class="place-order" data-toggle="modal"
                                                     data-target="#exampleModal-4" onclick="receiveSubmitView()">
-                                                    {{ __('admin.Place Order') }}
+                                                    {{ __('Place Order') }}
                                                 </button>
 
                                                 <!-- Modal -->
@@ -494,7 +494,7 @@
                                                         <div class="modal-content">
                                                             <div class="modal-header">
                                                                 <h5 class="modal-title" id="exampleModalLabel-00">
-                                                                    {{ __('admin.Payment') }}
+                                                                    {{ __('Payment') }}
                                                                 </h5>
                                                                 <button type="button" class="close"
                                                                     data-dismiss="modal" aria-label="Close">
@@ -529,12 +529,12 @@
 
                                                                             <div class="form-group">
                                                                                 <label
-                                                                                    for="">{{ __('admin.Select Customer') }}</label>
+                                                                                    for="">{{ __('Select Customer') }}</label>
                                                                                 <select name="customer_id" id=""
                                                                                     class="form-control select2" required>
                                                                                     <option value="" disabled
                                                                                         selected>
-                                                                                        {{ __('admin.Select a Customer') }}
+                                                                                        {{ __('Select a Customer') }}
                                                                                     </option>
                                                                                     @php
                                                                                         $CustomerCount = count(
@@ -555,12 +555,12 @@
 
                                                                             <div class="form-group">
                                                                                 <label
-                                                                                    for="">{{ __('admin.Add Shipping') }}</label>
+                                                                                    for="">{{ __('Add Shipping') }}</label>
                                                                                 <select name="shipping_id" id=""
                                                                                     class="form-control select2" required>
                                                                                     <option value="" disabled
                                                                                         selected>
-                                                                                        {{ __('admin.Select a shipping rule') }}
+                                                                                        {{ __('Select a shipping rule') }}
                                                                                     </option>
                                                                                     @php
                                                                                         $shippingsCount = count(
@@ -580,7 +580,7 @@
 
                                                                             <div class="from-select-main">
                                                                                 <label
-                                                                                    for="">{{ __('admin.Payment Method') }}</label>
+                                                                                    for="">{{ __('Payment Method') }}</label>
                                                                                 <select name="payment_method"
                                                                                     id="" class="form-control"
                                                                                     required>
@@ -589,40 +589,40 @@
                                                                                         {{ __('Select Payment Method') }}
                                                                                     </option>
                                                                                     <option value="Cash">
-                                                                                        {{ __('admin.Cash') }}</option>
+                                                                                        {{ __('Cash') }}</option>
                                                                                     <option value="Cash on Delivery">
-                                                                                        {{ __('admin.Cash on Delivery') }}
+                                                                                        {{ __('Cash on Delivery') }}
                                                                                     </option>
                                                                                 </select>
                                                                             </div>
 
                                                                             <div class="form-group">
                                                                                 <label
-                                                                                    for="">{{ __('admin.Order') }}</label>
+                                                                                    for="">{{ __('Order') }}</label>
                                                                                 <select name="order_status" id=""
                                                                                     class="form-control" required>
                                                                                     <option value="" disabled
                                                                                         selected>
-                                                                                        {{ __('admin.Select Order Status') }}
+                                                                                        {{ __('Select Order Status') }}
                                                                                     </option>
                                                                                     <option value="0">
-                                                                                        {{ __('admin.Pending') }}</option>
+                                                                                        {{ __('Pending') }}</option>
                                                                                     <option value="1">
-                                                                                        {{ __('admin.In Progress') }}
+                                                                                        {{ __('In Progress') }}
                                                                                     </option>
                                                                                     <option value="2">
-                                                                                        {{ __('admin.Delivered') }}
+                                                                                        {{ __('Delivered') }}
                                                                                     </option>
                                                                                     <option value="3">
-                                                                                        {{ __('admin.Completed') }}
+                                                                                        {{ __('Completed') }}
                                                                                     </option>
                                                                                     <option value="4">
-                                                                                        {{ __('admin.Declined') }}
+                                                                                        {{ __('Declined') }}
                                                                                     </option>
                                                                                 </select>
                                                                             </div>
                                                                             <button
-                                                                                type="submit"class="modal-from-btm-btn">{{ __('admin.Submit') }}</button>
+                                                                                type="submit"class="modal-from-btm-btn">{{ __('Submit') }}</button>
                                                                         </form>
                                                                     </div>
                                                                 </div>
@@ -783,7 +783,7 @@
                             success: function(response) {
                                 $("#sub_category").html(response.subCategories);
                                 var response =
-                                    "<option value=''>{{ __('admin.Select Child Category') }}</option>";
+                                    "<option value=''>{{ __('Select Child Category') }}</option>";
                                 $("#child_category").html(response);
                             },
                             error: function(err) {
@@ -793,10 +793,10 @@
                         })
                     } else {
                         var response =
-                            "<option value=''>{{ __('admin.Select Sub Category') }}</option>";
+                            "<option value=''>{{ __('Select Sub Category') }}</option>";
                         $("#sub_category").html(response);
                         var response =
-                            "<option value=''>{{ __('admin.Select Child Category') }}</option>";
+                            "<option value=''>{{ __('Select Child Category') }}</option>";
                         $("#child_category").html(response);
                     }
 
@@ -820,7 +820,7 @@
                         })
                     } else {
                         var response =
-                            "<option value=''>{{ __('admin.Select Child Category') }}</option>";
+                            "<option value=''>{{ __('Select Child Category') }}</option>";
                         $("#child_category").html(response);
                     }
 

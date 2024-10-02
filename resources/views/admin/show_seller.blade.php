@@ -1,25 +1,25 @@
 @extends('admin.master_layout')
 @section('title')
-    <title>{{ __('admin.Seller Details') }}</title>
+    <title>{{ __('Seller Details') }}</title>
 @endsection
 @section('admin-content')
     <!-- Main Content -->
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>{{ __('admin.Seller Details') }}</h1>
+                <h1>{{ __('Seller Details') }}</h1>
                 <div class="section-header-breadcrumb">
-                    <div class="breadcrumb-item active"><a
-                            href="{{ route('admin.dashboard') }}">{{ __('admin.Dashboard') }}</a></div>
-                    <div class="breadcrumb-item active"><a
-                            href="{{ route('admin.seller-list') }}">{{ __('admin.Seller List') }}</a></div>
-                    <div class="breadcrumb-item">{{ __('admin.Seller Details') }}</div>
+                    <div class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">{{ __('Dashboard') }}</a>
+                    </div>
+                    <div class="breadcrumb-item active"><a href="{{ route('admin.seller-list') }}">{{ __('Seller List') }}</a>
+                    </div>
+                    <div class="breadcrumb-item">{{ __('Seller Details') }}</div>
                 </div>
             </div>
 
             <div class="section-body">
                 <a href="{{ route('admin.seller-list') }}" class="btn btn-primary"><i class="fas fa-list"></i>
-                    {{ __('admin.Seller List') }}</a>
+                    {{ __('Seller List') }}</a>
                 <div class="row mt-5">
                     <div class="col-md-3">
                         <div class="card card-statistic-1">
@@ -28,7 +28,7 @@
                             </div>
                             <div class="card-wrap">
                                 <div class="card-header">
-                                    <h4>{{ __('admin.Total Product Sale') }}</h4>
+                                    <h4>{{ __('Total Product Sale') }}</h4>
                                 </div>
                                 <div class="card-body">
                                     {{ $totalSoldProduct }}
@@ -45,7 +45,7 @@
                                 </div>
                                 <div class="card-wrap">
                                     <div class="card-header">
-                                        <h4>{{ __('admin.Total Withdraw') }}</h4>
+                                        <h4>{{ __('Total Withdraw') }}</h4>
                                     </div>
                                     <div class="card-body">
                                         {{ $setting->currency_icon }}{{ $totalWithdraw }}
@@ -64,7 +64,7 @@
                             </div>
                             <div class="card-wrap">
                                 <div class="card-header">
-                                    <h4>{{ __('admin.Current Balance') }}</h4>
+                                    <h4>{{ __('Current Balance') }}</h4>
                                 </div>
                                 <div class="card-body">
                                     {{ $setting->currency_icon }}{{ $totalAmount - $totalWithdraw }}
@@ -80,7 +80,7 @@
                                 </div>
                                 <div class="card-wrap">
                                     <div class="card-header">
-                                        <h4>{{ __('admin.Total Products') }}</h4>
+                                        <h4>{{ __('Total Products') }}</h4>
                                     </div>
                                     <div class="card-body">
                                         {{ $seller->products->count() }}
@@ -100,12 +100,12 @@
                                 @endif
                                 <div class="profile-widget-items">
                                     <div class="profile-widget-item">
-                                        <div class="profile-widget-item-label">{{ __('admin.Joined at') }}</div>
+                                        <div class="profile-widget-item-label">{{ __('Joined at') }}</div>
                                         <div class="profile-widget-item-value">{{ $user->created_at->format('d M Y') }}
                                         </div>
                                     </div>
                                     <div class="profile-widget-item">
-                                        <div class="profile-widget-item-label">{{ __('admin.Balance') }}</div>
+                                        <div class="profile-widget-item-label">{{ __('Balance') }}</div>
                                         <div class="profile-widget-item-value">
                                             {{ $setting->currency_icon }}{{ $totalAmount }}</div>
                                     </div>
@@ -115,56 +115,54 @@
                                 <div class="table-responsive">
                                     <table class="table table-bordered table-striped">
                                         <tr>
-                                            <td>{{ __('admin.Name') }}</td>
+                                            <td>{{ __('Name') }}</td>
                                             <td>{{ $user->name }}</td>
                                         </tr>
                                         <tr>
-                                            <td>{{ __('admin.Email') }}</td>
+                                            <td>{{ __('Email') }}</td>
                                             <td>{{ $user->email }}</td>
                                         </tr>
                                         <tr>
-                                            <td>{{ __('admin.Phone') }}</td>
+                                            <td>{{ __('Phone') }}</td>
                                             <td>{{ $user->phone }}</td>
                                         </tr>
                                         <tr>
-                                            <td>{{ __('admin.User Status') }}</td>
+                                            <td>{{ __('User Status') }}</td>
                                             <td>
                                                 @if ($user->status == 1)
                                                     <a href="javascript:;"
                                                         onclick="manageCustomerStatus({{ $user->id }})">
                                                         <input id="status_toggle" type="checkbox" checked
-                                                            data-toggle="toggle" data-on="{{ __('admin.Active') }}"
-                                                            data-off="{{ __('admin.InActive') }}" data-onstyle="success"
+                                                            data-toggle="toggle" data-on="{{ __('Active') }}"
+                                                            data-off="{{ __('InActive') }}" data-onstyle="success"
                                                             data-offstyle="danger">
                                                     </a>
                                                 @else
                                                     <a href="javascript:;"
                                                         onclick="manageCustomerStatus({{ $user->id }})">
                                                         <input id="status_toggle" type="checkbox" data-toggle="toggle"
-                                                            data-on="{{ __('admin.Active') }}"
-                                                            data-off="{{ __('admin.InActive') }}" data-onstyle="success"
-                                                            data-offstyle="danger">
+                                                            data-on="{{ __('Active') }}" data-off="{{ __('InActive') }}"
+                                                            data-onstyle="success" data-offstyle="danger">
                                                     </a>
                                                 @endif
                                             </td>
                                         </tr>
 
                                         <tr>
-                                            <td>{{ __('admin.Shop Status') }}</td>
+                                            <td>{{ __('Shop Status') }}</td>
                                             <td>
                                                 @if ($seller->status == 1)
                                                     <a href="javascript:;" onclick="manageShopStatus({{ $seller->id }})">
                                                         <input id="status_toggle" type="checkbox" checked
-                                                            data-toggle="toggle" data-on="{{ __('admin.Active') }}"
-                                                            data-off="{{ __('admin.InActive') }}" data-onstyle="success"
+                                                            data-toggle="toggle" data-on="{{ __('Active') }}"
+                                                            data-off="{{ __('InActive') }}" data-onstyle="success"
                                                             data-offstyle="danger">
                                                     </a>
                                                 @else
                                                     <a href="javascript:;" onclick="manageShopStatus({{ $seller->id }})">
                                                         <input id="status_toggle" type="checkbox" data-toggle="toggle"
-                                                            data-on="{{ __('admin.Active') }}"
-                                                            data-off="{{ __('admin.InActive') }}" data-onstyle="success"
-                                                            data-offstyle="danger">
+                                                            data-on="{{ __('Active') }}" data-off="{{ __('InActive') }}"
+                                                            data-onstyle="success" data-offstyle="danger">
                                                     </a>
                                                 @endif
                                             </td>
@@ -176,7 +174,7 @@
                             </div>
 
                             <div class="card-footer text-center">
-                                <div class="font-weight-bold mb-2">{{ __('admin.Follow') }} {{ $user->name }}</div>
+                                <div class="font-weight-bold mb-2">{{ __('Follow') }} {{ $user->name }}</div>
                                 @php
                                     $colorId = 1;
                                 @endphp
@@ -214,26 +212,26 @@
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h1>{{ __('admin.Seller Action') }}</h1>
+                                        <h1>{{ __('Seller Action') }}</h1>
                                     </div>
                                     <div class="card-body text-center">
                                         <div class="row">
                                             <div class="col-12">
                                                 <a href="{{ route('admin.seller-shop-detail', $user->id) }}"
-                                                    class="btn btn-success btn-block btn-lg my-2">{{ __('admin.Go to Shop') }}</a>
+                                                    class="btn btn-success btn-block btn-lg my-2">{{ __('Go to Shop') }}</a>
                                             </div>
                                             <div class="col-12">
                                                 <a href="{{ route('admin.seller-reviews', $user->id) }}"
-                                                    class="btn btn-primary btn-block btn-lg my-2">{{ __('admin.Seller Reviews') }}</a>
+                                                    class="btn btn-primary btn-block btn-lg my-2">{{ __('Seller Reviews') }}</a>
                                             </div>
 
                                             <div class="col-12">
                                                 <a href="{{ route('admin.send-email-to-seller', $user->id) }}"
-                                                    class="btn btn-warning btn-block btn-lg my-2">{{ __('admin.Send Email') }}</a>
+                                                    class="btn btn-warning btn-block btn-lg my-2">{{ __('Send Email') }}</a>
                                             </div>
                                             <div class="col-12">
                                                 <a href="{{ route('admin.email-history', $user->id) }}"
-                                                    class="btn btn-info btn-block btn-lg my-2">{{ __('admin.Email Log') }}</a>
+                                                    class="btn btn-info btn-block btn-lg my-2">{{ __('Email Log') }}</a>
                                             </div>
                                         </div>
                                     </div>
@@ -250,32 +248,32 @@
                                 @method('put')
                                 @csrf
                                 <div class="card-header">
-                                    <h4>{{ __('admin.Edit Profile') }}</h4>
+                                    <h4>{{ __('Edit Profile') }}</h4>
                                 </div>
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="form-group col-6">
-                                            <label>{{ __('admin.Name') }} <span class="text-danger">*</span></label>
+                                            <label>{{ __('Name') }} <span class="text-danger">*</span></label>
                                             <input type="text" class="form-control" value="{{ $user->name }}"
                                                 name="name">
                                         </div>
 
                                         <div class="form-group col-6">
-                                            <label>{{ __('admin.Email') }} <span class="text-danger">*</span></label>
+                                            <label>{{ __('Email') }} <span class="text-danger">*</span></label>
                                             <input type="email" class="form-control" value="{{ $user->email }}"
                                                 name="email" readonly>
                                         </div>
 
                                         <div class="form-group col-6">
-                                            <label>{{ __('admin.Phone') }} <span class="text-danger">*</span></label>
+                                            <label>{{ __('Phone') }} <span class="text-danger">*</span></label>
                                             <input type="text" class="form-control" value="{{ $user->phone }}"
                                                 name="phone">
                                         </div>
 
                                         <div class="form-group col-6">
-                                            <label>{{ __('admin.State') }} </label>
+                                            <label>{{ __('State') }} </label>
                                             <select name="state" id="state_id" class="form-control select2">
-                                                <option value="">{{ __('admin.Select State') }}</option>
+                                                <option value="">{{ __('Select State') }}</option>
                                                 @if ($user->state_id != 0)
                                                     @foreach ($states as $state)
                                                         <option {{ $user->state_id == $state->id ? 'selected' : '' }}
@@ -290,9 +288,9 @@
                                         </div>
 
                                         <div class="form-group col-6">
-                                            <label>{{ __('admin.City') }} </label>
+                                            <label>{{ __('City') }} </label>
                                             <select name="city" id="city_id" class="form-control select2">
-                                                <option value="">{{ __('admin.Select City') }}</option>
+                                                <option value="">{{ __('Select City') }}</option>
                                                 @if ($user->city_id != 0)
                                                     @foreach ($cities as $city)
                                                         <option {{ $user->city_id == $city->id ? 'selected' : '' }}
@@ -303,14 +301,13 @@
                                         </div>
 
                                         <div class="form-group col-6">
-                                            <label>{{ __('admin.Address') }} <span class="text-danger">*</span></label>
+                                            <label>{{ __('Address') }} <span class="text-danger">*</span></label>
                                             <input type="text" class="form-control" value="{{ $user->address }}"
                                                 name="address">
                                         </div>
 
                                     </div>
-                                    <button class="btn btn-primary"
-                                        type="submit">{{ __('admin.Save Changes') }}</button>
+                                    <button class="btn btn-primary" type="submit">{{ __('Save Changes') }}</button>
                                 </div>
 
                             </form>
@@ -322,22 +319,22 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="">{{ __('admin.Password') }}</label>
+                                                <label for="">{{ __('Password') }}</label>
                                                 <input type="password" class="form-control" name="password"
-                                                    placeholder="{{ __('admin.Password') }}">
+                                                    placeholder="{{ __('Password') }}">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="">{{ __('admin.Confirm Password') }}</label>
+                                                <label for="">{{ __('Confirm Password') }}</label>
                                                 <input type="password" class="form-control" name="password_confirmation"
-                                                    placeholder="{{ __('admin.Confirm Password') }}">
+                                                    placeholder="{{ __('Confirm Password') }}">
                                             </div>
                                         </div>
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <button class="btn btn-primary btn-lg btn-block"
-                                                    type="submit">{{ __('admin.Reset Password') }}</button>
+                                                    type="submit">{{ __('Reset Password') }}</button>
                                             </div>
                                         </div>
                                     </div>
@@ -402,7 +399,7 @@
                             success: function(response) {
                                 $("#state_id").html(response.states);
                                 var response =
-                                    "<option value=''>{{ __('admin.Select a City') }}</option>";
+                                    "<option value=''>{{ __('Select a City') }}</option>";
                                 $("#city_id").html(response);
                             },
                             error: function(err) {
@@ -410,9 +407,9 @@
                             }
                         })
                     } else {
-                        var response = "<option value=''>{{ __('admin.Select a State') }}</option>";
+                        var response = "<option value=''>{{ __('Select a State') }}</option>";
                         $("#state_id").html(response);
-                        var response = "<option value=''>{{ __('admin.Select a City') }}</option>";
+                        var response = "<option value=''>{{ __('Select a City') }}</option>";
                         $("#city_id").html(response);
                     }
 
@@ -433,7 +430,7 @@
                             }
                         })
                     } else {
-                        var response = "<option value=''>{{ __('admin.Select a City') }}</option>";
+                        var response = "<option value=''>{{ __('Select a City') }}</option>";
                         $("#city_id").html(response);
                     }
 

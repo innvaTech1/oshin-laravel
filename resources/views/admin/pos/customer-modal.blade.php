@@ -3,7 +3,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLongTitle-1">
-                    {{ __('admin.Add New Customer') }}</h5>
+                    {{ __('Add New Customer') }}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -15,7 +15,7 @@
                         <div class="from-item-main">
                             <div class="modal-from-item-d-b">
                                 <div class="modal-from-inner">
-                                    <label for="exampleFormControlInput1" class="form-label">{{ __('admin.Full Name') }}
+                                    <label for="exampleFormControlInput1" class="form-label">{{ __('Full Name') }}
                                         <span style="color: red;">*</span></label>
                                     <input type="text" class="form-control" name="name"
                                         id="exampleFormControlInput1" placeholder=" Name" required>
@@ -23,15 +23,13 @@
                             </div>
                             <div class="modal-from-item modal-from-item-two">
                                 <div class="modal-from-inner">
-                                    <label for="exampleFormControlInput1"
-                                        class="form-label">{{ __('admin.Email Address') }}
+                                    <label for="exampleFormControlInput1" class="form-label">{{ __('Email Address') }}
                                         <span style="color: red;">*</span></label>
                                     <input type="email" class="form-control" name="email"
                                         id="exampleFormControlInput5" placeholder="infoyour@gmail.com" required>
                                 </div>
                                 <div class="modal-from-inner">
-                                    <label for="exampleFormControlInput1"
-                                        class="form-label">{{ __('admin.Phone Number') }}
+                                    <label for="exampleFormControlInput1" class="form-label">{{ __('Phone Number') }}
                                         <span style="color: red;">*</span></label>
                                     <input type="text" class="form-control" name="phone"
                                         id="exampleFormControlInput4" placeholder="Phone Number" required>
@@ -40,7 +38,7 @@
 
                             <div class="from-select-main">
                                 <div class="from-select-main-item">
-                                    <label for="exampleFormControlInput1" class="form-label">{{ __('admin.Country') }}
+                                    <label for="exampleFormControlInput1" class="form-label">{{ __('Country') }}
                                         <span style="color: red;">*</span></label>
                                     <div class="from-select-main">
                                         <select class="form-control select2" name="country" required>
@@ -57,7 +55,7 @@
                             <div class="from-select-main-item-two">
                                 <div class="from-select-main">
                                     <div class="from-select-main-item">
-                                        <label for="exampleFormControlInput1" class="form-label">{{ __('admin.State') }}
+                                        <label for="exampleFormControlInput1" class="form-label">{{ __('State') }}
                                             <span style="color: red;">*</span></label>
                                         <div class="from-select-main">
 
@@ -83,7 +81,7 @@
                                 </div>
                                 <div class="from-select-main">
                                     <div class="from-select-main-item">
-                                        <label for="exampleFormControlInput1" class="form-label">{{ __('admin.City') }}
+                                        <label for="exampleFormControlInput1" class="form-label">{{ __('City') }}
                                             <span style="color: red;">*</span></label>
                                         <div class="from-select-main">
 
@@ -111,7 +109,7 @@
 
                             <div class=" modal-from-item-d-b">
                                 <div class="modal-from-inner">
-                                    <label for="exampleFormControlInput1" class="form-label">{{ __('admin.Address') }}
+                                    <label for="exampleFormControlInput1" class="form-label">{{ __('Address') }}
                                         <span style="color: red;">*</span></label>
                                     <textarea class="form-control" name="address" id="" cols="30" rows="10"></textarea>
                                 </div>
@@ -122,20 +120,20 @@
                                     <input class="form-check-input" type="radio" name="location" id="homeRadio"
                                         value="Home">
                                     <label class="form-check-label" for="homeRadio">
-                                        {{ __('admin.Home') }}
+                                        {{ __('Home') }}
                                     </label>
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="location" id="officeRadio"
                                         value="Office">
                                     <label class="form-check-label" for="officeRadio">
-                                        {{ __('admin.Office') }}
+                                        {{ __('Office') }}
                                     </label>
                                 </div>
                             </div>
 
                             <button type="submit" class="modal-from-btm-btn">
-                                {{ __('admin.Submit') }}
+                                {{ __('Submit') }}
                             </button>
                         </div>
                     </form>

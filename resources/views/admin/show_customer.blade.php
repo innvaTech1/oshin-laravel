@@ -1,23 +1,23 @@
 @extends('admin.master_layout')
 @section('title')
-    <title>{{ __('admin.Customer List') }}</title>
+    <title>{{ __('Customer List') }}</title>
 @endsection
 @section('admin-content')
     <!-- Main Content -->
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>{{ __('admin.Customer List') }}</h1>
+                <h1>{{ __('Customer List') }}</h1>
                 <div class="section-header-breadcrumb">
-                    <div class="breadcrumb-item active"><a
-                            href="{{ route('admin.dashboard') }}">{{ __('admin.Dashboard') }}</a></div>
-                    <div class="breadcrumb-item">{{ __('admin.Customer List') }}</div>
+                    <div class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">{{ __('Dashboard') }}</a>
+                    </div>
+                    <div class="breadcrumb-item">{{ __('Customer List') }}</div>
                 </div>
             </div>
 
             <div class="section-body">
                 <a href="{{ route('admin.customer-list') }}" class="btn btn-primary"><i class="fas fa-list"></i>
-                    {{ __('admin.Customer List') }}</a>
+                    {{ __('Customer List') }}</a>
                 <div class="row mt-4">
                     <div class="col">
                         <div class="card">
@@ -25,7 +25,7 @@
                                 <div class="table-responsive table-invoice">
                                     <table class="table table-striped table-bordered">
                                         <tr>
-                                            <td>{{ __('admin.Image') }}</td>
+                                            <td>{{ __('Image') }}</td>
                                             <td>
                                                 @if ($customer->image)
                                                     <img src="{{ asset($customer->image) }}" class="rounded-circle"
@@ -34,55 +34,54 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>{{ __('admin.Name') }}</td>
+                                            <td>{{ __('Name') }}</td>
                                             <td>{{ $customer->name }}</td>
                                         </tr>
                                         <tr>
-                                            <td>{{ __('admin.Email') }}</td>
+                                            <td>{{ __('Email') }}</td>
                                             <td>{{ $customer->email }}</td>
                                         </tr>
                                         <tr>
-                                            <td>{{ __('admin.Phone') }}</td>
+                                            <td>{{ __('Phone') }}</td>
                                             <td>{{ $customer->phone }}</td>
                                         </tr>
                                         <tr>
-                                            <td>{{ __('admin.Address') }}</td>
+                                            <td>{{ __('Address') }}</td>
                                             <td>{{ $customer->address }}</td>
                                         </tr>
                                         <tr>
-                                            <td>{{ __('admin.Zip Code') }}</td>
+                                            <td>{{ __('Zip Code') }}</td>
                                             <td>{{ $customer->zip_code }}</td>
                                         </tr>
                                         <tr>
-                                            <td>{{ __('admin.City') }}</td>
+                                            <td>{{ __('City') }}</td>
                                             <td>{{ $customer->city ? $customer->city->name : '' }}</td>
                                         </tr>
                                         <tr>
-                                            <td>{{ __('admin.State') }}</td>
+                                            <td>{{ __('State') }}</td>
                                             <td>{{ $customer->state ? $customer->state->name : '' }}</td>
                                         </tr>
                                         <tr>
-                                            <td>{{ __('admin.Country') }}</td>
+                                            <td>{{ __('Country') }}</td>
                                             <td>{{ $customer->country ? $customer->country->name : '' }}</td>
                                         </tr>
                                         <tr>
-                                            <td>{{ __('admin.Status') }}</td>
+                                            <td>{{ __('Status') }}</td>
                                             <td>
                                                 @if ($customer->status == 1)
                                                     <a href="javascript:;"
                                                         onclick="manageCustomerStatus({{ $customer->id }})">
                                                         <input id="status_toggle" type="checkbox" checked
-                                                            data-toggle="toggle" data-on="{{ __('admin.Active') }}"
-                                                            data-off="{{ __('admin.InActive') }}" data-onstyle="success"
+                                                            data-toggle="toggle" data-on="{{ __('Active') }}"
+                                                            data-off="{{ __('InActive') }}" data-onstyle="success"
                                                             data-offstyle="danger">
                                                     </a>
                                                 @else
                                                     <a href="javascript:;"
                                                         onclick="manageCustomerStatus({{ $customer->id }})">
                                                         <input id="status_toggle" type="checkbox" data-toggle="toggle"
-                                                            data-on="{{ __('admin.Active') }}"
-                                                            data-off="{{ __('admin.InActive') }}" data-onstyle="success"
-                                                            data-offstyle="danger">
+                                                            data-on="{{ __('Active') }}" data-off="{{ __('InActive') }}"
+                                                            data-onstyle="success" data-offstyle="danger">
                                                     </a>
                                                 @endif
                                             </td>
@@ -104,22 +103,22 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="">{{ __('admin.Password') }}</label>
+                                                <label for="">{{ __('Password') }}</label>
                                                 <input type="password" class="form-control" name="password"
-                                                    placeholder="{{ __('admin.Password') }}">
+                                                    placeholder="{{ __('Password') }}">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="">{{ __('admin.Confirm Password') }}</label>
+                                                <label for="">{{ __('Confirm Password') }}</label>
                                                 <input type="password" class="form-control" name="password_confirmation"
-                                                    placeholder="{{ __('admin.Confirm Password') }}">
+                                                    placeholder="{{ __('Confirm Password') }}">
                                             </div>
                                         </div>
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <button class="btn btn-primary btn-lg btn-block"
-                                                    type="submit">{{ __('admin.Reset Password') }}</button>
+                                                    type="submit">{{ __('Reset Password') }}</button>
                                             </div>
                                         </div>
                                     </div>
