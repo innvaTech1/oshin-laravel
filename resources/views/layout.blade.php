@@ -483,7 +483,7 @@
     <!--============================
         FOOTER PART START
     ==============================-->
-    <footer>
+    <footer style="margin-top: 30px">
         <div class="container">
             <div class="row justify-content-between">
                 <div class="col-xl-3 col-sm-6 col-md-6 col-lg-3 col-6">

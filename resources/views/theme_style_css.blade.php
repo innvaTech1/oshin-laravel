@@ -1,4 +1,4 @@
-@php
+{{-- @php
     $setting = App\Models\Setting::first();
 @endphp
 
@@ -380,4 +380,4 @@
     background:  {{ $setting->theme_two. "90" }} !important;
 }
 
-</style>
+</style> --}}

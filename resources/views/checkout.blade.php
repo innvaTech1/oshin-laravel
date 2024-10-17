@@ -17,7 +17,7 @@
             text-align: center;
             width: 100%;
             font-size: small;
-            color: #0d0d0d;
+            color: #000000;
             /* Assuming qgreen is a shade of green like limegreen */
             display: flex;
             justify-content: center;
@@ -26,7 +26,8 @@
             padding-right: 1rem;
             text-transform: uppercase;
             cursor: pointer;
-            border: 2px solid rgb(215, 204, 245);
+            border: 1px solid #930a02;
+            border-radius: 5px;
         }
     </style>
 

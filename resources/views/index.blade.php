@@ -24,7 +24,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-10 col-lg-10">
+                    <div class="col-xl-9 col-lg-9">
                         <div class="wsus__banner_content">
                             <div class="row banner_slider">
                                 @foreach ($sliders->take($sliderVisibility->qty) as $slider)
