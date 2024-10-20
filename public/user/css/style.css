@@ -356,7 +356,9 @@ header {
     padding-bottom: 18px;
     height: 90px;
 }
-
+.header__content{
+    margin-bottom: 5px;
+  }
 .wsus__header_logo {
     width: 80%;
     padding: 10px;
@@ -741,7 +743,7 @@ HEADER CATEGORIES MENU START
     display: inline-block;
     align-items: center;
     justify-content: space-between;
-    width: 108%;
+    width: 84%;
     height: 100%;
     background: #fff;
     padding: 4px 10px;
@@ -1007,7 +1009,7 @@ HEADER CATEGORIES MENU END
 
 .wsus__menu_item li {
     margin-right: 0;
-    margin-left: 25px;
+    margin-left: 15px;
     float: left;
 }
 
@@ -1045,7 +1047,7 @@ HEADER CATEGORIES MENU END
     z-index: 999;
     animation: menu_animate 1s;
     /* background: #0d0d0e; */
-    height: 90px;
+    height: 60px;
     border-bottom: none;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
@@ -1594,7 +1596,7 @@ PRODUCT MODAL VIEW END
     margin-bottom: 22px;
 }
 
-#wsus__banner .slick-dots {
+/* #wsus__banner .slick-dots {
     position: absolute;
     left: 20px;
     bottom: 30px;
@@ -1614,7 +1616,7 @@ PRODUCT MODAL VIEW END
 
 #wsus__banner .slick-dots li.slick-active button {
     background: #0086ee;
-}
+} */
 
 /*======================
 	BANNER PART END
@@ -8847,10 +8849,10 @@ header .wsus__call_text a:hover {
 }
 
 .wsus_menu_cat_item {
-    width: 230px;
+    width: 218px;
     height: 410px;
     position: absolute;
-    top: 110%;
+    top: 103%;
     left: 0;
     border-radius: 5px;
 }

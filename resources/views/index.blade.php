@@ -17,14 +17,14 @@
         <section id="wsus__banner">
             <div class="container">
                 <div class="row">
-                    <div class="col-xl-2 col-md-2 d-none d-lg-block">
+                    <div class="col-xl-2 col-md-3 d-none d-lg-block">
                         <div class="innva__cate_area">
                             <div class="relative_contect d-flex">
                                 @include('website.partials.menu-item')
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-9 col-lg-9">
+                    <div class="col-xl-9 col-md-9 col-lg-9">
                         <div class="wsus__banner_content">
                             <div class="row banner_slider">
                                 @foreach ($sliders->take($sliderVisibility->qty) as $slider)

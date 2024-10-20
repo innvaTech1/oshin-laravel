@@ -119,7 +119,7 @@
         <nav class="wsus__main_menu d-none d-md-block">
             <div class="container">
                 <div class="row">
-                    <div class="col-3 col-sm-3 col-md-3 col-lg-2">
+                    <div class="col-md-4 col-lg-3">
                         <div class="wsus_header_cate_wra d-none d-md-block">
                             <div class="wsus_header_cate">
                                 <div class="wsus_header_icon">
@@ -133,7 +133,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-9 col-sm-9 col-md-9 col-lg-10">
+                    <div class="col-md-8 col-lg-9">
                         <div class="wsus_header_menu relative_contect d-flex justify-content-between">
                             <ul class="wsus__menu_item">
                                 <li><a href="{{ route('product') }}">{{ __('user.Shop') }}</a></li>
