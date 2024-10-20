@@ -2275,10 +2275,16 @@
   .wsus__order_details {
     margin-top: 25px;
   }
+  .wsus_development{
+    text-align: center;
+  }
 }
 
 @media (min-width: 576px) and (max-width: 767.99px) {
   /* TOPBAR START */
+  .section_separate{
+    margin-top: 0px;
+  }
   #wsus__topbar {
     position: fixed;
     top: 0;
@@ -2462,8 +2468,7 @@
   }
 
   .wsus__section_header {
-    flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     border-radius: 0;
   }
 
@@ -3616,7 +3621,7 @@
   }
 
   #wsus__single_banner {
-    padding-top: 65px;
+    padding-top: 0px;
   }
 
   .home_2 #wsus__hot_deals .nxt_arr,
@@ -3735,6 +3740,9 @@
   }
   .header__content{
     margin-top: 6px;
+  }
+  .wsus_development{
+    text-align: center;
   }
   /* extra css end here */
 }
@@ -5486,13 +5494,16 @@ footer{
   .wsus__checkout_single_address ul li span {
     width: 100%;
   }
-
+.wsus_development{
+  text-align: center;
+}
   /* extra css start here */
   /* Home page features section css */
   .wsus__features_section {
     width: 100%;
     height: 100%;
     gap: 6px;
+    padding: 15px 0px;
   }
   .wsus__features_section img {
     width: 75%;

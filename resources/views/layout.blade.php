@@ -112,7 +112,7 @@
         var productDays = [];
     </script>
 
-    @include('theme_style_css')
+    {{-- @include('theme_style_css') --}}
 </head>
 
 <body>
@@ -489,6 +489,9 @@
                 <div class="col-xl-3 col-sm-6 col-md-6 col-lg-3 col-6">
                     <div class="wsus__footer_content">
                         <a href="{{ url('/') }}"><img src="{{ asset($setting->logo) }}" alt="Oshin_logo"></a>
+                        <div class="footer_qr-code">
+                            <img src="{{ asset('user/images/icons/qr-code.png')}}" alt="Oshin_QR-Code">
+                        </div>
                         <a class="action" href="callto:{{ $footer->phone }}"><i class="fas fa-phone-alt"></i>
                             {{ $footer->phone }}</a>
                         <a class="action" href="mailto:{{ $footer->email }}"><i class="far fa-envelope"></i>
@@ -540,13 +543,21 @@
         </div>
         <div class="wsus__footer_bottom">
             <div class="container">
-                <div class="row">
+                <div class="row">                    
                     <div class="col-xl-12">
+                        <div style="width: 100%">
+                            <img class="img-fluid" src="{{ asset('user/images/icons/aamarPay_Footer-Logo.png')}}" alt="aamarPay_Footer-Logo">
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
                         <div class="wsus__copyright">
                             <p>{{ $footer->copyright }}</p>
-                            <p>{{ $footer->image_title }} :
-                                <img src="{{ asset($footer->payment_image) }}" alt="card" class="img-fluid">
-                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="col-12 col-md-6">
+                        <div class="wsus_development">
+                            <p>Design & Development by <a href="innvatech.com"> Innvatech</a></p>
                         </div>
                     </div>
                 </div>

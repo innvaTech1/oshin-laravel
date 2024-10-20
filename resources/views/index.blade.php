@@ -290,6 +290,9 @@
                             </div>
                         </div>
                     @endforeach
+
+
+
                 </div>
             </div>
         </section>
@@ -341,7 +344,7 @@
             <div class="container">
                 <div class="row">
 
-                    <div class="col-xl-6 col-lg-6">
+                    <div class="col-6 col-xl-6 col-lg-6">
                         <div class="wsus__single_banner_content">
                             <div class="wsus__single_banner_img">
                                 <img src="{{ asset($bannerOne->image) }}" alt="banner" class="img-fluid w-100">
@@ -353,7 +356,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-6 col-lg-6">
+                    <div class="col-6 col-xl-6 col-lg-6">
                         <div class="wsus__single_banner_content">
                             <div class="wsus__single_banner_img">
                                 <img src="{{ asset($bannerTwo->image) }}" alt="banner" class="img-fluid w-100">
