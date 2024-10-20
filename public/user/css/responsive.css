@@ -118,7 +118,7 @@
   }
 
   .wsus__home_services_single {
-    padding: 25px;
+    padding: 10px;
   }
 
   .wsus__blog_img {
@@ -483,6 +483,12 @@
   /*========================
     HOME PAGE 2 END
   =========================*/
+}
+@media (min-width: 990px) and (max-width: 1202px) {
+  .wsus_header_cate_wra{
+    width: 100%;
+  }
+
 }
 
 @media (min-width: 992px) and (max-width: 1199.99px) {
@@ -1342,7 +1348,7 @@
   }
 
   .wsus__home_services_single {
-    margin-bottom: 25px;
+    margin-bottom: 20px;
   }
 
   .home_blogs {

@@ -51,7 +51,7 @@ $(function () {
         slidesToScroll: 1,
         autoplay: true,
         autoplaySpeed: 4000,
-        dots: true,
+        dots: false,
         arrows: false,
     });
 
