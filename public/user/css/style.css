@@ -2874,6 +2874,9 @@ HOME SERVOCES START
 /*======================
 	FOOTER PART START
 ========================*/
+.page-link{
+    color: #000 !important;
+}
 footer {
     background: #1E2F3E;
     padding-top: 50px;
