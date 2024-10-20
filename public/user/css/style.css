@@ -5614,21 +5614,26 @@ WISHLIST PAGE START
 }
 
 .wsus__login_input {
+    position: relative;
     display: flex;
     align-items: center;
     margin-top: 25px;
 }
+.wsus__login_input .show-pass{
+    position: absolute;
+    right: 0;
+}
 
 .wsus__login_input i {
     font-size: 20px;
-    width: 57px;
-    height: 47px;
+    /* width: 57px;
+    height: 57px; */
     /* background: #930A02; */
     line-height: 45px;
     text-align: center;
     margin-right: 10px;
     color: #930A02;
-    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.2);
+    /* box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.2); */
     border-radius: 50%;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
