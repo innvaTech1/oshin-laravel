@@ -42,6 +42,16 @@
                                             <textarea name="description" class="form-control text-area-5" id="" cols="30" rows="10"></textarea>
                                         </div>
 
+                                        <div class="form-group col-12">
+                                            <label>{{ __('Districts') }} <span class="text-danger">*</span></label>
+                                            <select name="state_id[]" class="form-control select2" multiple>
+                                                @foreach ($states as $state)
+                                                    <option value="{{ $state->id }}">
+                                                        {{ $state->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
 
                                     </div>
                                     <div class="row">

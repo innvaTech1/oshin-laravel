@@ -26,7 +26,8 @@ class ShippingMethodController extends Controller
     public function create()
     {
         $setting = Setting::first();
-        return view('admin.create_shipping_method', compact('setting'));
+        $states = CountryState::where('status', 1)->get();
+        return view('admin.create_shipping_method', compact('setting', 'states'));
     }
 
     public function store(Request $request)
@@ -34,13 +35,17 @@ class ShippingMethodController extends Controller
         $rules = [
             'title' => 'required|unique:shipping_methods',
             'shipping_coast' => 'required|numeric',
-            'description' => 'required'
+            'description' => 'required',
+            'state_id' => 'required|array',
+            'state_id.*' => 'required|exists:country_states,id',
         ];
         $customMessages = [
             'title.required' => trans('admin_validation.Title is required'),
             'title.unique' => trans('admin_validation.Title already exist'),
             'shipping_coast.required' => trans('admin_validation.Shipping coast is required'),
             'description.required' => trans('admin_validation.Description is required'),
+            'state_id.required' => 'District is required',
+            'state_id.*' => 'District is required',
         ];
         $this->validate($request, $rules, $customMessages);
 
@@ -50,6 +55,17 @@ class ShippingMethodController extends Controller
         $shipping->description = $request->description;
         $shipping->status = 1;
         $shipping->save();
+
+
+        if (count($request->state_id) > 0) {
+            foreach ($request->state_id as $state_id) {
+                ShippingLocation::create([
+                    'shipping_id' => $shipping->id,
+                    'state_id' => $state_id,
+                ]);
+            }
+        }
+
 
         $notification = trans('admin_validation.Created Successfully');
         $notification = array('messege' => $notification, 'alert-type' => 'success');
@@ -76,6 +92,8 @@ class ShippingMethodController extends Controller
             'minimum_order' => $shipping->is_free == 1 ? 'nullable' : 'required|numeric',
             'description' => 'required',
             'shipping_coast' => $shipping->is_free == 1 ? 'nullable' : 'required|numeric',
+            'state_id' => 'required|array',
+            'state_id.*' => 'required|exists:country_states,id',
         ];
 
         $customMessages = [
@@ -84,6 +102,8 @@ class ShippingMethodController extends Controller
             'minimum_order.required' => trans('admin_validation.Minimum order is required'),
             'description.required' => trans('admin_validation.Description is required'),
             'shipping_coast.required' => trans('admin_validation.Shipping coast is required'),
+            'state_id.required' => 'District is required',
+            'state_id.*' => 'District is required',
         ];
         $this->validate($request, $rules, $customMessages);
 
