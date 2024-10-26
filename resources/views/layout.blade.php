@@ -490,7 +490,7 @@
                     <div class="wsus__footer_content">
                         <a href="{{ url('/') }}"><img src="{{ asset($setting->logo) }}" alt="Oshin_logo"></a>
                         <div class="footer_qr-code">
-                            <img src="{{ asset('user/images/icons/qr-code.png')}}" alt="Oshin_QR-Code">
+                            <img src="{{ asset('user/images/icons/qr-code.png') }}" alt="Oshin_QR-Code">
                         </div>
                         <a class="action" href="callto:{{ $footer->phone }}"><i class="fas fa-phone-alt"></i>
                             {{ $footer->phone }}</a>
@@ -543,10 +543,11 @@
         </div>
         <div class="wsus__footer_bottom">
             <div class="container">
-                <div class="row">                    
+                <div class="row">
                     <div class="col-xl-12">
                         <div style="width: 100%">
-                            <img class="img-fluid" src="{{ asset('user/images/icons/aamarPay_Footer-Logo.png')}}" alt="aamarPay_Footer-Logo">
+                            <img class="img-fluid" src="{{ asset('user/images/icons/aamarPay_Footer-Logo.png') }}"
+                                alt="aamarPay_Footer-Logo">
                         </div>
                     </div>
                     <div class="col-12 col-md-6">
@@ -554,7 +555,7 @@
                             <p>{{ $footer->copyright }}</p>
                         </div>
                     </div>
-                    
+
                     <div class="col-12 col-md-6">
                         <div class="wsus_development">
                             <p>Design & Development by <a href="innvatech.com"> Innvatech</a></p>
@@ -815,13 +816,20 @@
                         $(this).addClass('select-variant');
                     }
 
-                    var selectedItems = [];
-                    $('.select-variant').each(function(index, item) {
-                        selectedItems.push($(item).data('id'));
-                    })
+                    const variantItem = $(this).parents('.parent-variant').siblings('[name="items"]')
+                    let ItemsParentVariant = $(variantItem).data('parent-variant');
+                    ItemsParentVariant = ItemsParentVariant.split(',');
+                    let ItemsVariant = $(variantItem).val().split(',');
+                    let selectedItems = {};
+                    for (let i = 0; i < ItemsParentVariant.length; i++) {
+                        selectedItems[ItemsParentVariant[i]] = ItemsVariant[i];
+                    }
 
-                    $('[name="items"]').val(selectedItems.join(','));
+                    selectedItems[parentVar] = itemId;
 
+
+                    variantItem.val(Object.values(selectedItems).join(','));
+                    variantItem.data('parent-variant', Object.keys(selectedItems).join(','));
                 })
             });
         })(jQuery);

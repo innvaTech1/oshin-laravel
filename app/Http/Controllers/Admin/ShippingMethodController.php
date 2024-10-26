@@ -89,7 +89,7 @@ class ShippingMethodController extends Controller
 
         $rules = [
             'title' => 'required|unique:shipping_methods,title,' . $id,
-            'minimum_order' => $shipping->is_free == 1 ? 'nullable' : 'required|numeric',
+            'minimum_order' => $shipping->is_free == 1 ? 'required|numeric' : 'nullable',
             'description' => 'required',
             'shipping_coast' => $shipping->is_free == 1 ? 'nullable' : 'required|numeric',
             'state_id' => 'required|array',
@@ -135,6 +135,9 @@ class ShippingMethodController extends Controller
     public function destroy($id)
     {
         $shipping = ShippingMethod::find($id);
+
+        ShippingLocation::where('shipping_id', $id)->delete();
+
         $shipping->delete();
         $notification = trans('admin_validation.Delete Successfully');
         $notification = array('messege' => $notification, 'alert-type' => 'success');

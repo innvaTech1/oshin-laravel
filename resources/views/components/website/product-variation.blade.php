@@ -15,13 +15,14 @@
         @if ($items->count() != 0)
             <input type="hidden" name="variants[]" value="{{ $productVariant->id }}">
             <input type="hidden" name="variantNames[]" value="{{ $productVariant->name }}">
-            <div class="{{ $variName == 'color' ? 'wsus_pro_det_color' : 'wsus_pro__det_size' }}">
+            <div class="parent-variant  {{ $variName == 'color' ? 'wsus_pro_det_color' : 'wsus_pro__det_size' }}">
                 <h5>{{ $productVariant->name }} :</h5>
                 <ul>
                     @foreach ($items as $item)
                         @if ($item->is_default == 1)
                             @php
-                                array_push($selected, $item->id);
+                                // array_push($selected, $item->id);
+                                $selected["$productVariant->id"] = $item->id;
                             @endphp
                         @endif
                         <li>
@@ -43,5 +44,6 @@
             </div>
         @endif
     @endforeach
-    <input type="hidden" name="items" value="{{ join(',', $selected) }}">
+    <input type="hidden" name="items" value="{{ join(',', $selected) }}"
+        data-parent-variant="{{ join(',', array_keys($selected)) }}">
 @endif
