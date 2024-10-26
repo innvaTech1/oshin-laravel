@@ -196,3 +196,7 @@ img.mr-3.ml-3.rounded-circle {
     margin: 0 !important;
     padding: 0 !important;
 }
+
+.select2-selection__choice__display {
+    color: #000 !important;
+}

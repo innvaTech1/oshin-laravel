@@ -15,4 +15,21 @@ class ShippingMethod extends Model
         'status' => 'integer',
         'minimum_order	' => 'integer'
     ];
+
+    public function locations()
+    {
+        return $this->hasMany(ShippingLocation::class, 'shipping_id', 'id');
+    }
+
+    public function states()
+    {
+        return $this->hasManyThrough(
+            CountryState::class,
+            ShippingLocation::class,
+            'shipping_id',
+            'id',
+            'id',
+            'state_id'
+        );
+    }
 }

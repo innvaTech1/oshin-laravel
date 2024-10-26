@@ -60,6 +60,18 @@
                                         </div>
 
 
+                                        <div class="form-group col-12">
+                                            <label>{{ __('Districts') }} <span class="text-danger">*</span></label>
+                                            <select name="state_id[]" class="form-control select2" multiple>
+                                                @foreach ($states as $state)
+                                                    <option value="{{ $state->id }}"
+                                                        {{ in_array($state->id, $selectedState) ? 'selected' : '' }}>
+                                                        {{ $state->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
                                     </div>
                                     <div class="row">
                                         <div class="col-12">

@@ -9,17 +9,23 @@ class CountryState extends Model
 {
     use HasFactory;
 
-    public function country(){
-        return $this->belongsTo(Country::class);
-    }
-
-    public function cities(){
-        return $this->hasMany(City::class);
-    }
-
 
     protected $casts = [
         'status' => 'integer',
         'country_id' => 'integer'
     ];
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
+    }
+
+    public function cities()
+    {
+        return $this->hasMany(City::class);
+    }
+
+    public function shippings()
+    {
+        return $this->belongsToMany(ShippingMethod::class, 'shipping_locations', 'state_id', 'shipping_id');
+    }
 }
