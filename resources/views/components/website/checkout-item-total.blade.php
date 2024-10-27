@@ -60,7 +60,9 @@
     // check if  take shipping charge for multiple vendor
     $multiShippingCharge = $setting->shipping_charge_multiple;
 
+    $diffShippingCharge = $shipCharge;
     if (!$multiShippingCharge) {
+        $diffShippingCharge = $totalVendorShippingCharge - $shipCharge;
         $totalVendorShippingCharge = $shipCharge;
     }
 
@@ -129,6 +131,12 @@
     </p>
     <p>{{ __('user.Shipping') }}(+): <span>{{ currency_icon() }}<span
                 id="shipping_amount">{{ $deliveryCharge }}</span></span></p>
+    @if ($multiShippingCharge == 0 && $diffShippingCharge > 0)
+        <p>{{ __('Shipping Discount') }} :
+            <span>
+                {{ $diffShippingCharge ? currency_icon() . $diffShippingCharge : currency_icon() . 0 }} </span>
+        </p>
+    @endif
     <p>{{ __('user.Coupon') }}(-):
         <span>{{ currency_icon() }}{{ $coupon_price }}</span>
     </p>
