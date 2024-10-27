@@ -47,7 +47,6 @@ class LoginController extends Controller
         $rules = [
             'email' => 'required',
             'password' => 'required',
-            'g-recaptcha-response' => new Captcha()
         ];
         $customMessages = [
             'email.required' => trans('user_validation.Email is required'),
@@ -85,9 +84,8 @@ class LoginController extends Controller
                             if ($isVendor->status == 1) {
                                 return redirect()->intended(route('seller.dashboard'))->with($notification);
                             }
-                        } else {
-                            return redirect()->intended(route('user.dashboard'))->with($notification);
                         }
+                        return redirect()->intended(route('user.dashboard'))->with($notification);
                     }
                 } else {
                     $notification = trans('user_validation.Credentials does not exist');

@@ -50,23 +50,6 @@
                                                 value="{{ $category->slug }}">
                                         </div>
                                         <div class="form-group col-12">
-                                            <label>{{ __('Commission Rate') }}(%) </label>
-                                            <input type="text" id="commission_rate" class="form-control"
-                                                name="commission_rate" value="{{ $category->commission_rate }}">
-                                        </div>
-                                        {{-- <div class="form-group col-12">
-                                            <label>{{ __('Delivery Charge') }} <span class="text-danger">*</span></label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text">
-                                                        {{ currency_icon() }}
-                                                    </div>
-                                                </div>
-                                                <input type="text" class="form-control currency" id="delivery_charge"
-                                                    name="delivery_charge" value="{{ $category->delivery_charge }}">
-                                            </div>
-                                        </div> --}}
-                                        <div class="form-group col-12">
                                             <label>{{ __('Delivery Location') }}</label>
                                             <select name="city_id" class="form-control select2" id="city_id">
                                                 <option value="">{{ __('Delivery Location') }}</option>

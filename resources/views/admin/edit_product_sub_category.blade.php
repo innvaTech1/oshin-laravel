@@ -51,12 +51,6 @@
                                         </div>
 
                                         <div class="form-group col-12">
-                                            <label>{{ __('Commission Rate') }}(%) <span
-                                                    class="text-danger">*</span></label>
-                                            <input type="text" id="commission_rate" class="form-control"
-                                                name="commission_rate" value="{{ $subCategory->commission_rate }}">
-                                        </div>
-                                        <div class="form-group col-12">
                                             <label>{{ __('Delivery Location') }}</label>
                                             <select name="city_id" class="form-control select2" id="city_id">
                                                 <option value="">{{ __('Delivery Location') }}</option>

@@ -29,7 +29,7 @@
                                                 <th>{{ __('SN') }}</th>
                                                 <th>{{ __('Name') }}</th>
                                                 <th>{{ __('Slug') }}</th>
-                                                <th>{{ __('Delivery Charge') }}</th>
+                                                {{-- <th>{{ __('Delivery Charge') }}</th> --}}
                                                 <th>{{ __('Status') }}</th>
                                                 <th>{{ __('Action') }}</th>
                                             </tr>
@@ -40,7 +40,7 @@
                                                     <td>{{ ++$index }}</td>
                                                     <td>{{ $category->name }}</td>
                                                     <td>{{ $category->slug }}</td>
-                                                    <td>{{ currency($category->delivery_charge) }}</td>
+                                                    {{-- <td>{{ currency($category->delivery_charge) }}</td> --}}
                                                     <td>
                                                         @if ($category->status == 1)
                                                             <a href="javascript:;"
