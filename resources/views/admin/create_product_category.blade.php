@@ -46,12 +46,11 @@
                                             <input type="text" id="slug" class="form-control" name="slug">
                                         </div>
                                         <div class="form-group col-12">
-                                            <label>{{ __('Commission Rate') }}(%) <span
-                                                    class="text-danger">*</span></label>
+                                            <label>{{ __('Commission Rate') }}(%)</label>
                                             <input type="text" id="commission_rate" class="form-control"
                                                 name="commission_rate" value="">
                                         </div>
-                                        <div class="form-group col-12">
+                                        {{-- <div class="form-group col-12">
                                             <label>{{ __('Delivery Charge') }} <span class="text-danger">*</span></label>
 
                                             <div class="input-group">
@@ -63,7 +62,7 @@
                                                 <input type="text" class="form-control currency" id="delivery_charge"
                                                     name="delivery_charge">
                                             </div>
-                                        </div>
+                                        </div> --}}
                                         <div class="form-group col-12">
                                             <label>{{ __('Delivery Location') }}</label>
                                             <select name="city_id" class="form-control select2" id="city_id">

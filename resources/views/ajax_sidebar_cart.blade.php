@@ -9,7 +9,8 @@
         @foreach ($sidebar_cart_contents as $sidebar_cart_content)
             <li>
                 <div class="wsus__cart_img">
-                    <a href="#"><img src="{{ asset($sidebar_cart_content->options->image) }}" alt="product"
+                    <a href="{{ route('product-detail', $sidebar_cart_content->options->slug) }}"><img
+                            src="{{ asset($sidebar_cart_content->options->image) }}" alt="product"
                             class="img-fluid w-100"></a>
                     <a class="wsis__del_icon" onclick="sidebarCartItemRemove('{{ $sidebar_cart_content->rowId }}')"
                         href="javascript:;"><i class="fas fa-minus-circle"></i></a>
@@ -17,7 +18,8 @@
                 <div class="wsus__cart_text">
                     <a class="wsus__cart_title"
                         href="{{ route('product-detail', $sidebar_cart_content->options->slug) }}">{{ $sidebar_cart_content->name }}</a>
-                    <p><span>{{ $sidebar_cart_content->qty }} x</span> ${{ $sidebar_cart_content->price }}</p>
+                    <p><span>{{ $sidebar_cart_content->qty }} x</span> {{ currency_icon() }}
+                        {{ $sidebar_cart_content->price }}</p>
                 </div>
             </li>
 

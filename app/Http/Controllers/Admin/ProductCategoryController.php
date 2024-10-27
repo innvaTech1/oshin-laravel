@@ -66,7 +66,7 @@ class ProductCategoryController extends Controller
         $category->image = $imageName;
         $category->name = $request->name;
         $category->slug = $request->slug;
-        $category->delivery_charge = $request->delivery_charge;
+        // $category->delivery_charge = $request->delivery_charge;
         $category->city_id = $request->city_id;
         $category->commission_rate = $request->commission_rate;
         $category->status = $request->status;
@@ -115,7 +115,7 @@ class ProductCategoryController extends Controller
         $category->image = $imageName;
         $category->name = $request->name;
         $category->slug = $request->slug;
-        $category->delivery_charge = $request->delivery_charge;
+        // $category->delivery_charge = $request->delivery_charge;
         $category->city_id = $request->city_id;
         $category->commission_rate = $request->commission_rate;
         $category->status = $request->status;
