@@ -24,8 +24,15 @@ class CountryState extends Model
         return $this->hasMany(City::class);
     }
 
-    public function shippings()
+    public function shipping()
     {
-        return $this->belongsToMany(ShippingMethod::class, 'shipping_locations', 'state_id', 'shipping_id');
+        return $this->hasOneThrough(
+            ShippingMethod::class,
+            ShippingLocation::class,
+            'state_id',       // Foreign key on ShippingLocation table
+            'id',             // Foreign key on ShippingMethod table
+            'id',             // Local key on CountryState table
+            'shipping_id'     // Local key on ShippingLocation table
+        );
     }
 }

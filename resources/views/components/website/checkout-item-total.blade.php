@@ -48,21 +48,23 @@
 @php
     $deliveryCharge = [];
     $productsList = \App\Models\Product::whereIn('id', $productsId)->get();
+    $shipCharge = $charge ?? 0;
 
     foreach ($productsList as $key => $prod) {
         $vendorId = $prod->vendor_id;
-        if (isset($deliveryCharge["$vendorId"])) {
-            if ($deliveryCharge[$vendorId] < $prod->deliveryCharge()) {
-                $deliveryCharge["$vendorId"] = $prod->deliveryCharge();
-            }
-            continue;
-        } else {
-            $deliveryCharge["$vendorId"] = $prod->deliveryCharge();
-        }
+        $deliveryCharge["$vendorId"] = $shipCharge;
     }
 
-    $deliveryCharge = array_sum($deliveryCharge);
+    $totalVendorShippingCharge = array_sum($deliveryCharge);
 
+    // check if  take shipping charge for multiple vendor
+    $multiShippingCharge = $setting->shipping_charge_multiple;
+
+    if (!$multiShippingCharge) {
+        $totalVendorShippingCharge = $shipCharge;
+    }
+
+    $deliveryCharge = $totalVendorShippingCharge;
     $tax_amount = 0;
     $total_price = 0;
     $coupon_price = 0;

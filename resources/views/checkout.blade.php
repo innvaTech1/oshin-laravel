@@ -43,7 +43,7 @@
                     <div class="row">
                         <div class="col-xl-7 col-lg-6">
                             <div class="wsus__check_form">
-                                <h5>{{ __('Billing Details') }}
+                                <h5>{{ __('Shipping Details') }}
                                     @auth('web')
                                         <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                             {{ __('user.add new address') }}
@@ -105,7 +105,8 @@
                                         </div>
                                         <div class="col-md-6 col-lg-12 col-xl-6">
                                             <div class="wsus__check_single_form">
-                                                <select name="state_id" class="state form-control select_2">
+                                                <select name="state_id" class="state form-control select_2"
+                                                    data-type="shipping">
                                                     <option selected disabled>{{ __('user.Select State') }}
                                                     </option>
                                                     @foreach ($states as $state)
@@ -136,7 +137,7 @@
                                                                     value="1" id="flexCheckDefault" checked
                                                                     name="same_shipping">
                                                                 <label class="form-check-label" for="flexCheckDefault">
-                                                                    {{ __('Ship to a different address') }}
+                                                                    {{ __('Bill to a different address') }}
                                                                 </label>
                                                             </div>
                                                         </div>
@@ -182,7 +183,8 @@
                                                                 <div class="col-md-6 col-lg-12 col-xl-6">
                                                                     <div class="wsus__check_single_form">
                                                                         <select name="billing_state_id"
-                                                                            class="state form-control select_2">
+                                                                            class="state form-control select_2"
+                                                                            data-type="billing">
                                                                             <option selected disabled value="">
                                                                                 {{ __('user.Select State') }}
                                                                             </option>
@@ -336,11 +338,22 @@
                     let state_id = $(this).val();
                     let url = "{{ route('city-by-state', ':state_id') }}";
                     url = url.replace(':state_id', state_id);
+                    const shipping = $('[name="same_shipping"]').prop('checked');
+                    const type = $(this).data('type');
+
                     $.ajax({
                         url: url,
                         method: 'GET',
+                        data: {
+                            shipping,
+                            type
+                        },
                         success: function(response) {
                             $('.city').html(response.cities).select2();
+
+                            if (type == 'shipping') {
+                                $('.item-details').html(response.view);
+                            }
                             $('.preloader_area').addClass('d-none');
                         },
                         error: function(...errors) {
@@ -364,33 +377,6 @@
             });
         })(jQuery);
     </script>
-
-
-    <script>
-        (function($) {
-            "use strict";
-            $(document).ready(function() {
-                $("#state_id").on("change", function() {
-                    var countryId = $("#state_id").val();
-                    if (countryId) {
-                        $.ajax({
-                            type: "get",
-                            url: "{{ url('/user/city-by-state/') }}" + "/" + countryId,
-                            success: function(response) {
-                                $("#city_id").html(response.cities);
-                            },
-                            error: function(err) {}
-                        })
-                    } else {
-                        var response = "<option value=''>{{ __('user.Select a City') }}</option>";
-                        $("#city_id").html(response);
-                    }
-
-                })
-            });
-        })(jQuery);
-    </script>
-
 
     <script>
         $('.payment-item').on('click', function() {

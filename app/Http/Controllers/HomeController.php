@@ -37,6 +37,7 @@ use App\Models\Setting;
 use App\Models\ContactMessage;
 use App\Models\BlogComment;
 use App\Models\City;
+use App\Models\CountryState;
 use App\Models\ProductVariant;
 use App\Models\ProductVariantItem;
 use App\Models\GoogleRecaptcha;
@@ -49,6 +50,7 @@ use Str;
 use Session;
 use Cart;
 use Carbon\Carbon;
+use Gloudemans\Shoppingcart\Facades\Cart as FacadesCart;
 use Route;
 
 class HomeController extends Controller
@@ -590,8 +592,10 @@ class HomeController extends Controller
         }
     }
 
-    public function cityByState($id)
+    public function cityByState(Request $request, $id)
     {
+        $setting = cache('setting');
+
         $cities = City::where(['status' => 1, 'country_state_id' => $id])->get();
         $response = '<option value="0">Select a City</option>';
         if ($cities->count() > 0) {
@@ -599,6 +603,18 @@ class HomeController extends Controller
                 $response .= "<option value=" . $city->id . ">" . $city->name . "</option>";
             }
         }
-        return response()->json(['cities' => $response]);
+
+        if ($request->type == 'shipping') {
+
+            $shippingCharge = CountryState::find($id);
+            $cartContents = FacadesCart::content();
+            $charge = $shippingCharge->shipping->fee;
+
+            $view = view('components.website.checkout-item-total', compact('cartContents', 'charge'))->render();
+
+            return response()->json(['cities' => $response, 'view' => $view]);
+        } else {
+            return response()->json(['cities' => $response]);
+        }
     }
 }
