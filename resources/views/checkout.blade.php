@@ -44,86 +44,66 @@
                         <div class="col-xl-7 col-lg-6">
                             <div class="wsus__check_form">
                                 <h5>{{ __('Shipping Details') }}
-                                    @auth('web')
-                                        <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                            {{ __('user.add new address') }}
-                                        </a>
-                                    @endauth
                                 </h5>
-                                <div class="row">
-                                    @foreach ($addresses as $address)
-                                        <div class="col-xl-6">
-                                            <div class="wsus__checkout_single_address">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                                        id="flexRadioDefault{{ $address->id }}" checked>
-                                                    <label class="form-check-label"
-                                                        for="flexRadioDefault{{ $address->id }}">
-                                                        {{ __('user.Select Address') }}
-                                                    </label>
-                                                </div>
-                                                <ul>
-                                                    <li><span>{{ __('user.Name') }} :</span>{{ $address->name }}</li>
-                                                    <li><span>{{ __('user.Phone') }} :</span> {{ $address->phone }}</li>
-                                                    <li><span>{{ __('user.Email') }} :</span> {{ $address->email }}</li>
-                                                    <li><span>{{ __('user.Address') }} :</span> {{ $address->address }}
-                                                    </li>
-                                                    <li><span>{{ __('user.City') }} :</span> {{ $address->city->name }}
-                                                    </li>
-                                                    <li><span>{{ __('user.State') }} :</span> {{ $address->state->name }}
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    @endforeach
-                                </div>
+                                @php
+                                    if (auth('web')->user()) {
+                                        $shipping = auth('web')->user()->shipping;
+                                        $billing = auth('web')->user()->billing;
+                                    } else {
+                                        $shipping = null;
+                                        $billing = null;
+                                    }
+                                @endphp
                                 <div class="row mt-4">
-                                    @guest
-                                        <div class="col-md-12 col-lg-6 col-xl-6">
-                                            <div class="wsus__check_single_form">
-                                                <input type="text" placeholder="{{ __('user.Name') }}*" name="name"
-                                                    value="{{ old('name') }}">
-                                            </div>
+
+                                    <div class="col-md-12 col-lg-6 col-xl-6">
+                                        <div class="wsus__check_single_form">
+                                            <input type="text" placeholder="{{ __('user.Name') }}*" name="name"
+                                                value="{{ old('name', $shipping->name ?? '') }}">
                                         </div>
-                                        <div class="col-md-12 col-lg-6 col-xl-6">
-                                            <div class="wsus__add_address_single">
-                                                <input type="email" placeholder="{{ __('user.Email') }}" name="email"
-                                                    value="{{ old('email') }}">
-                                            </div>
+                                    </div>
+                                    <div class="col-md-12 col-lg-6 col-xl-6">
+                                        <div class="wsus__add_address_single">
+                                            <input type="email" placeholder="{{ __('user.Email') }}" name="email"
+                                                value="{{ old('email', $shipping->email ?? '') }}">
                                         </div>
-                                        <div class="col-md-12 col-lg-6 col-xl-6">
-                                            <div class="wsus__add_address_single">
-                                                <input type="text" placeholder="{{ __('user.Phone') }}*" name="phone"
-                                                    value="{{ old('phone') }}">
-                                            </div>
+                                    </div>
+                                    <div class="col-md-12 col-lg-6 col-xl-6">
+                                        <div class="wsus__add_address_single">
+                                            <input type="text" placeholder="{{ __('user.Phone') }}*" name="phone"
+                                                value="{{ old('phone', $shipping->phone ?? '') }}">
                                         </div>
-                                        <div class="col-md-6 col-lg-12 col-xl-6">
-                                            <div class="wsus__check_single_form">
-                                                <input type="text" name="address" placeholder="{{ __('user.Address') }}*"
-                                                    value="{{ old('address') }}">
-                                            </div>
+                                    </div>
+                                    <div class="col-md-6 col-lg-12 col-xl-6">
+                                        <div class="wsus__check_single_form">
+                                            <input type="text" name="address" placeholder="{{ __('user.Address') }}*"
+                                                value="{{ old('address', $shipping->address ?? '') }}">
                                         </div>
-                                        <div class="col-md-6 col-lg-12 col-xl-6">
-                                            <div class="wsus__check_single_form">
-                                                <select name="state_id" class="state form-control select_2"
-                                                    data-type="shipping">
-                                                    <option selected disabled>{{ __('user.Select State') }}
-                                                    </option>
-                                                    @foreach ($states as $state)
-                                                        <option value="{{ $state->id }}">{{ $state->name }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
+                                    </div>
+                                    <div class="col-md-6 col-lg-12 col-xl-6">
+                                        <div class="wsus__check_single_form">
+                                            <select name="state_id" class="state form-control select_2"
+                                                data-type="shipping">
+                                                <option selected disabled>{{ __('user.Select State') }}
+                                                </option>
+                                                @foreach ($states as $state)
+                                                    <option value="{{ $state->id }}"
+                                                        {{ $shipping?->state_id == $state->id ? 'selected' : '' }}>
+                                                        {{ $state->name }}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
-                                        <div class="col-md-6 col-lg-12 col-xl-6">
-                                            <div class="wsus__check_single_form">
-                                                <select name="city_id" class="city form-control select_2">
-                                                    <option selected disabled>{{ __('user.Select City') }}
-                                                    </option>
-                                                </select>
-                                            </div>
+                                    </div>
+                                    <div class="col-md-6 col-lg-12 col-xl-6">
+                                        <div class="wsus__check_single_form">
+                                            <select name="city_id" class="city form-control select_2">
+                                                <option selected {{ $shipping?->city_id ? 'selected' : '' }}
+                                                    value="{{ $shipping?->city_id }}">
+                                                    {{ $shipping?->city?->name ?? __('user.Select City') }}
+                                                </option>
+                                            </select>
                                         </div>
-                                    @endguest
+                                    </div>
                                     <div class="col-md-12 col-lg-12 col-xl-12">
                                         <div class="accordion checkout_accordian" id="accordionExample">
                                             <div class="accordion-item">
@@ -155,7 +135,7 @@
                                                                         <input type="text"
                                                                             placeholder="{{ __('user.Name') }}*"
                                                                             name="billing_name"
-                                                                            value="{{ old('billing_name') }}">
+                                                                            value="{{ old('billing_name', $billing->name ?? '') }}">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-12 col-lg-6 col-xl-6">
@@ -163,7 +143,7 @@
                                                                         <input type="email"
                                                                             placeholder="{{ __('user.Email') }}"
                                                                             name="billing_email"
-                                                                            value="{{ old('billing_email') }}">
+                                                                            value="{{ old('billing_email', $billing->email ?? '') }}">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-12 col-lg-6 col-xl-6">
@@ -171,14 +151,14 @@
                                                                         <input type="text"
                                                                             placeholder="{{ __('user.Phone') }}*"
                                                                             name="billing_phone"
-                                                                            value="{{ old('billing_phone') }}">
+                                                                            value="{{ old('billing_phone', $billing->phone ?? '') }}">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-6 col-lg-12 col-xl-6">
                                                                     <div class="wsus__check_single_form">
                                                                         <input type="text" name="billing_address"
                                                                             placeholder="{{ __('user.Address') }}*"
-                                                                            value="{{ old('billing_address') }}">
+                                                                            value="{{ old('billing_address', $billing->address ?? '') }}">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-6 col-lg-12 col-xl-6">
@@ -190,7 +170,8 @@
                                                                                 {{ __('user.Select State') }}
                                                                             </option>
                                                                             @foreach ($states as $state)
-                                                                                <option value="{{ $state->id }}">
+                                                                                <option value="{{ $state->id }}"
+                                                                                    {{ $billing?->state_id == $state->id ? 'selected' : '' }}>
                                                                                     {{ $state->name }}</option>
                                                                             @endforeach
                                                                         </select>
@@ -200,8 +181,9 @@
                                                                     <div class="wsus__check_single_form">
                                                                         <select name="billing_city_id"
                                                                             class="city form-control select_2">
-                                                                            <option selected disabled value="">
-                                                                                {{ __('user.Select City') }}
+                                                                            <option selected
+                                                                                {{ $billing?->city_id ? 'selected' : '' }}>
+                                                                                {{ $billing?->city?->name ?? __('user.Select City') }}
                                                                             </option>
                                                                         </select>
                                                                     </div>
@@ -254,81 +236,7 @@
     {{-- <!--============================
             CHECK OUT PAGE END
     ==============================--> --}}
-    <div class="wsus__popup_address">
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">{{ __('user.add new address') }}</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body p-0">
-                        <form action="{{ route('user.address.new') }}" method="POST">
-                            @csrf
-                            <div class="wsus__check_form p-3">
-                                <div class="row">
-                                    <div class="col-md-12 col-lg-6 col-xl-6">
-                                        <div class="wsus__check_single_form">
-                                            <input type="text" placeholder="{{ __('user.Name') }}*" name="name"
-                                                value="{{ old('name') }}">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12 col-lg-6 col-xl-6">
-                                        <div class="wsus__add_address_single">
-                                            <input type="email" placeholder="{{ __('user.Email') }}" name="email"
-                                                value="{{ old('email') }}">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12 col-lg-6 col-xl-6">
-                                        <div class="wsus__add_address_single">
-                                            <input type="text" placeholder="{{ __('user.Phone') }}*" name="phone"
-                                                value="{{ old('phone') }}">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-lg-12 col-xl-6">
-                                        <div class="wsus__check_single_form">
-                                            <input type="text" name="address" placeholder="{{ __('user.Address') }}*"
-                                                value="{{ old('address') }}">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-lg-12 col-xl-6">
-                                        <div class="wsus__check_single_form">
-                                            <select name="state_id" class="state form-control select_2">
-                                                <option selected disabled>
-                                                    {{ __('user.Select State') }}
-                                                </option>
-                                                @foreach ($states as $state)
-                                                    <option value="{{ $state->id }}">
-                                                        {{ $state->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-lg-12 col-xl-6">
-                                        <div class="wsus__check_single_form">
-                                            <select name="city_id" class="city form-control select_2">
-                                                <option selected disabled>
-                                                    {{ __('user.Select City') }}
-                                                </option>
-                                            </select>
-                                        </div>
-                                    </div>
 
-                                    <div class="col-md-12 col-lg-6 col-xl-6">
-                                        <div class="wsus__check_single_form">
-                                            <button type="submit"
-                                                class="btn btn-primary">{{ __('user.Save Address') }}</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <script>
         (function($) {
@@ -342,6 +250,13 @@
                     const shipping = $('[name="same_shipping"]').prop('checked');
                     const type = $(this).data('type');
 
+                    const parents = $(this).parents('div.col-md-6.col-lg-12');
+
+                    // find closest city
+                    $(parents).siblings('div').find('.city').first().html('').select2({});
+
+
+
                     $.ajax({
                         url: url,
                         method: 'GET',
@@ -350,7 +265,11 @@
                             type
                         },
                         success: function(response) {
-                            $('.city').html(response.cities).select2();
+                            // closest city
+                            $(parents).siblings('div').find('.city').first().html(response
+                                .cities).select2();
+
+                            // $('.city').html(response.cities).select2();
 
                             if (type == 'shipping') {
                                 $('.item-details').html(response.view);

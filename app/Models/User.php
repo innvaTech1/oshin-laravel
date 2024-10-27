@@ -79,4 +79,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Address::class);
     }
+
+    public function shipping()
+    {
+        return $this->hasOne(Address::class)->where('type', 'shipping');
+    }
+
+    public function billing()
+    {
+        return $this->hasOne(Address::class)->where('type', 'billing');
+    }
 }

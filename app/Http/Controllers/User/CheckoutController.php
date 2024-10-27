@@ -175,9 +175,11 @@ class CheckoutController extends Controller
             }
             $this->orderStore($request, auth('web')->user(),  $request->delivery_fee, $address_id, $billing_id);
 
-            Address::where('id', $address_id)->delete();
+            if (!auth('web')->user()) {
+                Address::where('id', $address_id)->delete();
+            }
 
-            if (!$request->same_shipping) {
+            if (!$request->same_shipping && !auth('web')->user()) {
                 Address::where('id', $billing_id)->delete();
             }
 
@@ -197,13 +199,28 @@ class CheckoutController extends Controller
 
     public function storeAddress(Request $request, $prefix = '')
     {
-        $address = new Address();
+        // check if user has already address
+
+
+        if (auth()->user()) {
+            $address = Address::where('user_id', auth('web')->user()->id)->where('type', $prefix == 'billing_' ? 'billing' : 'shipping')->first();
+            if (!$address) {
+                $address = new Address();
+            }
+        } else {
+            $address = new Address();
+        }
+
+
         $address->name = $prefix . $request->name;
         $address->phone = $prefix . $request->phone;
         $address->address = $prefix . $request->address;
         $address->city_id = $prefix . $request->city_id;
         $address->state_id = $prefix . $request->state_id;
-        $address->type = 'home';
+        $address->type = $prefix == 'billing_' ? 'billing' : 'shipping';
+        if (auth()->user()) {
+            $address->user_id = auth('web')->user()->id;
+        }
         $address->save();
         return $address->id;
     }
