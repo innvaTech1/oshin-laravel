@@ -130,7 +130,8 @@
                                                 <h2 class="accordion-header" id="headingThree">
                                                     <button class="accordion-button collapsed" type="button"
                                                         data-bs-toggle="collapse" data-bs-target="#collapseThree"
-                                                        aria-expanded="false" aria-controls="collapseThree">
+                                                        aria-expanded="false" aria-controls="collapseThree"
+                                                        for="flexCheckDefault">
                                                         <div class="wsus__check_single_form">
                                                             <div class="form-check">
                                                                 <input class="form-check-input" type="checkbox"

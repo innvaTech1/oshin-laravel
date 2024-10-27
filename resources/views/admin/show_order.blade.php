@@ -44,30 +44,57 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         <address>
-                                            <strong>{{ __('Billing Address') }}:</strong><br>
-                                            {{ $orderAddress->billing_name }}<br>
+                                            <strong>{{ __('Billing Address') }}:</strong>
+                                            <p class="mb-0">
+                                                Name: {{ $orderAddress->billing_name }}
+                                            </p>
                                             @if ($orderAddress->billing_email)
-                                                {{ $orderAddress->billing_email }}<br>
+                                                <p class="mb-0">
+                                                    Email: {{ $orderAddress->billing_email }}
+                                                </p>
                                             @endif
                                             @if ($orderAddress->billing_phone)
-                                                {{ $orderAddress->billing_phone }}<br>
+                                                <p class="mb-0">
+                                                    Phone: {{ $orderAddress->billing_phone }}
+                                                </p>
                                             @endif
-                                            {{ $orderAddress->billing_address }},
-                                            {{ $orderAddress->billing_city . ', ' . $orderAddress->billing_state . ', ' . $orderAddress->billing_country }}<br>
+                                            <p class="mb-0">
+                                                Address: {{ $orderAddress->billing_address }}
+                                            </p>
+                                            <p class="mb-0">
+                                                City: {{ $orderAddress->billing_city }}
+                                            </p>
+                                            <p class="mb-0">
+                                                State: {{ $orderAddress->billing_state }}
+                                            </p>
                                         </address>
                                     </div>
                                     <div class="col-md-4">
                                         <address>
-                                            <strong>{{ __('Shipping Address') }} :</strong><br>
-                                            {{ $orderAddress->shipping_name }}<br>
+                                            <strong>{{ __('Shipping Address') }} :</strong>
+
+                                            <p class="mb-0">
+                                                Name: {{ $orderAddress->shipping_name }}
+                                            </p>
                                             @if ($orderAddress->shipping_email)
-                                                {{ $orderAddress->shipping_email }}<br>
+                                                <p class="mb-0">
+                                                    Email: {{ $orderAddress->shipping_email }}
+                                                </p>
                                             @endif
                                             @if ($orderAddress->shipping_phone)
-                                                {{ $orderAddress->shipping_phone }}<br>
+                                                <p class="mb-0">
+                                                    Phone: {{ $orderAddress->shipping_phone }}
+                                                </p>
                                             @endif
-                                            {{ $orderAddress->shipping_address }},
-                                            {{ $orderAddress->shipping_city . ', ' . $orderAddress->shipping_state . ', ' . $orderAddress->shipping_country }}<br>
+                                            <p class="mb-0">
+                                                Address: {{ $orderAddress->shipping_address }}
+                                            </p>
+                                            <p class="mb-0">
+                                                City: {{ $orderAddress->shipping_city }}
+                                            </p>
+                                            <p class="mb-0">
+                                                State: {{ $orderAddress->shipping_state }}
+                                            </p>
                                         </address>
                                     </div>
                                     <div class="col-md-4 invoice_details">
@@ -80,51 +107,9 @@
                                         <p>
                                             <strong>Order Date: </strong>{{ $order->created_at->format('d-m-Y') }}
                                         </p>
-                                        <p>
-                                            <strong>Customer Note: </strong>{{ $order->additional_info }}
-                                        </p>
+
                                     </div>
                                 </div>
-                                {{-- <div class="row">
-                                    <div class="col-md-6">
-                                        <address>
-                                            <strong>{{ __('Payment Information') }}:</strong><br>
-                                            {{ __('Method') }}: {{ $order->payment_method }}<br>
-                                            {{ __('Status') }} : @if ($order->payment_status == 1)
-                                                <span class="badge badge-success">{{ __('Success') }}</span>
-                                            @else
-                                                <span class="badge badge-danger">{{ __('Pending') }}</span>
-                                            @endif <br>
-                                            {{ __('Transaction') }}: {!! clean(nl2br($order->transection_id)) !!}
-                                        </address>
-                                    </div>
-                                    <div class="col-md-6 text-md-right">
-                                        <address>
-                                            <strong>{{ __('Order Information') }}:</strong><br>
-                                            @if ($order->agree_terms_condition == 'yes')
-                                                {{ __('Agree with Terms & Conditions') }}: <span
-                                                    class="badge badge-success">{{ __('Yes') }} </span><br>
-                                            @else
-                                                {{ __('Agree with Terms & Conditions') }}: <span
-                                                    class="badge badge-danger">{{ __('No') }} </span><br>
-                                            @endif
-                                            {{ __('Date') }}: {{ $order->created_at->format('d F, Y') }}<br>
-                                            {{ __('Shipping') }}: {{ $order->shipping_method }}<br>
-                                            {{ __('Status') }} :
-                                            @if ($order->order_status == 1)
-                                                <span class="badge badge-success">{{ __('Pregress') }} </span>
-                                            @elseif ($order->order_status == 2)
-                                                <span class="badge badge-success">{{ __('Delivered') }} </span>
-                                            @elseif ($order->order_status == 3)
-                                                <span class="badge badge-success">{{ __('Completed') }} </span>
-                                            @elseif ($order->order_status == 4)
-                                                <span class="badge badge-danger">{{ __('Declined') }} </span>
-                                            @else
-                                                <span class="badge badge-danger">{{ __('Pending') }}</span>
-                                            @endif
-                                        </address>
-                                    </div>
-                                </div> --}}
                             </div>
                         </div>
 
@@ -203,6 +188,9 @@
                                     <div class="col-lg-6 order-status">
                                         <div class="">
                                             <strong>{{ __('Payment Method') }} : </strong> {{ $order->payment_method }}
+                                        </div>
+                                        <div class="mt-4">
+                                            <strong>Customer Note: </strong>{{ $order->additional_info }}
                                         </div>
                                     </div>
 

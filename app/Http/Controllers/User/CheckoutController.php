@@ -164,9 +164,11 @@ class CheckoutController extends Controller
 
     public function placeOrder(Request $request)
     {
+
         DB::beginTransaction();
         try {
             $address_id = $this->storeAddress($request);
+
             $billing_id = $request->same_shipping;
             if (!$request->same_shipping) {
                 $billing_id = $this->storeAddress($request, 'billing_');
@@ -332,10 +334,15 @@ class CheckoutController extends Controller
         $orderAddress->billing_email = $billing->email;
         $orderAddress->billing_phone = $billing->phone;
         $orderAddress->billing_address = $billing->address;
+        $orderAddress->billing_city = $billing?->city?->name;
+        $orderAddress->billing_state = $billing->state?->name;
+
         $orderAddress->shipping_name = $shipping->name;
         $orderAddress->shipping_email = $shipping->email;
         $orderAddress->shipping_phone = $shipping->phone;
         $orderAddress->shipping_address = $shipping->address;
+        $orderAddress->shipping_city = $billing?->city?->name;
+        $orderAddress->shipping_state = $billing?->state?->name;
         $orderAddress->save();
 
 
