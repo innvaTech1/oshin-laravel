@@ -159,12 +159,12 @@
                                                     </td>
                                                 @endif
                                                 <td class="text-center">
-                                                    {{ $setting->currency_icon }}{{ $orderProduct->unit_price }}</td>
+                                                    {{ currency_icon() }}{{ $orderProduct->unit_price }}</td>
                                                 <td class="text-center">{{ $orderProduct->qty }}</td>
                                                 @php
                                                     $total = $orderProduct->unit_price * $orderProduct->qty;
                                                 @endphp
-                                                <td class="text-right">{{ $setting->currency_icon }}{{ $total }}
+                                                <td class="text-right">{{ currency_icon() }}{{ $total }}
                                                 </td>
                                             </tr>
                                             @php
@@ -197,26 +197,26 @@
                                     <div class="col-lg-6 text-right">
                                         <div class="invoice-detail-item">
                                             <div class="invoice-detail-name">{{ __('Subtotal') }} :
-                                                {{ $setting->currency_icon }}{{ $order->sub_total }}</div>
+                                                {{ currency_icon() }}{{ $order->sub_total }}</div>
                                         </div>
                                         <div class="invoice-detail-item">
                                             <div class="invoice-detail-name">{{ __('Discount') }}(-) :
-                                                {{ $setting->currency_icon }}{{ $order->coupon_coast }}</div>
+                                                {{ currency_icon() }}{{ $order->coupon_coast }}</div>
                                         </div>
                                         <div class="invoice-detail-item">
                                             <div class="invoice-detail-name">{{ __('Shipping') }} :
-                                                {{ $setting->currency_icon }}{{ $order->shipping_cost }}</div>
+                                                {{ currency_icon() }}{{ $order->shipping_cost }}</div>
                                         </div>
                                         <div class="invoice-detail-item">
                                             <div class="invoice-detail-name">{{ __('Tax') }} :
-                                                {{ $setting->currency_icon }}{{ $order->order_vat }}</div>
+                                                {{ currency_icon() }}{{ $order->order_vat }}</div>
                                         </div>
 
                                         <hr class="mt-2 mb-2">
                                         <div class="invoice-detail-item">
                                             <div class="invoice-detail-value invoice-detail-value-lg">
                                                 {{ __('Total') }} :
-                                                {{ $setting->currency_icon }}{{ $order->total_amount }}</div>
+                                                {{ currency_icon() }}{{ $order->total_amount }}</div>
                                         </div>
                                     </div>
 

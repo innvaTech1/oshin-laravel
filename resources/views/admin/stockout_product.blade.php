@@ -34,7 +34,7 @@
                                                     <td><a target="_blank"
                                                             href="{{ $frontend_url . $product->slug }}">{{ $product->short_name }}</a>
                                                     </td>
-                                                    <td>{{ $setting->currency_icon }}{{ $product->price }}</td>
+                                                    <td>{{ currency_icon() }}{{ $product->price }}</td>
                                                     <td> <img class="rounded-circle"
                                                             src="{{ asset($product->thumb_image) }}" alt=""
                                                             width="100px" height="100px"></td>

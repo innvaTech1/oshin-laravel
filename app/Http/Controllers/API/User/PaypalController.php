@@ -166,7 +166,7 @@ class PaypalController extends Controller
         $amount_real_currency = $total_price;
         $amount_usd = round($total_price / $setting->currency_rate,2);
         $currency_rate = $setting->currency_rate;
-        $currency_icon = $setting->currency_icon;
+        $currency_icon = currency_icon();
         $currency_name = $setting->currency_name;
 
         $amount_real_currency = $total_price;
@@ -310,7 +310,7 @@ class PaypalController extends Controller
             $amount_real_currency = $total_price;
             $amount_usd = round($total_price / $setting->currency_rate,2);
             $currency_rate = $setting->currency_rate;
-            $currency_icon = $setting->currency_icon;
+            $currency_icon = currency_icon();
             $currency_name = $setting->currency_name;
 
 
@@ -393,7 +393,7 @@ class PaypalController extends Controller
 
                 $order_details.='Product: '.$cartProduct->name. '<br>';
                 $order_details.='Quantity: '. $cartProduct->qty .'<br>';
-                $order_details.='Price: '.$setting->currency_icon . $cartProduct->qty * $productUnitPrice .'<br>';
+                $order_details.='Price: '.currency_icon() . $cartProduct->qty * $productUnitPrice .'<br>';
 
             }
 
@@ -423,7 +423,7 @@ class PaypalController extends Controller
             $subject=$template->subject;
             $message=$template->description;
             $message = str_replace('{{user_name}}',$user->name,$message);
-            $message = str_replace('{{total_amount}}',$setting->currency_icon.$total_price,$message);
+            $message = str_replace('{{total_amount}}',currency_icon().$total_price,$message);
             $message = str_replace('{{payment_method}}','Paypal',$message);
             $message = str_replace('{{payment_status}}','Success',$message);
             $message = str_replace('{{order_status}}','Pending',$message);

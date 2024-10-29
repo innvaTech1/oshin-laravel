@@ -45,8 +45,8 @@
                                                     <td>{{ $withdraw->approved_date }}</td>
                                                     <td>{{ $withdraw->method }}</td>
                                                     <td>{{ $withdraw->withdraw_charge }}%</td>
-                                                    <td>{{ $setting->currency_icon }}{{ $withdraw->total_amount }}</td>
-                                                    <td>{{ $setting->currency_icon }}{{ $withdraw->withdraw_amount }}</td>
+                                                    <td>{{ currency_icon() }}{{ $withdraw->total_amount }}</td>
+                                                    <td>{{ currency_icon() }}{{ $withdraw->withdraw_amount }}</td>
                                                     <td>
                                                         @if ($withdraw->status == 1)
                                                             <span class="badge badge-success">{{ __('Success') }}</span>

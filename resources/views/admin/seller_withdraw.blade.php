@@ -42,10 +42,10 @@
                                                             href="{{ route('admin.seller-show', $withdraw->seller->id) }}">{{ $withdraw->seller->user->name }}</a>
                                                     </td>
                                                     <td>{{ $withdraw->method }}</td>
-                                                    <td>{{ $setting->currency_icon }}{{ $withdraw->total_amount - $withdraw->withdraw_amount }}
+                                                    <td>{{ currency_icon() }}{{ $withdraw->total_amount - $withdraw->withdraw_amount }}
                                                     </td>
-                                                    <td>{{ $setting->currency_icon }}{{ $withdraw->total_amount }}</td>
-                                                    <td>{{ $setting->currency_icon }}{{ $withdraw->withdraw_amount }}</td>
+                                                    <td>{{ currency_icon() }}{{ $withdraw->total_amount }}</td>
+                                                    <td>{{ currency_icon() }}{{ $withdraw->withdraw_amount }}</td>
                                                     <td>
                                                         @if ($withdraw->status == 1)
                                                             <span class="badge badge-success">{{ __('Success') }}</span>

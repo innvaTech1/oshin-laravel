@@ -10,8 +10,8 @@
 
 
     <!--============================
-             BREADCRUMB START
-        ==============================-->
+                 BREADCRUMB START
+            ==============================-->
     <section id="wsus__breadcrumb" style="background: url({{ asset($banner->image) }});">
         <div class="wsus_breadcrumb_overlay">
             <div class="container">
@@ -29,13 +29,13 @@
         </div>
     </section>
     <!--============================
-            BREADCRUMB END
-        ==============================-->
+                BREADCRUMB END
+            ==============================-->
 
 
     <!--============================
-              CHECK OUT PAGE START
-        ==============================-->
+                  CHECK OUT PAGE START
+            ==============================-->
     <section id="wsus__cart_view">
         <div class="container">
             <div class="row">
@@ -242,7 +242,7 @@
                                                 $subTotal += $total;
                                             @endphp
                                             <div class="wsus__order_details_tk">
-                                                <p>{{ $setting->currency_icon }}{{ $total }}</p>
+                                                <p>{{ currency_icon() }}{{ $total }}</p>
                                             </div>
                                         </li>
                                         @php
@@ -276,13 +276,17 @@
 
                                 <div class="wsus__order_details_summery">
                                     <p>{{ __('user.subtotal') }}:
-                                        <span>{{ $setting->currency_icon }}{{ $subTotal }}</span></p>
+                                        <span>{{ currency_icon() }}{{ $subTotal }}</span>
+                                    </p>
                                     <p>{{ __('user.Tax') }}(+):
-                                        <span>{{ $setting->currency_icon }}{{ $tax_amount }}</span></p>
+                                        <span>{{ currency_icon() }}{{ $tax_amount }}</span>
+                                    </p>
                                     <p>{{ __('user.Coupon') }}(-):
-                                        <span>{{ $setting->currency_icon }}{{ $coupon_price }}</span></p>
+                                        <span>{{ currency_icon() }}{{ $coupon_price }}</span>
+                                    </p>
                                     <p class="total"><span>{{ __('user.total') }}:</span>
-                                        <span>{{ $setting->currency_icon }}{{ $total_price }}</span></p>
+                                        <span>{{ currency_icon() }}{{ $total_price }}</span>
+                                    </p>
                                 </div>
                                 <button type="submit" class="common_btn">{{ __('user.Continue Shopping') }}</button>
                             </div>
@@ -294,8 +298,8 @@
         </div>
     </section>
     <!--============================
-             CHECK OUT PAGE END
-        ==============================-->
+                 CHECK OUT PAGE END
+            ==============================-->
 
 
     <script>

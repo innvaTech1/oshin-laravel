@@ -47,7 +47,7 @@
                                                     <td>{{ ++$index }}</td>
                                                     <td>{{ $variantItem->variant->name }}</td>
                                                     <td>{{ $variantItem->name }}</td>
-                                                    <td>{{ $setting->currency_icon }}{{ $variantItem->price }}</td>
+                                                    <td>{{ currency_icon() }}{{ $variantItem->price }}</td>
                                                     <td>
                                                         @if ($variantItem->is_default == 1)
                                                             <span class="badge badge-success">{{ __('Yes') }}</span>

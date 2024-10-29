@@ -161,14 +161,14 @@
 
                                                     <div class="product-item-text-btm">
                                                         @if ($product->offer_price == '')
-                                                            <span> {{ $setting->currency_icon }}{{ $product->price }}
+                                                            <span> {{ currency_icon() }}{{ $product->price }}
                                                             </span>
                                                         @else
                                                             <span>
-                                                                <del>{{ $setting->currency_icon }}{{ $product->price }}</del>
+                                                                <del>{{ currency_icon() }}{{ $product->price }}</del>
                                                             </span>
                                                             <span>
-                                                                {{ $setting->currency_icon }}{{ $product->offer_price }}
+                                                                {{ currency_icon() }}{{ $product->offer_price }}
                                                             </span>
                                                         @endif
                                                     </div>
@@ -324,7 +324,7 @@
                                                                 $discountedTotal = $grandTotal - $discount;
                                                                 $subTotal = $discountedTotal + $tax;
                                                             @endphp
-                                                            <p>{{ $setting->currency_icon }}{{ $price }}</p>
+                                                            <p>{{ currency_icon() }}{{ $price }}</p>
                                                         </div>
 
                                                         <div class="action">
@@ -408,15 +408,15 @@
                                             </div>
                                             @if ($grandTotal == 0)
                                                 <div class="sub-total-inner">
-                                                    <h6>{{ $setting->currency_icon }}0</h6>
-                                                    <h6>{{ $setting->currency_icon }}0</h6>
-                                                    <h6>{{ $setting->currency_icon }}0</h6>
+                                                    <h6>{{ currency_icon() }}0</h6>
+                                                    <h6>{{ currency_icon() }}0</h6>
+                                                    <h6>{{ currency_icon() }}0</h6>
                                                 </div>
                                             @else
                                                 <div class="sub-total-inner">
-                                                    <h6>{{ $setting->currency_icon }}{{ $grandTotal }}</h6>
-                                                    <h6>{{ $setting->currency_icon }}{{ $discount }}</h6>
-                                                    <h6>{{ $setting->currency_icon }}{{ $tax }}</h6>
+                                                    <h6>{{ currency_icon() }}{{ $grandTotal }}</h6>
+                                                    <h6>{{ currency_icon() }}{{ $discount }}</h6>
+                                                    <h6>{{ currency_icon() }}{{ $tax }}</h6>
                                                 </div>
                                             @endif
                                         </div>
@@ -427,11 +427,11 @@
                                             </div>
                                             @if ($grandTotal == 0)
                                                 <div class="sub-total-btm-inner">
-                                                    <h6>{{ $setting->currency_icon }}0</h6>
+                                                    <h6>{{ currency_icon() }}0</h6>
                                                 </div>
                                             @else
                                                 <div class="sub-total-btm-inner">
-                                                    <h6>{{ $setting->currency_icon }}{{ $subTotal }}</h6>
+                                                    <h6>{{ currency_icon() }}{{ $subTotal }}</h6>
                                                 </div>
                                             @endif
                                         </div>

@@ -43,7 +43,7 @@
                                                     <td>{{ $order->order_id }}</td>
                                                     <td>{{ $order->created_at->format('d F, Y') }}</td>
                                                     <td>{{ $order->product_qty }}</td>
-                                                    <td>{{ $setting->currency_icon }}{{ $order->total_amount }}
+                                                    <td>{{ currency_icon() }}{{ $order->total_amount }}
                                                     </td>
                                                     <td>
                                                         @if ($order->order_status == 1)

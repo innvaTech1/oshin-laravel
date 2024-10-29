@@ -42,17 +42,17 @@
                                     <tr>
                                         <td width="50%">{{ __('Withdraw Charge Amount') }}</td>
                                         <td width="50%">
-                                            {{ $setting->currency_icon }}{{ $withdraw->total_amount - $withdraw->withdraw_amount }}
+                                            {{ currency_icon() }}{{ $withdraw->total_amount - $withdraw->withdraw_amount }}
                                         </td>
                                     </tr>
 
                                     <tr>
                                         <td width="50%">{{ __('Total amount') }}</td>
-                                        <td width="50%">{{ $setting->currency_icon }}{{ $withdraw->total_amount }}</td>
+                                        <td width="50%">{{ currency_icon() }}{{ $withdraw->total_amount }}</td>
                                     </tr>
                                     <tr>
                                         <td width="50%">{{ __('Withdraw amount') }}</td>
-                                        <td width="50%">{{ $setting->currency_icon }}{{ $withdraw->withdraw_amount }}
+                                        <td width="50%">{{ currency_icon() }}{{ $withdraw->withdraw_amount }}
                                         </td>
                                     </tr>
                                     <tr>

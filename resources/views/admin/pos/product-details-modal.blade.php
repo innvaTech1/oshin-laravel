@@ -60,10 +60,10 @@
                         <div class="place-order-del">
                             @if ($product->offer_price)
                                 <span>
-                                    <del>{{ $setting->currency_icon }}{{ $product->offer_price }}</del>
+                                    <del>{{ currency_icon() }}{{ $product->offer_price }}</del>
                                 </span>
                             @endif
-                            <span>{{ $setting->currency_icon }}{{ $product->price }}</span>
+                            <span>{{ currency_icon() }}{{ $product->price }}</span>
                         </div>
 
                         <div class="place-order-p">

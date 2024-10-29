@@ -43,7 +43,7 @@
                                         <h4>{{ __('user.Total Withdraw') }}</h4>
                                     </div>
                                     <div class="card-body">
-                                        {{ $setting->currency_icon }}{{ $totalWithdraw }}
+                                        {{ currency_icon() }}{{ $totalWithdraw }}
                                     </div>
                                 </div>
                             </div>
@@ -62,7 +62,7 @@
                                     <h4>{{ __('user.Current Balance') }}</h4>
                                 </div>
                                 <div class="card-body">
-                                    {{ $setting->currency_icon }}{{ $totalAmount - $totalWithdraw }}
+                                    {{ currency_icon() }}{{ $totalAmount - $totalWithdraw }}
                                 </div>
                             </div>
                         </div>
@@ -105,7 +105,7 @@
                                     <div class="profile-widget-item">
                                         <div class="profile-widget-item-label">{{ __('user.Balance') }}</div>
                                         <div class="profile-widget-item-value">
-                                            {{ $setting->currency_icon }}{{ $totalAmount }}</div>
+                                            {{ currency_icon() }}{{ $totalAmount }}</div>
                                     </div>
                                 </div>
                             </div>
