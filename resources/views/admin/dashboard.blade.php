@@ -117,7 +117,7 @@
                                     <h4>{{ __('Today Earning') }}</h4>
                                 </div>
                                 <div class="card-body">
-                                    {{ $setting->currency_icon }}{{ round($todayOrders->sum('amount_real_currency'), 2) }}
+                                    {{ currency_icon() }}{{ round($todayOrders->sum('amount_real_currency'), 2) }}
                                 </div>
                             </div>
                         </div>
@@ -133,7 +133,7 @@
                                     <h4>{{ __('Today Pending Earning') }}</h4>
                                 </div>
                                 <div class="card-body">
-                                    {{ $setting->currency_icon }}{{ round($todayOrders->where('payment_status', 0)->sum('amount_real_currency'), 2) }}
+                                    {{ currency_icon() }}{{ round($todayOrders->where('payment_status', 0)->sum('amount_real_currency'), 2) }}
                                 </div>
                             </div>
                         </div>
@@ -149,7 +149,7 @@
                                     <h4>{{ __('This month Earning') }}</h4>
                                 </div>
                                 <div class="card-body">
-                                    {{ $setting->currency_icon }}{{ round($monthlyOrders->sum('amount_real_currency'), 2) }}
+                                    {{ currency_icon() }}{{ round($monthlyOrders->sum('amount_real_currency'), 2) }}
                                 </div>
                             </div>
                         </div>
@@ -167,7 +167,7 @@
                                     <h4>{{ __('This Year Earning') }}</h4>
                                 </div>
                                 <div class="card-body">
-                                    {{ $setting->currency_icon }}{{ round($yearlyOrders->sum('amount_real_currency'), 2) }}
+                                    {{ currency_icon() }}{{ round($yearlyOrders->sum('amount_real_currency'), 2) }}
                                 </div>
                             </div>
                         </div>
@@ -183,7 +183,7 @@
                                     <h4>{{ __('Total Earning') }}</h4>
                                 </div>
                                 <div class="card-body">
-                                    {{ $setting->currency_icon }}{{ round($totalOrders->sum('amount_real_currency'), 2) }}
+                                    {{ currency_icon() }}{{ round($totalOrders->sum('amount_real_currency'), 2) }}
                                 </div>
                             </div>
                         </div>
@@ -427,7 +427,7 @@
                                                     <td>{{ $order->order_id }}</td>
                                                     <td>{{ $order->created_at->format('d F, Y') }}</td>
                                                     <td>{{ $order->product_qty }}</td>
-                                                    <td>{{ $setting->currency_icon }}{{ $order->amount_real_currency }}
+                                                    <td>{{ currency_icon() }}{{ $order->amount_real_currency }}
                                                     </td>
                                                     <td>
                                                         @if ($order->order_status == 1)

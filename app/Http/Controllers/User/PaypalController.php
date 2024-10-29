@@ -51,13 +51,14 @@ class PaypalController extends Controller
     {
         $account = PaypalPayment::first();
         $paypal_conf = \Config::get('paypal');
-        $this->apiContext = new ApiContext(new OAuthTokenCredential(
-            $account->client_id,
-            $account->secret_id,
+        $this->apiContext = new ApiContext(
+            new OAuthTokenCredential(
+                $account->client_id,
+                $account->secret_id,
             )
         );
 
-        $setting=array(
+        $setting = array(
             'mode' => $account->account_mode,
             'http.ConnectionTimeOut' => 30,
             'log.LogEnabled' => true,
@@ -68,15 +69,16 @@ class PaypalController extends Controller
     }
 
 
-    public function paypalWebView(Request $request){
+    public function paypalWebView(Request $request)
+    {
         $rules = [
-            'agree_terms_condition'=>'required',
-            'shipping_method'=>'required',
+            'agree_terms_condition' => 'required',
+            'shipping_method' => 'required',
         ];
         $customMessages = [
             'agree_terms_condition.required' => trans('Agree field is required'),
         ];
-        $this->validate($request, $rules,$customMessages);
+        $this->validate($request, $rules, $customMessages);
 
         $agree_terms_condition = $request->agree_terms_condition;
         $shipping_method = $request->shipping_method;
@@ -87,10 +89,11 @@ class PaypalController extends Controller
         Session::put('agree_terms_condition', $request->agree_terms_condition);
         Session::put('shipping_method', $request->shipping_method);
 
-        return view('paypal_btn', compact('agree_terms_condition','shipping_method','token'));
+        return view('paypal_btn', compact('agree_terms_condition', 'shipping_method', 'token'));
     }
 
-    public function payWithPaypalFromApi(Request $request){
+    public function payWithPaypalFromApi(Request $request)
+    {
 
         $tax_amount = 0;
         $total_price = 0;
@@ -106,7 +109,7 @@ class PaypalController extends Controller
         $taxAmount = 0;
         $couponAmount = 0;
         $totalAmount = 0;
-        foreach($cartProducts as $cartProduct){
+        foreach ($cartProducts as $cartProduct) {
             $subTotalAmount += $cartProduct->price * $cartProduct->qty;
             $taxAmount += $cartProduct->tax * $cartProduct->qty;
         }
@@ -116,21 +119,21 @@ class PaypalController extends Controller
         $totalAmount = $taxAmount + $subTotalAmount;
         $findCoupon = ShoppingCart::where('user_id', $user->id)->first();
 
-        if($findCoupon){
-            if($findCoupon->offer_type == 1){
+        if ($findCoupon) {
+            if ($findCoupon->offer_type == 1) {
                 $couponAmount = $findCoupon->coupon_price;
                 $couponAmount = ($couponAmount / 100) * $totalAmount;
-            }elseif($findCoupon->offer_type == 2){
+            } elseif ($findCoupon->offer_type == 2) {
                 $couponAmount = $findCoupon->coupon_price;
             }
         }
 
         $coupon_price = $couponAmount;
-        $totalAmount = $totalAmount - $couponAmount ;
+        $totalAmount = $totalAmount - $couponAmount;
 
-        if($cartProducts->count() == 0){
+        if ($cartProducts->count() == 0) {
             $notification = trans('user_validation.Your Shopping Cart is Empty');
-            return response()->json(['message' => $notification],400);
+            return response()->json(['message' => $notification], 400);
         }
 
 
@@ -138,37 +141,37 @@ class PaypalController extends Controller
 
         $shipping_fee = 0;
         $shipping_method = $request->shipping_method;
-        $shippingMethod = ShippingMethod::where('id',$shipping_method)->first();
+        $shippingMethod = ShippingMethod::where('id', $shipping_method)->first();
         $shipping_fee = $shippingMethod->fee;
         $totalAmount = $totalAmount + $shipping_fee;
         $total_price = $totalAmount;
 
 
-        $total_price = str_replace( array( '\'', '"', ',' , ';', '<', '>' ), '', $total_price);
+        $total_price = str_replace(array('\'', '"', ',', ';', '<', '>'), '', $total_price);
         $setting = Setting::first();
 
 
 
         $additional_information = '';
-        if(Session::get('addition_information')){
+        if (Session::get('addition_information')) {
             $additional_information = Session::get('addition_information');
         }
         $agree_terms_condition = 'no';
-        if(Session::get('agree_terms_condition')){
+        if (Session::get('agree_terms_condition')) {
             $agree_terms_condition = Session::get('agree_terms_condition');
         }
 
         $amount_real_currency = $total_price;
-        $amount_usd = round($total_price / $setting->currency_rate,2);
+        $amount_usd = round($total_price / $setting->currency_rate, 2);
         $currency_rate = $setting->currency_rate;
-        $currency_icon = $setting->currency_icon;
+        $currency_icon = currency_icon();
         $currency_name = $setting->currency_name;
 
         $amount_real_currency = $total_price;
         $paypalSetting = PaypalPayment::first();
-        $payableAmount = round($total_price * $paypalSetting->currency_rate,2);
+        $payableAmount = round($total_price * $paypalSetting->currency_rate, 2);
 
-        $name=env('APP_NAME');
+        $name = env('APP_NAME');
 
         // set payer
         $payer = new Payer();
@@ -187,9 +190,9 @@ class PaypalController extends Controller
         // redirect url
         $redirectUrls = new RedirectUrls();
 
-        $root_url=url('/');
-        $redirectUrls->setReturnUrl($root_url."/user/checkout/paypal-payment-success-from-api")
-            ->setCancelUrl($root_url."/user/checkout/paypal-payment-cancled-from-api");
+        $root_url = url('/');
+        $redirectUrls->setReturnUrl($root_url . "/user/checkout/paypal-payment-success-from-api")
+            ->setCancelUrl($root_url . "/user/checkout/paypal-payment-cancled-from-api");
 
         // payment
         $payment = new Payment();
@@ -202,7 +205,7 @@ class PaypalController extends Controller
         } catch (\PayPal\Exception\PPConnectionException $ex) {
 
             $notification = trans('user_validation.Payment Faild');
-            $notification = array('messege'=>$notification,'alert-type'=>'error');
+            $notification = array('messege' => $notification, 'alert-type' => 'error');
             return redirect()->route('user.checkout.payment')->with($notification);
         }
 
@@ -213,7 +216,8 @@ class PaypalController extends Controller
     }
 
 
-    public function payWithPaypal(Request $request){
+    public function payWithPaypal(Request $request)
+    {
 
         $tax_amount = 0;
         $total_price = 0;
@@ -225,7 +229,7 @@ class PaypalController extends Controller
         $shipping = ShippingAddress::where('user_id', $user->id)->first();
         $cartContents = Cart::content();
         $shipping_method = Session::get('shipping_method');
-        $shippingMethod = ShippingMethod::where('id',$shipping_method)->first();
+        $shippingMethod = ShippingMethod::where('id', $shipping_method)->first();
         $shipping_fee = $shippingMethod->fee;
         foreach ($cartContents as $key => $content) {
             $tax = $content->options->tax * $content->qty;
@@ -238,40 +242,40 @@ class PaypalController extends Controller
             foreach ($cartContent->options->variants as $indx => $variant) {
                 $variantPrice += $cartContent->options->prices[$indx];
             }
-            $productPrice = $cartContent->price ;
-            $total = $productPrice * $cartContent->qty ;
+            $productPrice = $cartContent->price;
+            $total = $productPrice * $cartContent->qty;
             $subTotal += $total;
         }
 
         $total_price = $tax_amount + $subTotal;
-        if(Session::get('coupon_price') && Session::get('offer_type')) {
-            if(Session::get('offer_type') == 1) {
+        if (Session::get('coupon_price') && Session::get('offer_type')) {
+            if (Session::get('offer_type') == 1) {
                 $coupon_price = Session::get('coupon_price');
                 $coupon_price = ($coupon_price / 100) * $total_price;
-            }else {
+            } else {
                 $coupon_price = Session::get('coupon_price');
             }
         }
 
-        $total_price = $total_price - $coupon_price ;
+        $total_price = $total_price - $coupon_price;
         $total_price += $shipping_fee;
-        $total_price = str_replace( array( '\'', '"', ',' , ';', '<', '>' ), '', $total_price);
+        $total_price = str_replace(array('\'', '"', ',', ';', '<', '>'), '', $total_price);
         $setting = Setting::first();
 
         $additional_information = '';
-        if(Session::get('addition_information')){
+        if (Session::get('addition_information')) {
             $additional_information = Session::get('addition_information');
         }
         $agree_terms_condition = 'no';
-        if(Session::get('agree_terms_condition')){
+        if (Session::get('agree_terms_condition')) {
             $agree_terms_condition = Session::get('agree_terms_condition');
         }
 
         $amount_real_currency = $total_price;
         $paypalSetting = PaypalPayment::first();
-        $payableAmount = round($total_price * $paypalSetting->currency_rate,2);
+        $payableAmount = round($total_price * $paypalSetting->currency_rate, 2);
 
-        $name=env('APP_NAME');
+        $name = env('APP_NAME');
 
         // set payer
         $payer = new Payer();
@@ -290,9 +294,9 @@ class PaypalController extends Controller
         // redirect url
         $redirectUrls = new RedirectUrls();
 
-        $root_url=url('/');
-        $redirectUrls->setReturnUrl($root_url."/user/checkout/paypal-payment-success")
-            ->setCancelUrl($root_url."/user/checkout/paypal-payment-cancled");
+        $root_url = url('/');
+        $redirectUrls->setReturnUrl($root_url . "/user/checkout/paypal-payment-success")
+            ->setCancelUrl($root_url . "/user/checkout/paypal-payment-cancled");
 
         // payment
         $payment = new Payment();
@@ -305,7 +309,7 @@ class PaypalController extends Controller
         } catch (\PayPal\Exception\PPConnectionException $ex) {
 
             $notification = trans('user_validation.Payment Faild');
-            $notification = array('messege'=>$notification,'alert-type'=>'error');
+            $notification = array('messege' => $notification, 'alert-type' => 'error');
             return redirect()->route('user.checkout.payment')->with($notification);
         }
 
@@ -315,16 +319,16 @@ class PaypalController extends Controller
         return redirect($approvalUrl);
     }
 
-    public function paypalPaymentSuccess(Request $request){
+    public function paypalPaymentSuccess(Request $request)
+    {
         if (empty($request->get('PayerID')) || empty($request->get('token'))) {
 
             $notification = trans('user_validation.Payment Faild');
-            $notification = array('messege'=>$notification,'alert-type'=>'error');
+            $notification = array('messege' => $notification, 'alert-type' => 'error');
             return redirect()->route('user.checkout.payment')->with($notification);
-
         }
 
-        $payment_id=$request->get('paymentId');
+        $payment_id = $request->get('paymentId');
         $payment = Payment::get($payment_id, $this->apiContext);
         $execution = new PaymentExecution();
         $execution->setPayerId($request->get('PayerID'));
@@ -342,7 +346,7 @@ class PaypalController extends Controller
             $shipping = ShippingAddress::where('user_id', $user->id)->first();
             $cartContents = Cart::content();
             $shipping_method = Session::get('shipping_method');
-            $shippingMethod = ShippingMethod::where('id',$shipping_method)->first();
+            $shippingMethod = ShippingMethod::where('id', $shipping_method)->first();
             $shipping_fee = $shippingMethod->fee;
             foreach ($cartContents as $key => $content) {
                 $tax = $content->options->tax * $content->qty;
@@ -355,43 +359,43 @@ class PaypalController extends Controller
                 foreach ($cartContent->options->variants as $indx => $variant) {
                     $variantPrice += $cartContent->options->prices[$indx];
                 }
-                $productPrice = $cartContent->price ;
-                $total = $productPrice * $cartContent->qty ;
+                $productPrice = $cartContent->price;
+                $total = $productPrice * $cartContent->qty;
                 $subTotal += $total;
             }
 
             $total_price = $tax_amount + $subTotal;
-            if(Session::get('coupon_price') && Session::get('offer_type')) {
-                if(Session::get('offer_type') == 1) {
+            if (Session::get('coupon_price') && Session::get('offer_type')) {
+                if (Session::get('offer_type') == 1) {
                     $coupon_price = Session::get('coupon_price');
                     $coupon_price = ($coupon_price / 100) * $total_price;
-                }else {
+                } else {
                     $coupon_price = Session::get('coupon_price');
                 }
             }
 
-            $total_price = $total_price - $coupon_price ;
+            $total_price = $total_price - $coupon_price;
             $total_price += $shipping_fee;
-            $total_price = str_replace( array( '\'', '"', ',' , ';', '<', '>' ), '', $total_price);
+            $total_price = str_replace(array('\'', '"', ',', ';', '<', '>'), '', $total_price);
             $setting = Setting::first();
 
             $additional_information = '';
-            if(Session::get('addition_information')){
+            if (Session::get('addition_information')) {
                 $additional_information = Session::get('addition_information');
             }
             $agree_terms_condition = 'no';
-            if(Session::get('agree_terms_condition')){
+            if (Session::get('agree_terms_condition')) {
                 $agree_terms_condition = Session::get('agree_terms_condition');
             }
 
             $amount_real_currency = $total_price;
-            $amount_usd = round($total_price / $setting->currency_rate,2);
+            $amount_usd = round($total_price / $setting->currency_rate, 2);
             $currency_rate = $setting->currency_rate;
-            $currency_icon = $setting->currency_icon;
+            $currency_icon = currency_icon();
             $currency_name = $setting->currency_name;
 
             $order = new Order();
-            $orderId = substr(rand(0,time()),0,10);
+            $orderId = substr(rand(0, time()), 0, 10);
             $order->order_id = $orderId;
             $order->user_id = $user->id;
             $order->sub_total = $subTotal;
@@ -414,10 +418,10 @@ class PaypalController extends Controller
             $order->agree_terms_condition = $agree_terms_condition;
             $order->save();
 
-            if(Session::get('coupon_name')){
+            if (Session::get('coupon_name')) {
                 $coupon = Coupon::where(['code' => Session::get('coupon_name')])->first();
                 $qty = $coupon->apply_qty;
-                $qty = $qty +1;
+                $qty = $qty + 1;
                 $coupon->apply_qty = $qty;
                 $coupon->save();
             }
@@ -448,8 +452,8 @@ class PaypalController extends Controller
                 $productStock->qty = $qty;
                 $productStock->save();
 
-                if(count($cartContent->options->variants) > 0) {
-                    foreach($cartContent->options->variants as $index => $variant) {
+                if (count($cartContent->options->variants) > 0) {
+                    foreach ($cartContent->options->variants as $index => $variant) {
                         $productVariant = new OrderProductVariant();
                         $productVariant->order_product_id = $orderProduct->id;
                         $productVariant->product_id = $cartContent->id;
@@ -460,9 +464,9 @@ class PaypalController extends Controller
                     }
                 }
 
-                $order_details.='Product: '.$cartContent->name. '<br>';
-                $order_details.='Quantity: '. $cartContent->qty .'<br>';
-                $order_details.='Price: '.$setting->currency_icon . $cartContent->qty * $productUnitPrice .'<br>';
+                $order_details .= 'Product: ' . $cartContent->name . '<br>';
+                $order_details .= 'Quantity: ' . $cartContent->qty . '<br>';
+                $order_details .= 'Price: ' . currency_icon() . $cartContent->qty * $productUnitPrice . '<br>';
             }
 
             $orderAddress = new OrderAddress();
@@ -487,17 +491,17 @@ class PaypalController extends Controller
 
             MailHelper::setMailConfig();
 
-            $template=EmailTemplate::where('id',6)->first();
-            $subject=$template->subject;
-            $message=$template->description;
-            $message = str_replace('{{user_name}}',$user->name,$message);
-            $message = str_replace('{{total_amount}}',$setting->currency_icon.$total_price,$message);
-            $message = str_replace('{{payment_method}}','Paypal',$message);
-            $message = str_replace('{{payment_status}}','Success',$message);
-            $message = str_replace('{{order_status}}','Pending',$message);
-            $message = str_replace('{{order_date}}',$order->created_at->format('d F, Y'),$message);
-            $message = str_replace('{{order_detail}}',$order_details,$message);
-            Mail::to($user->email)->send(new OrderSuccessfully($message,$subject));
+            $template = EmailTemplate::where('id', 6)->first();
+            $subject = $template->subject;
+            $message = $template->description;
+            $message = str_replace('{{user_name}}', $user->name, $message);
+            $message = str_replace('{{total_amount}}', currency_icon() . $total_price, $message);
+            $message = str_replace('{{payment_method}}', 'Paypal', $message);
+            $message = str_replace('{{payment_status}}', 'Success', $message);
+            $message = str_replace('{{order_status}}', 'Pending', $message);
+            $message = str_replace('{{order_date}}', $order->created_at->format('d F, Y'), $message);
+            $message = str_replace('{{order_detail}}', $order_details, $message);
+            Mail::to($user->email)->send(new OrderSuccessfully($message, $subject));
 
             Session::forget('hipping_method');
             Session::forget('coupon_price');
@@ -508,33 +512,36 @@ class PaypalController extends Controller
             Cart::destroy();
 
             $notification = trans('user_validation.Payment Successfully');
-            $notification = array('messege'=>$notification,'alert-type'=>'success');
+            $notification = array('messege' => $notification, 'alert-type' => 'success');
             return redirect()->route('user.order')->with($notification);
         }
     }
 
 
 
-    public function paypalPaymentCancled(){
+    public function paypalPaymentCancled()
+    {
         $notification = trans('user_validation.Payment Faild');
-        $notification = array('messege'=>$notification,'alert-type'=>'error');
+        $notification = array('messege' => $notification, 'alert-type' => 'error');
         return redirect()->route('user.checkout.payment')->with($notification);
     }
 
-    public function paypalPaymentCancledFromApi(){
+    public function paypalPaymentCancledFromApi()
+    {
         $notification = trans('user_validation.Payment Faild');
-        return response()->json(['notification' => $notification],403);
+        return response()->json(['notification' => $notification], 403);
     }
 
 
 
-    public function paypalPaymentSuccessFromApi(Request $request){
+    public function paypalPaymentSuccessFromApi(Request $request)
+    {
         if (empty($request->get('PayerID')) || empty($request->get('token'))) {
             $notification = trans('user_validation.Payment Faild');
-            return response()->json(['notification' => $notification],403);
+            return response()->json(['notification' => $notification], 403);
         }
 
-        $payment_id=$request->get('paymentId');
+        $payment_id = $request->get('paymentId');
         $payment = Payment::get($payment_id, $this->apiContext);
         $execution = new PaymentExecution();
         $execution->setPayerId($request->get('PayerID'));
@@ -557,7 +564,7 @@ class PaypalController extends Controller
             $taxAmount = 0;
             $couponAmount = 0;
             $totalAmount = 0;
-            foreach($cartProducts as $cartProduct){
+            foreach ($cartProducts as $cartProduct) {
                 $subTotalAmount += $cartProduct->price * $cartProduct->qty;
                 $taxAmount += $cartProduct->tax * $cartProduct->qty;
             }
@@ -567,51 +574,51 @@ class PaypalController extends Controller
             $totalAmount = $taxAmount + $subTotalAmount;
             $findCoupon = ShoppingCart::where('user_id', $user->id)->first();
 
-            if($findCoupon){
-                if($findCoupon->offer_type == 1){
+            if ($findCoupon) {
+                if ($findCoupon->offer_type == 1) {
                     $couponAmount = $findCoupon->coupon_price;
                     $couponAmount = ($couponAmount / 100) * $totalAmount;
-                }elseif($findCoupon->offer_type == 2){
+                } elseif ($findCoupon->offer_type == 2) {
                     $couponAmount = $findCoupon->coupon_price;
                 }
             }
 
             $coupon_price = $couponAmount;
-            $totalAmount = $totalAmount - $couponAmount ;
+            $totalAmount = $totalAmount - $couponAmount;
 
-            if($cartProducts->count() == 0){
+            if ($cartProducts->count() == 0) {
                 $notification = trans('user_validation.Your Shopping Cart is Empty');
-                return response()->json(['message' => $notification],400);
+                return response()->json(['message' => $notification], 400);
             }
 
 
             $shipping_fee = 0;
             $shipping_method = Session::get('shipping_method');
-            $shippingMethod = ShippingMethod::where('id',$shipping_method)->first();
+            $shippingMethod = ShippingMethod::where('id', $shipping_method)->first();
             $shipping_fee = $shippingMethod->fee;
             $totalAmount = $totalAmount + $shipping_fee;
             $total_price = $totalAmount;
 
-            $total_price = str_replace( array( '\'', '"', ',' , ';', '<', '>' ), '', $total_price);
+            $total_price = str_replace(array('\'', '"', ',', ';', '<', '>'), '', $total_price);
             $setting = Setting::first();
 
             $additional_information = '';
-            if(Session::get('addition_information')){
+            if (Session::get('addition_information')) {
                 $additional_information = Session::get('addition_information');
             }
             $agree_terms_condition = 'no';
-            if(Session::get('agree_terms_condition')){
+            if (Session::get('agree_terms_condition')) {
                 $agree_terms_condition = Session::get('agree_terms_condition');
             }
 
             $amount_real_currency = $total_price;
-            $amount_usd = round($total_price / $setting->currency_rate,2);
+            $amount_usd = round($total_price / $setting->currency_rate, 2);
             $currency_rate = $setting->currency_rate;
-            $currency_icon = $setting->currency_icon;
+            $currency_icon = currency_icon();
             $currency_name = $setting->currency_name;
 
             $order = new Order();
-            $orderId = substr(rand(0,time()),0,10);
+            $orderId = substr(rand(0, time()), 0, 10);
             $order->order_id = $orderId;
             $order->user_id = $user->id;
             $order->sub_total = $subTotal;
@@ -636,11 +643,11 @@ class PaypalController extends Controller
 
             $findCoupon = ShoppingCart::where('user_id', $user->id)->first();
 
-            if($findCoupon){
-                if($findCoupon->coupon_name){
+            if ($findCoupon) {
+                if ($findCoupon->coupon_name) {
                     $coupon = Coupon::where(['code' => $findCoupon->coupon_name])->first();
                     $qty = $coupon->apply_qty;
-                    $qty = $qty +1;
+                    $qty = $qty + 1;
                     $coupon->apply_qty = $qty;
                     $coupon->save();
                 }
@@ -648,7 +655,7 @@ class PaypalController extends Controller
 
             $order_details = '';
 
-            foreach($cartProducts as $key => $cartProduct){
+            foreach ($cartProducts as $key => $cartProduct) {
                 $productUnitPrice = 0;
                 $productUnitPrice = $cartProduct->price;
 
@@ -669,7 +676,7 @@ class PaypalController extends Controller
                 $productStock->qty = $qty;
                 $productStock->save();
 
-                foreach($cartProduct->variants as $index => $variant){
+                foreach ($cartProduct->variants as $index => $variant) {
                     $productVariant = new OrderProductVariant();
                     $productVariant->order_product_id = $orderProduct->id;
                     $productVariant->product_id = $cartProduct->product_id;
@@ -679,10 +686,9 @@ class PaypalController extends Controller
                     $productVariant->save();
                 }
 
-                $order_details.='Product: '.$cartProduct->name. '<br>';
-                $order_details.='Quantity: '. $cartProduct->qty .'<br>';
-                $order_details.='Price: '.$setting->currency_icon . $cartProduct->qty * $productUnitPrice .'<br>';
-
+                $order_details .= 'Product: ' . $cartProduct->name . '<br>';
+                $order_details .= 'Quantity: ' . $cartProduct->qty . '<br>';
+                $order_details .= 'Price: ' . currency_icon() . $cartProduct->qty * $productUnitPrice . '<br>';
             }
 
             $orderAddress = new OrderAddress();
@@ -707,17 +713,17 @@ class PaypalController extends Controller
 
             MailHelper::setMailConfig();
 
-            $template=EmailTemplate::where('id',6)->first();
-            $subject=$template->subject;
-            $message=$template->description;
-            $message = str_replace('{{user_name}}',$user->name,$message);
-            $message = str_replace('{{total_amount}}',$setting->currency_icon.$total_price,$message);
-            $message = str_replace('{{payment_method}}','Paypal',$message);
-            $message = str_replace('{{payment_status}}','Success',$message);
-            $message = str_replace('{{order_status}}','Pending',$message);
-            $message = str_replace('{{order_date}}',$order->created_at->format('d F, Y'),$message);
-            $message = str_replace('{{order_detail}}',$order_details,$message);
-            Mail::to($user->email)->send(new OrderSuccessfully($message,$subject));
+            $template = EmailTemplate::where('id', 6)->first();
+            $subject = $template->subject;
+            $message = $template->description;
+            $message = str_replace('{{user_name}}', $user->name, $message);
+            $message = str_replace('{{total_amount}}', currency_icon() . $total_price, $message);
+            $message = str_replace('{{payment_method}}', 'Paypal', $message);
+            $message = str_replace('{{payment_status}}', 'Success', $message);
+            $message = str_replace('{{order_status}}', 'Pending', $message);
+            $message = str_replace('{{order_date}}', $order->created_at->format('d F, Y'), $message);
+            $message = str_replace('{{order_detail}}', $order_details, $message);
+            Mail::to($user->email)->send(new OrderSuccessfully($message, $subject));
 
             Session::forget('shipping_method');
             Session::forget('coupon_price');
@@ -731,8 +737,4 @@ class PaypalController extends Controller
             return response()->json(['notification' => $notification]);
         }
     }
-
-
-
-
 }

@@ -104,7 +104,7 @@ class PaymentController extends Controller
         $amount_real_currency = $total_price;
         $amount_usd = round($total_price / $setting->currency_rate,2);
         $currency_rate = $setting->currency_rate;
-        $currency_icon = $setting->currency_icon;
+        $currency_icon = currency_icon();
         $currency_name = $setting->currency_name;
 
         $order = new Order();
@@ -179,7 +179,7 @@ class PaymentController extends Controller
 
             $order_details.='Product: '.$cartContent->name. '<br>';
             $order_details.='Quantity: '. $cartContent->qty .'<br>';
-            $order_details.='Price: '.$setting->currency_icon . $cartContent->qty * $productUnitPrice .'<br>';
+            $order_details.='Price: '.currency_icon() . $cartContent->qty * $productUnitPrice .'<br>';
         }
 
         $orderAddress = new OrderAddress();
@@ -208,7 +208,7 @@ class PaymentController extends Controller
         $subject=$template->subject;
         $message=$template->description;
         $message = str_replace('{{user_name}}',$user->name,$message);
-        $message = str_replace('{{total_amount}}',$setting->currency_icon.$total_price,$message);
+        $message = str_replace('{{total_amount}}',currency_icon().$total_price,$message);
         $message = str_replace('{{payment_method}}','Cash on delivery',$message);
         $message = str_replace('{{payment_status}}','Pending',$message);
         $message = str_replace('{{order_status}}','Pending',$message);
@@ -287,7 +287,7 @@ class PaymentController extends Controller
         $amount_real_currency = $total_price;
         $amount_usd = round($total_price / $setting->currency_rate,2);
         $currency_rate = $setting->currency_rate;
-        $currency_icon = $setting->currency_icon;
+        $currency_icon = currency_icon();
         $currency_name = $setting->currency_name;
 
 
@@ -375,7 +375,7 @@ class PaymentController extends Controller
 
             $order_details.='Product: '.$cartContent->name. '<br>';
             $order_details.='Quantity: '. $cartContent->qty .'<br>';
-            $order_details.='Price: '.$setting->currency_icon . $cartContent->qty * $productUnitPrice .'<br>';
+            $order_details.='Price: '.currency_icon() . $cartContent->qty * $productUnitPrice .'<br>';
         }
 
         $orderAddress = new OrderAddress();
@@ -404,7 +404,7 @@ class PaymentController extends Controller
         $subject=$template->subject;
         $message=$template->description;
         $message = str_replace('{{user_name}}',$user->name,$message);
-        $message = str_replace('{{total_amount}}',$setting->currency_icon.$total_price,$message);
+        $message = str_replace('{{total_amount}}',currency_icon().$total_price,$message);
         $message = str_replace('{{payment_method}}','Stripe',$message);
         $message = str_replace('{{payment_status}}','Success',$message);
         $message = str_replace('{{order_status}}','Pending',$message);
@@ -492,7 +492,7 @@ class PaymentController extends Controller
                 $amount_real_currency = $total_price;
                 $amount_usd = round($total_price / $setting->currency_rate,2);
                 $currency_rate = $setting->currency_rate;
-                $currency_icon = $setting->currency_icon;
+                $currency_icon = currency_icon();
                 $currency_name = $setting->currency_name;
 
                 $order = new Order();
@@ -567,7 +567,7 @@ class PaymentController extends Controller
 
                     $order_details.='Product: '.$cartContent->name. '<br>';
                     $order_details.='Quantity: '. $cartContent->qty .'<br>';
-                    $order_details.='Price: '.$setting->currency_icon . $cartContent->qty * $productUnitPrice .'<br>';
+                    $order_details.='Price: '.currency_icon() . $cartContent->qty * $productUnitPrice .'<br>';
                 }
 
                 $orderAddress = new OrderAddress();
@@ -596,7 +596,7 @@ class PaymentController extends Controller
                 $subject=$template->subject;
                 $message=$template->description;
                 $message = str_replace('{{user_name}}',$user->name,$message);
-                $message = str_replace('{{total_amount}}',$setting->currency_icon.$total_price,$message);
+                $message = str_replace('{{total_amount}}',currency_icon().$total_price,$message);
                 $message = str_replace('{{payment_method}}','Razorpay',$message);
                 $message = str_replace('{{payment_status}}','Success',$message);
                 $message = str_replace('{{order_status}}','Pending',$message);
@@ -706,7 +706,7 @@ class PaymentController extends Controller
             $amount_real_currency = $total_price;
             $amount_usd = round($total_price / $setting->currency_rate,2);
             $currency_rate = $setting->currency_rate;
-            $currency_icon = $setting->currency_icon;
+            $currency_icon = currency_icon();
             $currency_name = $setting->currency_name;
 
             $order = new Order();
@@ -781,7 +781,7 @@ class PaymentController extends Controller
 
                 $order_details.='Product: '.$cartContent->name. '<br>';
                 $order_details.='Quantity: '. $cartContent->qty .'<br>';
-                $order_details.='Price: '.$setting->currency_icon . $cartContent->qty * $productUnitPrice .'<br>';
+                $order_details.='Price: '.currency_icon() . $cartContent->qty * $productUnitPrice .'<br>';
             }
 
             $orderAddress = new OrderAddress();
@@ -810,7 +810,7 @@ class PaymentController extends Controller
             $subject=$template->subject;
             $message=$template->description;
             $message = str_replace('{{user_name}}',$user->name,$message);
-            $message = str_replace('{{total_amount}}',$setting->currency_icon.$total_price,$message);
+            $message = str_replace('{{total_amount}}',currency_icon().$total_price,$message);
             $message = str_replace('{{payment_method}}','Flutterwave',$message);
             $message = str_replace('{{payment_status}}','Success',$message);
             $message = str_replace('{{order_status}}','Pending',$message);
@@ -962,7 +962,7 @@ class PaymentController extends Controller
             $amount_real_currency = $total_price;
             $amount_usd = round($total_price / $setting->currency_rate,2);
             $currency_rate = $setting->currency_rate;
-            $currency_icon = $setting->currency_icon;
+            $currency_icon = currency_icon();
             $currency_name = $setting->currency_name;
 
             $order = new Order();
@@ -1037,7 +1037,7 @@ class PaymentController extends Controller
 
                 $order_details.='Product: '.$cartContent->name. '<br>';
                 $order_details.='Quantity: '. $cartContent->qty .'<br>';
-                $order_details.='Price: '.$setting->currency_icon . $cartContent->qty * $productUnitPrice .'<br>';
+                $order_details.='Price: '.currency_icon() . $cartContent->qty * $productUnitPrice .'<br>';
             }
 
             $orderAddress = new OrderAddress();
@@ -1066,7 +1066,7 @@ class PaymentController extends Controller
             $subject=$template->subject;
             $message=$template->description;
             $message = str_replace('{{user_name}}',$user->name,$message);
-            $message = str_replace('{{total_amount}}',$setting->currency_icon.$total_price,$message);
+            $message = str_replace('{{total_amount}}',currency_icon().$total_price,$message);
             $message = str_replace('{{payment_method}}','Mollie',$message);
             $message = str_replace('{{payment_status}}','Success',$message);
             $message = str_replace('{{order_status}}','Pending',$message);
@@ -1174,7 +1174,7 @@ class PaymentController extends Controller
             $amount_real_currency = $total_price;
             $amount_usd = round($total_price / $setting->currency_rate,2);
             $currency_rate = $setting->currency_rate;
-            $currency_icon = $setting->currency_icon;
+            $currency_icon = currency_icon();
             $currency_name = $setting->currency_name;
 
             $order = new Order();
@@ -1249,7 +1249,7 @@ class PaymentController extends Controller
 
                 $order_details.='Product: '.$cartContent->name. '<br>';
                 $order_details.='Quantity: '. $cartContent->qty .'<br>';
-                $order_details.='Price: '.$setting->currency_icon . $cartContent->qty * $productUnitPrice .'<br>';
+                $order_details.='Price: '.currency_icon() . $cartContent->qty * $productUnitPrice .'<br>';
             }
 
             $orderAddress = new OrderAddress();
@@ -1278,7 +1278,7 @@ class PaymentController extends Controller
             $subject=$template->subject;
             $message=$template->description;
             $message = str_replace('{{user_name}}',$user->name,$message);
-            $message = str_replace('{{total_amount}}',$setting->currency_icon.$total_price,$message);
+            $message = str_replace('{{total_amount}}',currency_icon().$total_price,$message);
             $message = str_replace('{{payment_method}}','Paystack',$message);
             $message = str_replace('{{payment_status}}','Success',$message);
             $message = str_replace('{{order_status}}','Pending',$message);
@@ -1489,7 +1489,7 @@ class PaymentController extends Controller
                 $amount_real_currency = $total_price;
                 $amount_usd = round($total_price / $setting->currency_rate,2);
                 $currency_rate = $setting->currency_rate;
-                $currency_icon = $setting->currency_icon;
+                $currency_icon = currency_icon();
                 $currency_name = $setting->currency_name;
 
                 $order = new Order();
@@ -1564,7 +1564,7 @@ class PaymentController extends Controller
 
                     $order_details.='Product: '.$cartContent->name. '<br>';
                     $order_details.='Quantity: '. $cartContent->qty .'<br>';
-                    $order_details.='Price: '.$setting->currency_icon . $cartContent->qty * $productUnitPrice .'<br>';
+                    $order_details.='Price: '.currency_icon() . $cartContent->qty * $productUnitPrice .'<br>';
                 }
 
                 $orderAddress = new OrderAddress();
@@ -1593,7 +1593,7 @@ class PaymentController extends Controller
                 $subject=$template->subject;
                 $message=$template->description;
                 $message = str_replace('{{user_name}}',$user->name,$message);
-                $message = str_replace('{{total_amount}}',$setting->currency_icon.$total_price,$message);
+                $message = str_replace('{{total_amount}}',currency_icon().$total_price,$message);
                 $message = str_replace('{{payment_method}}','Instamojo',$message);
                 $message = str_replace('{{payment_status}}','Success',$message);
                 $message = str_replace('{{order_status}}','Pending',$message);
@@ -1678,7 +1678,7 @@ class PaymentController extends Controller
         $amount_real_currency = $total_price;
         $amount_usd = round($total_price / $setting->currency_rate,2);
         $currency_rate = $setting->currency_rate;
-        $currency_icon = $setting->currency_icon;
+        $currency_icon = currency_icon();
         $currency_name = $setting->currency_name;
 
         $order = new Order();
@@ -1753,7 +1753,7 @@ class PaymentController extends Controller
 
             $order_details.='Product: '.$cartContent->name. '<br>';
             $order_details.='Quantity: '. $cartContent->qty .'<br>';
-            $order_details.='Price: '.$setting->currency_icon . $cartContent->qty * $productUnitPrice .'<br>';
+            $order_details.='Price: '.currency_icon() . $cartContent->qty * $productUnitPrice .'<br>';
         }
 
         $orderAddress = new OrderAddress();
@@ -1782,7 +1782,7 @@ class PaymentController extends Controller
         $subject=$template->subject;
         $message=$template->description;
         $message = str_replace('{{user_name}}',$user->name,$message);
-        $message = str_replace('{{total_amount}}',$setting->currency_icon.$total_price,$message);
+        $message = str_replace('{{total_amount}}',currency_icon().$total_price,$message);
         $message = str_replace('{{payment_method}}','Bank Payment',$message);
         $message = str_replace('{{payment_status}}','Pending',$message);
         $message = str_replace('{{order_status}}','Pending',$message);
@@ -1860,7 +1860,7 @@ class PaymentController extends Controller
         $amount_real_currency = $total_price;
         $amount_usd = round($total_price / $setting->currency_rate,2);
         $currency_rate = $setting->currency_rate;
-        $currency_icon = $setting->currency_icon;
+        $currency_icon = currency_icon();
         $currency_name = $setting->currency_name;
 
         $paymongoPayment = PaymongoPayment::first();
@@ -2008,7 +2008,7 @@ class PaymentController extends Controller
 
                 $order_details.='Product: '.$cartContent->name. '<br>';
                 $order_details.='Quantity: '. $cartContent->qty .'<br>';
-                $order_details.='Price: '.$setting->currency_icon . $cartContent->qty * $productUnitPrice .'<br>';
+                $order_details.='Price: '.currency_icon() . $cartContent->qty * $productUnitPrice .'<br>';
             }
 
             $orderAddress = new OrderAddress();
@@ -2037,7 +2037,7 @@ class PaymentController extends Controller
             $subject=$template->subject;
             $message=$template->description;
             $message = str_replace('{{user_name}}',$user->name,$message);
-            $message = str_replace('{{total_amount}}',$setting->currency_icon.$total_price,$message);
+            $message = str_replace('{{total_amount}}',currency_icon().$total_price,$message);
             $message = str_replace('{{payment_method}}','Paymongo',$message);
             $message = str_replace('{{payment_status}}','Success',$message);
             $message = str_replace('{{order_status}}','Pending',$message);
@@ -2270,7 +2270,7 @@ class PaymentController extends Controller
         $amount_real_currency = $total_price;
         $amount_usd = round($total_price / $setting->currency_rate,2);
         $currency_rate = $setting->currency_rate;
-        $currency_icon = $setting->currency_icon;
+        $currency_icon = currency_icon();
         $currency_name = $setting->currency_name;
 
         $order = new Order();
@@ -2345,7 +2345,7 @@ class PaymentController extends Controller
 
             $order_details.='Product: '.$cartContent->name. '<br>';
             $order_details.='Quantity: '. $cartContent->qty .'<br>';
-            $order_details.='Price: '.$setting->currency_icon . $cartContent->qty * $productUnitPrice .'<br>';
+            $order_details.='Price: '.currency_icon() . $cartContent->qty * $productUnitPrice .'<br>';
         }
 
         $orderAddress = new OrderAddress();
@@ -2374,7 +2374,7 @@ class PaymentController extends Controller
         $subject=$template->subject;
         $message=$template->description;
         $message = str_replace('{{user_name}}',$user->name,$message);
-        $message = str_replace('{{total_amount}}',$setting->currency_icon.$total_price,$message);
+        $message = str_replace('{{total_amount}}',currency_icon().$total_price,$message);
         $message = str_replace('{{payment_method}}','Paymongo',$message);
         $message = str_replace('{{payment_status}}','Success',$message);
         $message = str_replace('{{order_status}}','Pending',$message);

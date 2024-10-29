@@ -481,18 +481,18 @@
                                     @endphp
                                     @if ($isCampaign)
                                         <p class="wsus__hot_deals_proce">
-                                            {{ $currencySetting->currency_icon }}{{ sprintf('%.2f', $campaignOfferPrice + $variantPrice) }}
-                                            <del>{{ $currencySetting->currency_icon }}{{ sprintf('%.2f', $totalPrice) }}</del>
+                                            {{ currency_icon() }}{{ sprintf('%.2f', $campaignOfferPrice + $variantPrice) }}
+                                            <del>{{ currency_icon() }}{{ sprintf('%.2f', $totalPrice) }}</del>
                                         </p>
                                     @else
                                         @if ($flashDealProduct->offer_price == null)
                                             <p class="wsus__hot_deals_proce">
-                                                {{ $currencySetting->currency_icon }}{{ sprintf('%.2f', $totalPrice + $variantPrice) }}
+                                                {{ currency_icon() }}{{ sprintf('%.2f', $totalPrice + $variantPrice) }}
                                             </p>
                                         @else
                                             <p class="wsus__hot_deals_proce">
-                                                {{ $currencySetting->currency_icon }}{{ sprintf('%.2f', $flashDealProduct->offer_price + $variantPrice) }}
-                                                <del>{{ $currencySetting->currency_icon }}{{ sprintf('%.2f', $totalPrice) }}</del>
+                                                {{ currency_icon() }}{{ sprintf('%.2f', $flashDealProduct->offer_price + $variantPrice) }}
+                                                <del>{{ currency_icon() }}{{ sprintf('%.2f', $totalPrice) }}</del>
                                             </p>
                                         @endif
                                     @endif

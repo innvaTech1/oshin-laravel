@@ -608,7 +608,7 @@ class HomeController extends Controller
 
             $shippingCharge = CountryState::find($id);
             $cartContents = FacadesCart::content();
-            $charge = $shippingCharge->shipping->fee;
+            $charge = $shippingCharge?->shipping?->fee;
 
             $view = view('components.website.checkout-item-total', compact('cartContents', 'charge'))->render();
 

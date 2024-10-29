@@ -110,7 +110,7 @@
                                 <a class="wsus__cart_title"
                                     href="{{ route('product-detail', $sidebar_cart_content->options->slug) }}">{{ $sidebar_cart_content->name }}</a>
                                 <p><span>{{ $sidebar_cart_content->qty }} x</span>
-                                    {{ $currencySetting->currency_icon }}{{ $sidebar_cart_content->price }}</p>
+                                    {{ currency_icon() }}{{ $sidebar_cart_content->price }}</p>
                             </div>
                         </li>
 
@@ -122,7 +122,7 @@
                     @endforeach
                 </ul>
                 <h5>{{ __('user.Sub Total') }}
-                    <span>{{ $currencySetting->currency_icon }}{{ $sidebarCartSubTotal }}</span>
+                    <span>{{ currency_icon() }}{{ $sidebarCartSubTotal }}</span>
                 </h5>
                 <div class="wsus__minicart_btn_area">
                     <a class="common_btn" href="{{ route('cart') }}">{{ __('user.View Cart') }}</a>

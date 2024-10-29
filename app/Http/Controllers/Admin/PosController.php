@@ -570,7 +570,7 @@ class PosController extends Controller
             $order_details .= "Quantity: " . $cartProduct->qty . "<br>";
             $order_details .=
                 "Price: " .
-                $setting->currency_icon .
+                currency_icon() .
                 $cartProduct->qty * $price .
                 "<br>";
         }

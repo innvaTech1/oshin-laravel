@@ -99,19 +99,19 @@
                         @endphp
 
                         @if ($isCampaign)
-                            <h4>{{ $currencySetting->currency_icon }} <span
+                            <h4>{{ currency_icon() }} <span
                                     id="mainProductPrice">{{ sprintf('%.2f', $campaignOfferPrice + $variantPrice) }}</span>
-                                <del>{{ $currencySetting->currency_icon }}{{ sprintf('%.2f', $totalPrice) }}</del>
+                                <del>{{ currency_icon() }}{{ sprintf('%.2f', $totalPrice) }}</del>
                             </h4>
                         @else
                             @if ($product->offer_price == null)
-                                <h4>{{ $currencySetting->currency_icon }} <span
+                                <h4>{{ currency_icon() }} <span
                                         id="mainProductPrice">{{ sprintf('%.2f', $totalPrice + $variantPrice) }}</span>
                                 </h4>
                             @else
-                                <h4>{{ $currencySetting->currency_icon }} <span
+                                <h4>{{ currency_icon() }} <span
                                         id="mainProductPrice">{{ sprintf('%.2f', $product->offer_price + $variantPrice) }}</span>
-                                    <del>{{ $currencySetting->currency_icon }}{{ sprintf('%.2f', $totalPrice) }}</del>
+                                    <del>{{ currency_icon() }}{{ sprintf('%.2f', $totalPrice) }}</del>
                                 </h4>
                             @endif
                         @endif
@@ -159,7 +159,7 @@
                                         data-qty="{{ $product->qty }}" />
                                     <button type="button" class="btn btn_bg btn-sm incrementProduct">+</button>
                                 </div>
-                                <h3 class="d-none">{{ $currencySetting->currency_icon }}<span
+                                <h3 class="d-none">{{ currency_icon() }}<span
                                         id="product_price">{{ sprintf('%.2f', $productPrice) }}</span></h3>
                             </div>
 

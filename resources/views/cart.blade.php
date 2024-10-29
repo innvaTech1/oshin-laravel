@@ -71,7 +71,7 @@
                                                             </p>
                                                             @foreach ($cartContent->options->variants as $indx => $variant)
                                                                 <span>{{ $variant }}:
-                                                                    {{ $cartContent->options->values[$indx] }}({{ $setting->currency_icon }}{{ $cartContent->options->prices[$indx] }})</span>
+                                                                    {{ $cartContent->options->values[$indx] }}({{ currency_icon() }}{{ $cartContent->options->prices[$indx] }})</span>
 
                                                                 @php
                                                                     $variantPrice +=
@@ -88,7 +88,7 @@
                                                         @endphp
 
                                                         <td class="wsus__pro_status">
-                                                            <p>{{ $setting->currency_icon }}{{ $productPrice }}</p>
+                                                            <p>{{ currency_icon() }}{{ $productPrice }}</p>
                                                         </td>
 
                                                         <td class="wsus__pro_select">
@@ -112,7 +112,7 @@
                                                                 value="{{ $cartContent->id }}">
                                                         </td>
                                                         <td class="wsus__pro_tk">
-                                                            <h6>{{ $setting->currency_icon }}{{ $total }} </h6>
+                                                            <h6>{{ currency_icon() }}{{ $total }} </h6>
                                                         </td>
                                                         <td class="wsus__pro_icon">
                                                             <a href="javascript:;"
@@ -155,21 +155,20 @@
                             <div class="wsus__cart_list_footer_button">
                                 <h6>{{ __('user.total cart') }}</h6>
                                 <p>{{ __('user.subtotal') }}:
-                                    <span>{{ $setting->currency_icon }}{{ $subTotal }}</span>
+                                    <span>{{ currency_icon() }}{{ $subTotal }}</span>
                                 </p>
                                 <p>{{ __('user.Tax') }}(+):
-                                    <span>{{ $setting->currency_icon }}{{ $tax_amount }}</span>
+                                    <span>{{ currency_icon() }}{{ $tax_amount }}</span>
                                 </p>
                                 <p>{{ __('user.Coupon') }}(-):
-                                    <span>{{ $setting->currency_icon }}{{ $coupon_price }}</span>
+                                    <span>{{ currency_icon() }}{{ $coupon_price }}</span>
                                 </p>
                                 <p class="total"><span>{{ __('user.total') }}:</span>
-                                    <span>{{ $setting->currency_icon }}{{ $total_price }}</span>
+                                    <span>{{ currency_icon() }}{{ $total_price }}</span>
                                 </p>
 
                                 <form id="couponFormId">
-                                    <input type="text" name="coupon"
-                                        placeholder="{{ __('user.Enter Your Coupon Code') }}">
+                                    <input type="text" name="coupon" placeholder="{{ __('Enter Coupon') }}">
                                     <button type="submit" class="common_btn">{{ __('user.apply') }}</button>
                                 </form>
                                 <a class="common_btn mt-4 w-100 text-center"

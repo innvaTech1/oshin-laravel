@@ -40,10 +40,10 @@
                                                     <td>{{ $shipping->title }}</td>
                                                     <td>
                                                         @if ($shipping->is_free == 1)
-                                                            {{ $setting->currency_icon }}{{ $shipping->minimum_order }} Up
+                                                            {{ currency_icon() }}{{ $shipping->minimum_order }} Up
                                                             Condition
                                                         @else
-                                                            {{ $setting->currency_icon }}{{ $shipping->fee }}
+                                                            {{ currency_icon() }}{{ $shipping->fee }}
                                                         @endif
 
                                                     </td>

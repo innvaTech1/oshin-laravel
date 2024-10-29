@@ -128,7 +128,7 @@ class CheckoutController extends Controller
             'agree_terms_condition.required' => trans('user.You must agree to our terms and condition'),
         ];
 
-        if (!$request->same_shipping) {
+        if (isset($request->same_shipping)) {
             $rules['billing_name'] = 'required';
             $rules['billing_phone'] = 'required';
             $rules['billing_address'] = 'required';
@@ -169,8 +169,8 @@ class CheckoutController extends Controller
         try {
             $address_id = $this->storeAddress($request);
 
-            $billing_id = $request->same_shipping;
-            if (!$request->same_shipping) {
+            $billing_id = $address_id;
+            if (isset($request->same_shipping)) {
                 $billing_id = $this->storeAddress($request, 'billing_');
             }
             $this->orderStore($request, auth('web')->user(),  $request->delivery_fee, $address_id, $billing_id);
@@ -179,7 +179,7 @@ class CheckoutController extends Controller
                 Address::where('id', $address_id)->delete();
             }
 
-            if (!$request->same_shipping && !auth('web')->user()) {
+            if (isset($request->same_shipping) && !auth('web')->user()) {
                 Address::where('id', $billing_id)->delete();
             }
 
@@ -339,7 +339,7 @@ class CheckoutController extends Controller
 
             $order_details .= 'Product: ' . $cartContent->name . '<br>';
             $order_details .= 'Quantity: ' . $cartContent->qty . '<br>';
-            $order_details .= 'Price: ' . $setting->currency_icon . $cartContent->qty * $productUnitPrice . '<br>';
+            $order_details .= 'Price: ' . currency_icon() . $cartContent->qty * $productUnitPrice . '<br>';
         }
 
         // store shipping and billing address

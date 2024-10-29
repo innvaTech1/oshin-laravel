@@ -605,8 +605,9 @@
     </script>
 
     <!-- Your customer chat code -->
-    <div class="fb-customerchat" attribution="setup_tool" page_id="101294096245359" theme_color="#0084ff"
-        logged_in_greeting="Hi! How can we help you?" logged_out_greeting="Hi! How can we help you?">
+    <div class="fb-customerchat" attribution="setup_tool" page_id="{{ $facebookPixel->app_id }}"
+        theme_color="#0084ff" logged_in_greeting="Hi! How can we help you?"
+        logged_out_greeting="Hi! How can we help you?">
     </div>
 
     @php
@@ -617,7 +618,7 @@
         $shop_page = App\Models\ShopPage::first();
         $max_val = $shop_page->filter_price_range;
         $currencySetting = $setting;
-        $currency_icon = $currencySetting->currency_icon;
+        $currency_icon = currency_icon();
         $tawk_setting = App\Models\TawkChat::first();
         $cookie_consent = App\Models\CookieConsent::first();
     @endphp

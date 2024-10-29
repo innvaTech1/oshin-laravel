@@ -115,7 +115,7 @@
                                                         <div class="wsus__check_single_form">
                                                             <div class="form-check">
                                                                 <input class="form-check-input" type="checkbox"
-                                                                    value="1" id="flexCheckDefault" checked
+                                                                    value="1" id="flexCheckDefault"
                                                                     name="same_shipping">
                                                                 <label class="form-check-label" for="flexCheckDefault">
                                                                     {{ __('Bill to a different address') }}

@@ -10,8 +10,8 @@
 
 
     <!--============================
-                            PRODUCT DETAILS START
-                        ==============================-->
+                                PRODUCT DETAILS START
+                            ==============================-->
     <section id="wsus__product_details">
         <div class="container">
             <div class="row">
@@ -123,19 +123,19 @@
                         @endphp
 
                         @if ($isCampaign)
-                            <h4>{{ $currencySetting->currency_icon }} <span
+                            <h4>{{ currency_icon() }} <span
                                     id="mainProductPrice">{{ sprintf('%.2f', $campaignOfferPrice + $variantPrice) }}</span>
-                                <del>{{ $currencySetting->currency_icon }}{{ sprintf('%.2f', $totalPrice) }}</del>
+                                <del>{{ currency_icon() }}{{ sprintf('%.2f', $totalPrice) }}</del>
                             </h4>
                         @else
                             @if ($product->offer_price == null)
-                                <h4>{{ $currencySetting->currency_icon }} <span
+                                <h4>{{ currency_icon() }} <span
                                         id="mainProductPrice">{{ sprintf('%.2f', $totalPrice + $variantPrice) }}</span>
                                 </h4>
                             @else
-                                <h4>{{ $currencySetting->currency_icon }} <span
+                                <h4>{{ currency_icon() }} <span
                                         id="mainProductPrice">{{ sprintf('%.2f', $product->offer_price + $variantPrice) }}</span>
-                                    <del>{{ $currencySetting->currency_icon }}{{ sprintf('%.2f', $totalPrice) }}</del>
+                                    <del>{{ currency_icon() }}{{ sprintf('%.2f', $totalPrice) }}</del>
                                 </h4>
                             @endif
                         @endif
@@ -212,7 +212,7 @@
                                         data-qty="{{ $product->qty }}" />
                                     <button type="button" class="btn btn-sm btn_bg incrementProduct">+</button>
                                 </div>
-                                <h3 class="d-none">{{ $currencySetting->currency_icon }}<span
+                                <h3 class="d-none">{{ currency_icon() }}<span
                                         id="product_price">{{ sprintf('%.2f', $productPrice) }}</span></h3>
                             </div>
 
@@ -319,8 +319,8 @@
                     </div>
 
                     <!--==========================
-                                        PRODUCT  REPORT MODAL VIEW
-                                        ===========================-->
+                                            PRODUCT  REPORT MODAL VIEW
+                                            ===========================-->
                     @auth
                         @if ($isExist)
                             <section class="product_popup_modal report_modal">
@@ -364,8 +364,8 @@
                         @endif
                     @endauth
                     <!--==========================
-                                        PRODUCT REPORT MODAL VIEW
-                                        ===========================-->
+                                            PRODUCT REPORT MODAL VIEW
+                                            ===========================-->
                 </div>
 
                 <div class="col-xl-3 col-md-12 mt-md-5 mt-lg-0">
@@ -683,13 +683,13 @@
         </div>
     </section>
     <!--============================
-                            PRODUCT DETAILS END
-                        ==============================-->
+                                PRODUCT DETAILS END
+                            ==============================-->
 
 
     <!--============================
-                            RELATED PRODUCT START
-                        ==============================-->
+                                RELATED PRODUCT START
+                            ==============================-->
     @if ($relatedProducts->count() > 0)
         <section id="wsus__flash_sell">
             <div class="container">
@@ -843,18 +843,18 @@
                                         href="{{ route('product-detail', $relatedProduct->slug) }}">{{ $relatedProduct->short_name }}</a>
                                     @if ($isCampaign)
                                         <p class="wsus__price">
-                                            {{ $currencySetting->currency_icon }}{{ sprintf('%.2f', $campaignOfferPrice + $variantPrice) }}
-                                            <del>{{ $currencySetting->currency_icon }}{{ sprintf('%.2f', $totalPrice) }}</del>
+                                            {{ currency_icon() }}{{ sprintf('%.2f', $campaignOfferPrice + $variantPrice) }}
+                                            <del>{{ currency_icon() }}{{ sprintf('%.2f', $totalPrice) }}</del>
                                         </p>
                                     @else
                                         @if ($relatedProduct->offer_price == null)
                                             <p class="wsus__price">
-                                                {{ $currencySetting->currency_icon }}{{ sprintf('%.2f', $totalPrice + $variantPrice) }}
+                                                {{ currency_icon() }}{{ sprintf('%.2f', $totalPrice + $variantPrice) }}
                                             </p>
                                         @else
                                             <p class="wsus__price">
-                                                {{ $currencySetting->currency_icon }}{{ sprintf('%.2f', $relatedProduct->offer_price + $variantPrice) }}
-                                                <del>{{ $currencySetting->currency_icon }}{{ sprintf('%.2f', $totalPrice) }}</del>
+                                                {{ currency_icon() }}{{ sprintf('%.2f', $relatedProduct->offer_price + $variantPrice) }}
+                                                <del>{{ currency_icon() }}{{ sprintf('%.2f', $totalPrice) }}</del>
                                             </p>
                                         @endif
                                     @endif
@@ -981,19 +981,19 @@
                 @endphp
 
                 @if ($isCampaign)
-                    <h4>{{ $currencySetting->currency_icon }} <span
+                    <h4>{{ currency_icon() }} <span
                             id="mainProductModalPrice-{{ $relatedProduct->id }}">{{ sprintf('%.2f', $campaignOfferPrice + $variantPrice) }}</span>
-                        <del>{{ $currencySetting->currency_icon }}{{ sprintf('%.2f', $totalPrice) }}</del>
+                        <del>{{ currency_icon() }}{{ sprintf('%.2f', $totalPrice) }}</del>
                     </h4>
                 @else
                     @if ($relatedProduct->offer_price == null)
-                        <h4>{{ $currencySetting->currency_icon }}<span
+                        <h4>{{ currency_icon() }}<span
                                 id="mainProductModalPrice-{{ $relatedProduct->id }}">{{ sprintf('%.2f', $totalPrice + $variantPrice) }}</span>
                         </h4>
                     @else
-                        <h4>{{ $currencySetting->currency_icon }}<span
+                        <h4>{{ currency_icon() }}<span
                                 id="mainProductModalPrice-{{ $relatedProduct->id }}">{{ sprintf('%.2f', $relatedProduct->offer_price + $variantPrice) }}</span>
-                            <del>{{ $currencySetting->currency_icon }}{{ sprintf('%.2f', $totalPrice) }}</del>
+                            <del>{{ currency_icon() }}{{ sprintf('%.2f', $totalPrice) }}</del>
                         </h4>
                     @endif
                 @endif
@@ -1053,7 +1053,7 @@
                                 onclick="productModalIncrement('{{ $relatedProduct->id }}', '{{ $relatedProduct->qty }}')"
                                 type="button" class="btn btn-sm btn_bg">+</button>
                         </div>
-                        <h3 class="d-none">{{ $currencySetting->currency_icon }}<span
+                        <h3 class="d-none">{{ currency_icon() }}<span
                                 id="productModalPrice-{{ $relatedProduct->id }}">{{ sprintf('%.2f', $productPrice) }}</span>
                         </h3>
 
@@ -1152,8 +1152,8 @@
     </section>
     @endif
     <!--============================
-                            RELATED PRODUCT END
-                        ==============================-->
+                                RELATED PRODUCT END
+                            ==============================-->
 
 
     <script>

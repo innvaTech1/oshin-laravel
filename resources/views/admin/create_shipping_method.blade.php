@@ -32,7 +32,7 @@
                                         <div class="form-group col-12">
                                             <label>{{ __('Shipping Coast') }} <span class="text-danger">*</span></label>
                                             <div class="input-group mb-3">
-                                                <span class="input-group-text"> {{ $setting->currency_icon }}</span>
+                                                <span class="input-group-text"> {{ currency_icon() }}</span>
                                                 <input type="text" class="form-control" name="shipping_coast">
                                             </div>
                                         </div>
