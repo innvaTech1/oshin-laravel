@@ -30,11 +30,8 @@
             @endphp
         @endforeach
 
-
-
-
     </ul>
-    <h5>{{ __('user.Sub Total') }} <span>${{ $sidebarCartSubTotal }}</span></h5>
+    <h5>{{ __('user.Sub Total') }} <span>{{ currency_icon() }}{{ $sidebarCartSubTotal }}</span></h5>
     <div class="wsus__minicart_btn_area">
         <a class="common_btn" href="{{ route('cart') }}">{{ __('user.View Cart') }}</a>
         <a class="common_btn" href="{{ route('checkout.checkout') }}">{{ __('user.Checkout') }}</a>

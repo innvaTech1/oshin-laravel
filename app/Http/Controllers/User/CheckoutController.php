@@ -9,13 +9,8 @@ use Illuminate\Http\Request;
 use App\Models\BreadcrumbImage;
 
 use App\Models\CountryState;
-use App\Models\City;
-use App\Models\BillingAddress;
-use App\Models\ShippingAddress;
-use App\Models\Vendor;
 use App\Models\ShippingMethod;
 use App\Models\Setting;
-use App\Models\Wishlist;
 
 
 
@@ -68,41 +63,6 @@ class CheckoutController extends Controller
 
         return view('checkout', compact('banner', 'cartContents', 'states', 'shippingMethods', 'addresses', 'bankInfo', 'aamarpay'));
     }
-    public function checkout_()
-    {
-        if (Cart::count() == 0) {
-            $notification = trans('user_validation.Your Shopping Cart is Empty');
-            $notification = array('messege' => $notification, 'alert-type' => 'error');
-            return redirect()->route('product')->with($notification);
-        }
-        $cartContents = Cart::content();
-
-        $user = Auth::guard('web')->user();
-
-        $banner = BreadcrumbImage::where(['id' => 2])->first();
-        $setting = Setting::first();
-
-        $shippings = ShippingMethod::all();
-
-
-        $inside_fee = 0;
-        $outside_fee = 0;
-
-        foreach ($cartContents as $cartContent) {
-            $product = Product::find($cartContent->id);
-            $inside_single = (int)$product->inside_fee *  (int)$cartContent->qty;
-            $inside_fee += $inside_single;
-            $outside_single = ((int)$product->outside_fee * (int)$cartContent->qty);
-            $outside_fee = $outside_fee + $outside_single;
-        }
-
-
-        $bankInfo = BankPayment::first();
-        $states = CountryState::all();
-
-        return view('checkout', compact('banner', 'cartContents', 'setting', 'inside_fee', 'outside_fee', 'shippings', "bankInfo"));
-    }
-
 
 
     public function payment(Request $request)
@@ -231,7 +191,7 @@ class CheckoutController extends Controller
         $total_price = 0;
         $coupon_price = 0;
 
-        $user = Auth::guard('web')->user();
+        $user = Auth::guard(name: 'web')->user();
         $billing = Address::where('id', $billing_address_id)->first();
         $shipping = Address::where('id', $shipping_address_id)->first();
 
@@ -269,7 +229,6 @@ class CheckoutController extends Controller
         $total_price = $total_price - $coupon_price;
         $total_price += $shipping_fee;
         $total_price = str_replace(array('\'', '"', ',', ';', '<', '>'), '', $total_price);
-        $setting = Setting::first();
 
 
         $order = new Order();
@@ -288,6 +247,8 @@ class CheckoutController extends Controller
         $order->cash_on_delivery = $request->payment_method == 'Cash on Delivery' ? 1 : 0;
         $order->additional_info = $request->addition_information;
         $order->save();
+
+        session()->put('order_id', $orderId);
 
         if (Session::get('coupon_name')) {
             $coupon = Coupon::where(['code' => Session::get('coupon_name')])->first();
@@ -509,7 +470,7 @@ class CheckoutController extends Controller
         curl_close($curl);
         echo $response;
 
-        return redirect()->route('home');
+        return redirect()->route('order.success');
     }
 
     public function fail(Request $request)

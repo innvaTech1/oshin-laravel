@@ -53,6 +53,11 @@
             </div>
             <h1 class="order-success">Success</h1>
             <p>We received your purchase request;<br /> we'll be in touch shortly!</p>
+            <p class="mt-2"><b>Your Order ID is: {{ session('order_id') }}</b></p>
         </div>
     </div>
+
+    @php
+        session()->forget('order_id');
+    @endphp
 @endsection
