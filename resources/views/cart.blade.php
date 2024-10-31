@@ -70,8 +70,8 @@
                                                                     href="{{ route('product-detail', $cartContent->options->slug) }}">{{ $cartContent->name }}</a>
                                                             </p>
                                                             @foreach ($cartContent->options->variants as $indx => $variant)
-                                                                <span>{{ $variant }}:
-                                                                    {{ $cartContent->options->values[$indx] }}({{ currency_icon() }}{{ $cartContent->options->prices[$indx] }})</span>
+                                                                <span>
+                                                                    {{ $cartContent->options->values[$indx] }}</span>
 
                                                                 @php
                                                                     $variantPrice +=

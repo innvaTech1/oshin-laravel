@@ -5,15 +5,7 @@
     <section id="wsus__cart_view">
         <div class="container">
             <div class="row">
-                <div class="col-12">
-                    <ul class="wsus__cart_tab">
-                        <li><a class="wsus__order_active" href="{{ route('cart') }}">{{ __('user.Shopping Cart') }}</a>
-                        </li>
-                        <li><a href="{{ route('user.checkout.billing-address') }}">{{ __('user.Checkout') }}</a></li>
-                        <li><a href="javascript:;">{{ __('user.payment') }}</a></li>
-                    </ul>
-                </div>
-                <div class="col-xl-12">
+                <div class="col-xl-9">
                     <div class="wsus__cart_list">
                         <div class="table-responsive" id="response_cart_view">
                             <form id="cartUpdateForm">
@@ -66,8 +58,8 @@
                                                             href="{{ route('product-detail', $cartContent->options->slug) }}">{{ $cartContent->name }}</a>
                                                     </p>
                                                     @foreach ($cartContent->options->variants as $indx => $variant)
-                                                        <span>{{ $variant }}:
-                                                            {{ $cartContent->options->values[$indx] }}({{ currency_icon() }}{{ $cartContent->options->prices[$indx] }})</span>
+                                                        <span>
+                                                            {{ $cartContent->options->values[$indx] }}</span>
 
                                                         @php
                                                             $variantPrice += $cartContent->options->prices[$indx];
@@ -90,14 +82,15 @@
                                                     <div class="modal_btn">
                                                         <button
                                                             onclick="shppingCartDecrement('{{ $cartContent->rowId }}')"
-                                                            type="button" class="btn btn-danger btn-sm">-</button>
+                                                            type="button" class="btn btn-danger btn-sm ">-</button>
                                                         <input id="qty-{{ $cartContent->rowId }}" name="quantities[]"
                                                             readonly type="text" min="1" max="100"
                                                             value="{{ $cartContent->qty }}" />
                                                         <button
                                                             onclick="shppingCartIncrement('{{ $cartContent->rowId }}')"
-                                                            type="button" class="btn btn-success btn-sm">+</button>
+                                                            type="button" class="btn btn-success btn-sm ">+</button>
                                                     </div>
+
                                                     <input type="hidden" name="rowIds[]"
                                                         value="{{ $cartContent->rowId }}">
                                                     <input type="hidden" name="ids[]"
@@ -119,21 +112,8 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="wsus__cart_list_footer mt-5 p-4">
-                <div class="row justify-content-between">
-                    <div class="col-xl-6 col-md-6">
-                        <div class="wsus__cart_list_footer_top">
-                            <h6 class="mb-4">{{ __('user.Do you have a coupon code?') }} </h6>
-                            <form id="couponFormId">
-                                <input type="text" name="coupon"
-                                    placeholder="{{ __('user.Enter Your Coupon Code') }}">
-                                <button type="submit" class="common_btn">{{ __('user.apply') }}</button>
-                            </form>
-                            <a class="common_btn mt-4 text-center" href="{{ route('product') }}"><i
-                                    class="fab fa-shopify"></i> {{ __('user.go to shop') }}</a>
-                        </div>
-                    </div>
+                <div class="col-xl-3">
+                    {{-- wsus__cart_list_footer --}}
                     @php
                         $tax_amount = 0;
                         $total_price = 0;
@@ -157,17 +137,29 @@
 
                         $total_price = $total_price - $coupon_price;
                     @endphp
-                    <div class="col-xl-4 col-md-6">
-                        <div class="wsus__cart_list_footer_button">
-                            <h6>{{ __('user.total cart') }}</h6>
-                            <p>{{ __('user.subtotal') }}: <span>{{ currency_icon() }}{{ $subTotal }}</span></p>
-                            <p>{{ __('user.Tax') }}(+): <span>{{ currency_icon() }}{{ $tax_amount }}</span></p>
-                            <p>{{ __('user.Coupon') }}(-): <span>{{ currency_icon() }}{{ $coupon_price }}</span></p>
-                            <p class="total"><span>{{ __('user.total') }}:</span>
-                                <span>{{ currency_icon() }}{{ $total_price }}</span></p>
-                            <a class="common_btn mt-4 w-100 text-center"
-                                href="{{ route('user.checkout.billing-address') }}">{{ __('user.checkout') }}</a>
-                        </div>
+                    <div class="wsus__cart_list_footer_button">
+                        <h6>{{ __('user.total cart') }}</h6>
+                        <p>{{ __('user.subtotal') }}:
+                            <span>{{ currency_icon() }}{{ $subTotal }}</span>
+                        </p>
+                        <p>{{ __('user.Tax') }}(+):
+                            <span>{{ currency_icon() }}{{ $tax_amount }}</span>
+                        </p>
+                        <p>{{ __('user.Coupon') }}(-):
+                            <span>{{ currency_icon() }}{{ $coupon_price }}</span>
+                        </p>
+                        <p class="total"><span>{{ __('user.total') }}:</span>
+                            <span>{{ currency_icon() }}{{ $total_price }}</span>
+                        </p>
+
+                        <form id="couponFormId">
+                            <input type="text" name="coupon" placeholder="{{ __('Enter Coupon') }}">
+                            <button type="submit" class="common_btn">{{ __('user.apply') }}</button>
+                        </form>
+                        <a class="common_btn mt-4 w-100 text-center"
+                            href="{{ route('checkout.checkout') }}">{{ __('user.checkout') }}</a>
+                        <a class="common_btn mt-4 w-100 text-center" href="{{ route('product') }}"><i
+                                class="fab fa-shopify"></i> {{ __('user.go to shop') }}</a>
                     </div>
                 </div>
             </div>
