@@ -32,29 +32,29 @@
 
 
                                         @if ($order->order_status == 1)
-                                            <td class="method"> <span
-                                                    class="badge bg-success">{{ __('user.Pregress') }}</span></td>
+                                            <td class="method"> <span class="badge bg-success">{{ __('Progress') }}</span>
+                                            </td>
                                         @elseif ($order->order_status == 2)
-                                            <td class="method"> <span
-                                                    class="badge bg-success">{{ __('user.Delivered') }}</span></td>
+                                            <td class="method"> <span class="badge bg-success">{{ __('Delivered') }}</span>
+                                            </td>
                                         @elseif ($order->order_status == 3)
-                                            <td class="method"> <span
-                                                    class="badge bg-success">{{ __('user.Completed') }}</span></td>
+                                            <td class="method"> <span class="badge bg-success">{{ __('Completed') }}</span>
+                                            </td>
                                         @elseif ($order->order_status == 4)
-                                            <td class="method"> <span
-                                                    class="badge bg-danger">{{ __('user.Declined') }}</span></td>
+                                            <td class="method"> <span class="badge bg-danger">{{ __('Declined') }}</span>
+                                            </td>
                                         @else
-                                            <td class="method"> <span
-                                                    class="badge bg-danger">{{ __('user.Pending') }}</span></td>
+                                            <td class="method"> <span class="badge bg-warning">{{ __('Pending') }}</span>
+                                            </td>
                                         @endif
 
 
                                         @if ($order->payment_status == 1)
-                                            <td class="tr_id"> <span
-                                                    class="badge bg-success">{{ __('user.Active') }}</span></td>
+                                            <td class="tr_id"> <span class="badge bg-success">{{ __('Success') }}</span>
+                                            </td>
                                         @else
-                                            <td class="tr_id"> <span
-                                                    class="badge bg-danger">{{ __('user.Inactive') }}</span></td>
+                                            <td class="tr_id"> <span class="badge bg-warning">{{ __('Pending') }}</span>
+                                            </td>
                                         @endif
 
                                         <td class="status"><a

@@ -67,36 +67,33 @@
                                     <div class="wsus__invoice_single text-md-end">
                                         <h5>{{ __('user.Order Id') }}: #{{ $order->order_id }}</h5>
                                         <p>{{ __('user.Date') }}: {{ $order->created_at->format('d F, Y') }}</p>
-                                        @if ($order->agree_terms_condition == 'yes')
-                                            <p>{{ __('user.Agree with Terms & Conditions') }}: <span
-                                                    class="badge bg-success">{{ __('user.Yes') }}</span></p>
-                                        @else
-                                            <p>{{ __('user.Agree with Terms & Conditions') }}: <span
-                                                    class="badge bg-danger">{{ __('user.No') }}</span></p>
-                                        @endif
 
                                         <p>{{ __('user.Order Status') }}: @if ($order->order_status == 1)
-                                                <span class="badge bg-success">{{ __('user.Pregress') }} </span>
+                                                <span class="badge bg-success">{{ __('Progress') }} </span>
                                             @elseif ($order->order_status == 2)
-                                                <span class="badge bg-success">{{ __('user.Delivered') }} </span>
+                                                <span class="badge bg-success">{{ __('Delivered') }} </span>
                                             @elseif ($order->order_status == 3)
-                                                <span class="badge bg-success">{{ __('user.Completed') }} </span>
+                                                <span class="badge bg-success">{{ __('Completed') }} </span>
                                             @elseif ($order->order_status == 4)
-                                                <span class="badge bg-danger">{{ __('user.Declined') }} </span>
+                                                <span class="badge bg-danger">{{ __('Declined') }} </span>
                                             @else
-                                                <span class="badge bg-danger">{{ __('user.Pending') }}</span>
+                                                <span class="badge bg-warning">{{ __('Pending') }}</span>
                                             @endif
                                         </p>
                                         <p>{{ __('user.Payment Method') }}: {{ $order->payment_method }}</p>
                                         <p>{{ __('user.Payment Status') }}: @if ($order->payment_status == 1)
                                                 <span class="badge bg-success">{{ __('user.Success') }}</span>
                                             @else
-                                                <span class="badge bg-danger">{{ __('user.Pending') }}</span>
+                                                <span class="badge bg-warning">{{ __('user.Pending') }}</span>
                                             @endif
                                         </p>
 
-                                        <p>{{ __('user.Shipping') }}: {{ $order->shipping_method }}</p>
-                                        <p>{{ __('user.Transaction') }} : {!! clean(nl2br($order->transection_id)) !!}</p>
+                                        @if ($order->shipping_method)
+                                            <p>{{ __('user.Shipping') }}: {{ $order->shipping_method }}</p>
+                                        @endif
+                                        @if ($order->transection_id)
+                                            <p>{{ __('user.Transaction') }} : {!! clean(nl2br($order->transection_id)) !!}</p>
+                                        @endif
                                     </div>
                                 </div>
 
@@ -138,7 +135,7 @@
                                                 </p>
 
                                                 @foreach ($orderProduct->orderProductVariants as $indx => $variant)
-                                                    <span>{{ $variant->variant_name }} :
+                                                    <span>
                                                         {{ $variant->variant_value }}</span>
                                                 @endforeach
 
