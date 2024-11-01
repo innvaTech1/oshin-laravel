@@ -121,9 +121,7 @@
                         <li><a class="{{ Route::is('user.my-profile') ? 'active' : '' }}"
                                 href="{{ route('user.my-profile') }}"><i class="far fa-user"></i>
                                 {{ __('user.My Profile') }}</a></li>
-                        <li><a class="{{ Route::is('user.address') ? 'active' : '' }}"
-                                href="{{ route('user.address') }}"><i class="fal fa-gift-card"></i>
-                                {{ __('user.Address') }}</a></li>
+
                         @if ($setting->enable_multivendor == 1)
                             @php
                                 $authUser = Auth::guard('web')->user();

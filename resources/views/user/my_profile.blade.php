@@ -33,22 +33,6 @@
                                             </div>
                                         </div>
 
-
-                                        <div class="col-md-12">
-                                            <div class="wsus__add_address_single">
-                                                <div class="wsus__topbar_select">
-                                                    <select class="select_2" name="country" id="country_id">
-                                                        <option value="">{{ __('user.Select Country') }}</option>
-                                                        @foreach ($countries as $country)
-                                                            <option
-                                                                {{ $country->id == $user->country_id ? 'selected' : '' }}
-                                                                value="{{ $country->id }}">{{ $country->name }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-
                                         <div class="col-md-12">
                                             <div class="wsus__add_address_single">
                                                 <div class="wsus__topbar_select">
@@ -121,40 +105,18 @@
             (function($) {
                 "use strict";
                 $(document).ready(function() {
-
-                    $("#country_id").on("change", function() {
-                        var countryId = $("#country_id").val();
-                        if (countryId) {
-                            $.ajax({
-                                type: "get",
-                                url: "{{ url('state-by-country/') }}" + "/" + countryId,
-                                success: function(response) {
-                                    $("#state_id").html(response.states);
-                                    var response =
-                                        "<option value=''>{{ __('user.Select a City') }}</option>";
-                                    $("#city_id").html(response);
-                                },
-                                error: function(err) {
-                                    console.log(err);
-                                }
-                            })
-                        } else {
-                            var response = "<option value=''>{{ __('user.Select a State') }}</option>";
-                            $("#state_id").html(response);
-                            var response = "<option value=''>{{ __('user.Select a City') }}</option>";
-                            $("#city_id").html(response);
-                        }
-
-                    })
-
                     $("#state_id").on("change", function() {
-                        var countryId = $("#state_id").val();
-                        if (countryId) {
+                        var state_id = $("#state_id").val();
+                        let url = "{{ route('city-by-state', ':state_id') }}";
+                        url = url.replace(':state_id', state_id);
+
+                        if (state_id) {
                             $.ajax({
                                 type: "get",
-                                url: "{{ url('/user/city-by-state/') }}" + "/" + countryId,
+                                url: url,
                                 success: function(response) {
                                     console.log(response);
+
                                     $("#city_id").html(response.cities);
                                 },
                                 error: function(err) {

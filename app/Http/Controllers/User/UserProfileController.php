@@ -117,7 +117,6 @@ class UserProfileController extends Controller
             'name' => 'required',
             'email' => 'nullable|unique:users,email,' . $user->id,
             'phone' => 'required',
-            'address' => 'required',
         ];
         $customMessages = [
             'name.required' => trans('user_validation.Name is required'),
