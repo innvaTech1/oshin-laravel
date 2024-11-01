@@ -22,14 +22,25 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'email_verified_at',
         'password',
-        'provider',
-        'provider_id',
-        'provider_avatar',
+        'remember_token',
+        'forget_password_token',
         'status',
-        'email_verified',
+        'provider_id',
+        'provider',
+        'provider_avatar',
+        'image',
         'phone',
+        'country_id',
+        'state_id',
+        'city_id',
+        'zip_code',
+        'address',
         'is_vendor',
+        'verify_token',
+        'email_verified',
+        'agree_policy',
     ];
 
     /**
@@ -49,7 +60,6 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'status' => 'integer',
         'country_id' => 'integer',
         'state_id' => 'integer',
         'city_id' => 'integer',
@@ -88,5 +98,10 @@ class User extends Authenticatable
     public function billing()
     {
         return $this->hasOne(Address::class)->where('type', 'billing');
+    }
+
+    public function socialite()
+    {
+        return $this->hasMany(SocialiteCredential::class, 'user_id');
     }
 }

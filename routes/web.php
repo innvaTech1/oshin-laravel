@@ -161,11 +161,11 @@ Route::group(['middleware' => ['XSS']], function () {
             Route::get('auth/{driver}', 'redirectToDriver')->name('auth.social');
             Route::get('auth/{driver}/callback', 'handleDriverCallback')->name('auth.social.callback');
         });
-        Route::get('login/google', [LoginController::class, 'redirectToGoogle'])->name('login-google');
-        Route::get('/callback/google', [LoginController::class, 'googleCallBack'])->name('callback-google');
+        // Route::get('login/google', [LoginController::class, 'redirectToGoogle'])->name('login-google');
+        // Route::get('/callback/google', [LoginController::class, 'googleCallBack'])->name('callback-google');
 
-        Route::get('login/facebook', [LoginController::class, 'redirectToFacebook'])->name('login-facebook');
-        Route::get('/callback/facebook', [LoginController::class, 'facebookCallBack'])->name('callback-facebook');
+        // Route::get('login/facebook', [LoginController::class, 'redirectToFacebook'])->name('login-facebook');
+        // Route::get('/callback/facebook', [LoginController::class, 'facebookCallBack'])->name('callback-facebook');
 
 
         Route::get('/login', [LoginController::class, 'loginPage'])->name('login');
@@ -313,7 +313,7 @@ Route::group(['middleware' => ['XSS']], function () {
 
         // start auth route
         Route::get('login', [AdminLoginController::class, 'adminLoginPage'])->name('login');
-        Route::post('login', [AdminLoginController::class, 'storeLogin'])->name('login');
+        Route::post('login', [AdminLoginController::class, 'storeLogin'])->name('login.store');
         Route::post('logout', [AdminLoginController::class, 'adminLogout'])->name('logout');
         Route::get('forget-password', [AdminForgotPasswordController::class, 'forgetPassword'])->name('forget-password');
         Route::post('send-forget-password', [AdminForgotPasswordController::class, 'sendForgetEmail'])->name('send.forget.password');

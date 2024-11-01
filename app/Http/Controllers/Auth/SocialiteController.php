@@ -31,6 +31,7 @@ class SocialiteController extends Controller
         if (in_array($driver, SocialiteDriverType::getAll())) {
             return Socialite::driver($driver)->redirect();
         }
+
         $notification = __('Invalid Social Login Type!');
         $notification = ['messege' => $notification, 'alert-type' => 'error'];
 
@@ -46,6 +47,7 @@ class SocialiteController extends Controller
         }
 
         $provider_name = SocialiteDriverType::from($driver)->value;
+
         $callbackUser = Socialite::driver($provider_name)->user();
 
         $user = User::where('email', $callbackUser->getEmail())->first();
@@ -58,32 +60,25 @@ class SocialiteController extends Controller
 
             if ($findDriver) {
                 $user = User::find($findDriver->user_id);
-                if ($user->status == UserStatus::ACTIVE->value) {
-                    if ($user->is_banned == UserStatus::UNBANNED->value) {
-                        if (app()->isProduction() && $user->email_verified_at == null) {
-                            $notification = __('Please verify your email');
-                            $notification = ['messege' => $notification, 'alert-type' => 'error'];
-                            return redirect()
-                                ->back()
-                                ->with($notification);
-                        }
-                        if ($findDriver) {
-                            Auth::guard('web')->login($user, true);
 
-                            $notification = __('Logged in Successfully');
-                            $notification = ['messege' => $notification, 'alert-type' => 'success'];
-                            if (str_contains(redirect()->intended()->getTargetUrl(), 'admin/dashboard')) {
-                                return to_route('website.user.dashboard')->with($notification);
-                            }
-                            return redirect()
-                                ->intended(route('website.user.dashboard'))
-                                ->with($notification);
-                        }
-                    } else {
-                        $notification = __('Inactive account');
+                if ($user->status == 'active') {
+
+                    if (app()->isProduction() && $user->email_verified_at == null) {
+                        $notification = __('Please verify your email');
                         $notification = ['messege' => $notification, 'alert-type' => 'error'];
                         return redirect()
                             ->back()
+                            ->with($notification);
+                    }
+                    if ($findDriver) {
+                        Auth::guard('web')->login($user, true);
+                        $notification = __('Logged in Successfully');
+                        $notification = ['messege' => $notification, 'alert-type' => 'success'];
+                        if (str_contains(redirect()->intended()->getTargetUrl(), 'admin/dashboard')) {
+                            return to_route('user.dashboard')->with($notification);
+                        }
+                        return redirect()
+                            ->intended(route('user.dashboard'))
                             ->with($notification);
                     }
                 } else {
@@ -103,10 +98,10 @@ class SocialiteController extends Controller
                     $notification = ['messege' => $notification, 'alert-type' => 'success'];
 
                     if (str_contains(redirect()->intended()->getTargetUrl(), 'admin/dashboard')) {
-                        return to_route('website.user.dashboard')->with($notification);
+                        return to_route('user.dashboard')->with($notification);
                     }
                     return redirect()
-                        ->intended(route('website.user.dashboard'))
+                        ->intended(route('user.dashboard'))
                         ->with($notification);
                 }
 
@@ -117,19 +112,22 @@ class SocialiteController extends Controller
                     ->with($notification);
             }
         } else {
+
             if ($callbackUser) {
                 $socialite = $this->createNewUser(null, callbackUser: $callbackUser, provider_name: $provider_name);
                 $user = User::where('email', $callbackUser->getEmail())->first();
                 if ($socialite) {
                     Auth::guard('web')->login($user, true);
 
+
                     $notification = __('Logged in Successfully');
                     $notification = ['messege' => $notification, 'alert-type' => 'success'];
+
                     if (str_contains(redirect()->intended()->getTargetUrl(), 'admin/dashboard')) {
-                        return to_route('website.user.dashboard')->with($notification);
+                        return to_route('user.dashboard')->with($notification);
                     }
                     return redirect()
-                        ->intended(route('website.user.dashboard'))
+                        ->intended(route('user.dashboard'))
                         ->with($notification);
                 }
 

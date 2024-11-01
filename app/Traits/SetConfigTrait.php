@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use App\Models\SocialLoginInformation;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
 
@@ -9,7 +10,8 @@ trait SetConfigTrait
 {
     protected static function setGoogleLoginInfo()
     {
-        $setting = Cache::get('setting');
+        $setting = SocialLoginInformation::first();
+
         if ($setting) {
             Config::set('services.google.client_id', $setting->gmail_client_id);
             Config::set('services.google.client_secret', $setting->gmail_secret_id);
@@ -19,7 +21,7 @@ trait SetConfigTrait
 
     protected static function setFacebookLoginInfo()
     {
-        $setting = Cache::get('setting');
+        $setting = SocialLoginInformation::first();
         if ($setting) {
             Config::set('services.facebook.client_id', $setting->facebook_app_id);
             Config::set('services.facebook.client_secret', $setting->facebook_app_secret);

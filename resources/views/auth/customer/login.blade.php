@@ -68,20 +68,24 @@
                                             @php
                                                 $socialiteEnum = 'App\Enums\SocialiteDriverType';
                                                 $icons = $socialiteEnum::getIcons();
+                                                $social = App\Models\SocialLoginInformation::first();
                                             @endphp
+
                                             @foreach ($socialiteEnum::cases() as $index => $case)
                                                 @php
+
                                                     if ($case->value != 'google') {
                                                         continue;
                                                     }
                                                     $driverName = $case->value . '_login_status';
                                                 @endphp
-                                                @if ($setting->$driverName == 'active')
-                                                    <a href="{{ route('auth.social', $case->value) }}"
-                                                        class="wsus__login_others_option">
-                                                        <img src="{{ asset('website/images/google_login.png') }}"
-                                                            alt="google" class="img-fluid w-100">{{ __('Google') }}
-                                                    </a>
+                                                @if ($social->is_gmail == 1)
+                                                    <div class="d-flex align-items-center justify-content-center mt-3">
+                                                        <a href="{{ route('auth.social', $case->value) }}"
+                                                            class="wsus__login_others_option" style="color:#930A02">
+                                                            <i class="fab fa-google"></i>
+                                                        </a>
+                                                    </div>
                                                 @endif
                                             @endforeach
                                         @endif
