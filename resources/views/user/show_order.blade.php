@@ -172,7 +172,6 @@
                         </div>
                     @endif
 
-
                     <div class="wsus__invoice_footer">
                         <p><span>{{ __('user.Sub Total') }}:</span> {{ currency_icon() }} {{ $order->sub_total }}</p>
                         <p><span>{{ __('user.Shipping') }}(+):</span> {{ currency_icon() }} {{ $order->shipping_cost }}
@@ -181,7 +180,7 @@
                         <p><span>{{ __('user.Discount') }}(-): </span> {{ currency_icon() }}{{ $order->coupon_coast }}
                         </p>
                         <p><span>{{ __('user.Total Amount') }}:</span> {{ currency_icon() }}
-                            {{ $order->amount_real_currency }} </p>
+                            {{ $order->total_amount }} </p>
                     </div>
                     <a onclick="window.print()" href="javascript:;" class="invoice_print common_btn mt-3"><i
                             class="fal fa-print"></i> {{ __('user.print') }}</a>

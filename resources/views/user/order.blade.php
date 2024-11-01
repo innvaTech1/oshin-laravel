@@ -26,7 +26,7 @@
                                     <tr>
                                         <td class="package">{{ $order->order_id }} </td>
                                         <td class="p_date">{{ $order->created_at->format('d F, Y') }}</td>
-                                        <td class="e_date">{{ currency_icon() }}{{ $order->amount_real_currency }}</td>
+                                        <td class="e_date">{{ currency_icon() }}{{ $order->total_amount }}</td>
                                         <td class="price">{{ $order->product_qty }}</td>
 
 
