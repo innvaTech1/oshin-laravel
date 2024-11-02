@@ -33,15 +33,37 @@
                     <div class="invoice-print">
                         <div class="row">
                             <div class="col-lg-12">
-                                <div class="invoice-title">
-                                    <h2><img src="{{ asset($setting->logo) }}" alt="" width="120px"></h2>
-                                    <div class="invoice-number">Order #{{ $order->order_id }}</div>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="invoice-title">
+                                        <h2><img src="{{ asset($setting->logo) }}" alt="" width="120px"></h2>
+                                    </div>
+                                    <div>
+                                        <div class="invoice-number">Order #{{ $order->order_id }}</div>
+                                        <div class="invoice_details">
+                                            <p>
+                                                <strong>Invoice Date: </strong>{{ $order->created_at->format('d-m-Y') }}
+                                            </p>
+                                            <p>
+                                                <strong>Order No: </strong>{{ $order->order_id }}
+                                            </p>
+                                            <p>
+                                                <strong>Order Date: </strong>{{ $order->created_at->format('d-m-Y') }}
+                                            </p>
+
+                                        </div>
+                                    </div>
                                 </div>
                                 <hr>
                                 @php
                                     $orderAddress = $order->orderAddress;
                                 @endphp
                                 <div class="row">
+                                    <div class="col-md-4">
+                                        <address>
+                                            {!! $setting->invoice_address !!}
+                                        </address>
+                                    </div>
+
                                     <div class="col-md-4">
                                         <address>
                                             <strong>{{ __('Billing Address') }}:</strong>
@@ -97,7 +119,7 @@
                                             </p>
                                         </address>
                                     </div>
-                                    <div class="col-md-4 invoice_details">
+                                    {{-- <div class="col-md-4 invoice_details">
                                         <p>
                                             <strong>Invoice Date: </strong>{{ $order->created_at->format('d-m-Y') }}
                                         </p>
@@ -108,7 +130,7 @@
                                             <strong>Order Date: </strong>{{ $order->created_at->format('d-m-Y') }}
                                         </p>
 
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                         </div>
