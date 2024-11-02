@@ -23,8 +23,6 @@
                                     <div class="row">
                                         <div class="col-12 col-sm-12 col-md-3">
                                             <ul class="nav nav-pills flex-column" id="myTab4" role="tablist">
-
-
                                                 <li class="nav-item border rounded mb-1">
                                                     <a class="nav-link active" id="general-setting-tab" data-toggle="tab"
                                                         href="#generalSettingTab" role="tab"
@@ -81,6 +79,13 @@
                                                         href="#facebookPixelTab" role="tab"
                                                         aria-controls="facebookPixelTab"
                                                         aria-selected="true">{{ __('Facebook Pixel') }}</a>
+                                                </li>
+
+
+                                                <li class="nav-item border rounded mb-1">
+                                                    <a class="nav-link" id="invoice-tab" data-toggle="tab" href="#invoice"
+                                                        role="tab" aria-controls="invoice"
+                                                        aria-selected="true">{{ __('Invoice') }}</a>
                                                 </li>
 
                                             </ul>
@@ -759,6 +764,26 @@
                                                                         <input type="text"
                                                                             value="{{ $facebookPixel->app_id }}"
                                                                             class="form-control" name="app_id">
+                                                                    </div>
+                                                                    <button
+                                                                        class="btn btn-primary">{{ __('Update') }}</button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="tab-pane fade" id="invoice" role="tabpanel"
+                                                        aria-labelledby="invoice-tab">
+                                                        <div class="card m-0">
+                                                            <div class="card-body">
+                                                                <form
+                                                                    action="{{ route('admin.update-invoice-address') }}"
+                                                                    method="POST">
+                                                                    @csrf
+                                                                    @method('PUT')
+                                                                    <div class="form-group">
+                                                                        <label
+                                                                            for="">{{ __('Invoice Address') }}</label>
+                                                                        <textarea name="invoice_address" id="" cols="30" rows="10" class="summernote">{!! $setting->invoice_address !!}</textarea>
                                                                     </div>
                                                                     <button
                                                                         class="btn btn-primary">{{ __('Update') }}</button>

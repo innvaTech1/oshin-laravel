@@ -70,10 +70,7 @@ use App\Models\Subscriber;
 use App\Models\Admin;
 use App\Models\PusherCredentail;
 use App\Models\Message;
-
-
-use Artisan;
-
+use Illuminate\Support\Facades\Artisan;
 
 class SettingController extends Controller
 {
@@ -413,6 +410,19 @@ class SettingController extends Controller
         Artisan::call("env:set PUSHER_APP_SECRET='" . $request->app_secret . "'");
         Artisan::call("env:set PUSHER_APP_CLUSTER='" . $request->app_cluster . "'");
 
+
+        $notification = trans('admin_validation.Update Successfully');
+        $notification = array('messege' => $notification, 'alert-type' => 'success');
+        return redirect()->back()->with($notification);
+    }
+    public function updateInvoiceAddress(Request $request)
+    {
+        $this->validate($request, [
+            'invoice_address' => 'required',
+        ]);
+        $setting = Setting::first();
+        $setting->invoice_address = $request->invoice_address;
+        $setting->save();
 
         $notification = trans('admin_validation.Update Successfully');
         $notification = array('messege' => $notification, 'alert-type' => 'success');

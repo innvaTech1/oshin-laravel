@@ -483,6 +483,7 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::put('update-custom-pagination', [SettingController::class, 'updateCustomPagination'])->name('update-custom-pagination');
         Route::put('update-social-login', [SettingController::class, 'updateSocialLogin'])->name('update-social-login');
         Route::put('update-facebook-pixel', [SettingController::class, 'updateFacebookPixel'])->name('update-facebook-pixel');
+        Route::put('update-invoice-address', [SettingController::class, 'updateInvoiceAddress'])->name('update-invoice-address');
         Route::put('update-pusher', [SettingController::class, 'updatePusher'])->name('update-pusher');
 
 
