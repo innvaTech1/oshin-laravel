@@ -138,5 +138,6 @@ class Product extends Model
         'buyone_getone' => 'integer',
         'status' => 'integer',
         'is_specification' => 'integer',
+        'delivery_id' => 'array',
     ];
 }

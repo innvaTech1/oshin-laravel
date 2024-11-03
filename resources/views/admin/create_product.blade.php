@@ -85,11 +85,11 @@
 
                                         <div class="form-group col-12">
                                             <label>{{ __('Location') }} </label>
-                                            <select name="city_id" class="form-control select2" id="city_id">
+                                            <select name="delivery_id[]" class="form-control select2" id="delivery_id"
+                                                multiple>
                                                 <option value="">{{ __('Location') }}</option>
                                                 @foreach ($cities as $city)
-                                                    <option {{ old('city_id') == $city->id ? 'selected' : '' }}
-                                                        value="{{ $city->id }}">{{ $city->name }}</option>
+                                                    <option value="{{ $city->id }}">{{ $city->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -131,17 +131,22 @@
                                         </div>
 
 
-
                                         <div class="form-group col-12">
-                                            <label>{{ __('Stock Quantity') }} <span class="text-danger">*</span></label>
+                                            <label>{{ __('Stock Quantity') }} </label>
                                             <input type="number" class="form-control" name="quantity"
                                                 value="{{ old('quantity') }}">
                                         </div>
 
                                         <div class="form-group col-12">
-                                            <label>{{ __('Weight') }} <span class="text-danger">*</span></label>
+                                            <label>{{ __('Weight') }} </label>
                                             <input type="text" class="form-control" name="weight"
                                                 value="{{ old('weight') }}">
+                                        </div>
+
+                                        <div class="form-group col-12">
+                                            <label>{{ __('Product Measurement') }} </label>
+                                            <input type="text" class="form-control" name="measurement"
+                                                value="{{ old('measurement') }}">
                                         </div>
 
 
@@ -171,6 +176,9 @@
 
                                                 <input type="checkbox" name="is_featured" id="is_featured"> <label
                                                     for="is_featured" class="mr-3">{{ __('Featured Product') }}</label>
+
+                                                <input type="checkbox" name="is_flash_deal" id="is_flash_deal"> <label
+                                                    for="is_flash_deal" class="mr-3">{{ __('Flash Deal') }}</label>
                                             </div>
                                         </div>
                                         <div class="col-md-12">
@@ -260,6 +268,58 @@
                                                 <option value="1">{{ __('Active') }}</option>
                                                 <option value="0">{{ __('Inactive') }}</option>
                                             </select>
+                                        </div>
+
+                                        <div class="form-group col-12">
+                                            <label>{{ __('Tags') }}</label>
+                                            <input type="text" class="form-control tags" name="tags"
+                                                value="{{ old('tags') }}">
+                                        </div>
+
+                                        <div class="form-group col-12">
+                                            <label>{{ __('Tax') }}</label>
+                                            <select name="tax_id" class="form-control">
+                                                @foreach ($productTaxs as $tax)
+                                                    <option value="{{ $tax->id }}">{{ $tax->title }}
+                                                        ({{ $tax->price }}%)
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group col-12">
+                                            <label>{{ __('Return Available') }}</label>
+                                            <select name="is_return" class="form-control">
+                                                <option value="0">{{ __('No') }}</option>
+                                                <option value="1">{{ __('Yes') }}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group col-12">
+                                            <label>{{ __('Return Policy') }}</label>
+                                            <select name="return_policy_id" class="form-control">
+                                                <option value="">{{ __('Select Policy') }}</option>
+                                                @foreach ($retrunPolicies as $policy)
+                                                    <option value="{{ $policy->id }}">{{ $policy->title }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-12">
+                                            <label>{{ __('Warranty Policy') }}</label>
+                                            <select name="warranty_policy_id" class="form-control">
+                                                <option value="">{{ __('Select Policy') }}</option>
+                                                @foreach ($retrunPolicies as $policy)
+                                                    <option value="{{ $policy->id }}">{{ $policy->title }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group col-12">
+                                            <label>{{ __('Warranty Time') }} (Months)</label>
+                                            <input type="number" class="form-control" name="warranty_times"
+                                                value="{{ old('warranty_times') }}">
                                         </div>
 
                                         <div class="form-group col-12">

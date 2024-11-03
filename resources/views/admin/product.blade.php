@@ -47,20 +47,7 @@
                                                             src="{{ asset($product->thumb_image) }}" alt=""
                                                             width="100px" height="100px"></td>
                                                     <td>
-                                                        @if ($product->is_undefine == 1)
-                                                            {{ __('Undefine Product') }}
-                                                        @elseif ($product->new_product == 1)
-                                                            {{ __('New Arrival') }}
-                                                        @elseif ($product->is_featured == 1)
-                                                            {{ __('Featured Product') }}
-                                                        @elseif ($product->is_top == 1)
-                                                            {{ __('Top Product') }}
-                                                        @elseif ($product->is_best == 1)
-                                                            {{ __('Best Product') }}
-                                                        @elseif ($product->is_flash_deal == 1)
-                                                            {{ __('Flash Deal') }}
-                                                        @endif
-
+                                                        {{ $product->type }}
                                                     </td>
                                                     <td>
                                                         @if ($product->status == 1)

@@ -89,7 +89,7 @@ class ProductController extends Controller
         $productTaxs = ProductTax::where('status', 1)->get();
         $retrunPolicies = ReturnPolicy::where('status', 1)->get();
         $specificationKeys = ProductSpecificationKey::all();
-        $cities = City::all();
+        $cities = City::orderBy('name', 'asc')->get();
         return view('admin.create_product', compact('categories', 'brands', 'productTaxs', 'retrunPolicies', 'specificationKeys', 'cities'));
     }
 
@@ -115,7 +115,6 @@ class ProductController extends Controller
             'long_description' => 'required',
             'price' => 'required|numeric',
             'status' => 'required',
-            'weight' => 'required',
             'quantity' => 'required|numeric',
         ];
 
@@ -189,18 +188,26 @@ class ProductController extends Controller
         $product->short_description = $request->short_description;
         $product->long_description = $request->long_description;
         $product->tags = $request->tags;
-        $product->city_id = $request->city_id;
+        $product->delivery_id = $request->delivery_id;
         $product->status = $request->status;
         $product->weight = $request->weight;
         $product->is_undefine = 1;
         $product->is_specification = $request->is_specification ? 1 : 0;
         $product->seo_title = $request->seo_title ? $request->seo_title : $request->name;
         $product->seo_description = $request->seo_description ? $request->seo_description : $request->name;
+        $product->type_check = $request->type_check;
         $product->is_top = $request->top_product ? 1 : 0;
         $product->new_product = $request->new_arrival ? 1 : 0;
         $product->is_best = $request->best_product ? 1 : 0;
         $product->is_featured = $request->is_featured ? 1 : 0;
-        $product->type_check = $request->type_check;
+        $product->is_flash_deal = $request->is_flash_deal ? 1 : 0;
+        $product->tags = $request->tags;
+        $product->tax_id = $request->tax_id;
+        $product->is_return = $request->is_return;
+        $product->return_policy_id = $request->return_policy_id;
+        $product->warranty_policy_id = $request->warranty_policy_id;
+        $product->warranty_times = $request->warranty_times;
+        $product->measurement = $request->measurement;
         $product->type = session('product_type');
 
         $product->is_pre_order = $request->is_pre_order ? 1 : 0;
@@ -351,27 +358,33 @@ class ProductController extends Controller
         $product->sub_category_id = $request->sub_category ? $request->sub_category : 0;
         $product->child_category_id = $request->child_category ? $request->child_category : 0;
         $product->brand_id = $request->brand ? $request->brand : 0;
-        $product->qty = $request->quantity ? $request->quantity : 0;
-        $product->sold_qty = 0;
         $product->sku = $request->sku;
         $product->price = $request->price;
         $product->offer_price = $request->offer_price;
+        $product->qty = $request->quantity ? $request->quantity : 0;
         $product->short_description = $request->short_description;
         $product->long_description = $request->long_description;
         $product->tags = $request->tags;
+        $product->delivery_id = $request->delivery_id;
         $product->status = $request->status;
-        $product->city_id = $request->city_id;
         $product->weight = $request->weight;
+        $product->is_undefine = 1;
         $product->is_specification = $request->is_specification ? 1 : 0;
         $product->seo_title = $request->seo_title ? $request->seo_title : $request->name;
         $product->seo_description = $request->seo_description ? $request->seo_description : $request->name;
+        $product->type_check = $request->type_check;
         $product->is_top = $request->top_product ? 1 : 0;
         $product->new_product = $request->new_arrival ? 1 : 0;
         $product->is_best = $request->best_product ? 1 : 0;
         $product->is_featured = $request->is_featured ? 1 : 0;
-        $product->type_check = $request->type_check;
-        $product->is_pre_order = $request->is_pre_order ? 1 : 0;
-        $product->is_partial = $request->is_partial ? 1 : 0;
+        $product->is_flash_deal = $request->is_flash_deal ? 1 : 0;
+        $product->tags = $request->tags;
+        $product->tax_id = $request->tax_id;
+        $product->is_return = $request->is_return;
+        $product->return_policy_id = $request->return_policy_id;
+        $product->warranty_policy_id = $request->warranty_policy_id;
+        $product->warranty_times = $request->warranty_times;
+        $product->measurement = $request->measurement;
 
         if ($request->is_pre_order) {
             $product->release_date = now()->parse($request->release_date);

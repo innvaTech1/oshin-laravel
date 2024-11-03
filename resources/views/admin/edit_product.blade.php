@@ -37,7 +37,7 @@
                                         </div>
 
                                         <div class="form-group col-12">
-                                            <label>{{ __('Thumnail Image') }} <span class="text-danger">*</span></label>
+                                            <label>{{ __('Thumbnail Image') }} <span class="text-danger">*</span></label>
                                             <input type="file" class="form-control-file" name="thumb_image"
                                                 onchange="previewThumnailImage(event)">
                                         </div>
@@ -102,12 +102,14 @@
                                         </div>
 
                                         <div class="form-group col-12">
-                                            <label>{{ __('Delivery Area') }} </label>
-                                            <select name="city_id" class="form-control select2" id="city_id">
-                                                <option value="">{{ __('Delivery Area') }}</option>
+                                            <label>{{ __('Location') }} </label>
+                                            <select name="delivery_id[]" class="form-control select2" id="delivery_id"
+                                                multiple>
+                                                <option value="">{{ __('Location') }}</option>
                                                 @foreach ($cities as $city)
-                                                    <option {{ old('city_id') == $city->id ? 'selected' : '' }}
-                                                        value="{{ $city->id }}">{{ $city->name }}</option>
+                                                    <option value="{{ $city->id }}"
+                                                        {{ in_array($city->id, $product->delivery_id) ? 'selected' : '' }}>
+                                                        {{ $city->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -149,17 +151,22 @@
                                         </div>
 
                                         <div class="form-group col-12">
-                                            <label>{{ __('Stock Quantity') }} <span class="text-danger">*</span></label>
+                                            <label>{{ __('Stock Quantity') }}</label>
                                             <input type="number" class="form-control" name="quantity"
                                                 value="{{ $product->qty }}">
                                         </div>
 
                                         <div class="form-group col-12">
-                                            <label>{{ __('Weight') }} <span class="text-danger">*</span></label>
+                                            <label>{{ __('Weight') }}</label>
                                             <input type="text" class="form-control" name="weight"
                                                 value="{{ $product->weight }}">
                                         </div>
 
+                                        <div class="form-group col-12">
+                                            <label>{{ __('Product Measurement') }} </label>
+                                            <input type="text" class="form-control" name="measurement"
+                                                value="{{ $product->measurement }}">
+                                        </div>
 
 
                                         <div class="form-group col-12">
@@ -192,6 +199,9 @@
                                                 <input {{ $product->is_featured == 1 ? 'checked' : '' }} type="checkbox"
                                                     name="is_featured" id="is_featured"> <label for="is_featured"
                                                     class="mr-3">{{ __('Featured Product') }}</label>
+                                                <input type="checkbox" name="is_flash_deal" id="is_flash_deal"
+                                                    {{ $product->is_flash_deal == 1 ? 'checked' : '' }}> <label
+                                                    for="is_flash_deal" class="mr-3">{{ __('Flash Deal') }}</label>
                                             </div>
                                         </div>
 
@@ -310,6 +320,65 @@
                                             </select>
                                         </div>
 
+                                        <div class="form-group col-12">
+                                            <label>{{ __('Tags') }}</label>
+                                            <input type="text" class="form-control tags" name="tags"
+                                                value="{{ $product->tags }}">
+                                        </div>
+
+                                        <div class="form-group col-12">
+                                            <label>{{ __('Tax') }}</label>
+                                            <select name="tax_id" class="form-control">
+                                                @foreach ($productTaxs as $tax)
+                                                    <option value="{{ $tax->id }}"
+                                                        {{ $tax->id == $product->tax_id ? 'selected' : '' }}>
+                                                        {{ $tax->title }}
+                                                        ({{ $tax->price }}%)
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group col-12">
+                                            <label>{{ __('Return Available') }}</label>
+                                            <select name="is_return" class="form-control">
+                                                <option value="0" {{ $product->is_return == 0 ? 'selected' : '' }}>
+                                                    {{ __('No') }}</option>
+                                                <option value="1" {{ $product->is_return == 1 ? 'selected' : '' }}>
+                                                    {{ __('Yes') }}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group col-12">
+                                            <label>{{ __('Return Policy') }}</label>
+                                            <select name="return_policy_id" class="form-control">
+                                                <option value="">{{ __('Select Policy') }}</option>
+                                                @foreach ($retrunPolicies as $policy)
+                                                    <option value="{{ $policy->id }}"
+                                                        {{ $product->return_policy_id == $policy->id ? 'selected' : '' }}>
+                                                        {{ $policy->title }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-12">
+                                            <label>{{ __('Warranty Policy') }}</label>
+                                            <select name="warranty_policy_id" class="form-control">
+                                                <option value="">{{ __('Select Policy') }}</option>
+                                                @foreach ($retrunPolicies as $policy)
+                                                    <option value="{{ $policy->id }}"
+                                                        {{ $product->warranty_policy_id == $policy->id ? 'selected' : '' }}>
+                                                        {{ $policy->title }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group col-12">
+                                            <label>{{ __('Warranty Time') }} (Months)</label>
+                                            <input type="number" class="form-control" name="warranty_times"
+                                                value="{{ $product->warranty_times }}">
+                                        </div>
 
                                         <div class="form-group col-12">
                                             <label>{{ __('SEO Title') }}</label>
