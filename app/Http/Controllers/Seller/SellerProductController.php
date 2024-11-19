@@ -118,7 +118,6 @@ class SellerProductController extends Controller
     {
 
         $rules = [
-            'short_name' => 'required',
             'name' => 'required',
             'slug' => 'required|unique:products',
             'thumb_image' => 'required',
@@ -130,8 +129,6 @@ class SellerProductController extends Controller
             'quantity' => 'required|numeric',
         ];
         $customMessages = [
-            'short_name.required' => trans('Short name is required'),
-            'short_name.unique' => trans('Short name is required'),
             'name.required' => trans('Name is required'),
             'name.unique' => trans('Name is required'),
             'slug.required' => trans('Slug is required'),
@@ -156,8 +153,7 @@ class SellerProductController extends Controller
             $product->thumb_image = $image_name;
         }
 
-        $product->vendor_id = $seller->id;
-        $product->short_name = $request->short_name;
+        $product->vendor_id = $seller->id
         $product->name = $request->name;
         $product->slug = $request->slug;
         $product->category_id = $request->category;
@@ -206,25 +202,6 @@ class SellerProductController extends Controller
 
         $product->save();
 
-        if ($request->is_specification) {
-            $exist_specifications = [];
-            if ($request->keys) {
-                foreach ($request->keys as $index => $key) {
-                    if ($key) {
-                        if ($request->specifications[$index]) {
-                            if (!in_array($key, $exist_specifications)) {
-                                $productSpecification = new ProductSpecification();
-                                $productSpecification->product_id = $product->id;
-                                $productSpecification->product_specification_key_id = $key;
-                                $productSpecification->specification = $request->specifications[$index];
-                                $productSpecification->save();
-                            }
-                            $exist_specifications[] = $key;
-                        }
-                    }
-                }
-            }
-        }
         $notification = trans('Created Successfully');
         $notification = array('messege' => $notification, 'alert-type' => 'success');
         return redirect()->route('seller.product.index')->with($notification);
@@ -266,7 +243,6 @@ class SellerProductController extends Controller
         $product = Product::find($id);
 
         $rules = [
-            'short_name' => 'required',
             'name' => 'required',
             'slug' => 'required|unique:products,slug,' . $product->id,
             'category' => 'required',
@@ -277,8 +253,6 @@ class SellerProductController extends Controller
             'quantity' => 'required|numeric',
         ];
         $customMessages = [
-            'short_name.required' => trans('Short name is required'),
-            'short_name.unique' => trans('Short name is required'),
             'name.required' => trans('Name is required'),
             'name.unique' => trans('Name is required'),
             'slug.required' => trans('Slug is required'),
@@ -304,8 +278,6 @@ class SellerProductController extends Controller
             $product->save();
         }
 
-
-        $product->short_name = $request->short_name;
         $product->name = $request->name;
         $product->slug = $request->slug;
         $product->category_id = $request->category;
@@ -333,30 +305,6 @@ class SellerProductController extends Controller
             $product->status = $request->status;
         }
         $product->save();
-
-        $exist_specifications = [];
-        if ($request->keys) {
-            foreach ($request->keys as $index => $key) {
-                if ($key) {
-                    if ($request->specifications[$index]) {
-                        if (!in_array($key, $exist_specifications)) {
-                            $existSroductSpecification = ProductSpecification::where(['product_id' => $product->id, 'product_specification_key_id' => $key])->first();
-                            if ($existSroductSpecification) {
-                                $existSroductSpecification->specification = $request->specifications[$index];
-                                $existSroductSpecification->save();
-                            } else {
-                                $productSpecification = new ProductSpecification();
-                                $productSpecification->product_id = $product->id;
-                                $productSpecification->product_specification_key_id = $key;
-                                $productSpecification->specification = $request->specifications[$index];
-                                $productSpecification->save();
-                            }
-                        }
-                        $exist_specifications[] = $key;
-                    }
-                }
-            }
-        }
         $notification = trans('Update Successfully');
         $notification = array('messege' => $notification, 'alert-type' => 'success');
         return redirect()->route('seller.product.index')->with($notification);

@@ -43,12 +43,6 @@
                                         </div>
 
                                         <div class="form-group col-12">
-                                            <label>{{ __('Short Name') }} <span class="text-danger">*</span></label>
-                                            <input type="text" id="short_name" class="form-control" name="short_name"
-                                                value="{{ $product->short_name }}">
-                                        </div>
-
-                                        <div class="form-group col-12">
                                             <label>{{ __('Name') }} <span class="text-danger">*</span></label>
                                             <input type="text" id="name" class="form-control" name="name"
                                                 value="{{ $product->name }}">
@@ -126,7 +120,7 @@
                                         </div>
 
                                         <div class="form-group col-12">
-                                            <label>{{ __('SKU') }} </label>
+                                            <label>{{ __('SKU') }} <span class="text-danger"></span></label>
                                             <div class="input-group">
                                                 <input type="text" name="sku" class="form-control currency"
                                                     id="sku" required value="{{ $product->sku }}">
@@ -236,7 +230,7 @@
 
                                         <div class="col-md-12 {{ $product->is_pre_order ? '' : 'd-none' }} max_product">
                                             <div class="form-group">
-                                                <label>{{ __('Max Quantity') }} <span class="text-danger">*</span></label>
+                                                <label>{{ __('Max Quantity') }}</label>
                                                 <input type="number" name="max_product" class="form-control"
                                                     @if (!$product->is_pre_order) disabled @endif
                                                     value="{{ $product->max_product }}" />

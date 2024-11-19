@@ -18,6 +18,11 @@ class Product extends Model
         return $this->avgReview()->avg('rating') ?: '0';
     }
 
+    public function getShortNameAttribute()
+    {
+        return $this->name;
+    }
+
 
     public function category()
     {

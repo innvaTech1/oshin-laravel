@@ -106,7 +106,6 @@ class ProductController extends Controller
         }
 
         $rules = [
-            'short_name' => 'required',
             'name' => 'required',
             'slug' => 'required|unique:products',
             'thumb_image' => 'required',
@@ -119,8 +118,7 @@ class ProductController extends Controller
         ];
 
         if ($request->is_pre_order) {
-            $rules['release_date'] = 'required|date';
-            $rules['max_product'] = 'required';
+            $rules['release_date'] = 'nullable|date';
         }
         if ($request->is_partial) {
             $rules['partial_amount'] = 'required';
@@ -128,8 +126,6 @@ class ProductController extends Controller
 
 
         $customMessages = [
-            'short_name.required' => trans('Short name is required'),
-            'short_name.unique' => trans('Short name is required'),
             'name.required' => trans('Name is required'),
             'name.unique' => trans('Name is required'),
             'slug.required' => trans('Slug is required'),
@@ -174,7 +170,6 @@ class ProductController extends Controller
             $product->link = $request->link;
         }
 
-        $product->short_name = $request->short_name;
         $product->name = $request->name;
         $product->slug = $request->slug;
         $product->category_id = $request->category;
@@ -222,25 +217,6 @@ class ProductController extends Controller
         }
         $product->save();
 
-        if ($request->is_specification) {
-            $exist_specifications = [];
-            if ($request->keys) {
-                foreach ($request->keys as $index => $key) {
-                    if ($key) {
-                        if ($request->specifications[$index]) {
-                            if (!in_array($key, $exist_specifications)) {
-                                $productSpecification = new ProductSpecification();
-                                $productSpecification->product_id = $product->id;
-                                $productSpecification->product_specification_key_id = $key;
-                                $productSpecification->specification = $request->specifications[$index];
-                                $productSpecification->save();
-                            }
-                            $exist_specifications[] = $key;
-                        }
-                    }
-                }
-            }
-        }
 
         session()->forget('product_type');
         $notification = trans('admin_validation.Created Successfully');
@@ -290,7 +266,6 @@ class ProductController extends Controller
         $product = Product::find($id);
 
         $rules = [
-            'short_name' => 'required',
             'name' => 'required',
             'slug' => 'required|unique:products,slug,' . $product->id,
             'category' => 'required',
@@ -303,15 +278,12 @@ class ProductController extends Controller
         ];
 
         if ($request->is_pre_order) {
-            $rules['release_date'] = 'required|date';
-            $rules['max_product'] = 'required';
+            $rules['release_date'] = 'nullable|date';
         }
         if ($request->is_partial) {
             $rules['partial_amount'] = 'required';
         }
         $customMessages = [
-            'short_name.required' => trans('Short name is required'),
-            'short_name.unique' => trans('Short name is required'),
             'name.required' => trans('Name is required'),
             'name.unique' => trans('Name is required'),
             'slug.required' => trans('Slug is required'),
@@ -350,7 +322,6 @@ class ProductController extends Controller
         }
 
 
-        $product->short_name = $request->short_name;
         $product->name = $request->name;
         $product->slug = $request->slug;
         $product->category_id = $request->category;
@@ -395,30 +366,6 @@ class ProductController extends Controller
         }
 
         $product->save();
-
-        $exist_specifications = [];
-        if ($request->keys) {
-            foreach ($request->keys as $index => $key) {
-                if ($key) {
-                    if ($request->specifications[$index]) {
-                        if (!in_array($key, $exist_specifications)) {
-                            $existSroductSpecification = ProductSpecification::where(['product_id' => $product->id, 'product_specification_key_id' => $key])->first();
-                            if ($existSroductSpecification) {
-                                $existSroductSpecification->specification = $request->specifications[$index];
-                                $existSroductSpecification->save();
-                            } else {
-                                $productSpecification = new ProductSpecification();
-                                $productSpecification->product_id = $product->id;
-                                $productSpecification->product_specification_key_id = $key;
-                                $productSpecification->specification = $request->specifications[$index];
-                                $productSpecification->save();
-                            }
-                        }
-                        $exist_specifications[] = $key;
-                    }
-                }
-            }
-        }
         $notification = trans('admin_validation.Update Successfully');
         $notification = array('messege' => $notification, 'alert-type' => 'success');
         return redirect()->route('admin.product.index')->with($notification);
