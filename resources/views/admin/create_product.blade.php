@@ -35,7 +35,7 @@
                                         </div>
 
                                         <div class="form-group col-12">
-                                            <label>{{ __('Thumnail Image') }} <span class="text-danger">*</span></label>
+                                            <label>{{ __('Thumbnail Image') }} <span class="text-danger">*</span></label>
                                             <input type="file" class="form-control-file" name="thumb_image"
                                                 onchange="previewThumnailImage(event)">
                                         </div>

@@ -1,8 +1,14 @@
-@extends('admin.master_layout')
+@php
+    $authType = auth('web')?->user()?->seller ? 'seller' : 'admin';
+@endphp
+@extends($authType . '.master_layout')
+
+
 @section('title')
     <title>{{ __('Products') }}</title>
 @endsection
-@section('admin-content')
+
+@section($authType . '-content')
     <style>
         .card-title {
             cursor: pointer;
@@ -14,7 +20,8 @@
             <div class="section-header">
                 <h1>{{ __('Create Product') }}</h1>
                 <div class="section-header-breadcrumb">
-                    <div class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">{{ __('Dashboard') }}</a>
+                    <div class="breadcrumb-item active"><a
+                            href="{{ route($authType . '.dashboard') }}">{{ __('Dashboard') }}</a>
                     </div>
                     <div class="breadcrumb-item">{{ __('Create Product') }}</div>
                 </div>
@@ -46,7 +53,7 @@
 
 
     <script>
-        let route = "{{ route('admin.product.create') }}";
+        let route = "{{ route($authType . '.product.create') }}";
 
         function productType(type) {
             route += `?product_type=${type}`

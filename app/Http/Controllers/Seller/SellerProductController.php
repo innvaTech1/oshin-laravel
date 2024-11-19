@@ -28,6 +28,7 @@ use App\Models\CompareProduct;
 
 use App\Exports\ProductExport;
 use App\Imports\ProductImport;
+use App\Models\City;
 use App\Models\ProductTax;
 use App\Models\ReturnPolicy;
 use Maatwebsite\Excel\Facades\Excel;
@@ -73,19 +74,30 @@ class SellerProductController extends Controller
 
     public function create()
     {
+        $productType = request('product_type');
+
+        if ($productType) {
+            session()->put('product_type', $productType);
+        }
+
+        if (!$productType || !session('product_type')) {
+            return view('admin.products.product-type');
+        }
+
         $categories = Category::all();
         $brands = Brand::all();
         $productTaxs = ProductTax::where('status', 1)->get();
         $retrunPolicies = ReturnPolicy::where('status', 1)->get();
         $specificationKeys = ProductSpecificationKey::all();
-        return view('seller.create_product', compact('categories', 'brands', 'productTaxs', 'retrunPolicies', 'specificationKeys'));
+        $cities = City::orderBy('name', 'asc')->get();
+        return view('seller.create_product', compact('categories', 'brands', 'productTaxs', 'retrunPolicies', 'specificationKeys', 'cities'));
     }
 
 
     public function getSubcategoryByCategory($id)
     {
         $subCategories = SubCategory::where('category_id', $id)->get();
-        $response = '<option value="">' . trans('admin_validation.Select Sub Category') . '</option>';
+        $response = '<option value="">' . trans('Select Sub Category') . '</option>';
         foreach ($subCategories as $subCategory) {
             $response .= "<option value=" . $subCategory->id . ">" . $subCategory->name . "</option>";
         }
@@ -95,7 +107,7 @@ class SellerProductController extends Controller
     public function getChildcategoryBySubCategory($id)
     {
         $childCategories = ChildCategory::where('sub_category_id', $id)->get();
-        $response = '<option value="">' . trans('admin_validation.Select Child Category') . '</option>';
+        $response = '<option value="">' . trans('Select Child Category') . '</option>';
         foreach ($childCategories as $childCategory) {
             $response .= "<option value=" . $childCategory->id . ">" . $childCategory->name . "</option>";
         }
@@ -118,20 +130,20 @@ class SellerProductController extends Controller
             'quantity' => 'required|numeric',
         ];
         $customMessages = [
-            'short_name.required' => trans('admin_validation.Short name is required'),
-            'short_name.unique' => trans('admin_validation.Short name is required'),
-            'name.required' => trans('admin_validation.Name is required'),
-            'name.unique' => trans('admin_validation.Name is required'),
-            'slug.required' => trans('admin_validation.Slug is required'),
-            'slug.unique' => trans('admin_validation.Slug already exist'),
-            'category.required' => trans('admin_validation.Category is required'),
-            'thumb_image.required' => trans('admin_validation.thumbnail is required'),
-            'short_description.required' => trans('admin_validation.Short description is required'),
-            'long_description.required' => trans('admin_validation.Long description is required'),
-            'price.required' => trans('admin_validation.Price is required'),
-            'status.required' => trans('admin_validation.Status is required'),
-            'quantity.required' => trans('admin_validation.Quantity is required'),
-            'weight.required' => trans('admin_validation.Weight is required'),
+            'short_name.required' => trans('Short name is required'),
+            'short_name.unique' => trans('Short name is required'),
+            'name.required' => trans('Name is required'),
+            'name.unique' => trans('Name is required'),
+            'slug.required' => trans('Slug is required'),
+            'slug.unique' => trans('Slug already exist'),
+            'category.required' => trans('Category is required'),
+            'thumb_image.required' => trans('thumbnail is required'),
+            'short_description.required' => trans('Short description is required'),
+            'long_description.required' => trans('Long description is required'),
+            'price.required' => trans('Price is required'),
+            'status.required' => trans('Status is required'),
+            'quantity.required' => trans('Quantity is required'),
+            'weight.required' => trans('Weight is required'),
         ];
         $this->validate($request, $rules, $customMessages);
 
@@ -159,6 +171,8 @@ class SellerProductController extends Controller
         $product->short_description = $request->short_description;
         $product->long_description = $request->long_description;
         $product->tags = $request->tags;
+        $product->delivery_id = $request->delivery_id;
+
         $product->status = 1;
         $product->weight = $request->weight;
         $product->is_undefine = 1;
@@ -169,6 +183,27 @@ class SellerProductController extends Controller
         $product->new_product = $request->new_arrival ? 1 : 0;
         $product->is_best = $request->best_product ? 1 : 0;
         $product->is_featured = $request->is_featured ? 1 : 0;
+
+        $product->tax_id = $request->tax_id;
+        $product->is_return = $request->is_return;
+        $product->return_policy_id = $request->return_policy_id;
+        $product->warranty_policy_id = $request->warranty_policy_id;
+        $product->warranty_times = $request->warranty_times;
+        $product->measurement = $request->measurement;
+        $product->type = session('product_type');
+
+        $product->is_pre_order = $request->is_pre_order ? 1 : 0;
+        $product->is_partial = $request->is_partial ? 1 : 0;
+
+        if ($request->is_pre_order) {
+            $product->release_date = now()->parse($request->release_date);
+            $product->max_product = $request->max_product;
+        }
+        if ($request->is_partial) {
+            $product->partial_amount = $request->partial_amount;
+            $product->partial_type = $request->partial_type;
+        }
+
         $product->save();
 
         if ($request->is_specification) {
@@ -190,7 +225,7 @@ class SellerProductController extends Controller
                 }
             }
         }
-        $notification = trans('admin_validation.Created Successfully');
+        $notification = trans('Created Successfully');
         $notification = array('messege' => $notification, 'alert-type' => 'success');
         return redirect()->route('seller.product.index')->with($notification);
     }
@@ -219,9 +254,9 @@ class SellerProductController extends Controller
         $brands = Brand::all();
         $specificationKeys = ProductSpecificationKey::all();
         $productSpecifications = ProductSpecification::where('product_id', $product->id)->get();
+        $cities = City::orderBy('name', 'asc')->get();
 
-
-        return view('seller.edit_product', compact('categories', 'brands', 'specificationKeys', 'product', 'subCategories', 'childCategories', 'productSpecifications'));
+        return view('seller.edit_product', compact('categories', 'brands', 'specificationKeys', 'product', 'subCategories', 'childCategories', 'productSpecifications', 'cities'));
     }
 
     public function update(Request $request, $id)
@@ -242,22 +277,22 @@ class SellerProductController extends Controller
             'quantity' => 'required|numeric',
         ];
         $customMessages = [
-            'short_name.required' => trans('admin_validation.Short name is required'),
-            'short_name.unique' => trans('admin_validation.Short name is required'),
-            'name.required' => trans('admin_validation.Name is required'),
-            'name.unique' => trans('admin_validation.Name is required'),
-            'slug.required' => trans('admin_validation.Slug is required'),
-            'slug.unique' => trans('admin_validation.Slug already exist'),
-            'category.required' => trans('admin_validation.Category is required'),
-            'thumb_image.required' => trans('admin_validation.thumbnail is required'),
-            'banner_image.required' => trans('admin_validation.Banner is required'),
-            'short_description.required' => trans('admin_validation.Short description is required'),
-            'long_description.required' => trans('admin_validation.Long description is required'),
-            'brand.required' => trans('admin_validation.Brand is required'),
-            'price.required' => trans('admin_validation.Price is required'),
-            'quantity.required' => trans('admin_validation.Quantity is required'),
-            'status.required' => trans('admin_validation.Status is required'),
-            'weight.required' => trans('admin_validation.Weight is required'),
+            'short_name.required' => trans('Short name is required'),
+            'short_name.unique' => trans('Short name is required'),
+            'name.required' => trans('Name is required'),
+            'name.unique' => trans('Name is required'),
+            'slug.required' => trans('Slug is required'),
+            'slug.unique' => trans('Slug already exist'),
+            'category.required' => trans('Category is required'),
+            'thumb_image.required' => trans('thumbnail is required'),
+            'banner_image.required' => trans('Banner is required'),
+            'short_description.required' => trans('Short description is required'),
+            'long_description.required' => trans('Long description is required'),
+            'brand.required' => trans('Brand is required'),
+            'price.required' => trans('Price is required'),
+            'quantity.required' => trans('Quantity is required'),
+            'status.required' => trans('Status is required'),
+            'weight.required' => trans('Weight is required'),
         ];
         $this->validate($request, $rules, $customMessages);
 
@@ -322,7 +357,7 @@ class SellerProductController extends Controller
                 }
             }
         }
-        $notification = trans('admin_validation.Update Successfully');
+        $notification = trans('Update Successfully');
         $notification = array('messege' => $notification, 'alert-type' => 'success');
         return redirect()->route('seller.product.index')->with($notification);
     }
@@ -358,7 +393,7 @@ class SellerProductController extends Controller
         }
         CompareProduct::where('product_id', $id)->delete();
 
-        $notification = trans('admin_validation.Delete Successfully');
+        $notification = trans('Delete Successfully');
         $notification = array('messege' => $notification, 'alert-type' => 'success');
         return redirect()->route('seller.product.index')->with($notification);
     }
@@ -369,11 +404,11 @@ class SellerProductController extends Controller
         if ($product->status == 1) {
             $product->status = 0;
             $product->save();
-            $message = trans('admin_validation.Inactive Successfully');
+            $message = trans('Inactive Successfully');
         } else {
             $product->status = 1;
             $product->save();
-            $message = trans('admin_validation.Active Successfully');
+            $message = trans('Active Successfully');
         }
         return response()->json($message);
     }
@@ -382,7 +417,7 @@ class SellerProductController extends Controller
     {
         $productSpecification = ProductSpecification::find($id);
         $productSpecification->delete();
-        $message = trans('admin_validation.Removed Successfully');
+        $message = trans('Removed Successfully');
         return response()->json($message);
     }
 
