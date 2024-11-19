@@ -31,7 +31,7 @@
                             <div class="tab-pane fade show active" id="pills-homes" role="tabpanel"
                                 aria-labelledby="pills-home-tab2">
                                 <div class="wsus__login">
-                                    <form action="{{ route('store-login') }}" method="POST">
+                                    <form action="{{ route('store-login') }}" method="POST" id="login_form">
                                         @csrf
                                         <div class="wsus__login_input">
                                             <i class="fas fa-user-tie"></i>
@@ -95,7 +95,7 @@
                             <div class="tab-pane fade" id="pills-profiles" role="tabpanel"
                                 aria-labelledby="pills-profile-tab2">
                                 <div class="wsus__login">
-                                    <form action="{{ route('store-register') }}" method="POST">
+                                    <form action="{{ route('store-register') }}" method="POST" id="register_form">
                                         @csrf
                                         <div class="wsus__login_input">
                                             <i class="fas fa-user-tie"></i>
@@ -175,6 +175,52 @@
                     password.attr('type', 'password')
                     $(this).children('i').addClass('fa-eye')
                     $(this).children('i').removeClass('fa-eye-slash')
+                }
+            })
+
+            // register_form
+
+            // for registration form
+            // check if given email/phone is valid
+            $('#register_form').on('submit', function(e) {
+                e.preventDefault();
+                let username = $('[name="username"]').val();
+                let emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                let phonePattern = /^(\+?88)?01[3-9][0-9]{8}$/;
+                let isValid = false;
+
+                if (emailPattern.test(username)) {
+                    isValid = true;
+                } else if (phonePattern.test(username)) {
+                    isValid = true;
+                }
+
+                if (isValid) {
+                    this.submit();
+                } else {
+                    toastr.error('Please enter a valid email or phone number');
+                    return false;
+                }
+            })
+
+            $('#login_form').on('submit', function(e) {
+                e.preventDefault();
+                let username = $('[name="email"]').val();
+                let emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                let phonePattern = /^(\+?88)?01[3-9][0-9]{8}$/;
+                let isValid = false;
+
+                if (emailPattern.test(username)) {
+                    isValid = true;
+                } else if (phonePattern.test(username)) {
+                    isValid = true;
+                }
+
+                if (isValid) {
+                    this.submit();
+                } else {
+                    toastr.error('Please enter a valid email or phone number');
+                    return false;
                 }
             })
         })

@@ -9,7 +9,8 @@
                 <h3><i class="far fa-user"></i> {{ __('user.My Profile') }}</h3>
                 <div class="wsus__dashboard_profile">
                     <div class="wsus__dash_pro_area">
-                        <form action="{{ route('user.update-profile') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('user.update-profile') }}" method="POST" enctype="multipart/form-data"
+                            id="update_profile">
                             @csrf
                             <div class="row">
                                 <div class="col-xl-9">
@@ -130,8 +131,21 @@
 
                     })
 
+                    // phone number validation on form submit
+                    $('#update_profile').on('submit', function(e) {
+                        let phone = $('[name="phone"]').val();
+                        if (!isValidBangladeshiMobileNumber(phone)) {
+                            e.preventDefault();
+                            toastr.error('Please enter a valid mobile number');
+                        }
+                    })
 
                 });
             })(jQuery);
+
+            function isValidBangladeshiMobileNumber(number) {
+                const regex = /^(\+8801|01)[3-9]\d{8}$/;
+                return regex.test(number);
+            }
         </script>
     @endsection

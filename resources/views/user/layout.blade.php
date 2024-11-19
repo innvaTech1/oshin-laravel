@@ -97,7 +97,7 @@
                         <i class="far fa-bars dash_bar"></i>
                         <i class="far fa-times dash_close"></i>
                     </span>
-                    <a href="{{ route('user.dashboard') }}" class="dash_logo"><img src="{{ asset($setting->logo) }}"
+                    <a href="{{ route('home') }}" class="dash_logo"><img src="{{ asset($setting->logo) }}"
                             alt="logo" class="img-fluid"></a>
                     <ul class="dashboard_link">
                         <li><a class="{{ Route::is('user.dashboard') ? 'active' : '' }}"
