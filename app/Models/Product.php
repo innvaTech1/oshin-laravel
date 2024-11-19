@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Route;
 
 class Product extends Model
 {
@@ -11,6 +13,30 @@ class Product extends Model
 
     protected $appends = ['averageRating'];
 
+    public static function boot()
+    {
+        parent::boot();
+
+        if (Route::is('pre-order')) {
+            static::addGlobalScope('preorder', function (Builder $builder) {
+                $builder->where('is_pre_order', 1);
+            });
+        } else if (!str_contains(Route::getFacadeRoot()->current()->uri(), 'admin')) {
+            static::addGlobalScope('preorder', function (Builder $builder) {
+                $builder->where('is_pre_order', 0);
+            });
+        }
+
+        if (Route::is('wholesale')) {
+            static::addGlobalScope('wholesale', function (Builder $builder) {
+                $builder->where('is_wholesale', 1);
+            });
+        } else if (!str_contains(Route::getFacadeRoot()->current()->uri(), 'admin')) {
+            static::addGlobalScope('wholesale', function (Builder $builder) {
+                $builder->where('is_wholesale', 0);
+            });
+        }
+    }
 
 
     public function getAverageRatingAttribute()
