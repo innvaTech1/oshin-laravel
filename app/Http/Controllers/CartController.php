@@ -251,6 +251,10 @@ class CartController extends Controller
         }
 
         $coupon = Coupon::where(['code' => $request->coupon, 'status' => 1])->first();
+        if ($coupon == null) {
+            $notification = trans('user_validation.Invalid Coupon');
+            return response()->json(['status' => 0, 'message' => $notification]);
+        }
 
         if ($coupon->expired_date < date('Y-m-d')) {
             $notification = trans('user_validation.Coupon already expired');

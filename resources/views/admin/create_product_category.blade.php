@@ -47,16 +47,6 @@
                                         </div>
 
                                         <div class="form-group col-12">
-                                            <label>{{ __('Delivery Location') }}</label>
-                                            <select name="city_id" class="form-control select2" id="city_id">
-                                                <option value="">{{ __('Delivery Location') }}</option>
-                                                @foreach ($cities as $city)
-                                                    <option {{ old('city_id') == $city->id ? 'selected' : '' }}
-                                                        value="{{ $city->id }}">{{ $city->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="form-group col-12">
                                             <label>{{ __('Status') }} <span class="text-danger">*</span></label>
                                             <select name="status" class="form-control">
                                                 <option value="1">{{ __('Active') }}</option>

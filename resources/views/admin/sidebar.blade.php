@@ -131,13 +131,11 @@
 
             </li> --}}
             <li
-                class="nav-item dropdown {{ Route::is('admin.country.*') || Route::is('admin.state.*') || Route::is('admin.city.*') ? 'active' : '' }}">
+                class="nav-item dropdown {{ Route::is('admin.state.*') || Route::is('admin.city.*') ? 'active' : '' }}">
                 <a href="#" class="nav-link has-dropdown"><i
                         class="fas fa-map-marker-alt"></i><span>{{ __('Locations') }}</span></a>
 
                 <ul class="dropdown-menu">
-                    <li class="{{ Route::is('admin.country.*') ? 'active' : '' }}"><a class="nav-link"
-                            href="{{ route('admin.country.index') }}">{{ __('Country') }}</a></li>
                     <li class="{{ Route::is('admin.state.*') ? 'active' : '' }}"><a class="nav-link"
                             href="{{ route('admin.state.index') }}">{{ __('State') }}</a></li>
                     <li class="{{ Route::is('admin.city.*') ? 'active' : '' }}"><a class="nav-link"

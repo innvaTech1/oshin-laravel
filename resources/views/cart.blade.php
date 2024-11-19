@@ -299,7 +299,7 @@
                             } else {
                                 $("#CartResponse").html(response)
                                 toastr.success(
-                                    "{{ __('user.Your shopping cart is cleared') }}");
+                                    "{{ __('Coupon applied successfully') }}");
                             }
 
                         },
