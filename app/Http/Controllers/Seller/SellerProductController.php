@@ -153,7 +153,7 @@ class SellerProductController extends Controller
             $product->thumb_image = $image_name;
         }
 
-        $product->vendor_id = $seller->id
+        $product->vendor_id = $seller->id;
         $product->name = $request->name;
         $product->slug = $request->slug;
         $product->category_id = $request->category;
@@ -303,6 +303,26 @@ class SellerProductController extends Controller
         $product->is_featured = $request->is_featured ? 1 : 0;
         if ($product->approve_by_admin == 1) {
             $product->status = $request->status;
+        }
+
+        $product->tax_id = $request->tax_id;
+        $product->is_return = $request->is_return;
+        $product->return_policy_id = $request->return_policy_id;
+        $product->warranty_policy_id = $request->warranty_policy_id;
+        $product->warranty_times = $request->warranty_times;
+        $product->measurement = $request->measurement;
+        $product->type = session('product_type');
+
+        $product->is_pre_order = $request->is_pre_order ? 1 : 0;
+        $product->is_partial = $request->is_partial ? 1 : 0;
+
+        if ($request->is_pre_order) {
+            $product->release_date = now()->parse($request->release_date);
+            $product->max_product = $request->max_product;
+        }
+        if ($request->is_partial) {
+            $product->partial_amount = $request->partial_amount;
+            $product->partial_type = $request->partial_type;
         }
         $product->save();
         $notification = trans('Update Successfully');
