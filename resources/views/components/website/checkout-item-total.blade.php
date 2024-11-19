@@ -23,7 +23,6 @@
                         @php
                             $variantPrice += $cartContent->options->prices[$indx];
                         @endphp
-                        {{ $variant }}:
                         {{ $cartContent->options->values[$indx] }}{{ $totalVariant == ++$indx ? '' : ',' }}
                     @endforeach
                 </span>

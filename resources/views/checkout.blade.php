@@ -202,7 +202,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                         <div class="col-xl-5 col-lg-6">
@@ -242,6 +241,13 @@
         (function($) {
             "use strict";
             $(document).ready(function() {
+                $('.accordion-button').on('click', function() {
+                    if ($(this).hasClass('collapsed')) {
+                        $(this).find('input[name="same_shipping"]').prop('checked', false);
+                    } else {
+                        $(this).find('input[name="same_shipping"]').prop('checked', true);
+                    }
+                })
                 $('.state').on('change', function() {
                     $('.preloader_area').removeClass('d-none');
                     let state_id = $(this).val();
