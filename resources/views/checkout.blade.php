@@ -223,7 +223,7 @@
                                         </label>
                                     </div>
                                 </div>
-                                <button type="submit"
+                                <button type="button"
                                     class="common_btn place_order">{{ __('user.Place Order') }}</button>
                             </div>
                         </div>
@@ -297,9 +297,34 @@
                         return;
                     }
 
+                    if ($('.selected').length === 0) {
+                        toastr.error("{{ __('Select Payment Method') }}");
+                        return
+                    }
+
                     $('.wsus__checkout_form').submit();
 
                 })
+
+                $('.wsus__checkout_form').on('submit', function(e) {
+                    e.preventDefault();
+
+                    // Check if terms and conditions are checked
+                    if (!$('[name="agree_terms_condition"]:checked').length) {
+                        toastr.error("{{ __('user.You must agree to our terms and condition') }}");
+                        return;
+                    }
+
+                    // Check if a payment method is selected
+                    if ($('.selected').length === 0) {
+                        toastr.error("{{ __('Select Payment Method') }}");
+                        return;
+                    }
+
+                    // Use the native submit method to avoid triggering the event again
+                    this.submit();
+                });
+
             });
         })(jQuery);
     </script>

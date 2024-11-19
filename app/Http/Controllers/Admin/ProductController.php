@@ -114,7 +114,7 @@ class ProductController extends Controller
             'long_description' => 'required',
             'price' => 'required|numeric',
             'status' => 'required',
-            'quantity' => 'required|numeric',
+            'quantity' => 'nullable|numeric',
         ];
 
         if ($request->is_pre_order) {
@@ -273,8 +273,8 @@ class ProductController extends Controller
             'long_description' => 'required',
             'price' => 'required|numeric',
             'status' => 'required',
-            'weight' => 'required',
-            'quantity' => 'required|numeric',
+            'weight' => 'nullable',
+            'quantity' => 'nullable|numeric',
         ];
 
         if ($request->is_pre_order) {

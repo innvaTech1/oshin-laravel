@@ -125,8 +125,8 @@ class SellerProductController extends Controller
             'short_description' => 'required',
             'long_description' => 'required',
             'price' => 'required|numeric',
-            'weight' => 'required',
-            'quantity' => 'required|numeric',
+            'weight' => 'nullable',
+            'quantity' => 'nullable|numeric',
         ];
         $customMessages = [
             'name.required' => trans('Name is required'),
@@ -249,8 +249,8 @@ class SellerProductController extends Controller
             'short_description' => 'required',
             'long_description' => 'required',
             'price' => 'required|numeric',
-            'weight' => 'required',
-            'quantity' => 'required|numeric',
+            'weight' => 'nullable',
+            'quantity' => 'nullable|numeric',
         ];
         $customMessages = [
             'name.required' => trans('Name is required'),
