@@ -9,6 +9,34 @@ use Illuminate\Support\Facades\Route;
 
 class Product extends Model
 {
+    protected $fillable = [
+        "name",
+        "slug",
+        "category_id",
+        "sub_category_id",
+        "child_category_id",
+        "thumb_image",
+        "delivery_id",
+        "brand_id",
+        "sku",
+        "price",
+        "offer_price",
+        "qty",
+        "weight",
+        "short_description",
+        "long_description",
+        "is_top",
+        "new_product",
+        "is_best",
+        "is_featured",
+        "is_flash_deal",
+        "status",
+        "seo_title",
+        "seo_description",
+        "type",
+        "vendor_id",
+    ];
+
     use HasFactory;
 
     protected $appends = ['averageRating'];
@@ -21,7 +49,7 @@ class Product extends Model
             static::addGlobalScope('preorder', function (Builder $builder) {
                 $builder->where('is_pre_order', 1);
             });
-        } else if (!str_contains(Route::getFacadeRoot()->current()->uri(), 'admin')) {
+        } else if (!str_contains(Route::getFacadeRoot()?->current()?->uri(), 'admin')) {
             static::addGlobalScope('preorder', function (Builder $builder) {
                 $builder->where('is_pre_order', 0);
             });
@@ -31,7 +59,7 @@ class Product extends Model
             static::addGlobalScope('wholesale', function (Builder $builder) {
                 $builder->where('is_wholesale', 1);
             });
-        } else if (!str_contains(Route::getFacadeRoot()->current()->uri(), 'admin')) {
+        } else if (!str_contains(Route::getFacadeRoot()?->current()?->uri(), 'admin')) {
             static::addGlobalScope('wholesale', function (Builder $builder) {
                 $builder->where('is_wholesale', 0);
             });

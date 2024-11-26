@@ -7,17 +7,26 @@ use Illuminate\Database\Eloquent\Model;
 
 class SubCategory extends Model
 {
+    protected $fillable = [
+        'category_id',
+        'name',
+        'slug',
+        'status',
+    ];
     use HasFactory;
 
-    public function category(){
+    public function category()
+    {
         return $this->belongsTo(Category::class);
     }
 
-    public function childCategories(){
-        return $this->hasMany(ChildCategory::class,'sub_category_id');
+    public function childCategories()
+    {
+        return $this->hasMany(ChildCategory::class, 'sub_category_id');
     }
 
-    public function products(){
+    public function products()
+    {
         return $this->hasMany(Product::class);
     }
 

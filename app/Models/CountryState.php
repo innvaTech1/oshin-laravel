@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class CountryState extends Model
 {
+    protected $fillable = [
+        'name',
+        'slug',
+        'status',
+    ];
     use HasFactory;
 
 
