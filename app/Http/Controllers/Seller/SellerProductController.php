@@ -399,7 +399,8 @@ class SellerProductController extends Controller
     public function product_export()
     {
         $is_dummy = false;
-        return Excel::download(new ProductExport($is_dummy), 'products.xlsx');
+        $products = Product::where('vendor_id', Auth::guard('web')->user()->seller->id)->orderBy('id', 'desc')->get();
+        return Excel::download(new ProductExport($is_dummy, $products), 'products.xlsx');
     }
 
 

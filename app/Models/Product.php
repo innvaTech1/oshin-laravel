@@ -82,6 +82,14 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class)->withDefault();
     }
+    public function subCategory()
+    {
+        return $this->belongsTo(SubCategory::class)->withDefault();
+    }
+    public function childCategory()
+    {
+        return $this->belongsTo(ChildCategory::class)->withDefault();
+    }
 
     public function deliveryCharge()
     {
@@ -101,6 +109,38 @@ class Product extends Model
     public function seller()
     {
         return $this->belongsTo(Vendor::class, 'vendor_id');
+    }
+
+    public function getNewImagesAttribute()
+    {
+        return ProductGallery::where('product_id', $this->id)->pluck('image')?->toArray();
+    }
+
+    public function getLocationAttribute()
+    {
+        $delivery = $this->attributes['delivery_id'];
+
+        if ($delivery) {
+            $delivery = json_decode($delivery);
+            $cities = City::whereIn('id', $delivery)->with('countryState')->get();
+
+            $result = [];
+            foreach ($cities as $city) {
+                $result[] = $city->countryState->name . '=' . $city->name;
+            }
+            return $result;
+        }
+        return null;
+    }
+
+    public function getVariantValAttribute()
+    {
+        $values = $this->variantItems()->get();
+        $result = [];
+        foreach ($values as $value) {
+            $result[] = $value->product_variant_name . ':' . $value->name;
+        }
+        return $result;
     }
 
     public function brand()

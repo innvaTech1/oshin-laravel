@@ -497,7 +497,10 @@ class ProductController extends Controller
     public function product_export()
     {
         $is_dummy = false;
-        return Excel::download(new ProductExport($is_dummy), 'products.xlsx');
+
+        $products = Product::where('id', 35)->get();
+
+        return Excel::download(new ProductExport($is_dummy, $products), 'products.xlsx');
     }
 
 

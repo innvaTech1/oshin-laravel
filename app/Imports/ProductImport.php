@@ -276,7 +276,7 @@ class ProductImport implements ToModel, WithStartRow
         if (auth('admin')->check()) {
             $data['vendor_id'] = 0;
         } else {
-            $data['vendor_id'] = auth('web')->user()->id;
+            $data['vendor_id'] = auth('web')->user()?->seller->id;
             $data['status'] = 0;
         }
 
@@ -365,6 +365,6 @@ class ProductImport implements ToModel, WithStartRow
     }
     public function startRow(): int
     {
-        return 2; // Skip the first 1 rows (headers and/or other data)
+        return 1; // Skip the first 1 rows (headers and/or other data)
     }
 }

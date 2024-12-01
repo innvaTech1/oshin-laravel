@@ -585,7 +585,11 @@
     <!-- Facebook Messenger Chat Plugin -->
     <div id="fb-root"></div>
 
-
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v15.0">
+    </script>
+    <div class="fb-customerchat" attribution="setup_tool" page_id="61557679401681" theme_color="#0084ff"
+        logged_in_greeting="Hi! How can we help you?" logged_out_greeting="Hi! Please log in to chat with us.">
+    </div>
     <script>
         window.fbAsyncInit = function() {
             FB.init({
