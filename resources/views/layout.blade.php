@@ -590,7 +590,7 @@
     <div class="fb-customerchat" attribution="setup_tool" page_id="61557679401681" theme_color="#0084ff"
         logged_in_greeting="Hi! How can we help you?" logged_out_greeting="Hi! Please log in to chat with us.">
     </div>
-    <script>
+    {{-- <script>
         window.fbAsyncInit = function() {
             FB.init({
                 xfbml: true,
@@ -612,7 +612,7 @@
     <div class="fb-customerchat" attribution="setup_tool" page_id="{{ $facebookPixel->app_id }}"
         theme_color="#0084ff" logged_in_greeting="Hi! How can we help you?"
         logged_out_greeting="Hi! How can we help you?">
-    </div>
+    </div> --}}
 
     @php
         $isAuth = false;
