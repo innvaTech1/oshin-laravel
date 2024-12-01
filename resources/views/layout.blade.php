@@ -589,29 +589,22 @@
     <div id="fb-customer-chat" class="fb-customerchat"></div>
 
     <script>
-        var chatbox = document.getElementById('fb-customer-chat');
-        chatbox.setAttribute("100003315986575", "PAGE-ID");
-        chatbox.setAttribute("attribution", "biz_inbox");
-    </script>
-
-
-    <script>
-        window.fbAsyncInit = function() {
-            FB.init({
-                xfbml: true,
-                version: 'API-VERSION'
+        $(document).ready(function() {
+            $.ajaxSetup({
+                cache: true
             });
-        };
-
-        (function(d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) return;
-            js = d.createElement(s);
-            js.id = id;
-            js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));
+            $.getScript('https://connect.facebook.net/en_US/sdk.js', function() {
+                FB.init({
+                    appId: '100003315986575',
+                    version: 'v2.7'
+                });
+                $('#loginbutton,#feedbutton').removeAttr('disabled');
+                FB.getLoginStatus(updateStatusCallback);
+            });
+        });
     </script>
+
+
 
     @php
         $isAuth = false;
