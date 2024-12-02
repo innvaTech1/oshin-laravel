@@ -102,7 +102,7 @@
                                                 <option value="">{{ __('Location') }}</option>
                                                 @foreach ($cities as $city)
                                                     <option value="{{ $city->id }}"
-                                                        {{ in_array($city->id, $product->delivery_id) ? 'selected' : '' }}>
+                                                        {{ in_array($city->id, $product->delivery_id ?? []) ? 'selected' : '' }}>
                                                         {{ $city->name }}</option>
                                                 @endforeach
                                             </select>
