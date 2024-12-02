@@ -181,9 +181,12 @@
                             <p class="brand_model"><span>{{ __('user.Model') }} :</span> {{ $product->sku }}</p>
                         @endif
 
-                        <p class="brand_model"><span>{{ __('user.Brand') }} :</span> <a
-                                href="{{ route('product', ['brand' => $product->brand->slug]) }}">{{ $product->brand->name }}</a>
-                        </p>
+
+                        @if ($product->brand)
+                            <p class="brand_model"><span>{{ __('user.Brand') }} :</span> <a
+                                    href="{{ route('product', ['brand' => $product->brand->slug]) }}">{{ $product->brand->name }}</a>
+                            </p>
+                        @endif
                         <p class="brand_model"><span>{{ __('user.Category') }} :</span> <a
                                 href="{{ route('product', ['category' => $product->category->slug]) }}">{{ $product->category->name }}</a>
                         </p>

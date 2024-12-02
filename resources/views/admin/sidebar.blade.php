@@ -91,11 +91,6 @@
                     <li class="{{ Route::is('admin.seller-product') ? 'active' : '' }}"><a class="nav-link"
                             href="{{ route('admin.seller-product') }}">{{ __('Seller Products') }}</a></li>
 
-                    <li class="{{ Route::is('admin.seller-pending-product') ? 'active' : '' }}"><a class="nav-link"
-                            href="{{ route('admin.seller-pending-product') }}">{{ __('Seller Pending Products') }}</a>
-                    </li>
-
-
                     <li
                         class="{{ Route::is('admin.product-review') || Route::is('admin.show-product-review') ? 'active' : '' }}">
                         <a class="nav-link" href="{{ route('admin.product-review') }}">{{ __('Product Reviews') }}</a>

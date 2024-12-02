@@ -10,8 +10,8 @@
 
 
     <!--============================
-                                PRODUCT DETAILS START
-                            ==============================-->
+                                                PRODUCT DETAILS START
+                                            ==============================-->
     <section id="wsus__product_details">
         <div class="container">
             <div class="row">
@@ -272,9 +272,11 @@
                             <p class="brand_model"><span>{{ __('user.Model') }} :</span> {{ $product->sku }}</p>
                         @endif
 
-                        <p class="brand_model"><span>{{ __('user.Brand') }} :</span> <a
-                                href="{{ route('product', ['brand' => $product->brand->slug]) }}">{{ $product->brand->name }}</a>
-                        </p>
+                        @if ($product->brand)
+                            <p class="brand_model"><span>{{ __('user.Brand') }} :</span> <a
+                                    href="{{ route('product', ['brand' => $product->brand?->slug]) }}">{{ $product->brand?->name }}</a>
+                            </p>
+                        @endif
                         <p class="brand_model"><span>{{ __('user.Category') }} :</span> <a
                                 href="{{ route('product', ['category' => $product->category->slug]) }}">{{ $product->category->name }}</a>
                         </p>
@@ -319,8 +321,8 @@
                     </div>
 
                     <!--==========================
-                                            PRODUCT  REPORT MODAL VIEW
-                                            ===========================-->
+                                                            PRODUCT  REPORT MODAL VIEW
+                                                            ===========================-->
                     @auth
                         @if ($isExist)
                             <section class="product_popup_modal report_modal">
@@ -364,8 +366,8 @@
                         @endif
                     @endauth
                     <!--==========================
-                                            PRODUCT REPORT MODAL VIEW
-                                            ===========================-->
+                                                            PRODUCT REPORT MODAL VIEW
+                                                            ===========================-->
                 </div>
 
                 <div class="col-xl-3 col-md-12 mt-md-5 mt-lg-0">
@@ -683,13 +685,13 @@
         </div>
     </section>
     <!--============================
-                                PRODUCT DETAILS END
-                            ==============================-->
+                                                PRODUCT DETAILS END
+                                            ==============================-->
 
 
     <!--============================
-                                RELATED PRODUCT START
-                            ==============================-->
+                                                RELATED PRODUCT START
+                                            ==============================-->
     @if ($relatedProducts->count() > 0)
         <section id="wsus__flash_sell">
             <div class="container">
@@ -1152,8 +1154,8 @@
     </section>
     @endif
     <!--============================
-                                RELATED PRODUCT END
-                            ==============================-->
+                                                RELATED PRODUCT END
+                                            ==============================-->
 
 
     <script>

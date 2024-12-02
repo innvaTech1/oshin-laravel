@@ -5,11 +5,10 @@
 @section('meta')
     <meta name="description" content="{{ $seoSetting->seo_description }}">
 @endsection
-
 @section('public-content')
     <!--============================
-                            PRODUCT PAGE START
-                        ==============================-->
+                                    PRODUCT PAGE START
+                                ==============================-->
     <section id="wsus__product_page">
         <div class="container">
             <div class="row">

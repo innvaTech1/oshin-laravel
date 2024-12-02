@@ -59,10 +59,6 @@
                         <a class="nav-link" href="{{ route('seller.product.index') }}">{{ __('user.Products') }}</a>
                     </li>
 
-                    <li class="{{ Route::is('seller.pending-product') ? 'active' : '' }}"><a class="nav-link"
-                            href="{{ route('seller.pending-product') }}">{{ __('user.Pending Products') }}</a></li>
-
-
 
                     <li
                         class="{{ Route::is('seller.product-review') || Route::is('seller.show-product-review') ? 'active' : '' }}">

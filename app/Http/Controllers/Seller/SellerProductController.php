@@ -46,7 +46,7 @@ class SellerProductController extends Controller
     public function index()
     {
         $seller = Auth::guard('web')->user()->seller;
-        $products = Product::with('category', 'seller', 'brand')->orderBy('id', 'desc')->where('approve_by_admin', 1)->where('vendor_id', $seller->id)->orderBy('id', 'desc')->get();
+        $products = Product::with('category', 'seller', 'brand')->orderBy('id', 'desc')->where('vendor_id', $seller->id)->orderBy('id', 'desc')->get();
         $orderProducts = OrderProduct::all();
         $setting = Setting::first();
         return view('seller.product', compact('products', 'orderProducts', 'setting'));
@@ -58,7 +58,7 @@ class SellerProductController extends Controller
         $products = Product::with('category', 'seller', 'brand')->orderBy('id', 'desc')->where('approve_by_admin', 0)->where('vendor_id', $seller->id)->orderBy('id', 'desc')->get();
         $orderProducts = OrderProduct::all();
         $setting = Setting::first();
-        return view('seller.pending_product', compact('products', 'orderProducts', 'setting'));
+        return view('seller.product', compact('products', 'orderProducts', 'setting'));
     }
 
     public function stockoutProduct()
@@ -232,8 +232,17 @@ class SellerProductController extends Controller
         $specificationKeys = ProductSpecificationKey::all();
         $productSpecifications = ProductSpecification::where('product_id', $product->id)->get();
         $cities = City::orderBy('name', 'asc')->get();
+        $productTaxs = ProductTax::where('status', 1)->get();
+        $retrunPolicies = ReturnPolicy::where('status', 1)->get();
+        $tagArray = json_decode($product->tags);
+        $tags = '';
+        if ($product->tags) {
+            foreach ($tagArray as $index => $tag) {
+                $tags .= $tag->value . ',';
+            }
+        }
 
-        return view('seller.edit_product', compact('categories', 'brands', 'specificationKeys', 'product', 'subCategories', 'childCategories', 'productSpecifications', 'cities'));
+        return view('seller.edit_product', compact('categories', 'brands', 'specificationKeys', 'product', 'subCategories', 'childCategories', 'productSpecifications', 'cities', 'tags', 'productTaxs', 'retrunPolicies'));
     }
 
     public function update(Request $request, $id)
