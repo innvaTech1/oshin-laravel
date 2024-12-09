@@ -1,7 +1,7 @@
 <div class="wsus__product_item">
     @php
         $variantPrice = 0;
-        $variants = $product->variants->where('status', 1);
+        $variants = $product?->variants?->where('status', 1);
         if ($variants->count() != 0) {
             foreach ($variants as $variants_key => $variant) {
                 if ($variant->variantItems->where('status', 1)->count() != 0) {
