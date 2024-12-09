@@ -12,13 +12,12 @@
                 }
             }
         }
-        dd($product);
 
         $isCampaign = false;
         $today = date('Y-m-d H:i:s');
         $campaign = App\Models\CampaignProduct::where([
             'status' => 1,
-            'product_id' => $product->id,
+            'product_id' => $product?->id,
         ])->first();
         if ($campaign) {
             $campaign = $campaign->campaign;
@@ -26,15 +25,15 @@
                 $isCampaign = true;
             }
             $campaignOffer = $campaign->offer;
-            $productPrice = $product->price;
+            $productPrice = $product?->price;
             $campaignOfferPrice = ($campaignOffer / 100) * $productPrice;
-            $totalPrice = $product->price;
+            $totalPrice = $product?->price;
             $campaignOfferPrice = $totalPrice - $campaignOfferPrice;
         }
 
-        $totalPrice = $product->price;
-        if ($product->offer_price != null) {
-            $offerPrice = $product->offer_price;
+        $totalPrice = $product?->price;
+        if ($product?->offer_price != null) {
+            $offerPrice = $product?->offer_price;
             $offer = $totalPrice - $offerPrice;
             $percentage = ($offer * 100) / $totalPrice;
             $percentage = round($percentage);
@@ -43,38 +42,38 @@
     @if ($isCampaign)
         <span class="wsus__minus">-{{ $campaignOffer }}%</span>
     @else
-        @if ($product->offer_price != null)
+        @if ($product?->offer_price != null)
             <span class="wsus__minus">-{{ $percentage }}%</span>
         @endif
     @endif
-    <a class="wsus__pro_link" href="{{ route('product-detail', $product->slug) }}">
-        <img src="{{ asset($product->thumb_image) }}" alt="product" class="img-fluid w-100 img_1" />
-        <img src="{{ asset($product->thumb_image) }}" alt="product" class="img-fluid w-100 img_2" />
+    <a class="wsus__pro_link" href="{{ route('product-detail', $product?->slug) }}">
+        <img src="{{ asset($product?->thumb_image) }}" alt="product" class="img-fluid w-100 img_1" />
+        <img src="{{ asset($product?->thumb_image) }}" alt="product" class="img-fluid w-100 img_2" />
     </a>
     <ul class="wsus__single_pro_icon">
-        <li><a href="javascript:;" data-bs-toggle="modal" data-bs-target="#productModalView-{{ $product->id }}"><i
+        <li><a href="javascript:;" data-bs-toggle="modal" data-bs-target="#productModalView-{{ $product?->id }}"><i
                     class="far fa-eye"></i></a>
         </li>
-        <li><a href="javascript:;" onclick="addToWishlist('{{ $product->id }}')"><i class="far fa-heart"></i></a></li>
-        {{-- <li><a href="javascript:;" onclick="addToCompare('{{ $product->id }}')"><i class="far fa-random"></i></a>
+        <li><a href="javascript:;" onclick="addToWishlist('{{ $product?->id }}')"><i class="far fa-heart"></i></a></li>
+        {{-- <li><a href="javascript:;" onclick="addToCompare('{{ $product?->id }}')"><i class="far fa-random"></i></a>
         </li> --}}
     </ul>
-    <a href="{{ route('product-detail', $product->slug) }}">
+    <a href="{{ route('product-detail', $product?->slug) }}">
         <div class="wsus__product_details">
-            <a class="wsus__pro_name" href="{{ route('product-detail', $product->slug) }}">{{ $product->short_name }}
+            <a class="wsus__pro_name" href="{{ route('product-detail', $product?->slug) }}">{{ $product?->short_name }}
                 @if ($isCampaign)
                     <p class="wsus__price">
                         {{ currency_icon() }}{{ sprintf('%.2f', $campaignOfferPrice + $variantPrice) }}
                         <del>{{ currency_icon() }}{{ sprintf('%.2f', $totalPrice) }}</del>
                     </p>
                 @else
-                    @if ($product->offer_price == null)
+                    @if ($product?->offer_price == null)
                         <p class="wsus__price">
                             {{ currency_icon() }}{{ sprintf('%.2f', $totalPrice + $variantPrice) }}
                         </p>
                     @else
                         <p class="wsus__price">
-                            {{ currency_icon() }}{{ sprintf('%.2f', $product->offer_price + $variantPrice) }}
+                            {{ currency_icon() }}{{ sprintf('%.2f', $product?->offer_price + $variantPrice) }}
                             <del>{{ currency_icon() }}{{ sprintf('%.2f', $totalPrice) }}</del>
                         </p>
                     @endif
@@ -82,7 +81,7 @@
                 <p class="wsus__pro_rating">
                     @include('components.website.review')
                 </p>
-                {{-- <a class="add_cart" onclick="addToCartMainProduct('{{ $product->id }}')" href="javascript:;"><i
+                {{-- <a class="add_cart" onclick="addToCartMainProduct('{{ $product?->id }}')" href="javascript:;"><i
                 class="far fa-shopping-basket"></i> {{ __('user.ADD TO CART') }}</a> --}}
             </a>
         </div>
