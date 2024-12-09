@@ -1,17 +1,17 @@
 <div class="wsus__product_item">
     @php
         $variantPrice = 0;
-        $variants = $product?->variants?->where('status', 1);
-        if ($variants && $variants->count() != 0) {
-            foreach ($variants as $variants_key => $variant) {
-                if ($variant->variantItems->where('status', 1)->count() != 0) {
-                    $item = $variant->variantItems->where('is_default', 1)->first();
-                    if ($item) {
-                        $variantPrice += $item->price;
-                    }
-                }
-            }
-        }
+        // $variants = $product?->variants?->where('status', 1);
+        // if ($variants && $variants->count() != 0) {
+        //     foreach ($variants as $variants_key => $variant) {
+        //         if ($variant->variantItems->where('status', 1)->count() != 0) {
+        //             $item = $variant->variantItems->where('is_default', 1)->first();
+        //             if ($item) {
+        //                 $variantPrice += $item->price;
+        //             }
+        //         }
+        //     }
+        // }
 
         $isCampaign = false;
         $today = date('Y-m-d H:i:s');
