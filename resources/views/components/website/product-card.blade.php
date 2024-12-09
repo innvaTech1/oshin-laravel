@@ -2,7 +2,7 @@
     @php
         $variantPrice = 0;
         $variants = $product?->variants?->where('status', 1);
-        if ($variants->count() != 0) {
+        if ($variants && $variants->count() != 0) {
             foreach ($variants as $variants_key => $variant) {
                 if ($variant->variantItems->where('status', 1)->count() != 0) {
                     $item = $variant->variantItems->where('is_default', 1)->first();
