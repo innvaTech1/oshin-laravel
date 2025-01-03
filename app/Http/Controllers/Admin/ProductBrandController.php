@@ -138,10 +138,22 @@ class ProductBrandController extends Controller
     public function destroy($id)
     {
         $brand = Brand::find($id);
+
+        if (!$brand) {
+            $notification = trans('admin_validation.Brand not found');
+            $notification = array('messege' => $notification, 'alert-type' => 'error');
+            return redirect()->route('admin.product-brand.index')->with($notification);
+        }
+
         $old_logo = $brand->logo;
+
         $brand->delete();
+
         if ($old_logo) {
-            if (File::exists(public_path() . '/' . $old_logo)) unlink(public_path() . '/' . $old_logo);
+            $logo_path = public_path($old_logo);
+            if (File::exists($logo_path)) {
+                unlink($logo_path);
+            }
         }
 
         $notification = trans('admin_validation.Delete Successfully');
