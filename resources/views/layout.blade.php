@@ -195,9 +195,9 @@
                                     @else
                                         <li><a href="{{ route('product', ['category' => $productCategory->slug]) }}"
                                                 class="accordion-button collapsed" data-bs-toggle="collapse"
-                                                data-bs-target="#flush-collapseThreew-{{ $productCategory->id }}"
+                                                data-bs-target="#flush-collapse-{{ $productCategory->id }}"
                                                 aria-expanded="false"
-                                                aria-controls="flush-collapseThreew-{{ $productCategory->id }}"><i
+                                                aria-controls="flush-collapse-{{ $productCategory->id }}"><i
                                                     class="{{ $productCategory->icon }}"></i>
                                                 {{ $productCategory->name }}</a>
                                             <div id="flush-collapseThreew-{{ $productCategory->id }}"
@@ -540,6 +540,9 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="separate_border">
+            <hr>
         </div>
         <div class="wsus__footer_bottom">
             <div class="container">

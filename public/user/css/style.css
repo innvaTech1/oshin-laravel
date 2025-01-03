@@ -8,7 +8,7 @@ body {
     scroll-behavior: smooth;
     font-family: "Poppins", sans-serif;
     overflow-x: hidden;
-    background: #f5f6f7;
+    background: #fff;
 }
 
 ul,
@@ -1539,6 +1539,9 @@ PRODUCT MODAL VIEW END
 /*======================
 	BANNER PART START
 ========================*/
+#wsus__banner{
+    margin-top: 22px;
+}
 .wsus__banner_content {
     margin-top: 20px;
     position: relative;
@@ -2874,11 +2877,15 @@ HOME SERVOCES START
 /*======================
 	FOOTER PART START
 ========================*/
+.separate_border{
+    padding-top: 30px;
+    color: #930A02;
+}
 .page-link{
     color: #000 !important;
 }
 footer {
-    background: #fff;
+    background: #eae9ee;
     color: #a4a4a4;
     padding-top: 50px;
 }
@@ -3036,8 +3043,7 @@ footer {
 
 .wsus__footer_bottom {
     padding: 30px 0px;
-    margin-top: 67px;
-    background: #fff;
+    background: #eae9ee;
 }
 
 .wsus__copyright {
@@ -3325,7 +3331,7 @@ PPRODUCT PAGE START
 }
 
 .accordion-button:not(.collapsed) {
-    color: #000;
+    color: #fff;
     background: none;
 }
 

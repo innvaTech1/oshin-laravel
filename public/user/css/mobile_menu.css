@@ -67,7 +67,7 @@ a {
 
 #wsus__mobile_menu {
   width: 300px;
-  background: #000;
+  background: #930A02;
   height: 100vh;
   position: fixed;
   top: 0;
@@ -92,7 +92,7 @@ a {
   height: 30px;
   background: #930A02;
   color: #fff;
-  border: 1px solid #930A02;
+  border: 1px solid #ffffff;
   text-align: center;
   line-height: 30px;
   margin-left: 10px;
@@ -190,7 +190,7 @@ a {
   padding: 10.5px;
   background: none;
   color: #fff;
-  border: 1px solid #fdfdfd2e;
+  border: 1px solid #fff;
   font-size: 14px;
   font-weight: 400;
   border-radius: 5px;
@@ -205,7 +205,7 @@ a {
   border-bottom-left-radius: 0;
   background: none;
   color: #fff;
-  border-left: 1px solid #fdfdfd2e;
+  border-left: 1px solid #fff;
   width: 45px;
   height: 45px;
   font-size: 16px;
@@ -219,7 +219,7 @@ a {
 }
 
 #wsus__mobile_menu form button:hover {
-  color: #fdfdfd2e;
+  color: #fff;
 }
 
 #wsus__mobile_menu #pills-tab {
@@ -232,9 +232,9 @@ a {
 
 #wsus__mobile_menu #pills-tab li button {
 	background: none;
-	color: #930A02;
+	color: #000;
 	border: none;
-	border-bottom: 1px solid #fff;
+	border-bottom: 1px solid #000;
 	border-radius: 0;
 	text-transform: uppercase;
 	font-size: 15px;
@@ -245,8 +245,8 @@ a {
 
 #wsus__mobile_menu .nav-pills .nav-link.active,
 #wsus__mobile_menu #pills-tab li button:hover {
-  color: #930A02 !important;
-  border-color: #930A02 !important;
+  color: #ffff !important;
+  border-color: #fff !important;
 }
 
 .wsus_mobile_menu_category {
@@ -261,7 +261,7 @@ a {
   width: 100%;
   display: block;
   padding: 12px 20px;
-  border-bottom: 1px solid #fdfdfd2e;
+  border-bottom: 1px solid #fff;
   transition: all linear 0.3s;
   -webkit-transition: all linear 0.3s ease;
   -moz-transition: all linear 0.3s ease;
@@ -281,7 +281,7 @@ a {
 .wsus_mobile_menu_category li:hover > a,
 .wsus__mobile_menu_main_menu li:hover > a,
 .wsus__mobile_menu_main_menu .accordion-button:hover {
-  color: #930A02 !important;
+  color: #000 !important;
 }
 
 .wsus__mobile_menu_main_menu {
@@ -294,12 +294,12 @@ a {
 
 .wsus__mobile_menu_main_menu li a {
   color: #e1e1e1;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 400;
   text-transform: capitalize;
   width: 100%;
-  padding: 12px 20px !important;
-  border-bottom: 1px solid #fdfdfd2e;
+  padding: 10px 20px !important;
+  border-bottom: 1px solid #fff;
   transition: all linear 0.3s;
   -webkit-transition: all linear 0.3s ease;
   -moz-transition: all linear 0.3s ease;
@@ -317,7 +317,7 @@ a {
   text-transform: capitalize;
   font-size: 14px;
   padding: 12px 20px;
-  border-bottom: 1px solid #fdfdfd2e;
+  border-bottom: 1px solid #fff;
   transition: all linear 0.3s;
   -webkit-transition: all linear 0.3s ease;
   -moz-transition: all linear 0.3s ease;
@@ -353,7 +353,7 @@ a {
   text-align: center;
   font-size: 12px;
   color: #f1f1f1;
-  border: 1px solid #fdfdfd2e;
+  border: 1px solid #fff;
   background: transparent;
 }
 
@@ -363,7 +363,7 @@ a {
 
 .wsus__mobile_menu_main_menu .accordion-body {
   padding: 0;
-  background: #0f3a50;
+  background: #930A02;
 }
 
 .wsus__mobile_menu_main_menu .accordion-body ul li a {
@@ -372,7 +372,7 @@ a {
 
 .wsus__mobile_menu_main_menu .accordion-button.collapsed {
   border: none !important;
-  border-bottom: 1px solid #fdfdfd2e !important;
+  border-bottom: 1px solid #fff !important;
 }
 
 .wsus__mobile_menu_main_menu .accordion-button:not(.collapsed) {

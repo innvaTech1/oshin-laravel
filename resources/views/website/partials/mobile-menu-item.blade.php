@@ -1,4 +1,4 @@
-<ul class="wsus_mobile_menu_category">
+<!-- <ul class="wsus_mobile_menu_category">
     @foreach ($productCategories as $productCategory)
         @if ($productCategory->subCategories->count() == 0)
         
@@ -10,11 +10,11 @@
     </li>
     @else
             <li><a class="accordion-button collapsed" data-bs-toggle="collapse"
-                data-bs-target="#flush-collapseThreer" aria-expanded="false"
-                aria-controls="flush-collapseThreer" href="{{ route('product', ['category' => $productCategory->slug]) }}"><i
+                data-bs-target="flush-collapse-{{ $productCategory->id }}" aria-expanded="false"
+                aria-controls="flush-collapse-{{ $productCategory->id }}" href="{{ route('product', ['category' => $productCategory->slug]) }}"><i
                         class="{{ $productCategory->icon }}"></i> {{ $productCategory->name }}
                 </a>
-                <div id="flush-collapseThreer" class="accordion-collapse collapse"
+                <div id="flush-collapse-{{ $productCategory->id }}" class="accordion-collapse collapse"
             data-bs-parent="#accordionFlushExample">
             <div class="accordion-body">
                 <ul>
@@ -22,16 +22,16 @@
                         @if ($subCategory->childCategories->count() == 0)
                             <li><a
                                     href="{{ route('product', ['sub_category' => $subCategory->slug]) }}" class="accordion-button collapsed" data-bs-toggle="collapse"
-                                    data-bs-target="#flush-collapseFourw" aria-expanded="false"
-                                    aria-controls="flush-collapseFourw"><i
+                                    data-bs-target="#flush-collapseF-{{ $subCategory->id }}" aria-expanded="false"
+                                    aria-controls="#flush-collapseF-{{ $subCategory->id }}"><i
                                     class="{{ $productCategory->icon }}"></i> {{ $subCategory->name }}</a>
                             </li>
                         @else
                             <li><a class="accordion-button collapsed" data-bs-toggle="collapse"
-                                data-bs-target="#flush-collapseFour" aria-expanded="false"
-                                aria-controls="flush-collapseFour" href="{{ route('product', ['sub_category' => $subCategory->slug]) }}">{{ $subCategory->name }}
+                                data-bs-target="#flush-collapseF-{{ $subCategory->id }}" aria-expanded="false"
+                                aria-controls="#flush-collapseF-{{ $subCategory->id }}" href="{{ route('product', ['sub_category' => $subCategory->slug]) }}">{{ $subCategory->name }}
                                     </a>
-                                    <div id="flush-collapseFour" class="accordion-collapse collapse"
+                                    <div id="#flush-collapseF-{{ $subCategory->id }}" class="accordion-collapse collapse"
             data-bs-parent="#collapseFour">
             <div class="accordion-body">
                                 <ul>
@@ -106,4 +106,60 @@
     <li><a href="#"><i class="fal fa-gift-card"></i> Gift Ideas</a></li>
     <li><a href="#"><i class="fal fa-gamepad-alt"></i> Toy & Games</a></li>
     <li><a href="#"><i class="fal fa-gem"></i> View All Categories</a></li> --}}
+</ul> -->
+
+<ul class="wsus_mobile_menu_category">
+    @foreach ($productCategories as $productCategory)
+        <li>
+            @if ($productCategory->subCategories->count() == 0)
+                <!-- Category with no subcategories -->
+                <a href="{{ route('product', ['category' => $productCategory->slug]) }}">
+                    <i class="{{ $productCategory->icon }}"></i> {{ $productCategory->name }}
+                </a>
+            @else
+                <!-- Category with subcategories -->
+                <a class="accordion-button collapsed" data-bs-toggle="collapse"
+                   data-bs-target="#category-{{ $productCategory->id }}" aria-expanded="false"
+                   aria-controls="category-{{ $productCategory->id }}">
+                    <i class="{{ $productCategory->icon }}"></i> {{ $productCategory->name }}
+                </a>
+                <div id="category-{{ $productCategory->id }}" class="accordion-collapse collapse">
+                    <div class="accordion-body">
+                        <ul>
+                            @foreach ($productCategory->subCategories as $subCategory)
+                                <li>
+                                    @if ($subCategory->childCategories->count() == 0)
+                                        <!-- Subcategory with no child categories -->
+                                        <a href="{{ route('product', ['sub_category' => $subCategory->slug]) }}">
+                                            {{ $subCategory->name }}
+                                        </a>
+                                    @else
+                                        <!-- Subcategory with child categories -->
+                                        <a class="accordion-button collapsed" data-bs-toggle="collapse"
+                                           data-bs-target="#subcategory-{{ $subCategory->id }}" aria-expanded="false"
+                                           aria-controls="subcategory-{{ $subCategory->id }}">
+                                            {{ $subCategory->name }}
+                                        </a>
+                                        <div id="subcategory-{{ $subCategory->id }}" class="accordion-collapse collapse">
+                                            <div class="accordion-body">
+                                                <ul>
+                                                    @foreach ($subCategory->childCategories as $childCategory)
+                                                        <li>
+                                                            <a href="{{ route('product', ['child_category' => $childCategory->slug]) }}">
+                                                                {{ $childCategory->name }}
+                                                            </a>
+                                                        </li>
+                                                    @endforeach
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    @endif
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+            @endif
+        </li>
+    @endforeach
 </ul>
