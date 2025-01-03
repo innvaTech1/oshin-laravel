@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use Str;
+use File;
 use App\Models\Brand;
 use Illuminate\Http\Request;
-use  Image;
-use File;
-use Str;
+use App\Http\Controllers\Controller;
+
 class ProductBrandController extends Controller
 {
 
@@ -18,8 +18,8 @@ class ProductBrandController extends Controller
 
     public function index()
     {
-        $brands=Brand::all();
-        return view('admin.product_brand',compact('brands'));
+        $brands = Brand::all();
+        return view('admin.product_brand', compact('brands'));
     }
 
     public function create()
@@ -35,7 +35,7 @@ class ProductBrandController extends Controller
             'slug' => 'required|unique:brands',
             'status' => 'required',
             'rating' => 'required',
-            'logo' => 'required'
+            'logo' => 'required|image|dimensions:width=250,height=250'
         ];
         $customMessages = [
             'name.required' => trans('admin_validation.Name is required'),
@@ -44,17 +44,25 @@ class ProductBrandController extends Controller
             'slug.unique' => trans('admin_validation.Slug already exist'),
             'rating.required' => trans('admin_validation.Rating is required'),
             'logo.required' => trans('admin_validation.Logo is required'),
+            'logo.image' => trans('admin_validation.Logo must be an image'),
+            'logo.dimensions' => trans('admin_validation.Logo must be exactly 250x250 pixels'),
         ];
-        $this->validate($request, $rules,$customMessages);
+        $this->validate($request, $rules, $customMessages);
 
         $brand = new Brand();
-        if($request->logo){
-            $extention = $request->logo->getClientOriginalExtension();
-            $logo_name = Str::slug($request->name).date('-Y-m-d-h-i-s-').rand(999,9999).'.'.$extention;
-            $logo_name = 'uploads/custom-images/'.$logo_name;
-            Image::make($request->logo)
-                ->save(public_path().'/'.$logo_name);
-            $brand->logo=$logo_name;
+        // if ($request->logo) {
+        //     $extention = $request->logo->getClientOriginalExtension();
+        //     $logo_name = Str::slug($request->name) . date('-Y-m-d-h-i-s-') . rand(999, 9999) . '.' . $extention;
+        //     $logo_name = 'uploads/custom-images/' . $logo_name;
+        //     Image::make($request->logo)
+        //         ->save(public_path() . '/' . $logo_name);
+        //     $brand->logo = $logo_name;
+        // }
+        if ($request->hasFile('logo')) {
+            $extension = $request->logo->getClientOriginalExtension();
+            $logo_name = Str::slug($request->name) . date('-Y-m-d-h-i-s-') . rand(999, 9999) . '.' . $extension;
+            $request->file('logo')->storeAs('uploads/custom-images', $logo_name, 'public');
+            $brand->logo = 'uploads/custom-images/' . $logo_name;
         }
         $brand->name = $request->name;
         $brand->slug = $request->slug;
@@ -63,7 +71,7 @@ class ProductBrandController extends Controller
         $brand->save();
 
         $notification = trans('admin_validation.Created Successfully');
-        $notification=array('messege'=>$notification,'alert-type'=>'success');
+        $notification = array('messege' => $notification, 'alert-type' => 'success');
         return redirect()->route('admin.product-brand.index')->with($notification);
     }
 
@@ -71,7 +79,7 @@ class ProductBrandController extends Controller
     public function edit($id)
     {
         $brand = Brand::find($id);
-        return view('admin.edit_product_brand',compact('brand'));
+        return view('admin.edit_product_brand', compact('brand'));
     }
 
 
@@ -79,8 +87,8 @@ class ProductBrandController extends Controller
     {
         $brand = Brand::find($id);
         $rules = [
-            'name' => 'required|unique:brands,name,'.$brand->id,
-            'slug' => 'required|unique:brands,slug,'.$brand->id,
+            'name' => 'required|unique:brands,name,' . $brand->id,
+            'slug' => 'required|unique:brands,slug,' . $brand->id,
             'rating' => 'required',
             'status' => 'required'
         ];
@@ -92,19 +100,19 @@ class ProductBrandController extends Controller
             'rating.required' => trans('admin_validation.Rating is required'),
             'logo.required' => trans('admin_validation.Logo is required'),
         ];
-        $this->validate($request, $rules,$customMessages);
+        $this->validate($request, $rules, $customMessages);
 
-        if($request->logo){
+        if ($request->logo) {
             $old_logo = $brand->logo;
             $extention = $request->logo->getClientOriginalExtension();
-            $logo_name = Str::slug($request->name).date('-Y-m-d-h-i-s-').rand(999,9999).'.'.$extention;
-            $logo_name = 'uploads/custom-images/'.$logo_name;
+            $logo_name = Str::slug($request->name) . date('-Y-m-d-h-i-s-') . rand(999, 9999) . '.' . $extention;
+            $logo_name = 'uploads/custom-images/' . $logo_name;
             Image::make($request->logo)
-                ->save(public_path().'/'.$logo_name);
+                ->save(public_path() . '/' . $logo_name);
             $brand->logo = $logo_name;
             $brand->save();
-            if($old_logo){
-                if(File::exists(public_path().'/'.$old_logo))unlink(public_path().'/'.$old_logo);
+            if ($old_logo) {
+                if (File::exists(public_path() . '/' . $old_logo)) unlink(public_path() . '/' . $old_logo);
             }
         }
 
@@ -115,7 +123,7 @@ class ProductBrandController extends Controller
         $brand->save();
 
         $notification = trans('admin_validation.Update Successfully');
-        $notification = array('messege'=>$notification,'alert-type'=>'success');
+        $notification = array('messege' => $notification, 'alert-type' => 'success');
         return redirect()->route('admin.product-brand.index')->with($notification);
     }
 
@@ -125,22 +133,23 @@ class ProductBrandController extends Controller
         $brand = Brand::find($id);
         $old_logo = $brand->logo;
         $brand->delete();
-        if($old_logo){
-            if(File::exists(public_path().'/'.$old_logo))unlink(public_path().'/'.$old_logo);
+        if ($old_logo) {
+            if (File::exists(public_path() . '/' . $old_logo)) unlink(public_path() . '/' . $old_logo);
         }
 
         $notification = trans('admin_validation.Delete Successfully');
-        $notification = array('messege'=>$notification,'alert-type'=>'success');
+        $notification = array('messege' => $notification, 'alert-type' => 'success');
         return redirect()->route('admin.product-brand.index')->with($notification);
     }
 
-    public function changeStatus($id){
+    public function changeStatus($id)
+    {
         $brand = Brand::find($id);
-        if($brand->status == 1){
+        if ($brand->status == 1) {
             $brand->status = 0;
             $brand->save();
             $message = trans('admin_validation.InActive Successfully');
-        }else{
+        } else {
             $brand->status = 1;
             $brand->save();
             $message = trans('admin_validation.Active Successfully');
