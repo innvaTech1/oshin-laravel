@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Auth\AdminLoginController;
 use App\Http\Controllers\Admin\Auth\AdminForgotPasswordController;
@@ -63,10 +62,6 @@ use App\Http\Controllers\Admin\HomepageVisibilityController;
 use App\Http\Controllers\Admin\MenuVisibilityController;
 use App\Http\Controllers\Admin\LanguageController;
 use App\Http\Controllers\Admin\AdvertisementController;
-
-
-
-
 use App\Http\Controllers\Seller\SellerDashboardController;
 use App\Http\Controllers\Seller\SellerProfileController;
 use App\Http\Controllers\Seller\SellerProductController;
@@ -78,11 +73,6 @@ use App\Http\Controllers\Seller\WithdrawController;
 use App\Http\Controllers\Seller\SellerProductReportControler;
 use App\Http\Controllers\Seller\SellerOrderController;
 use App\Http\Controllers\Seller\SellerMessageContoller;
-
-
-
-
-
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\User\UserProfileController;
@@ -90,9 +80,6 @@ use App\Http\Controllers\User\CheckoutController;
 use App\Http\Controllers\User\PaymentController;
 use App\Http\Controllers\User\PaypalController;
 use App\Http\Controllers\User\MessageController;
-
-
-
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Admin\InventoryController;
@@ -257,7 +244,6 @@ Route::group(['middleware' => ['XSS']], function () {
 
             Route::get('subcategory-by-category/{id}', [SellerProductController::class, 'getSubcategoryByCategory'])->name('subcategory-by-category');
             Route::get('childcategory-by-subcategory/{id}', [SellerProductController::class, 'getChildcategoryBySubCategory'])->name('childcategory-by-subcategory');
-
 
             Route::get('product-variant/{id}', [SellerProductVariantController::class, 'index'])->name('product-variant');
             Route::get('create-product-variant/{id}', [SellerProductVariantController::class, 'create'])->name('create-product-variant');

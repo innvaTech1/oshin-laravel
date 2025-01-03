@@ -28,6 +28,7 @@ class ProductImport implements ToModel, WithStartRow
         if (!trim($row[1])) {
             return null;
         }
+
         $findProductWithSlug = Product::where('slug', trim($row[2]))->first();
 
         if ($findProductWithSlug) {
@@ -38,18 +39,14 @@ class ProductImport implements ToModel, WithStartRow
         } else {
             $slug = trim($row[2]);
         }
+
         $data = [
             'name' => trim($row[1]),
             'slug' => $slug,
         ];
 
-
         // category
         $category = Category::where('name', trim($row[3]))->first();
-
-
-
-
 
         if (!$category) {
             $category = Category::create([
@@ -58,8 +55,8 @@ class ProductImport implements ToModel, WithStartRow
                 'status' => 1
             ]);
         }
-        $data['category_id'] = $category->id;
 
+        $data['category_id'] = $category->id;
 
         if (trim($row[4])) {
             $subCategory = SubCategory::where('name', trim($row[4]))->first();
@@ -74,6 +71,7 @@ class ProductImport implements ToModel, WithStartRow
             }
             $data['sub_category_id'] = $subCategory->id;
         }
+
         if (trim($row[5])) {
             $childCategory = ChildCategory::where('name', trim($row[5]))->first();
 
@@ -93,9 +91,7 @@ class ProductImport implements ToModel, WithStartRow
             $data['thumb_image'] = trim($row[6]);
         }
 
-
         // location
-
         if (trim($row[13])) {
             $dataString = trim($row[13]); // Extract the data from $row[13]
 
@@ -107,6 +103,7 @@ class ProductImport implements ToModel, WithStartRow
 
             // Step 3: Separate each pair into key and value
             $result = [];
+
             foreach ($pairs as $pair) {
                 list($key, $value) = explode('=', $pair);
                 $result[trim($key)][] = trim($value);
@@ -141,9 +138,7 @@ class ProductImport implements ToModel, WithStartRow
             }
         }
 
-
         // brand
-
         if (trim($row[14])) {
             $name = trim($row[14]);
             $brand = Brand::where('name', 'like', "%$name%")->first();
@@ -159,8 +154,6 @@ class ProductImport implements ToModel, WithStartRow
         }
 
         // sku
-
-
         if (trim($row[15])) {
             $data['sku'] = trim($row[15]);
         } else {
@@ -171,7 +164,6 @@ class ProductImport implements ToModel, WithStartRow
         if (trim($row[16])) {
             $data['price'] = trim($row[16]);
         }
-
 
         // offer price
         if (trim($row[17])) {
@@ -188,21 +180,17 @@ class ProductImport implements ToModel, WithStartRow
             $data['weight'] = trim($row[19]);
         }
 
-
         // short description
         if (trim($row[20])) {
             $data['short_description'] = trim($row[20]);
         }
-
 
         // long description
         if (trim($row[21])) {
             $data['long_description'] = trim($row[21]);
         }
 
-
         // highlights
-
         if (trim($row[22])) {
             $dataString = trim($row[22]); // Extract the data from $row[13]
 
@@ -216,12 +204,12 @@ class ProductImport implements ToModel, WithStartRow
             $items = array_map('trim', $items);
 
             // Output or process the data
-
             $data['is_top'] = 0;
             $data['new_product'] = 0;
             $data['is_best'] = 0;
             $data['is_featured'] = 0;
             $data['is_flash_deal'] = 0;
+
             foreach ($items as $item) {
                 if ($item == 'Just for You') {
                     $data['is_top'] = 1;
@@ -237,17 +225,14 @@ class ProductImport implements ToModel, WithStartRow
             }
         }
 
-
-
         // Take Pre Order
-
         if (trim($row[24])) {
             $data['is_pre_order'] = $row[24];
         }
+
         if (trim($row[25])) {
             $data['is_partial'] = $row[25];
         }
-
 
         // status
         if (trim($row[26])) {
@@ -255,15 +240,11 @@ class ProductImport implements ToModel, WithStartRow
         }
 
         // seo title
-
         if (trim($row[27])) {
             $data['seo_title'] = trim($row[27]);
         }
 
-
-
         // seo description
-
         if (trim($row[28])) {
             $data['seo_description'] = trim($row[28]);
         }
@@ -272,7 +253,6 @@ class ProductImport implements ToModel, WithStartRow
             $data['type'] = trim($row[29]);
         }
 
-
         if (auth('admin')->check()) {
             $data['vendor_id'] = 0;
         } else {
@@ -280,13 +260,9 @@ class ProductImport implements ToModel, WithStartRow
             $data['status'] = 0;
         }
 
-
         $product = Product::create($data);
 
-
-
         // multiple images
-
         if (trim($row[7])) {
             $dataString = trim($row[7]);
 
@@ -300,9 +276,7 @@ class ProductImport implements ToModel, WithStartRow
             $images = array_map('trim', $images);
 
             // Output or process the data
-
             foreach ($images as $image) {
-
                 $gallery = new ProductGallery();
                 $gallery->product_id = $product->id;
                 $gallery->image = $image;
@@ -310,12 +284,9 @@ class ProductImport implements ToModel, WithStartRow
             }
         }
 
-
-
         // product Variant
         if (trim($row[8])) {
             $dataString = trim($row[8]); // Extract the data from $row[13]
-
 
             // Step 1: Remove the square brackets
             $dataString = trim($dataString, '[]');
@@ -323,9 +294,9 @@ class ProductImport implements ToModel, WithStartRow
             // Step 2: Split the string by commas
             $pairs = explode(',', $dataString);
 
-
             // Step 3: Process each pair into key-value structure
             $result = [];
+
             foreach ($pairs as $pair) {
                 list($key, $value) = explode(':', $pair);
 
@@ -350,7 +321,6 @@ class ProductImport implements ToModel, WithStartRow
                     'product_variant_id' => $variant->id,
                 ])->exists();
 
-
                 ProductVariantItem::create([
                     'product_id' => $product->id,
                     'product_variant_id' => $variant->id,
@@ -363,6 +333,7 @@ class ProductImport implements ToModel, WithStartRow
             }
         }
     }
+
     public function startRow(): int
     {
         return 1; // Skip the first 1 rows (headers and/or other data)
