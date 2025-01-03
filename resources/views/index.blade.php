@@ -257,14 +257,14 @@
                     </div>
                 </div>
                 <div class="row">
-                    {{-- <div class="col-xl-12 col-lg-12">
+                    <div class="col-xl-12 col-lg-12">
                         <div class="row grid">
                             @foreach ($topCategories as $category)
                                 <div class="col-xl-2 col-sm-4 col-4 col-md-3 col-lg-2">
                                     <a class="wsus__hot_deals__single"
                                         href="{{ route('product', ['category' => $category->slug]) }}">
                                         <div class="wsus__hot_deals__single_img">
-                                            <img src="{{ asset($category->image) }}" alt="bag"
+                                            <img src="{{ asset($category->image) }}" alt="{{ $category->name }}"
                                                 class="img-fluid w-100">
                                         </div>
                                         <div class="wsus__hot_deals__single_text mt-1">
@@ -274,9 +274,9 @@
                                 </div>
                             @endforeach
                         </div>
-                    </div> --}}
+                    </div>
 
-                    @foreach ($topCategories as $category)
+                    <!-- @foreach ($topCategories as $category)
                         <div class="col-xl-12 col-12">
                             <div class="wsus__features_section">
                                 <a href="{{ route('product', ['category' => $category->slug]) }}">
@@ -289,7 +289,7 @@
 
                             </div>
                         </div>
-                    @endforeach
+                    @endforeach -->
 
 
 

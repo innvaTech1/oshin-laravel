@@ -2878,7 +2878,8 @@ HOME SERVOCES START
     color: #000 !important;
 }
 footer {
-    background: #1E2F3E;
+    background: #fff;
+    color: #a4a4a4;
     padding-top: 50px;
 }
 .footer_qr-code img{
@@ -2888,7 +2889,7 @@ footer {
     text-align: right;
 }
 .wsus_development p{
-    color: #fff;
+    color: #a4a4a4;
     font-size: 15px;
 }
 .wsus_development p a{
@@ -2904,7 +2905,7 @@ footer {
     display: block;
     font-size: 13px;
     margin-top: 8px;
-    color: #ffffff;
+    /* color: #ffffff; */
     transition: all linear 0.3s;
     -webkit-transition: all linear 0.3s ease;
     -moz-transition: all linear 0.3s ease;
@@ -2998,7 +2999,7 @@ footer {
 }
 
 .wsus__footer_content h5 {
-    color: #fff;
+    color: #1c1b1b;
     font-size: 16px;
     text-transform: uppercase;
     font-weight: 700;
@@ -3012,7 +3013,7 @@ footer {
 }
 
 .wsus__footer_menu li a {
-    color: #fff;
+    color: #a4a4a4;
     font-weight: 400;
     text-transform: capitalize;
     font-size: 14px;
@@ -3036,7 +3037,7 @@ footer {
 .wsus__footer_bottom {
     padding: 30px 0px;
     margin-top: 67px;
-    background: #930A02;
+    background: #fff;
 }
 
 .wsus__copyright {
@@ -3046,7 +3047,7 @@ footer {
 }
 
 .wsus__copyright p {
-    color: #fff;
+    color: #a4a4a4;
     text-transform: capitalize;
     font-size: 15px;
     font-weight: 400;
