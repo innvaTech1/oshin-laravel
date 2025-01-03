@@ -50,130 +50,114 @@
                 <div class="section-body">
                     <div class="card">
                         <div class="card-body">
-                            <table class="table">
+                            <table class="table table-striped table-bordered table-hover shadow-info">
                                 @php
-                                    $required = 'This Field is required';
+                                    $required = 'Required';
                                     $not_required = 'Not required';
-                                    $required_and_unique = 'This Field is required and unique';
+                                    $required_and_unique = 'Required & Unique';
                                 @endphp
-                                <tr>
-                                    <td>{{ __('Thumbnail Image') }}</td>
-                                    <td>{{ $required }}</td>
-                                </tr>
-
-                                <tr>
-                                    <td>{{ __('Name') }}</td>
-                                    <td>{{ $required }}</td>
-                                </tr>
-
-                                <tr>
-                                    <td>{{ __('Short Name') }}</td>
-                                    <td>{{ $required }}</td>
-                                </tr>
-
-                                <tr>
-                                    <td>{{ __('Slug') }}</td>
-                                    <td>{{ $required_and_unique }} ,
-                                        {{ __('Slug and manufacture part no both are same') }}</td>
-                                </tr>
-
-                                <tr>
-                                    <td>{{ __('Category Id') }}</td>
-                                    <td>{{ $required }}.</td>
-                                </tr>
-
-                                <tr>
-                                    <td>{{ __('Sub category id') }}</td>
-                                    <td> Haven't any sub category please set 0</td>
-                                </tr>
-
-                                <tr>
-                                    <td>{{ __('Child category id') }}</td>
-                                    <td>Haven't any child category please set 0</td>
-                                </tr>
-
-                                <tr>
-                                    <td>{{ __('Brand id') }}</td>
-                                    <td>Haven't any child category please set 0</td>
-                                </tr>
-
-                                <tr>
-                                    <td>{{ __('Sku') }}</td>
-                                    <td>{{ $not_required }}</td>
-                                </tr>
-
-
-                                <tr>
-                                    <td>{{ __('Price') }}</td>
-                                    <td>{{ $required }}.{{ __('Allowed only numeric value') }}</td>
-                                </tr>
-
-                                <tr>
-                                    <td>{{ __('Offer price') }}</td>
-                                    <td>{{ $not_required }}.{{ __('You can put only numeric value') }}</td>
-                                </tr>
-
-                                <tr>
-                                    <td>{{ __('Quantity') }}</td>
-                                    <td>{{ $required }}.{{ __('You can put only numeric value') }}</td>
-                                </tr>
-
-                                <tr>
-                                    <td>{{ __('Weight') }}</td>
-                                    <td>{{ $required }}.{{ __('You can put only numeric value') }}</td>
-                                </tr>
-
-                                <tr>
-                                    <td>{{ __('Vendor Id') }}</td>
-                                    <td>{{ $required }}. Haven't any seller or vendor please set 0</td>
-                                </tr>
-
-
-                                <tr>
-                                    <td>{{ __('Short description') }}</td>
-                                    <td>{{ $required }}.</td>
-                                </tr>
-
-                                <tr>
-                                    <td>{{ __('Long description') }}</td>
-                                    <td>{{ $required }}.</td>
-                                </tr>
-
-                                <tr>
-                                    <td>{{ __('Top Product') }}</td>
-                                    <td>{{ $required }}. Please set 0 or 1. 0 means = No and 1 means = Yes</td>
-                                </tr>
-
-                                <tr>
-                                    <td>{{ __('New Arrival') }}</td>
-                                    <td>{{ $required }}. Please set 0 or 1. 0 means = No and 1 means = Yes</td>
-                                </tr>
-
-                                <tr>
-                                    <td>{{ __('Best Product') }}</td>
-                                    <td>{{ $required }}. Please set 0 or 1. 0 means = No and 1 means = Yes</td>
-                                </tr>
-
-                                <tr>
-                                    <td>{{ __('Featured Product') }}</td>
-                                    <td>{{ $required }}. Please set 0 or 1. 0 means = No and 1 means = Yes</td>
-                                </tr>
-
-                                <tr>
-                                    <td>{{ __('status') }}</td>
-                                    <td>{{ $required }}. Yes = 1, No= 0</td>
-                                </tr>
-
-                                <tr>
-                                    <td>{{ __('Is specification') }}</td>
-                                    <td>{{ $required }}. Yes = 1, No= 0</td>
-                                </tr>
-
-                                <tr>
-                                    <td>{{ __('Approve by admin') }}</td>
-                                    <td>{{ $required }}. Yes = 1, No= 0</td>
-                                </tr>
-
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th>{{ __('Field') }}</th>
+                                        <th>{{ __('Requirement') }}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>{{ __('Thumbnail Image') }}</td>
+                                        <td>{{ $required }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ __('Name') }}</td>
+                                        <td>{{ $required }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ __('Short Name') }}</td>
+                                        <td>{{ $required }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ __('Slug') }}</td>
+                                        <td>{{ $required_and_unique }} ,
+                                            {{ __('Slug and manufacture part no both are same') }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ __('Category Id') }}</td>
+                                        <td>{{ $required }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ __('Sub category id') }}</td>
+                                        <td>{{ __('Haven\'t any sub category please set 0') }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ __('Child category id') }}</td>
+                                        <td>{{ __('Haven\'t any child category please set 0') }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ __('Brand id') }}</td>
+                                        <td>{{ __('Haven\'t any child category please set 0') }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ __('Sku') }}</td>
+                                        <td>{{ $not_required }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ __('Price') }}</td>
+                                        <td>{{ $required }}. {{ __('Allowed only numeric value') }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ __('Offer price') }}</td>
+                                        <td>{{ $not_required }}. {{ __('You can put only numeric value') }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ __('Quantity') }}</td>
+                                        <td>{{ $required }}. {{ __('You can put only numeric value') }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ __('Weight') }}</td>
+                                        <td>{{ $required }}. {{ __('You can put only numeric value') }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ __('Vendor Id') }}</td>
+                                        <td>{{ $required }}. {{ __('Haven\'t any seller or vendor please set 0') }}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ __('Short description') }}</td>
+                                        <td>{{ $required }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ __('Long description') }}</td>
+                                        <td>{{ $required }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ __('Top Product') }}</td>
+                                        <td>{{ $required }}. {{ __('[Yes = 1, No= 0]') }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ __('New Arrival') }}</td>
+                                        <td>{{ $required }}. {{ __('[Yes = 1, No= 0]') }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ __('Best Product') }}</td>
+                                        <td>{{ $required }}. {{ __('[Yes = 1, No= 0]') }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ __('Featured Product') }}</td>
+                                        <td>{{ $required }}. {{ __('[Yes = 1, No= 0]') }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ __('Status') }}</td>
+                                        <td>{{ $required }}. {{ __('[Yes = 1, No= 0]') }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ __('Is specification') }}</td>
+                                        <td>{{ $required }}. {{ __('[Yes = 1, No= 0]') }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ __('Approve by admin') }}</td>
+                                        <td>{{ $required }}. {{ __('[Yes = 1, No= 0]') }}</td>
+                                    </tr>
+                                </tbody>
                             </table>
                         </div>
                     </div>
