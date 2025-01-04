@@ -18,7 +18,7 @@ class ProductBrandController extends Controller
 
     public function index()
     {
-        $brands = Brand::all();
+        $brands = Brand::orderBy('id', 'desc')->get();
         return view('admin.product_brand', compact('brands'));
     }
 
@@ -34,7 +34,7 @@ class ProductBrandController extends Controller
             'name' => 'required|unique:brands',
             'slug' => 'required|unique:brands',
             'status' => 'required',
-            'rating' => 'required',
+            'rating' => 'nullable',
             'logo' => 'required|image|dimensions:width=250,height=250'
         ];
         $customMessages = [
@@ -62,7 +62,7 @@ class ProductBrandController extends Controller
         $brand->name = $request->name;
         $brand->slug = $request->slug;
         $brand->status = $request->status;
-        $brand->rating = $request->rating;
+        $brand->rating = 5;
         $brand->save();
 
         $notification = trans('admin_validation.Created Successfully');

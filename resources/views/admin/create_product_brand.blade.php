@@ -38,11 +38,10 @@
                                             <label>{{ __('Slug') }} <span class="text-danger">*</span></label>
                                             <input type="text" id="slug" class="form-control" name="slug">
                                         </div>
-                                        <div class="form-group col-12">
+                                        {{-- <div class="form-group col-12">
                                             <label>{{ __('Rating') }} <span class="text-danger">*</span></label>
                                             <input type="text" id="rating" class="form-control" name="rating">
-                                        </div>
-
+                                        </div> --}}
                                         <div class="form-group col-12">
                                             <label>{{ __('Status') }} <span class="text-danger">*</span></label>
                                             <select name="status" class="form-control">

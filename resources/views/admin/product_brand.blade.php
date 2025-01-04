@@ -73,7 +73,6 @@
                                                                 onclick="deleteData({{ $brand->id }})"><i
                                                                     class="fa fa-trash" aria-hidden="true"></i></a>
                                                         @endif
-
                                                     </td>
                                                 </tr>
                                             @endforeach
