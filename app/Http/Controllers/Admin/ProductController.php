@@ -124,7 +124,6 @@ class ProductController extends Controller
             $rules['partial_amount'] = 'required';
         }
 
-
         $customMessages = [
             'name.required' => trans('Name is required'),
             'name.unique' => trans('Name is required'),
@@ -217,7 +216,6 @@ class ProductController extends Controller
         }
         $product->save();
 
-
         session()->forget('product_type');
         $notification = trans('admin_validation.Created Successfully');
         $notification = array('messege' => $notification, 'alert-type' => 'success');
@@ -283,6 +281,7 @@ class ProductController extends Controller
         if ($request->is_partial) {
             $rules['partial_amount'] = 'required';
         }
+
         $customMessages = [
             'name.required' => trans('Name is required'),
             'name.unique' => trans('Name is required'),
@@ -302,8 +301,6 @@ class ProductController extends Controller
             'partial_amount.required' => __('Partial Amount Quantity is Required'),
         ];
 
-
-
         $this->validate($request, $rules, $customMessages);
 
         if ($request->thumb_image) {
@@ -320,7 +317,6 @@ class ProductController extends Controller
         } else {
             $product->link = $request->link;
         }
-
 
         $product->name = $request->name;
         $product->slug = $request->slug;
@@ -427,7 +423,6 @@ class ProductController extends Controller
 
     public function productHighlightUpdate(Request $request, $id)
     {
-
         $product = Product::find($id);
         if ($request->product_type == 1) {
             $product->is_undefine = 1;
@@ -437,7 +432,7 @@ class ProductController extends Controller
             $product->is_top = 0;
             $product->is_flash_deal = 0;
             $product->save();
-        } else if ($request->product_type == 2) {
+        } elseif ($request->product_type == 2) {
             $product->is_undefine = 0;
             $product->new_product = 1;
             $product->is_featured = 0;
@@ -445,7 +440,7 @@ class ProductController extends Controller
             $product->is_top = 0;
             $product->is_flash_deal = 0;
             $product->save();
-        } else if ($request->product_type == 3) {
+        } elseif ($request->product_type == 3) {
             $product->is_undefine = 0;
             $product->new_product = 0;
             $product->is_featured = 1;
@@ -453,7 +448,7 @@ class ProductController extends Controller
             $product->is_top = 0;
             $product->is_flash_deal = 0;
             $product->save();
-        } else if ($request->product_type == 4) {
+        } elseif ($request->product_type == 4) {
             $product->is_undefine = 0;
             $product->new_product = 0;
             $product->is_featured = 0;
@@ -461,7 +456,7 @@ class ProductController extends Controller
             $product->is_top = 1;
             $product->is_flash_deal = 0;
             $product->save();
-        } else if ($request->product_type == 5) {
+        } elseif ($request->product_type == 5) {
             $product->is_undefine = 0;
             $product->new_product = 0;
             $product->is_featured = 0;
@@ -469,7 +464,7 @@ class ProductController extends Controller
             $product->is_top = 0;
             $product->is_flash_deal = 0;
             $product->save();
-        } else if ($request->product_type == 6) {
+        } elseif ($request->product_type == 6) {
             $rules = [
                 'date' => 'required'
             ];
@@ -503,26 +498,25 @@ class ProductController extends Controller
         return Excel::download(new ProductExport($is_dummy, $products), 'products.xlsx');
     }
 
-
     public function demo_product_export()
     {
         $is_dummy = true;
         return Excel::download(new ProductExport($is_dummy), 'products.xlsx');
     }
 
-
-
     public function product_import(Request $request)
     {
         try {
-            Excel::import(new ProductImport, $request->file('import_file'));
+            Excel::import(new ProductImport(), $request->file('import_file'));
 
             $notification = trans('Uploaded Successfully');
             $notification = array('messege' => $notification, 'alert-type' => 'success');
+
             return redirect()->back()->with($notification);
         } catch (Exception $ex) {
             $notification = trans('Please follow the instruction and input the value carefully');
             $notification = array('messege' => $notification, 'alert-type' => 'error');
+
             return redirect()->back()->with($notification);
         }
     }
