@@ -259,21 +259,33 @@ class ProductImport implements ToModel, WithStartRow
             // dd($e->getMessage());
         }
 
-        // multiple images
+        // Multiple images processing
         if (trim($row[7])) {
-            $dataString = trim($row[7]);
-
-            $dataString = trim($dataString, '[]');
-
+            $dataString = trim($row[7], '[]');
             $images = explode(',', $dataString);
-
             $images = array_map('trim', $images);
+            $images = array_filter($images);
 
             foreach ($images as $image) {
-                $gallery = new ProductGallery();
-                $gallery->product_id = $product->id;
-                $gallery->image = $image;
-                $gallery->save();
+                $sourcePath = "C:/product-images/{$image}";
+
+                // Ensure the source image exists
+                if (file_exists($sourcePath)) {
+                    $uniqueFileName = 'Gallery-' . now()->format('Y-m-d-H-i-s-u') . '.' . pathinfo($image, PATHINFO_EXTENSION);
+
+                    $destinationPath = public_path("uploads/custom-images/{$uniqueFileName}");
+
+                    if (copy($sourcePath, $destinationPath)) {
+                        $gallery = new ProductGallery();
+                        $gallery->product_id = $product->id;
+                        $gallery->image = "uploads/custom-images/{$uniqueFileName}";
+                        $gallery->save();
+                    } else {
+                        // \Log::error("Failed to copy image: {$sourcePath}");
+                    }
+                } else {
+                    // \Log::error("Source image not found: {$sourcePath}");
+                }
             }
         }
 
