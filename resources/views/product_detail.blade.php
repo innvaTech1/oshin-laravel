@@ -259,7 +259,7 @@
 
 
                             <ul class="wsus__button_area">
-                                <li><button type="submit" class="add_cart">{{ __('user.add to cart') }}</button></li>
+                                <li><button type="submit" class="add_cart"> <span>{{ __('user.add to cart') }}</span></button></li>
                                 <li><a class="buy_now" href="javascript:;" id="buyNowBtn">{{ __('user.buy now') }}</a></li>
                                 <li><a href="javascript:;" onclick="addToWishlist('{{ $product->id }}')"><i
                                             class="fal fa-heart"></i></a></li>
@@ -861,7 +861,7 @@
                                         @endif
                                     @endif
                                     <a class="add_cart" onclick="addToCartMainProduct('{{ $relatedProduct->id }}')"
-                                        href="javascript:;">{{ __('user.add to cart') }}</a>
+                                        href="javascript:;"><span>{{ __('user.add to cart') }}</span></a>
                                 </div>
                             </div>
                         </div>
@@ -1106,7 +1106,7 @@
                     @endif
                     <ul class="wsus__button_area">
                         <li><button type="button" onclick="addToCartInProductModal('{{ $relatedProduct->id }}')"
-                                class="add_cart">{{ __('user.add to cart') }}</button></li>
+                                class="add_cart"><span>{{ __('user.add to cart') }}</span></button></li>
                         <li><a class="buy_now" href="javascript:;"
                                 onclick="addToBuyNow('{{ $relatedProduct->id }}')">{{ __('user.buy now') }}</a></li>
                         <li><a href="javascript:;" onclick="addToWishlist('{{ $relatedProduct->id }}')"><i
