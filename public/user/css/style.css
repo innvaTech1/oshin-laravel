@@ -61,7 +61,7 @@ p {
 /*======================
 	COMMON CSS START
 ========================*/
-.common_btn {
+/* .common_btn {
     font-size: 14px;
     text-transform: capitalize;
     font-weight: 600;
@@ -81,8 +81,53 @@ p {
 .common_btn:hover {
     color: #fff;
     background: rgb(0, 0, 0);
+} */
+.common_btn{
+    color: #fff;
+    border-color: #a80b03;
 }
-
+.Button{
+    position: relative;
+    display: inline-block;
+    padding: 14px 28px;
+    line-height: normal;
+    border: 1px solid transparent;
+    border-radius: 0;
+    text-transform: uppercase;
+    font-size: 12px;
+    text-align: center;
+    letter-spacing: .2em;
+    font-weight: 300;
+    font-style: normal;
+    background-color: transparent;
+    -webkit-transition: color .45s cubic-bezier(.785,.135,.15,.86), border .45s cubic-bezier(.785,.135,.15,.86);
+    transition: color .45s cubic-bezier(.785,.135,.15,.86), border .45s cubic-bezier(.785,.135,.15,.86);
+    z-index: 1;
+    -webkit-tap-highlight-color: initial
+}
+.common_btn:before{
+    background: #930A02;
+}
+.Button:before{
+    position: absolute;
+    content: "";
+    display: block;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    transform: scale(1);
+    -webkit-transform: scale(1, 1);
+    -webkit-transform-origin: left center;
+    transform-origin: left center;
+    z-index: -1;
+}
+.common_btn:hover{
+    color: #a80b03;
+    background-color: transparent;
+}
 .see_btn {
     text-transform: capitalize;
     font-size: 16px;

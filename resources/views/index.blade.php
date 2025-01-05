@@ -34,7 +34,7 @@
                                             <div class="wsus__single_slider_text">
                                                 <h1>{!! nl2br($slider->title) !!}</h1>
                                                 <h6>{!! nl2br($slider->description) !!}</h6>
-                                                <a class="common_btn"
+                                                <a class="common_btn Button"
                                                     href="{{ $slider->link }}">{{ __('user.shop now') }}</a>
                                             </div>
                                         </div>
@@ -190,7 +190,7 @@
                                 <div class="wsus__flash_coundown">
                                     <span class=" end_text">{{ $campaign->name }}</span>
                                     <div class="simply-countdown campaign-details"></div>
-                                    <a class="common_btn"
+                                    <a class="common_btn Button"
                                         href="{{ route('campaign-detail', $campaign->slug) }}">{{ __('user.see more') }}
                                         <i class="fas fa-caret-right"></i></a>
                                 </div>
