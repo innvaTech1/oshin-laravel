@@ -87,7 +87,21 @@ class ProductImport implements ToModel, WithStartRow
         }
 
         if (trim($row[6])) {
-            $data['thumb_image'] = trim($row[6]);
+            $sourcePath = "C:/product-images/" . trim($row[6]);
+
+            if (file_exists($sourcePath)) {
+                $uniqueFileName = 'Thumb-' . now()->format('Y-m-d-H-i-s-u') . '.' . pathinfo($sourcePath, PATHINFO_EXTENSION);
+
+                $destinationPath = public_path("uploads/custom-images/{$uniqueFileName}");
+
+                if (copy($sourcePath, $destinationPath)) {
+                    $data['thumb_image'] = "uploads/custom-images/{$uniqueFileName}";
+                } else {
+                    // \Log::error("Failed to copy thumbnail image: {$sourcePath}");
+                }
+            } else {
+                // \Log::error("Thumbnail source image not found: {$sourcePath}");
+            }
         }
 
         // location
