@@ -6024,6 +6024,9 @@ WISHLIST PAGE START
     width: 100%;
     border-radius: 5px;
 }
+.wsus__login button:hover{
+    color: #930A02 !important;
+}
 
 .wsus__login .social_text {
     text-align: center;
