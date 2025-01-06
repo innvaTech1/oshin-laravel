@@ -220,14 +220,13 @@
                                     }
                                 }
                             @endphp
+
                             @if ($isExist)
                                 <a class="wsus__pro_report" href="#" data-bs-toggle="modal"
                                     data-bs-target="#productReportModal"><i class="fal fa-comment-alt-smile"></i>
                                     {{ __('user.Report incorrect product information') }}</a>
                             @endif
-
                         @endauth
-
                     </div>
 
                     {{-- <!--==========================
