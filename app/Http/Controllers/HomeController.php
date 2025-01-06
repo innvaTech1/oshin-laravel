@@ -465,12 +465,14 @@ class HomeController extends Controller
 
     public function productDetail($slug)
     {
-        $product = Product::where(['status' => 1, 'slug' => $slug])->first();
+        $product = Product::where(['slug' => $slug])->first();
+
         if (!$product) {
             $notification = trans('user_validation.Something went wrong');
             $notification = array('messege' => $notification, 'alert-type' => 'error');
             return redirect()->back()->with($notification);
         }
+
         $paginateQty = CustomPagination::whereId('5')->first()->qty;
         $productReviews = ProductReview::where(['status' => 1, 'product_id' => $product->id])->paginate($paginateQty);
         $totalProductReviewQty = ProductReview::where(['status' => 1, 'product_id' => $product->id])->count();
@@ -483,12 +485,13 @@ class HomeController extends Controller
         $defaultProfile = BannerImage::whereId('15')->first();
         $tagArray = json_decode($product->tags);
         $tags = '';
+
         if ($product->tags) {
             foreach ($tagArray as $index => $tag) {
                 $tags .= $tag->value . ',';
             }
         }
-        // product_detail
+
         return view('website.products.details', compact('product', 'productReviews', 'totalProductReviewQty', 'productVariants', 'recaptchaSetting', 'relatedProducts', 'currencySetting', 'banner', 'setting', 'defaultProfile', 'tags'));
     }
 
