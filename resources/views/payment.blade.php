@@ -264,7 +264,7 @@
                                     @csrf
                                     <textarea cols="3" rows="2" name="tnx_info" placeholder="{{ __('user.Payment Information') }}"
                                         required></textarea>
-                                    <button type="submit" class="common_btn mt-4">{{ __('user.Submit Order') }}</button>
+                                    <button type="submit" class="common_btn mt-4"> <span>{{ __('user.Submit Order') }}</span></button>
                                 </form>
                             </div>
 
@@ -273,7 +273,7 @@
                                 <form class="wsus__input_area" action="{{ route('user.checkout.cash-on-delivery') }}"
                                     method="POST">
                                     @csrf
-                                    <button type="submit" class="common_btn mt-4">{{ __('user.Submit Order') }}</button>
+                                    <button type="submit" class="common_btn mt-4"> <span>{{ __('user.Submit Order') }}</span></button>
                                 </form>
                             </div>
                         </div>
@@ -330,7 +330,7 @@
                             <input type="text" name="cvc" class="form-control" autocomplete="off" required>
                         </div>
 
-                        <button class="common_btn mt-2" type="submit">{{ __('user.payment') }}</button>
+                        <button class="common_btn mt-2" type="submit"> <span>{{ __('user.payment') }}</span></button>
 
 
 

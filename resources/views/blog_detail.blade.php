@@ -140,7 +140,7 @@
                                     @endif
 
                                 </div>
-                                <button class="common_btn" type="submit">{{__('user.Submit Comment')}}</button>
+                                <button class="common_btn" type="submit"> <span>{{__('user.Submit Comment')}}</span></button>
                             </form>
                         </div>
 
@@ -152,7 +152,7 @@
                             <h4>{{__('user.search')}}</h4>
                             <form action="{{ route('search-blog') }}">
                                 <input type="text" placeholder="Search" name="search">
-                                <button type="submit" class="common_btn"><i class="far fa-search"></i></button>
+                                <button type="submit" class="common_btn"> <span><i class="far fa-search"></i></span></button>
                             </form>
                         </div>
                         <div class="wsus__blog_category">

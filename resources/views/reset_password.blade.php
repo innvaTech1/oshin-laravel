@@ -46,7 +46,7 @@
                                     </div>
                                 @endif
 
-                                <button class="common_btn" type="submit">{{__('user.Reset Password')}}</button>
+                                <button class="common_btn" type="submit"> <span>{{__('user.Reset Password')}}</span></button>
                             </form>
                         </div>
                         <a class="see_btn mt-4" href="{{ route('login') }}">{{__('user.go to login')}}</a>

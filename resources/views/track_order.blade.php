@@ -25,7 +25,7 @@
                                 <label class="d-block mb-2">{{ __('user.order id') }}*</label>
                                 <input type="text" name="order_id" id="order_id" required placeholder="4785**541">
                             </div>
-                            <button type="submit" class="common_btn">{{ __('user.track') }}</button>
+                            <button type="submit" class="common_btn"><span>{{ __('user.track') }}</span></button>
                         </form>
                     </div>
                 </div>
