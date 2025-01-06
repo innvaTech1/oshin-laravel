@@ -102,7 +102,7 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::get('/blog-by-category/{slug}', [HomeController::class, 'blogByCategory'])->name('blog-by-category');
         Route::get('/search-blog', [HomeController::class, 'blogSearch'])->name('search-blog');
         Route::post('/blog-comment', [HomeController::class, 'blogComment'])->name('blog-comment');
-        Route::get('/campaign', [HomeController::class, 'campaign'])->name('campaign');
+        Route::get('/campaigns', [HomeController::class, 'campaign'])->name('campaigns');
         Route::get('/campaign-detail/{slug}', [HomeController::class, 'campaignDetail'])->name('campaign-detail');
         Route::get('/brand', [HomeController::class, 'brand'])->name('brand');
         Route::get('/track-order', [HomeController::class, 'trackOrder'])->name('track-order');
