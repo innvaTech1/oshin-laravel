@@ -4327,6 +4327,7 @@ PRODUCT DETAILS START
 
 .wsus__button_area li .add_cart {
     margin-right: 10px;
+    z-index: 1;
 }
 
 /* .wsus__button_area li .buy_now,
