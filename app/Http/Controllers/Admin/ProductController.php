@@ -39,7 +39,8 @@ class ProductController extends Controller
 
     public function index()
     {
-        $products = Product::with('category')->where(['vendor_id' => 0])->orderBy('id', 'desc')->get();
+        // $products = Product::with('category')->where(['vendor_id' => 0])->orderBy('id', 'desc')->get();
+        $products = Product::with('category')->orderBy('id', 'desc')->get();
         $orderProducts = OrderProduct::all();
         $setting = Setting::first();
         return view('admin.product', compact('products', 'orderProducts', 'setting'));
