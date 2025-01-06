@@ -43,14 +43,12 @@ p,
 a,
 ul,
 ol,
-li,
-span {
+li{
     margin: 0;
     padding: 0;
     color: #000;
 }
 
-span,
 p {
     font-size: 12px;
     font-weight: 400;
@@ -61,7 +59,7 @@ p {
 /*======================
 	COMMON CSS START
 ========================*/
-.common_btn {
+/* .common_btn {
     font-size: 14px;
     text-transform: capitalize;
     font-weight: 600;
@@ -81,9 +79,143 @@ p {
 .common_btn:hover {
     color: #fff;
     background: rgb(0, 0, 0);
-}
+} */
 
-.see_btn {
+.common_btn {
+    position: relative;
+    display: inline-block;
+    background-color: #930A02;
+    color: #fff;
+    padding: 12px 25px;
+    font-size: 14px;
+    text-transform: capitalize;
+    text-decoration: none;
+    letter-spacing: 2px;
+    border: 1px solid #930A02;
+    border-radius: 5px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: color 0.3s ease;
+  }
+
+  /* Before Pseudo-Element */
+  .common_btn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    z-index: 0;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
+  }
+
+  /* After Pseudo-Element */
+  .common_btn::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    z-index: 0;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+
+  /* Text Styles */
+  .common_btn span {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Hover Effect */
+  .common_btn:hover::before {
+    transform: scaleX(1);
+  }
+
+  .common_btn:hover::after {
+    transform: scaleX(1);
+  }
+
+  .common_btn:hover {
+    color: #930A02;
+  }
+
+  /* See More Button */
+
+  .see_btn {
+    position: relative;
+    display: inline-block;
+    background-color: #fff;
+    color: #930A02;
+    font-weight: 400;
+    padding: 5px 23px 5px 10px;
+    font-size: 14px;
+    text-transform: capitalize;
+    text-decoration: none;
+    letter-spacing: 2px;
+    border: 1px solid #930A02;
+    border-radius: 5px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: color 0.3s ease;
+  }
+
+  /* Before Pseudo-Element */
+  .see_btn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #930A02;
+    z-index: 0;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
+  }
+
+  /* After Pseudo-Element */
+  .see_btn::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #930A02;
+    z-index: 0;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+
+  /* Text Styles */
+  .see_btn span {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Hover Effect */
+  .see_btn:hover::before {
+    transform: scaleX(1);
+  }
+
+  .see_btn:hover::after {
+    transform: scaleX(1);
+  }
+
+  .see_btn:hover {
+    color: #fff;
+  }
+/* .see_btn {
     text-transform: capitalize;
     font-size: 16px;
     font-weight: 400;
@@ -110,9 +242,78 @@ p {
 .see_btn:hover {
     color: #000;
     border: 1px solid #000;
-}
+} */
+
+/* Shop Now button */
 
 .shop_btn {
+    position: relative;
+    display: inline-block;
+    background-color: #fff;
+    color: #930A02;
+    font-weight: 400;
+    padding: 5px 10px;
+    font-size: 14px;
+    text-transform: capitalize;
+    text-decoration: none;
+    letter-spacing: 2px;
+    border: 1px solid #930A02;
+    border-radius: 5px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: color 0.3s ease;
+  }
+
+  /* Before Pseudo-Element */
+  .shop_btn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #930A02;
+    z-index: 0;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
+  }
+
+  /* After Pseudo-Element */
+  .shop_btn::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #930A02;
+    z-index: 0;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+
+  /* Text Styles */
+  .shop_btn span {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Hover Effect */
+  .shop_btn:hover::before {
+    transform: scaleX(1);
+  }
+
+  .shop_btn:hover::after {
+    transform: scaleX(1);
+  }
+
+  .shop_btn:hover {
+    color: #fff;
+  }
+
+/* .shop_btn {
     color: #fff;
     text-transform: uppercase;
     font-size: 14px;
@@ -131,15 +332,83 @@ p {
     color: #fff;
     background: #930A02;
     border-color: #930A02;
-}
+} */
+
+/* Shop Now button */
 
 .add_cart {
+    position: relative;
+    display: inline-block;
+    background-color: #fff;
+    color: #930A02;
+    font-weight: 400;
+    padding: 10px 15px;
+    font-size: 12px;
+    text-transform: capitalize;
+    text-decoration: none;
+    letter-spacing: 2px;
+    border: 1px solid #930A02;
+    border-radius: 5px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: color 0.3s ease;
+  }
+
+  /* Before Pseudo-Element */
+  .add_cart::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #930A02;
+    z-index: 0;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
+  }
+
+  /* After Pseudo-Element */
+  .add_cart::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #930A02;
+    z-index: 0;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+
+  /* Text Styles */
+  .add_cart span {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Hover Effect */
+  .add_cart:hover::before {
+    transform: scaleX(1);
+  }
+
+  .add_cart:hover::after {
+    transform: scaleX(1);
+  }
+
+  .add_cart:hover {
+    color: #fff;
+  }
+  
+/* .add_cart {
     text-transform: uppercase;
     font-size: 12px;
     font-weight: 600;
     color: #930A02;
     padding: 10px 15px;
-    /* background: #930A02; */
     transition: all linear 0.3s;
     -webkit-transition: all linear 0.3s ease;
     -moz-transition: all linear 0.3s ease;
@@ -150,7 +419,7 @@ p {
 .add_cart:hover {
     color: #fff;
     background: #930A02;
-}
+} */
 
 .truncate {
     white-space: nowrap;
@@ -8932,7 +9201,7 @@ header .wsus__call_text a:hover {
 .wsus__minus {
     /* width: auto; */
     border-radius: 30px;
-    opacity: 0.6;
+    opacity: 1;
     transition: all linear 0.3s;
     -webkit-transition: all linear 0.3s ease;
     -moz-transition: all linear 0.3s ease;
