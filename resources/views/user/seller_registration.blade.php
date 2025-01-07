@@ -197,7 +197,7 @@
 
                                 <div class="col-xl-12">
                                     <button class="common_btn mb-4 mt-2 submit_btn"
-                                        type="submit">{{ __('user.Submit Request') }}</button>
+                                        type="submit"><span>{{ __('user.Submit Request') }}</span></button>
                                 </div>
 
                             </div>

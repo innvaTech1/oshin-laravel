@@ -191,8 +191,8 @@
                                     <span class=" end_text">{{ $campaign->name }}</span>
                                     <div class="simply-countdown campaign-details"></div>
                                     <a class="common_btn"
-                                        href="{{ route('campaign-detail', $campaign->slug) }}"><span>{{ __('user.see more') }}</span>
-                                        <i class="fas fa-caret-right"></i></a>
+                                        href="{{ route('campaign-detail', $campaign->slug) }}"><span>{{ __('user.see more') }}
+                                        <i class="fas fa-caret-right"></i></span></a>
                                 </div>
                             </div>
                         @endif
@@ -364,7 +364,7 @@
                             <div class="wsus__single_banner_text">
                                 <h6>{{ $bannerTwo->description }}</h6>
                                 <h3>{{ $bannerTwo->title }}</h3>
-                                <a class="shop_btn" href="{{ $bannerTwo->link }}">{{ __('user.shop now') }}</a>
+                                <a class="shop_btn" href="{{ $bannerTwo->link }}"> <span>{{ __('user.shop now') }}</span></a>
                             </div>
                         </div>
                     </div>
@@ -594,7 +594,7 @@
                                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem repudiandae in
                                             ipsam
                                             nesciunt.</p>
-                                        <a class="shop_btn" href="#">view more</a>
+                                        <a class="shop_btn" href="#"> <span>view more</span></a>
                                     </div>
                                 </div>
                                 <div class="col-xl-6 col-12 col-md-6">
@@ -602,7 +602,7 @@
                                         <h3>headphones</h3>
                                         <h5>up to 20% off</h5>
                                         <p>Spring's collection has discounted now!</p>
-                                        <a class="shop_btn" href="#">shop now</a>
+                                        <a class="shop_btn" href="#"><span>shop now</span></a>
                                     </div>
                                 </div>
                             </div>

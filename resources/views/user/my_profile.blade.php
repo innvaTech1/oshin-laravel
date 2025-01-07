@@ -91,7 +91,7 @@
                                 </div>
                                 <div class="col-xl-12">
                                     <button class="common_btn mb-4 mt-2"
-                                        type="submit">{{ __('user.Update Profile') }}</button>
+                                        type="submit"><span>{{ __('user.Update Profile') }}</span></button>
                                 </div>
 
                             </div>

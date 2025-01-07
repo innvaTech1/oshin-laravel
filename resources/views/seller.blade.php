@@ -76,7 +76,7 @@
 
                                         <a href="callto:{{ $seller->phone }}"><i class="far fa-phone-alt"></i> {{ $seller->phone }}</a>
                                         <a href="mailto:{{ $seller->email }}"><i class="fal fa-envelope"></i> {{ $seller->email }}</a>
-                                        <a href="{{ route('seller-detail',['shop_name' => $seller->slug]) }}" class="common_btn">{{__('user.visit store')}}</a>
+                                        <a href="{{ route('seller-detail',['shop_name' => $seller->slug]) }}" class="common_btn"> <span>{{__('user.visit store')}}</span></a>
                                     </div>
                                 </div>
                             </div>

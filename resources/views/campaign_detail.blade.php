@@ -47,7 +47,7 @@
                                 <div class="wsus__offer_details_banner_text">
                                     <span>{{ $bannerOne->title }}</span>
                                     <p><b>{{ $bannerOne->description }}</b></p>
-                                    <a href="{{ $bannerOne->link }}" class="shop_btn">{{ __('user.shop now') }}</a>
+                                    <a href="{{ $bannerOne->link }}" class="shop_btn"> <span>{{ __('user.shop now') }}</span></a>
                                 </div>
                             </div>
                         </div>
@@ -57,7 +57,7 @@
                                 <div class="wsus__offer_details_banner_text">
                                     <span>{{ $bannerTwo->title }}</span>
                                     <p><b>{{ $bannerTwo->description }}</b></p>
-                                    <a href="{{ $bannerTwo->link }}" class="shop_btn">{{ __('user.shop now') }}</a>
+                                    <a href="{{ $bannerTwo->link }}" class="shop_btn"><span>{{ __('user.shop now') }}</span></a>
                                 </div>
                             </div>
                         </div>
@@ -241,7 +241,7 @@
                                         @endif
                                         <a class="add_cart"
                                             onclick="addToCartMainProduct('{{ $campaignProduct->product->id }}')"
-                                            href="javascript:;">{{ __('user.add to cart') }}</a>
+                                            href="javascript:;"> <span>{{ __('user.add to cart') }}</span></a>
                                     </div>
                                 </div>
                             </div>

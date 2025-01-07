@@ -31,7 +31,7 @@
                         </div>
                     </div>
                     <div class="col-xl-12">
-                    <button class="common_btn" type="submit">{{__('user.Update Password')}}</button>
+                    <button class="common_btn" type="submit"><span>{{__('user.Update Password')}}</span></button>
                     </div>
                 </div>
                 </div>

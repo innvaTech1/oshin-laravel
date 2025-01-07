@@ -162,7 +162,7 @@
                             @endif
 
                             <div class="col-xl-6">
-                                <button type="submit" class="common_btn">{{ __('user.Update Address') }}</button>
+                                <button type="submit" class="common_btn"><span>{{ __('user.Update Address') }}</span></button>
                             </div>
                         </div>
                     </form>

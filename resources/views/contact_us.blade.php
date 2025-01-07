@@ -96,7 +96,7 @@
                             @endif
 
                             <div class="col-12">
-                                <button type="submit" class="common_btn">{{__('user.send now')}}</button>
+                                <button type="submit" class="common_btn"> <span>{{__('user.send now')}}</span></button>
                             </div>
 
                         </form>

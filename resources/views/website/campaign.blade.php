@@ -10,10 +10,16 @@
     <!--============================
                 PRODUCT PAGE START
             ===================wsus__product_page===========-->
-    <section id="wsus__product_page">
+    <section class="section_wrapper">
         <div class="container">
             <div class="row">
-
+                <div class="col-12">
+                    <div class="content_wrapper">
+                        <h1>Campaign Page Coming Soon!</h1>
+                        <p>We’re working hard to bring you something amazing. Stay tuned!</p>
+                        <a href="/" class="cta"><span>Go Back Home</span></a>
+                    </div>
+                </div>
             </div>
         </div>
     </section>

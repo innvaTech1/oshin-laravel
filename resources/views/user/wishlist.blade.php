@@ -117,7 +117,7 @@
 
                                                     <td class="wsus__pro_icon">
                                                         <a class="common_btn"
-                                                            href="{{ route('product-detail', $product->slug) }}">{{ __('user.View Product') }}</a>
+                                                            href="{{ route('product-detail', $product->slug) }}"></span>{{ __('user.View Product') }}</span></a>
                                                     </td>
                                                 </tr>
                                             @endforeach
