@@ -2,21 +2,21 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
 
 class PermissionController extends Controller
 {
     public function index()
     {
-        $permissions = Permission::all();
+        $permissions = Permission::paginate(10);
         return view('admin.permissions.index', compact('permissions'));
     }
 
     public function create()
     {
-        return view('admin.permissions.create');
+        return view('admin.permissions.form');
     }
 
     public function store(Request $request)
@@ -32,7 +32,7 @@ class PermissionController extends Controller
 
     public function edit(Permission $permission)
     {
-        return view('admin.permissions.edit', compact('permission'));
+        return view('admin.permissions.form', compact('permission'));
     }
 
     public function update(Request $request, Permission $permission)
