@@ -64,23 +64,14 @@ class RolePermissionSeeder extends Seeder
             // Reports
             'view sales reports',
             'view product reports',
-
-            // Seller-specific
-            'manage own products',
-            'view own orders',
-
-            // Customer-specific
-            'place orders',
-            'view own orders',
-            'write reviews',
         ];
 
-        // Create permissions
+        // Create permissions with the 'admin' guard
         foreach ($permissions as $permission) {
-            Permission::firstOrCreate(['name' => $permission]);
+            Permission::firstOrCreate(['name' => $permission, 'guard_name' => 'admin']);
         }
 
-        // Define roles and assign permissions
+        // Define roles and assign permissions with 'admin' guard
         $roles = [
             'dev' => Permission::all(), // Dev has all permissions
             'super admin' => Permission::all(),
@@ -96,24 +87,10 @@ class RolePermissionSeeder extends Seeder
                 'view sales reports',
                 'view product reports',
             ],
-            'seller' => [
-                'create products',
-                'view own orders',
-                'manage own products',
-                'update products',
-                'delete products',
-                'upload product images',
-                'manage product inventory',
-            ],
-            'customer' => [
-                'place orders',
-                'view own orders',
-                'write reviews',
-            ],
         ];
 
         foreach ($roles as $role => $rolePermissions) {
-            $roleModel = Role::firstOrCreate(['name' => $role]);
+            $roleModel = Role::firstOrCreate(['name' => $role, 'guard_name' => 'admin']);
             $roleModel->syncPermissions($rolePermissions);
         }
 
@@ -121,6 +98,5 @@ class RolePermissionSeeder extends Seeder
     }
 }
 
-// To run
 // php artisan db:seed --class=RolePermissionSeeder
 // php artisan permission:cache-reset
