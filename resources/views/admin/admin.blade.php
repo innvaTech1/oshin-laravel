@@ -73,7 +73,7 @@
                                                         @endif
                                                     </td>
                                                     <td>
-                                                        {{-- @if ($admin->admin_type == 0) --}}
+                                                        @if ($admin->admin_type == 0)
                                                             <!-- Edit Button -->
                                                             <a href="{{ route('admin.admin.edit', $admin->id) }}"
                                                                 class="btn btn-warning btn-sm">
@@ -85,7 +85,7 @@
                                                                 onclick="deleteData({{ $admin->id }})">
                                                                 <i class="fa fa-trash" aria-hidden="true"></i>
                                                             </a>
-                                                        {{-- @endif --}}
+                                                        @endif
                                                     </td>
                                                 </tr>
                                             @endforeach
