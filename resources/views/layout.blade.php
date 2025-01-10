@@ -567,6 +567,11 @@
                 </div>
             </div>
         </div>
+
+        <!-- WhatsApp Chat Widget -->
+        <script src="https://static.elfsight.com/platform/platform.js" async></script>
+        <div class="elfsight-app-812d513a-9537-45b2-a4d7-2a7d48de4348" data-elfsight-app-lazy></div>
+
     </footer>
 
     <!--============================
