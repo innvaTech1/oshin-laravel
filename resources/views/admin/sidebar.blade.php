@@ -406,22 +406,27 @@
                         <span>{{ __('Admin list') }}</span></a></li>
             @endif
 
-            <li
-                class="nav-item dropdown {{ Route::is('admin.role.*') || Route::is('admin.permission.*') ? 'active' : '' }}">
-                <a href="#" class="nav-link has-dropdown">
-                    <i class="fas fa-user-shield"></i><span>{{ __('Role & Permissions') }}</span>
-                </a>
+            @if (auth()->guard('admin')->user() &&
+                    (auth()->guard('admin')->user()->hasRole('dev') ||
+                        auth()->guard('admin')->user()->hasRole('admin') ||
+                        auth()->guard('admin')->user()->hasRole('super admin')))
+                <li
+                    class="nav-item dropdown {{ Route::is('admin.role.*') || Route::is('admin.permission.*') ? 'active' : '' }}">
+                    <a href="#" class="nav-link has-dropdown">
+                        <i class="fas fa-user-shield"></i><span>{{ __('Role & Permissions') }}</span>
+                    </a>
 
-                <ul class="dropdown-menu">
-                    <li class="{{ Route::is('admin.role.*') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ route('admin.role.index') }}">{{ __('Roles') }}</a>
-                    </li>
-                    <li class="{{ Route::is('admin.permission.*') ? 'active' : '' }}">
-                        <a class="nav-link"
-                            href="{{ route('admin.permission.index') }}">{{ __('Permissions') }}</a>
-                    </li>
-                </ul>
-            </li>
+                    <ul class="dropdown-menu">
+                        <li class="{{ Route::is('admin.role.*') ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('admin.role.index') }}">{{ __('Roles') }}</a>
+                        </li>
+                        <li class="{{ Route::is('admin.permission.*') ? 'active' : '' }}">
+                            <a class="nav-link"
+                                href="{{ route('admin.permission.index') }}">{{ __('Permissions') }}</a>
+                        </li>
+                    </ul>
+                </li>
+            @endif
         </ul>
 
     </aside>
