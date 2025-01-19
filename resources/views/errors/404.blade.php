@@ -18,7 +18,7 @@
                         <h2>{{ $error_404->page_number }}</h2>
                         <h4>{{ $error_404->header }}</h4>
                         <p>{{ $error_404->description }}</p>
-                        <a href="{{ route('home') }}" class="common_btn">{{__('user.Go Back Home')}}</a>
+                        <a href="{{ route('home') }}" class="common_btn"> <span>{{__('user.Go Back Home')}}</span></a>
                     </div>
                 </div>
             </div>

@@ -29,7 +29,7 @@ class CustomPageController extends Controller
     {
         $rules = [
             'description' => 'required',
-            'banner_image' => 'required',
+            // 'banner_image' => 'required',
             'page_name' => 'required|unique:custom_pages',
             'slug' => 'required|unique:custom_pages',
             'status' => 'required'
