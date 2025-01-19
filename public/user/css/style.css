@@ -2177,16 +2177,16 @@ Home Features End
     position: relative;
 }
 
-/* .wsus__product_item .wsus__pro_link {
+.wsus__product_item .wsus__pro_link {
     position: relative;
     width: 100%;
     height: 170px;
     overflow: hidden;
     padding: 10px;
-} */
+}
 
 .wsus__product_item {
-    margin-top: 10px;
+    margin-top: 25px;
     position: relative;
     overflow: hidden;
     min-height: 90%;
@@ -2361,7 +2361,7 @@ Home Features End
 }
 
 .wsus__product_details .wsus__price {
-    font-size: 12px;
+    font-size: 15px;
     font-weight: 600;
     color: #1c1b1b;
     opacity: 1;
@@ -2889,7 +2889,7 @@ HOME BLOGS END
     flex-direction: column;
     overflow: hidden;
     margin-top: 20px;
-    padding: 6px;
+    padding: 10px;
     border-radius: 5px;
     /* margin: 25px 12px 0px 12px; */
     background: #fff;
@@ -3364,7 +3364,7 @@ footer {
     text-transform: uppercase;
     font-weight: 700;
     margin-bottom: 10px;
-    border-bottom: 1px solid #930A02;
+    border-bottom: 1px solid #fff;
     padding-bottom: 10px;
 }
 
