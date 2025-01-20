@@ -70,8 +70,6 @@ class SellerProductController extends Controller
         return view('seller.stockout_product', compact('products', 'setting'));
     }
 
-
-
     public function create()
     {
         $productType = request('product_type');
@@ -182,8 +180,8 @@ class SellerProductController extends Controller
 
         $product->tax_id = $request->tax_id;
         $product->is_return = $request->is_return;
-        $product->return_policy_id = $request->return_policy_id;
-        $product->warranty_policy_id = $request->warranty_policy_id;
+        $product->return_policy_id = $request->return_policy_id ?? 1;
+        $product->warranty_policy_id = $request->warranty_policy_id ?? 1;
         $product->warranty_times = $request->warranty_times;
         $product->measurement = $request->measurement;
         $product->type = session('product_type');
@@ -316,8 +314,8 @@ class SellerProductController extends Controller
 
         $product->tax_id = $request->tax_id;
         $product->is_return = $request->is_return;
-        $product->return_policy_id = $request->return_policy_id;
-        $product->warranty_policy_id = $request->warranty_policy_id;
+        $product->return_policy_id = $request->return_policy_id ?? 1;
+        $product->warranty_policy_id = $request->warranty_policy_id ?? 1;
         $product->warranty_times = $request->warranty_times;
         $product->measurement = $request->measurement;
         $product->type = session('product_type');

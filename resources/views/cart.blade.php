@@ -45,8 +45,8 @@
                                                     </th>
 
                                                     <th class="wsus__pro_icon">
-                                                        <a href="javascript:;" id="cartClear"
-                                                            class="common_btn"> <span>{{ __('user.clear cart') }}</span></a>
+                                                        <a href="javascript:;" id="cartClear" class="common_btn">
+                                                            <span>{{ __('user.clear cart') }}</span></a>
                                                     </th>
                                                 </tr>
 
@@ -114,10 +114,12 @@
                                                         <td class="wsus__pro_tk">
                                                             <h6>{{ currency_icon() }}{{ $total }} </h6>
                                                         </td>
-                                                        <td class="wsus__pro_icon">
-                                                            <a href="javascript:;"
-                                                                onclick="cartItemRemove('{{ $cartContent->rowId }}')"><i
-                                                                    class="far fa-times"></i></a>
+                                                        <td>
+                                                            <a class="btn btn-danger" href="javascript:;"
+                                                                onclick="cartItemRemove('{{ $cartContent->rowId }}')"
+                                                                data-bs-toggle="tooltip" title="Click to remove item">
+                                                                <i class="far fa-times"></i>
+                                                            </a>
                                                         </td>
                                                     </tr>
                                                 @endforeach
@@ -169,12 +171,13 @@
 
                                 <form id="couponFormId">
                                     <input type="text" name="coupon" placeholder="{{ __('Enter Coupon') }}">
-                                    <button type="submit" class="common_btn w-50"><span>{{ __('user.apply') }}</span></button>
+                                    <button type="submit"
+                                        class="common_btn w-50"><span>{{ __('user.apply') }}</span></button>
                                 </form>
-                                <a class="common_btn mt-4 w-100 text-center"
-                                    href="{{ route('checkout.checkout') }}"> <span>{{ __('user.checkout') }}</span></a>
+                                <a class="common_btn mt-4 w-100 text-center" href="{{ route('checkout.checkout') }}">
+                                    <span>{{ __('user.checkout') }}</span></a>
                                 <a class="common_btn mt-4 w-100 text-center" href="{{ route('product') }}"> <span><i
-                                        class="fab fa-shopify"></i> {{ __('user.go to shop') }}</span></a>
+                                            class="fab fa-shopify"></i> {{ __('user.go to shop') }}</span></a>
                             </div>
                         </div>
                     </div>
@@ -197,7 +200,8 @@
                                     <div class="wsus__single_banner_text">
                                         <h6>{{ $bannerOne->description }}</h6>
                                         <h3>{{ $bannerOne->title }}</h3>
-                                        <a class="shop_btn" href="{{ $bannerOne->link }}"><span>{{ __('user.shop now') }}</span></a>
+                                        <a class="shop_btn"
+                                            href="{{ $bannerOne->link }}"><span>{{ __('user.shop now') }}</span></a>
                                     </div>
                                 </div>
                             </div>
@@ -209,7 +213,8 @@
                                     <div class="wsus__single_banner_text">
                                         <h6>{{ $bannerTwo->description }}</h6>
                                         <h3>{{ $bannerTwo->title }}</h3>
-                                        <a class="shop_btn" href="{{ $bannerTwo->link }}"> <span>{{ __('user.shop now') }}</span></a>
+                                        <a class="shop_btn" href="{{ $bannerTwo->link }}">
+                                            <span>{{ __('user.shop now') }}</span></a>
                                     </div>
                                 </div>
                             </div>
@@ -230,8 +235,8 @@
                         <div class="col-xl-12">
                             <div class="wsus__cart_list cart_empty p-3 p-sm-5 text-center">
                                 <p class="mb-4">{{ __('user.your shopping cart is empty') }}</p>
-                                <a href="{{ route('product') }}" class="common_btn"><span><i
-                                        class="fal fa-store me-2"></i>{{ __('user.Go to Shop') }}</span></a>
+                                <a href="{{ route('product') }}" class="btn btn-lg btn-danger"><span><i
+                                            class="fal fa-store me-2"></i>{{ __('user.Go to Shop') }}</span></a>
                             </div>
                         </div>
                     </div>

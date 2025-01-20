@@ -198,8 +198,8 @@ class ProductController extends Controller
         $product->is_flash_deal = $request->is_flash_deal ? 1 : 0;
         $product->tax_id = $request->tax_id;
         $product->is_return = $request->is_return;
-        $product->return_policy_id = $request->return_policy_id;
-        $product->warranty_policy_id = $request->warranty_policy_id;
+        $product->return_policy_id = $request->return_policy_id ?? 1;
+        $product->warranty_policy_id = $request->warranty_policy_id ?? 1;
         $product->warranty_times = $request->warranty_times;
         $product->measurement = $request->measurement;
         $product->type = session('product_type');
@@ -348,8 +348,8 @@ class ProductController extends Controller
         $product->tags = $request->tags;
         $product->tax_id = $request->tax_id;
         $product->is_return = $request->is_return;
-        $product->return_policy_id = $request->return_policy_id;
-        $product->warranty_policy_id = $request->warranty_policy_id;
+        $product->return_policy_id = $request->return_policy_id ?? 1;
+        $product->warranty_policy_id = $request->warranty_policy_id ?? 1;
         $product->warranty_times = $request->warranty_times;
         $product->measurement = $request->measurement;
 

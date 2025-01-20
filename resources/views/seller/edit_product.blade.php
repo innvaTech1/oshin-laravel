@@ -318,7 +318,7 @@
                                             </select>
                                         </div>
 
-                                        <div class="form-group col-12">
+                                        {{-- <div class="form-group col-12">
                                             <label>{{ __('Return Policy') }}</label>
                                             <select name="return_policy_id" class="form-control">
                                                 <option value="">{{ __('Select Policy') }}</option>
@@ -330,6 +330,7 @@
                                                 @endforeach
                                             </select>
                                         </div>
+                                        
                                         <div class="form-group col-12">
                                             <label>{{ __('Warranty Policy') }}</label>
                                             <select name="warranty_policy_id" class="form-control">
@@ -341,7 +342,7 @@
                                                     </option>
                                                 @endforeach
                                             </select>
-                                        </div>
+                                        </div> --}}
 
                                         <div class="form-group col-12">
                                             <label>{{ __('Warranty Time') }} (Months)</label>
