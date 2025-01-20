@@ -169,7 +169,7 @@
 
                                 <form id="couponFormId">
                                     <input type="text" name="coupon" placeholder="{{ __('Enter Coupon') }}">
-                                    <button type="submit" class="common_btn"><span>{{ __('user.apply') }}</span></button>
+                                    <button type="submit" class="common_btn w-50"><span>{{ __('user.apply') }}</span></button>
                                 </form>
                                 <a class="common_btn mt-4 w-100 text-center"
                                     href="{{ route('checkout.checkout') }}"> <span>{{ __('user.checkout') }}</span></a>
