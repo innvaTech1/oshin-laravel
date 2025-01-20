@@ -26,9 +26,6 @@
     </div>
 </div>
 
-
-
-
 <script src="{{ asset('backend/js/popper.min.js') }}"></script>
 <script src="{{ asset('backend/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('backend/datatables/jquery.dataTables.min.js') }}"></script>
@@ -39,6 +36,7 @@
 <script src="{{ asset('backend/js/scripts.js') }}"></script>
 <script src="{{ asset('backend/js/custom.js') }}"></script>
 <script src="{{ asset('backend/js/select2.min.js') }}"></script>
+<script src="{{ asset('backend/js/sweetalert2.min.js') }}"></script>
 <script src="{{ asset('backend/js/tagify.js') }}"></script>
 <script src="{{ asset('toastr/toastr.min.js') }}"></script>
 <script src="{{ asset('backend/js/bootstrap4-toggle.min.js') }}"></script>
@@ -79,8 +77,6 @@
     @endforeach
 @endif
 
-
-
 <script>
     (function($) {
         "use strict";
@@ -113,13 +109,8 @@
             $('.clockpicker').clockpicker();
 
         });
-
-
     })(jQuery);
 </script>
-
-
-
 
 {{-- sidebar scroll to previous position --}}
 <script>
@@ -149,7 +140,6 @@
 </script>
 
 @stack('js')
-
 </body>
 
 </html>

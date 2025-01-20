@@ -315,31 +315,33 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::get('profile', [AdminProfileController::class, 'index'])->name('profile');
         Route::put('profile-update', [AdminProfileController::class, 'update'])->name('profile.update');
 
+        
         Route::resource('product-category', ProductCategoryController::class);
         Route::put('product-category-status/{id}', [ProductCategoryController::class, 'changeStatus'])->name('product.category.status');
-
+        
         Route::resource('product-sub-category', ProductSubCategoryController::class);
         Route::put('product-sub-category-status/{id}', [ProductSubCategoryController::class, 'changeStatus'])->name('product.sub.category.status');
-
+        
         Route::resource('product-child-category', ProductChildCategoryController::class);
         Route::put('product-child-category-status/{id}', [ProductChildCategoryController::class, 'changeStatus'])->name('product.child.category.status');
         Route::get('subcategory-by-category/{id}', [ProductChildCategoryController::class, 'getSubcategoryByCategory'])->name('subcategory-by-category');
         Route::get('childcategory-by-subcategory/{id}', [ProductChildCategoryController::class, 'getChildcategoryBySubCategory'])->name('childcategory-by-subcategory');
-
+        
         Route::resource('product-brand', ProductBrandController::class);
         Route::put('product-brand-status/{id}', [ProductBrandController::class, 'changeStatus'])->name('product.brand.status');
 
         Route::resource('product-tax', ProductTaxController::class);
         Route::put('product-tax-status/{id}', [ProductTaxController::class, 'changeStatus'])->name('product.tax.status');
-
+        
         Route::resource('return-policy', ReturnPolicyController::class);
         Route::put('return-policy-status/{id}', [ReturnPolicyController::class, 'changeStatus'])->name('return-policy.status');
-
+        
         Route::resource('specification-key', SpecificationKeyController::class);
         Route::put('specification-key-status/{id}', [SpecificationKeyController::class, 'changeStatus'])->name('specification-key.status');
-
+        
         // Route::get(ProductController::class);
         Route::resource('product', ProductController::class);
+        Route::post('product/bulk-delete', [ProductController::class, 'bulkDelete'])->name('product.bulk-delete');
         Route::put('product-status/{id}', [ProductController::class, 'changeStatus'])->name('product.status');
         Route::put('removed-product-exist-specification/{id}', [ProductController::class, 'removedProductExistSpecification'])->name('removed-product-exist-specification');
         Route::get('seller-product', [ProductController::class, 'sellerProduct'])->name('seller-product');

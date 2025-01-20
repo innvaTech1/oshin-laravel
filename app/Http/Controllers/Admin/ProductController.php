@@ -521,4 +521,42 @@ class ProductController extends Controller
             return redirect()->back()->with($notification);
         }
     }
+
+    public function bulkDelete(Request $request)
+    {
+        $ids = $request->ids;
+
+        if (!empty($ids)) {
+            foreach ($ids as $id) {
+                $product = Product::find($id);
+                if ($product) {
+                    $gallery = $product->gallery;
+                    $old_thumbnail = $product->thumb_image;
+
+                    $product->delete();
+                    file_delete($old_thumbnail);
+
+                    foreach ($gallery as $image) {
+                        $old_image = $image->image;
+                        $image->delete();
+                        file_delete($old_image);
+                    }
+
+                    ProductVariant::where('product_id', $id)->delete();
+                    ProductVariantItem::where('product_id', $id)->delete();
+                    CampaignProduct::where('product_id', $id)->delete();
+                    ProductReport::where('product_id', $id)->delete();
+                    ProductReview::where('product_id', $id)->delete();
+                    ProductSpecification::where('product_id', $id)->delete();
+                    Wishlist::where('product_id', $id)->delete();
+                }
+            }
+
+            // Return a success response
+            return response()->json(['success' => trans('admin_validation.Delete Successfully')]);
+        }
+
+        // Return an error if no IDs are selected
+        return response()->json(['error' => trans('admin_validation.No products selected')], 400);
+    }
 }
