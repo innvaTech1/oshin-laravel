@@ -10,7 +10,6 @@ use App\Http\Controllers\Controller;
 
 class ProductBrandController extends Controller
 {
-
     public function __construct()
     {
         $this->middleware('auth:admin');
@@ -26,7 +25,6 @@ class ProductBrandController extends Controller
     {
         return view('admin.create_product_brand');
     }
-
 
     public function store(Request $request)
     {
@@ -70,13 +68,11 @@ class ProductBrandController extends Controller
         return redirect()->route('admin.product-brand.index')->with($notification);
     }
 
-
     public function edit($id)
     {
         $brand = Brand::find($id);
         return view('admin.edit_product_brand', compact('brand'));
     }
-
 
     public function update(Request $request, $id)
     {
