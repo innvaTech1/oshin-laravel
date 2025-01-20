@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use Str;
+use File;
+use Image;
 use App\Models\Brand;
 use Illuminate\Http\Request;
-use  Image;
-use File;
-use Str;
+use App\Http\Controllers\Controller;
 
 class ProductBrandController extends Controller
 {
-
     public function __construct()
     {
         $this->middleware('auth:admin-api');
@@ -112,7 +111,9 @@ class ProductBrandController extends Controller
             $brand->logo = $logo_name;
             $brand->save();
             if ($old_logo) {
-                if (File::exists(public_path() . '/' . $old_logo)) unlink(public_path() . '/' . $old_logo);
+                if (File::exists(public_path() . '/' . $old_logo)) {
+                    unlink(public_path() . '/' . $old_logo);
+                }
             }
         }
 
@@ -133,7 +134,9 @@ class ProductBrandController extends Controller
         $old_logo = $brand->logo;
         $brand->delete();
         if ($old_logo) {
-            if (File::exists(public_path() . '/' . $old_logo)) unlink(public_path() . '/' . $old_logo);
+            if (File::exists(public_path() . '/' . $old_logo)) {
+                unlink(public_path() . '/' . $old_logo);
+            }
         }
 
         $notification = trans('admin_validation.Delete Successfully');
