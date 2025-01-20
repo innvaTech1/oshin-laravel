@@ -67,7 +67,7 @@
                                                                 <textarea cols="3" name="review" rows="3" placeholder="{{ $review->review }}">{{ $review->review }}</textarea>
                                                             </div>
                                                             <button type="submit"
-                                                                class="common_btn">{{ __('user.Update') }}</button>
+                                                                class="common_btn"><span>{{ __('user.Update') }}</span></button>
                                                         </form>
                                                     </div>
                                                 </div>

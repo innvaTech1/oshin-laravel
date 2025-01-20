@@ -224,7 +224,7 @@
                                     </div>
                                 </div>
                                 <button type="button"
-                                    class="common_btn place_order">{{ __('user.Place Order') }}</button>
+                                    class="common_btn place_order"> <span>{{ __('user.Place Order') }}</span></button>
                             </div>
                         </div>
                     </div>

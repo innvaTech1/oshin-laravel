@@ -295,7 +295,7 @@
                                             @foreach ($compare_contents as $compare_content)
                                                 <td class="wsus__compare_text">
                                                     <a href="{{ route('product-detail', $compare_content->options->product->slug) }}"
-                                                        class="common_btn">{{ __('user.Add to cart') }}</a>
+                                                        class="common_btn"> <span>{{ __('user.Add to cart') }}</span></a>
                                                 </td>
                                             @endforeach
 
@@ -328,8 +328,8 @@
                     <div class="col-xl-12">
                         <div class="wsus__cart_list cart_empty p-3 p-sm-5 text-center">
                             <p class="mb-4">{{ __('user.your compare list is empty') }}</p>
-                            <a href="{{ route('product') }}" class="common_btn"><i
-                                    class="fal fa-store me-2"></i>{{ __('user.Go to Shop') }}</a>
+                            <a href="{{ route('product') }}" class="common_btn"> <span><i
+                                    class="fal fa-store me-2"></i>{{ __('user.Go to Shop') }}</span></a>
                         </div>
                     </div>
                 </div>

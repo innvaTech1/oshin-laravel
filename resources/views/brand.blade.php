@@ -7,20 +7,16 @@
 @endsection
 
 @section('public-content')
-
-
-  
     <!--============================
-        BRANDS PAGE START
-    ==============================-->
+                BRANDS PAGE START
+            ==============================-->
     <section id="wsus__brands">
         <div class="container">
             <div class="row">
                 @foreach ($brands as $brand)
                     <div class="col-xl-2 col-sm-4 col-lg-2 col-4">
-                        <a href="{{ route('product',['brand' => $brand->slug]) }}" class="wsus__single_brand">
-                            <img src="{{ asset($brand->logo) }}" alt="brand"
-                            class="img-fluid w-100">
+                        <a href="{{ route('product', ['brand' => $brand->slug]) }}" class="wsus__single_brand">
+                            <img src="{{ asset($brand->logo) }}" alt="brand" class="img-fluid w-100">
                             {{-- <span class="new">{{ $brand->name }}</span> --}}
                             <span class="rating">{{ $brand->rating }} <i class="fas fa-star"></i></span>
                         </a>
@@ -34,7 +30,6 @@
         </div>
     </section>
     <!--============================
-        BRANDS PAGE END
-    ==============================-->
-
+                BRANDS PAGE END
+            ==============================-->
 @endsection

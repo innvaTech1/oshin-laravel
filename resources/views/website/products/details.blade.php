@@ -168,8 +168,8 @@
                             <input type="hidden" name="slug" value="{{ $product->slug }}">
 
                             <ul class="wsus__button_area">
-                                <li><button type="submit" class="add_cart">{{ __('user.add to cart') }}</button></li>
-                                <li><a class="buy_now" href="javascript:;" id="buyNowBtn">{{ __('user.buy now') }}</a>
+                                <li><button type="submit" class="add_cart"><span>{{ __('user.add to cart') }}</span></button></li>
+                                <li><a class="buy_now" href="javascript:;" id="buyNowBtn"><span>{{ __('user.buy now') }}</span></a>
                                 </li>
                                 <li><a href="javascript:;" onclick="addToWishlist('{{ $product->id }}')"><i
                                             class="fal fa-heart"></i></a></li>
@@ -220,14 +220,13 @@
                                     }
                                 }
                             @endphp
+
                             @if ($isExist)
                                 <a class="wsus__pro_report" href="#" data-bs-toggle="modal"
                                     data-bs-target="#productReportModal"><i class="fal fa-comment-alt-smile"></i>
                                     {{ __('user.Report incorrect product information') }}</a>
                             @endif
-
                         @endauth
-
                     </div>
 
                     {{-- <!--==========================
@@ -264,7 +263,7 @@
                                                             </div>
 
                                                             <button type="submit"
-                                                                class="common_btn">{{ __('user.submit') }}</button>
+                                                                class="common_btn"><span>{{ __('user.submit') }}</span></button>
                                                         </form>
                                                     </div>
                                                 </div>
@@ -325,7 +324,7 @@
                                     <div class="wsus__det_sidebar_banner_text">
                                         <p>{{ $banner->title }}</p>
                                         <h4>{{ $banner->description }}</h4>
-                                        <a href="{{ $banner->link }}" class="common_btn">{{ __('user.shop now') }}</a>
+                                        <a href="{{ $banner->link }}" class="common_btn"><span>{{ __('user.shop now') }}</span></a>
                                     </div>
                                 </div>
                             </div>
@@ -478,9 +477,9 @@
                                                     <p><span>{{ __('user.Phone') }}:</span> {{ $user->phone }}</p>
                                                     <p><span>{{ __('user.mail') }}:</span> {{ $user->email }}</p>
                                                     <a href="{{ route('seller-detail', ['shop_name' => $user->seller->slug]) }}"
-                                                        class="see_btn">{{ __('user.visit store') }}</a>
+                                                        class="see_btn"><span>{{ __('user.visit store') }}</span></a>
                                                     <a href="{{ route('user.chat-with-seller', $user->seller->slug) }}"
-                                                        class="see_btn">{{ __('user.Chat with Seller') }}</a>
+                                                        class="see_btn"><span>{{ __('user.Chat with Seller') }}</span></a>
                                                 </div>
                                             </div>
                                             <div class="col-xl-12">
@@ -570,7 +569,7 @@
 
                                                         @auth
                                                             <button class="common_btn"
-                                                                type="submit">{{ __('user.submit review') }}</button>
+                                                                type="submit"><span>{{ __('user.submit review') }}</span></button>
                                                         @else
                                                             <a class="login_link"
                                                                 href="{{ route('login') }}">{{ __('user.Before submit review, please login first') }}</a>
@@ -603,7 +602,7 @@
                     <div class="col-xl-12">
                         <div class="wsus__section_header">
                             <h3>Related Products</h3>
-                            <a class="see_btn" href="#">see more <i class="fas fa-caret-right"></i></a>
+                            <a class="see_btn" href="#"><span>see more <i class="fas fa-caret-right"></i></span></a>
                         </div>
                     </div>
                 </div>

@@ -288,7 +288,7 @@
                                         <span>{{ currency_icon() }}{{ $total_price }}</span>
                                     </p>
                                 </div>
-                                <button type="submit" class="common_btn">{{ __('user.Continue Shopping') }}</button>
+                                <button type="submit" class="common_btn"><span>{{ __('user.Continue Shopping') }}</span></button>
                             </div>
                         </div>
                     </div>

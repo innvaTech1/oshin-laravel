@@ -1,106 +1,95 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
-use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\Auth\AdminLoginController;
-use App\Http\Controllers\Admin\Auth\AdminForgotPasswordController;
-use App\Http\Controllers\Admin\AdminProfileController;
-use App\Http\Controllers\Admin\ProductCategoryController;
-use App\Http\Controllers\Admin\ProductSubCategoryController;
-use App\Http\Controllers\Admin\ProductChildCategoryController;
-use App\Http\Controllers\Admin\ProductBrandController;
-use App\Http\Controllers\Admin\ProductTaxController;
-use App\Http\Controllers\Admin\ReturnPolicyController;
-use App\Http\Controllers\Admin\SpecificationKeyController;
-use App\Http\Controllers\Admin\ProductController;
-use App\Http\Controllers\Admin\ProductGalleryController;
-use App\Http\Controllers\Admin\ServiceController;
-use App\Http\Controllers\Admin\AboutUsController;
-use App\Http\Controllers\Admin\ContactPageController;
-use App\Http\Controllers\Admin\CustomPageController;
-use App\Http\Controllers\Admin\TermsAndConditionController;
-use App\Http\Controllers\Admin\PrivacyPolicyController;
-use App\Http\Controllers\Admin\BlogCategoryController;
-use App\Http\Controllers\Admin\BlogController;
-use App\Http\Controllers\Admin\PopularBlogController;
-use App\Http\Controllers\Admin\BlogCommentController;
-use App\Http\Controllers\Admin\ProductVariantController;
-use App\Http\Controllers\Admin\ProductVariantItemController;
-use App\Http\Controllers\Admin\SettingController;
-use App\Http\Controllers\Admin\CampaignController;
-use App\Http\Controllers\Admin\CampaignProductController;
-use App\Http\Controllers\Admin\SubscriberController;
-use App\Http\Controllers\Admin\ContactMessageController;
-use App\Http\Controllers\Admin\EmailConfigurationController;
-use App\Http\Controllers\Admin\EmailTemplateController;
-use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PreOrderController;
 use App\Http\Controllers\Admin\FaqController;
-use App\Http\Controllers\Admin\ProductReviewController;
-use App\Http\Controllers\Admin\CustomerController;
-use App\Http\Controllers\Admin\ErrorPageController;
+use App\Http\Controllers\Admin\PosController;
+use App\Http\Controllers\WholesaleController;
+use App\Http\Controllers\Admin\BlogController;
+use App\Http\Controllers\Admin\CityController;
+use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\GiftCornerController;
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\User\PaypalController;
+use App\Http\Controllers\Admin\CouponController;
+use App\Http\Controllers\Admin\FooterController;
+use App\Http\Controllers\Admin\SellerController;
+use App\Http\Controllers\Admin\SliderController;
+use App\Http\Controllers\User\MessageController;
+use App\Http\Controllers\User\PaymentController;
+use App\Http\Controllers\Admin\AboutUsController;
 use App\Http\Controllers\Admin\ContentController;
 use App\Http\Controllers\Admin\CountryController;
-use App\Http\Controllers\Admin\CountryStateController;
-use App\Http\Controllers\Admin\CityController;
-use App\Http\Controllers\Admin\PaymentMethodController;
-use App\Http\Controllers\Admin\SellerController;
-use App\Http\Controllers\Admin\MegaMenuController;
-use App\Http\Controllers\Admin\MegaMenuSubCategoryController;
-use App\Http\Controllers\Admin\SliderController;
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ServiceController;
+use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\User\CheckoutController;
+use App\Http\Controllers\Admin\CampaignController;
+use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\HomePageController;
+use App\Http\Controllers\Admin\LanguageController;
+use App\Http\Controllers\Admin\MegaMenuController;
+use App\Http\Controllers\Auth\SocialiteController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\ErrorPageController;
+use App\Http\Controllers\Admin\InventoryController;
+use App\Http\Controllers\Seller\WithdrawController;
+use App\Http\Controllers\Admin\BreadcrumbController;
+use App\Http\Controllers\Admin\CustomPageController;
+use App\Http\Controllers\Admin\FooterLinkController;
+use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\Admin\ProductTaxController;
+use App\Http\Controllers\Admin\SubscriberController;
+use App\Http\Controllers\User\UserProfileController;
+use App\Http\Controllers\Admin\BlogCommentController;
+use App\Http\Controllers\Admin\ContactPageController;
+use App\Http\Controllers\Admin\PopularBlogController;
+use App\Http\Controllers\Admin\AdminProfileController;
+use App\Http\Controllers\Admin\BlogCategoryController;
+use App\Http\Controllers\Admin\CountryStateController;
+use App\Http\Controllers\Admin\ProductBrandController;
+use App\Http\Controllers\Admin\ReturnPolicyController;
+use App\Http\Controllers\Seller\SellerOrderController;
+use App\Http\Controllers\Admin\AdvertisementController;
+use App\Http\Controllers\Admin\EmailTemplateController;
+use App\Http\Controllers\Admin\PaymentMethodController;
+use App\Http\Controllers\Admin\PrivacyPolicyController;
+use App\Http\Controllers\Admin\ProductReportController;
+use App\Http\Controllers\Admin\ProductReviewController;
+use App\Http\Controllers\Seller\SellerMessageContoller;
+use App\Http\Controllers\Admin\ContactMessageController;
+use App\Http\Controllers\Admin\MenuVisibilityController;
+use App\Http\Controllers\Admin\ProductGalleryController;
+use App\Http\Controllers\Admin\ProductVariantController;
+use App\Http\Controllers\Admin\SellerWithdrawController;
 use App\Http\Controllers\Admin\ShippingMethodController;
 use App\Http\Controllers\Admin\WithdrawMethodController;
-use App\Http\Controllers\Admin\SellerWithdrawController;
-use App\Http\Controllers\Admin\ProductReportController;
-use App\Http\Controllers\Admin\OrderController;
-use App\Http\Controllers\Admin\CouponController;
-use App\Http\Controllers\Admin\BreadcrumbController;
-use App\Http\Controllers\Admin\FooterController;
-use App\Http\Controllers\Admin\FooterSocialLinkController;
-use App\Http\Controllers\Admin\FooterLinkController;
-use App\Http\Controllers\Admin\HomepageVisibilityController;
-use App\Http\Controllers\Admin\MenuVisibilityController;
-use App\Http\Controllers\Admin\LanguageController;
-use App\Http\Controllers\Admin\AdvertisementController;
-
-
-
-
-use App\Http\Controllers\Seller\SellerDashboardController;
-use App\Http\Controllers\Seller\SellerProfileController;
 use App\Http\Controllers\Seller\SellerProductController;
+use App\Http\Controllers\Seller\SellerProfileController;
+use App\Http\Controllers\Admin\Auth\AdminLoginController;
+use App\Http\Controllers\Admin\CampaignProductController;
+use App\Http\Controllers\Admin\ProductCategoryController;
+use App\Http\Controllers\Admin\FooterSocialLinkController;
+use App\Http\Controllers\Admin\SpecificationKeyController;
+use App\Http\Controllers\Seller\SellerDashboardController;
+use App\Http\Controllers\Admin\TermsAndConditionController;
+use App\Http\Controllers\Admin\EmailConfigurationController;
+use App\Http\Controllers\Admin\HomepageVisibilityController;
+use App\Http\Controllers\Admin\ProductSubCategoryController;
+use App\Http\Controllers\Admin\ProductVariantItemController;
+use App\Http\Controllers\Admin\MegaMenuSubCategoryController;
+use App\Http\Controllers\Seller\SellerProductReportControler;
+use App\Http\Controllers\Admin\ProductChildCategoryController;
+use App\Http\Controllers\Seller\SellerProductReviewController;
 use App\Http\Controllers\Seller\SellerProductGalleryController;
 use App\Http\Controllers\Seller\SellerProductVariantController;
+use App\Http\Controllers\Admin\Auth\AdminForgotPasswordController;
 use App\Http\Controllers\Seller\SellerProductVariantItemController;
-use App\Http\Controllers\Seller\SellerProductReviewController;
-use App\Http\Controllers\Seller\WithdrawController;
-use App\Http\Controllers\Seller\SellerProductReportControler;
-use App\Http\Controllers\Seller\SellerOrderController;
-use App\Http\Controllers\Seller\SellerMessageContoller;
-
-
-
-
-
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\CartController;
-use App\Http\Controllers\User\UserProfileController;
-use App\Http\Controllers\User\CheckoutController;
-use App\Http\Controllers\User\PaymentController;
-use App\Http\Controllers\User\PaypalController;
-use App\Http\Controllers\User\MessageController;
-
-
-
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\Admin\InventoryController;
-use App\Http\Controllers\Admin\PosController;
-use App\Http\Controllers\Auth\SocialiteController;
-use App\Http\Controllers\GiftCornerController;
-use App\Http\Controllers\PreOrderController;
-use App\Http\Controllers\WholesaleController;
 
 Route::group(['middleware' => ['XSS']], function () {
 
@@ -115,7 +104,7 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::get('/blog-by-category/{slug}', [HomeController::class, 'blogByCategory'])->name('blog-by-category');
         Route::get('/search-blog', [HomeController::class, 'blogSearch'])->name('search-blog');
         Route::post('/blog-comment', [HomeController::class, 'blogComment'])->name('blog-comment');
-        Route::get('/campaign', [HomeController::class, 'campaign'])->name('campaign');
+        Route::get('/campaigns', [HomeController::class, 'campaign'])->name('campaigns');
         Route::get('/campaign-detail/{slug}', [HomeController::class, 'campaignDetail'])->name('campaign-detail');
         Route::get('/brand', [HomeController::class, 'brand'])->name('brand');
         Route::get('/track-order', [HomeController::class, 'trackOrder'])->name('track-order');
@@ -257,7 +246,6 @@ Route::group(['middleware' => ['XSS']], function () {
 
             Route::get('subcategory-by-category/{id}', [SellerProductController::class, 'getSubcategoryByCategory'])->name('subcategory-by-category');
             Route::get('childcategory-by-subcategory/{id}', [SellerProductController::class, 'getChildcategoryBySubCategory'])->name('childcategory-by-subcategory');
-
 
             Route::get('product-variant/{id}', [SellerProductVariantController::class, 'index'])->name('product-variant');
             Route::get('create-product-variant/{id}', [SellerProductVariantController::class, 'create'])->name('create-product-variant');
@@ -682,5 +670,8 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::get('website-validation-language', [LanguageController::class, 'websiteValidationLanguage'])->name('website-validation-language');
         Route::post('update-validation-language', [LanguageController::class, 'updateValidationLanguage'])->name('update-validation-language');
     });
+
+    Route::resource('admin/role', RoleController::class)->names('admin.role');
+    Route::resource('admin/permission', PermissionController::class)->names('admin.permission');
 });
 // end admin routes

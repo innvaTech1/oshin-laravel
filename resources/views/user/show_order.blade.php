@@ -182,8 +182,8 @@
                         <p><span>{{ __('user.Total Amount') }}:</span> {{ currency_icon() }}
                             {{ $order->total_amount }} </p>
                     </div>
-                    <a onclick="window.print()" href="javascript:;" class="invoice_print common_btn mt-3"><i
-                            class="fal fa-print"></i> {{ __('user.print') }}</a>
+                    <a onclick="window.print()" href="javascript:;" class="invoice_print common_btn mt-3"><span><i
+                            class="fal fa-print"></i>{{ __('user.print') }}</span></a>
                 </div>
             </div>
         </div>

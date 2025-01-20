@@ -39,7 +39,7 @@
                                 <a class="deals_title" href="{{ route('campaign-detail',$campaign->slug) }}">{{ $campaign->name }}</a>
                                 <p>{{__('user.sale start date')}}: {{ date('d F Y', strtotime($campaign->start_date)) }}</p>
                                 <p>{{__('user.sale end date')}}: {{ date('d F Y', strtotime($campaign->end_date)) }}</p>
-                                <a class="common_btn" href="{{ route('campaign-detail',$campaign->slug) }}">{{__('user.view deals')}}</a>
+                                <a class="common_btn" href="{{ route('campaign-detail',$campaign->slug) }}"> <span>{{__('user.view deals')}}</span></a>
                             </div>
                         </div>
                     </div>

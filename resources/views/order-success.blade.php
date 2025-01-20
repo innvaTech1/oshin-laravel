@@ -9,13 +9,13 @@
 @section('public-content')
     <style>
         .success-body {
+            margin-top: 40px;
             text-align: center;
-            padding: 40px 0;
-            background: #EBF0F5;
+            padding: 50px 0px;
         }
 
         .success-body .order-success {
-            color: #88B04B;
+            color: #9ABC66;
             font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
             font-weight: 900;
             font-size: 40px;

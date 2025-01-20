@@ -141,7 +141,7 @@
                                 <li><a href="{{ route('gift-corner') }}">{{ __('Gift Corner') }}</a></li>
                                 <li><a href="{{ route('wholesale') }}">{{ __('Wholesale') }}</a></li>
                                 <li><a href="{{ route('pre-order') }}">{{ __('Pre-Order') }}</a></li>
-                                <li><a href="{{ route('campaign') }}">{{ __('Campaign') }}</a></li>
+                                <li><a href="{{ route('campaigns') }}">{{ __('Campaigns') }}</a></li>
                             </ul>
                         </div>
                     </div>

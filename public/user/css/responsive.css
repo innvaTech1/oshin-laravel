@@ -32,6 +32,9 @@
   .add_address_btn {
     margin-top: 0;
   }
+  .wsus__banner_content{
+    margin-left: 40px;
+  }
 }
 
 @media (min-width: 1200px) and (max-width: 1399.99px) {

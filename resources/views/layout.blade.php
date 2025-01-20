@@ -195,9 +195,9 @@
                                     @else
                                         <li><a href="{{ route('product', ['category' => $productCategory->slug]) }}"
                                                 class="accordion-button collapsed" data-bs-toggle="collapse"
-                                                data-bs-target="#flush-collapseThreew-{{ $productCategory->id }}"
+                                                data-bs-target="#flush-collapse-{{ $productCategory->id }}"
                                                 aria-expanded="false"
-                                                aria-controls="flush-collapseThreew-{{ $productCategory->id }}"><i
+                                                aria-controls="flush-collapse-{{ $productCategory->id }}"><i
                                                     class="{{ $productCategory->icon }}"></i>
                                                 {{ $productCategory->name }}</a>
                                             <div id="flush-collapseThreew-{{ $productCategory->id }}"
@@ -410,7 +410,7 @@
                             <li><a href="">{{ __('Gift Corner') }}</a></li>
                             <li><a href="">{{ __('Wholesale') }}</a></li>
                             <li><a href="">{{ __('Pre-Order') }}</a></li>
-                            <li><a href="">{{ __('Campaign') }}</a></li>
+                            <!-- <li><a href="">{{ __('Campaign') }}</a></li> -->
 
                         </ul>
                     </div>
@@ -541,6 +541,9 @@
                 </div>
             </div>
         </div>
+        <div class="separate_border">
+            <hr>
+        </div>
         <div class="wsus__footer_bottom">
             <div class="container">
                 <div class="row">
@@ -564,6 +567,23 @@
                 </div>
             </div>
         </div>
+
+        <!--Start of Tawk.to Script-->
+        <script type="text/javascript">
+            var Tawk_API = Tawk_API || {},
+                Tawk_LoadStart = new Date();
+            (function() {
+                var s1 = document.createElement("script"),
+                    s0 = document.getElementsByTagName("script")[0];
+                s1.async = true;
+                s1.src = 'https://embed.tawk.to/678d468a825083258e078d96/1ihvtn3jj';
+                s1.charset = 'UTF-8';
+                s1.setAttribute('crossorigin', '*');
+                s0.parentNode.insertBefore(s1, s0);
+            })();
+        </script>
+        <!--End of Tawk.to Script-->
+
     </footer>
 
     <!--============================
