@@ -28,7 +28,6 @@ class ProductBrandController extends Controller
         return view('admin.create_product_brand');
     }
 
-
     public function store(Request $request)
     {
         $rules = [
@@ -67,8 +66,6 @@ class ProductBrandController extends Controller
         return response()->json(['message' => $notification], 200);
     }
 
-
-
     public function show($id)
     {
         $brand = Brand::find($id);
@@ -80,7 +77,6 @@ class ProductBrandController extends Controller
         $brand = Brand::find($id);
         return view('admin.edit_product_brand', compact('brand'));
     }
-
 
     public function update(Request $request, $id)
     {
@@ -126,7 +122,6 @@ class ProductBrandController extends Controller
         $notification = trans('admin_validation.Update Successfully');
         return response()->json(['message' => $notification], 200);
     }
-
 
     public function destroy($id)
     {
