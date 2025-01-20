@@ -20,13 +20,13 @@
                 <ul class="navbar-nav navbar-right">
                     <li class="dropdown dropdown-list-toggle"><a target="_blank" href="{{ route('home') }}"
                             class="nav-link nav-link-lg"><i class="fas fa-home"></i> {{ __('Visit Website') }}</i></a>
-
                     </li>
 
                     @php
                         $header_admin = Auth::guard('admin')->user();
                         $defaultProfile = App\Models\BannerImage::whereId('15')->first();
                     @endphp
+
                     <li class="dropdown"><a href="#" data-toggle="dropdown"
                             class="nav-link dropdown-toggle nav-link-lg nav-link-user">
                             @if ($header_admin->image)
@@ -38,37 +38,28 @@
                             <div class="d-sm-none d-lg-inline-block">{{ $header_admin->name }}</div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
-
                             <a href="{{ route('admin.profile') }}" class="dropdown-item has-icon">
                                 <i class="far fa-user"></i> {{ __('Profile') }}
                             </a>
                             <div class="dropdown-divider"></div>
                             <a href="{{ route('admin.logout') }}" class="dropdown-item has-icon text-danger"
-                                onclick="event.preventDefault();
-              document.getElementById('admin-logout-form').submit();">
-                                <i class="fas fa-sign-out-alt"></i> {{ __('Logout') }}
-                            </a>
+                                onclick="event.preventDefault(); document.getElementById('admin-logout-form').submit();"><i
+                                    class="fas fa-sign-out-alt"></i> {{ __('Logout') }}</a>
+
                             {{-- start admin logout form --}}
                             <form id="admin-logout-form" action="{{ route('admin.logout') }}" method="POST"
                                 class="d-none">
                                 @csrf
                             </form>
                             {{-- end admin logout form --}}
-
-
                         </div>
                     </li>
                 </ul>
             </nav>
 
-
-
-
             @include('admin.sidebar')
 
             @yield('admin-content')
-
-
 
             <footer class="main-footer">
                 <div class="footer-left">

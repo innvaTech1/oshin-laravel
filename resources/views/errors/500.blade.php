@@ -18,7 +18,7 @@
                         <h2>{{ $error_500->page_number }}</h2>
                         <h4>{{ $error_500->header }}</h4>
                         <p>{{ $error_500->description }}</p>
-                        <a href="{{ route('home') }}" class="common_btn"><span>{{__('user.Go Back Home')}}</span></a>
+                        <a href="{{ route('home') }}" class="common_btn">{{__('user.Go Back Home')}}</a>
                     </div>
                 </div>
             </div>
