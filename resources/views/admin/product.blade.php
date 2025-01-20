@@ -154,34 +154,46 @@
             }
         </script>
         <script>
-            const deleteSelectedButton = document.getElementById('deleteSelectedButton');
-            const selectAllCheckbox = document.getElementById('selectAll');
-            const productCheckboxes = document.querySelectorAll('.selectProduct');
+            // This will be called when the page is loaded or after the deletion is completed
+            function initializeCheckboxLogic() {
+                const deleteSelectedButton = document.getElementById('deleteSelectedButton');
+                const selectAllCheckbox = document.getElementById('selectAll');
+                const productCheckboxes = document.querySelectorAll('.selectProduct');
 
-            // Show/hide the delete button based on checkbox selection
-            function toggleDeleteButton() {
-                const anyChecked = [...productCheckboxes].some(cb => cb.checked);
-                deleteSelectedButton.classList.toggle('d-none', !anyChecked);
-            }
+                // Show/hide the delete button based on checkbox selection
+                function toggleDeleteButton() {
+                    const anyChecked = [...productCheckboxes].some(cb => cb.checked);
+                    deleteSelectedButton.classList.toggle('d-none', !anyChecked);
+                }
 
-            // Handle "Select All" checkbox
-            selectAllCheckbox.addEventListener('change', function() {
-                productCheckboxes.forEach(checkbox => checkbox.checked = this.checked);
-                toggleDeleteButton();
-            });
-
-            // Handle individual product checkboxes
-            productCheckboxes.forEach(checkbox => {
-                checkbox.addEventListener('change', function() {
-                    const allSelected = [...productCheckboxes].every(cb => cb.checked);
-                    selectAllCheckbox.checked = allSelected;
+                // Handle "Select All" checkbox
+                selectAllCheckbox.addEventListener('change', function() {
+                    productCheckboxes.forEach(checkbox => checkbox.checked = this.checked);
                     toggleDeleteButton();
                 });
-            });
+
+                // Handle individual product checkboxes
+                productCheckboxes.forEach(checkbox => {
+                    checkbox.addEventListener('change', function() {
+                        // If any checkbox is unchecked, uncheck 'selectAll'
+                        if (!this.checked) {
+                            selectAllCheckbox.checked = false;
+                        } else {
+                            // If all checkboxes are checked, mark 'selectAll' as checked
+                            const allSelected = [...productCheckboxes].every(cb => cb.checked);
+                            selectAllCheckbox.checked = allSelected;
+                        }
+                        toggleDeleteButton();
+                    });
+                });
+
+                // Run toggleDeleteButton on page load to handle the initial state
+                toggleDeleteButton();
+            }
 
             // Confirm and send delete request
             function confirmDeleteSelected() {
-                const selectedIds = [...productCheckboxes]
+                const selectedIds = [...document.querySelectorAll('.selectProduct')]
                     .filter(cb => cb.checked)
                     .map(cb => cb.value);
 
@@ -206,17 +218,16 @@
                                 ids: selectedIds
                             },
                             success: function(response) {
-                                Swal.fire(
-                                    '{{ __('Deleted!') }}',
-                                    '{{ __('Your selected products have been deleted.') }}',
-                                    'success'
-                                ).then(() => {
-                                    setTimeout(function() {
-                                        location
-                                            .reload();
-                                    }, 2000);
+                                Swal.fire({
+                                    title: '{{ __('Deleted!') }}',
+                                    text: '{{ __('Your selected products have been deleted.') }}',
+                                    icon: 'success',
+                                    timer: 2000,
+                                    showConfirmButton: false
+                                }).then(() => {
+                                    location.reload();
                                 });
-                            }
+                            },
                             error: function(err) {
                                 console.error(err);
                                 Swal.fire(
@@ -229,6 +240,9 @@
                     }
                 });
             }
+
+            // Call the initialization function when the page is loaded or refreshed
+            window.onload = initializeCheckboxLogic;
         </script>
     @endpush
 @endsection
