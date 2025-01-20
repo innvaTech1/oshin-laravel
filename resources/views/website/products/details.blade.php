@@ -1,10 +1,20 @@
 @extends('layout')
+
 @section('title')
     <title>{{ $product->seo_title }}</title>
 @endsection
+
 @section('meta')
     <meta name="description" content="{{ $product->seo_description }} {{ $tags }}">
 @endsection
+
+@push('custom-styles')
+    <style>
+        .exzoom_btn {
+            display: none;
+        }
+    </style>
+@endpush
 
 @section('public-content')
 
@@ -29,7 +39,7 @@
                                 @endif
                                 <ul class='exzoom_img_ul'>
                                     @foreach ($product->gallery as $image)
-                                        <li><img class="zoom ing-fluid w-100" src="{{ asset($image->image) }}"
+                                        <li><img class="zoom img-fluid w-100" src="{{ asset($image->image) }}"
                                                 alt="product"></li>
                                     @endforeach
                                 </ul>
@@ -44,6 +54,8 @@
                         </div>
                     </div>
                 </div>
+
+
                 <div class="col-xl-5 col-md-7 col-lg-7">
                     <div class="wsus__pro_details_text">
                         <a class="title" href="javascript:;">{{ $product->name }}</a>
@@ -282,7 +294,7 @@
                 </div>
 
                 <div class="col-xl-3 col-md-12 mt-md-5 mt-lg-0">
-                    <div class="wsus_pro_det_sidebar" id="">
+                    <div class="wsus_pro_det_sidebar">
                         {{-- <div class="wsus_pro_det_sidebar" id="sticky_sidebar"> --}}
                         <div class="lg_area">
                             <!-- Secure Payment -->

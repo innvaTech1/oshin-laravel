@@ -45,7 +45,6 @@
 
     <link rel="stylesheet" href="{{ asset('user/css/style.css') }}">
 
-
     <link rel="stylesheet" href="{{ asset('user/css/responsive.css') }}">
 
     <link rel="stylesheet" href="{{ asset('user/css/dev.css') }}">
@@ -53,7 +52,6 @@
     <!--jquery library js-->
     <script src="{{ asset('user/js/jquery-3.6.0.min.js') }}"></script>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-
 
     @if ($googleAnalytic->status == 1)
         <script async src="https://www.googletagmanager.com/gtag/js?id={{ $googleAnalytic->analytic_id }}"></script>
@@ -113,6 +111,8 @@
     </script>
 
     {{-- @include('theme_style_css') --}}
+
+    @stack('custom-styles')
 </head>
 
 <body>

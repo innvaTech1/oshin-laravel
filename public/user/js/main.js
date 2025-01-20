@@ -381,7 +381,7 @@ $(function () {
     //==========PRODUCT ZOOMER============
     if ($("#exzoom").length > 0) {
         $("#exzoom").exzoom({
-            autoPlay: true,
+            autoPlay: false,
         });
     }
 
