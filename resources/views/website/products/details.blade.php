@@ -168,8 +168,10 @@
                             <input type="hidden" name="slug" value="{{ $product->slug }}">
 
                             <ul class="wsus__button_area">
-                                <li><button type="submit" class="add_cart"><span>{{ __('user.add to cart') }}</span></button></li>
-                                <li><a class="buy_now" href="javascript:;" id="buyNowBtn"><span>{{ __('user.buy now') }}</span></a>
+                                <li><button type="submit"
+                                        class="add_cart"><span>{{ __('user.add to cart') }}</span></button></li>
+                                <li><a class="buy_now" href="javascript:;"
+                                        id="buyNowBtn"><span>{{ __('user.buy now') }}</span></a>
                                 </li>
                                 <li><a href="javascript:;" onclick="addToWishlist('{{ $product->id }}')"><i
                                             class="fal fa-heart"></i></a></li>
@@ -280,39 +282,48 @@
                 </div>
 
                 <div class="col-xl-3 col-md-12 mt-md-5 mt-lg-0">
-                    <div class="wsus_pro_det_sidebar" id="sticky_sidebar">
+                    <div class="wsus_pro_det_sidebar" id="">
+                        {{-- <div class="wsus_pro_det_sidebar" id="sticky_sidebar"> --}}
                         <div class="lg_area">
-                            <div class="wsus_pro_det_sidebar_single">
-                                <i class="fal fa-truck"></i>
-                                <div class="wsus_pro_det_sidebar_text">
+                            <!-- Secure Payment -->
+                            <div class="wsus_pro_det_sidebar_single card p-3 mb-3 shadow">
+                                <div class="d-flex align-items-center">
+                                    <i class="far fa-shield-check fa-2x text-primary me-3"></i>
+                                    <div class="wsus_pro_det_sidebar_text">
+                                        <h6 class="mb-1 text-dark">{{ __('user.Secure Payment') }}</h6>
+                                        <p class="mb-0 text-muted">{{ __('user.We ensure secure payment') }}</p>
+                                    </div>
+                                </div>
+                            </div>
 
-                                    @if ($product->is_return == 1)
+                            <!-- Best Price Guaranteed -->
+                            <div class="wsus_pro_det_sidebar_single card p-3 mb-3 shadow">
+                                <div class="d-flex align-items-center">
+                                    <i class="fal fa-money-bill-wave fa-2x text-success me-3"></i>
+                                    <div class="wsus_pro_det_sidebar_text">
+                                        <h6 class="mb-1 text-dark">{{ __('Best Price Guaranteed') }}</h6>
+                                        {{-- @if ($product->is_return == 1)
                                         <h5>{{ __('user.Return Available') }}</h5>
                                         <p>{{ $product->returnPolicy->details }}</p>
                                     @else
                                         <h5>{{ __('user.Return Not Available') }}</h5>
-                                    @endif
-
+                                    @endif --}}
+                                    </div>
                                 </div>
                             </div>
 
-
-                            <div class="wsus_pro_det_sidebar_single">
-                                <i class="far fa-shield-check"></i>
-                                <div class="wsus_pro_det_sidebar_text">
-                                    <h5>{{ __('user.Secure Payment') }}</h5>
-                                    <p>{{ __('user.We ensure secure payment') }}</p>
-                                </div>
-                            </div>
-                            <div class="wsus_pro_det_sidebar_single">
-                                <i class="fal fa-envelope-open-dollar"></i>
-                                <div class="wsus_pro_det_sidebar_text">
-                                    @if ($product->is_warranty == 1)
+                            <!-- Oshin Verified -->
+                            <div class="wsus_pro_det_sidebar_single card p-3 mb-3 shadow">
+                                <div class="d-flex align-items-center">
+                                    <i class="fal fa-check-square fa-2x text-info me-3"></i>
+                                    <div class="wsus_pro_det_sidebar_text">
+                                        <h6 class="mb-1 text-dark">{{ __('Oshin Verified') }}</h6>
+                                        {{-- @if ($product->is_warranty == 1)
                                         <h5>{{ __('user.Warranty Available') }}</h5>
                                     @else
                                         <h5>{{ __('user.Warranty Not Available') }}</h5>
-                                    @endif
-
+                                    @endif --}}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -324,15 +335,15 @@
                                     <div class="wsus__det_sidebar_banner_text">
                                         <p>{{ $banner->title }}</p>
                                         <h4>{{ $banner->description }}</h4>
-                                        <a href="{{ $banner->link }}" class="common_btn"><span>{{ __('user.shop now') }}</span></a>
+                                        <a href="{{ $banner->link }}"
+                                            class="common_btn"><span>{{ __('user.shop now') }}</span></a>
                                     </div>
                                 </div>
                             </div>
                         @endif
-
-
                     </div>
                 </div>
+
                 <div class="col-xl-12">
                     <div class="wsus__pro_det_description">
                         <ul class="nav nav-pills mb-3" id="pills-tab3" role="tablist">
@@ -602,7 +613,8 @@
                     <div class="col-xl-12">
                         <div class="wsus__section_header">
                             <h3>Related Products</h3>
-                            <a class="see_btn" href="#"><span>see more <i class="fas fa-caret-right"></i></span></a>
+                            <a class="see_btn" href="#"><span>see more <i
+                                        class="fas fa-caret-right"></i></span></a>
                         </div>
                     </div>
                 </div>
