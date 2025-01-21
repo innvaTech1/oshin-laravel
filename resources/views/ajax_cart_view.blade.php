@@ -214,7 +214,7 @@
                 <div class="col-xl-12">
                     <div class="wsus__cart_list cart_empty p-3 p-sm-5 text-center">
                         <p class="mb-4">{{ __('user.your shopping cart is empty') }}</p>
-                        <a href="{{ route('product') }}" class="common_btn"><i
+                        <a href="{{ route('product') }}" class="btn btn-lg btn-danger"><i
                                 class="fal fa-store me-2"></i>{{ __('user.Go to Shop') }}</a>
                     </div>
                 </div>
