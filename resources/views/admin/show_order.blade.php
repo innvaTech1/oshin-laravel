@@ -129,7 +129,7 @@
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>
                                                     <img class="w-50"
-                                                        src="{{ asset($orderProduct->product->thumb_image) ? asset($orderProduct->product->thumb_image) : asset('uploads/custom-images/placeholder-image.jpg') }}" />
+                                                        src="{{ $orderProduct->product && $orderProduct->product->thumb_image ? asset($orderProduct->product->thumb_image) : asset('uploads/custom-images/placeholder-image.jpg') }}" />
                                                 </td>
                                                 <td>{{ $orderProduct->product_name }}</td>
                                                 <td>
