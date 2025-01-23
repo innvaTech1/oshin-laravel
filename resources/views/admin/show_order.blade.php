@@ -174,11 +174,11 @@
                                 @endif
 
                                 <div class="row mt-3">
-                                    <div class="col-lg-6 order-status">
-                                        <div class="">
+                                    <div class="col-lg-6">
+                                        <div>
                                             <strong>{{ __('Payment Method') }} : </strong> {{ $order->payment_method }}
                                         </div>
-                                        <div class="mt-4">
+                                        <div class="mt-3">
                                             <strong>Customer Note: </strong>{{ $order->additional_info }}
                                         </div>
                                     </div>
@@ -262,59 +262,54 @@
 @section('style')
     <style>
         @media print {
-            @page {
-                size: A4;
-                /* margin: 20mm; */
-            }
-
-            body {
-                background: #fff !important;
-            }
-
-            .navbar,
-            .main-sidebar,
-            .section-header,
-            .print-btn,
-            .edit-btn,
-            .order-status,
-            .print-area,
-            .section-title,
-            .main-navbar,
-            .navbar-bg,
-            .main-footer {
-                display: none !important;
-            }
-
             .invoice {
-                box-shadow: none !important;
                 width: 100% !important;
                 margin: 0 !important;
+                padding: 0 !important;
                 border: none !important;
             }
 
-            .text-md-end {
+            .row {
+                display: flex !important;
+                justify-content: space-between;
+            }
+
+            .col-md-4 {
+                width: 32% !important;
+                /* Ensure each column takes up roughly 1/3 width */
+                float: none !important;
+                text-align: left !important;
+                /* Ensure text is left aligned inside columns */
+            }
+
+            .col-md-4.text-right {
                 text-align: right !important;
+                /* Apply right-alignment for the right column */
             }
 
             .section-body {
                 width: 100% !important;
             }
 
-            table {
-                margin-bottom: 0 !important;
+            /* Optional: Align specific items to the right in print */
+            .invoice-details {
+                text-align: left !important;
             }
 
-            td,
-            th {
-                padding: 0 !important;
-                height: auto !important;
+            .shipping-address {
+                text-align: right !important;
+                /* Ensure this aligns right */
             }
 
-            .col-md-6 {
-                padding: 0 !important;
-                width: 50% !important;
+            /* Other print styles */
+            .navbar,
+            .main-sidebar,
+            .section-header,
+            .print-btn,
+            .section-footer,
+            .print-area {
+                display: none !important;
             }
-
         }
 
         .invoice hr {
