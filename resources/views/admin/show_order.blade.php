@@ -1,7 +1,7 @@
 @extends('admin.master_layout')
 
 @section('title')
-    <title>{{ __('Invoice') }}</title>
+    <title>INVOICE_{{ $order->order_id }}_OSHIN</title>
 @endsection
 
 <style>
@@ -24,7 +24,7 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>{{ __('Invoice') }}</h1>
+                <h1>INVOICE_{{ $order->order_id }}_OSHIN</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">{{ __('Dashboard') }}</a>
                     </div>
