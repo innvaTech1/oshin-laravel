@@ -9,20 +9,24 @@ class OrderProduct extends Model
 {
     use HasFactory;
 
-    public function seller(){
-        return $this->belongsTo(Vendor::class,'seller_id');
+    public function seller()
+    {
+        return $this->belongsTo(Vendor::class, 'seller_id');
     }
 
-    public function orderProductVariants(){
+    public function orderProductVariants()
+    {
         return $this->hasMany(OrderProductVariant::class);
     }
 
-    public function order(){
+    public function order()
+    {
         return $this->belongsTo(Order::class);
     }
 
-    public function product(){
-        return $this->belongsTo(Product::class)->select(['id','thumb_image','slug']);
+    public function product()
+    {
+        return $this->belongsTo(Product::class)->select(['id', 'thumb_image', 'slug', 'short_description']);
     }
 
     protected $casts = [
@@ -33,5 +37,4 @@ class OrderProduct extends Model
         'vat' => 'integer',
         'qty' => 'integer',
     ];
-
 }

@@ -15,7 +15,6 @@
         .additional_info {
             display: none !important;
         }
-
     }
 </style>
 
@@ -34,113 +33,89 @@
             <div class="section-body">
                 <div class="invoice">
                     <div class="invoice-print">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="invoice-title">
-                                        <h2><img src="{{ asset($setting->logo) }}" alt="" width="120px"></h2>
-                                    </div>
-                                    <div>
-                                        <div class="invoice-number">Order #{{ $order->order_id }}</div>
-                                        <div class="invoice_details">
-                                            <p>
-                                                <strong>Invoice Date: </strong>{{ $order->created_at->format('d-m-Y') }}
-                                            </p>
-                                            <p>
-                                                <strong>Order No: </strong>{{ $order->order_id }}
-                                            </p>
-                                            <p>
-                                                <strong>Order Date: </strong>{{ $order->created_at->format('d-m-Y') }}
-                                            </p>
-
-                                        </div>
-                                    </div>
+                        <div class="row mb-3">
+                            <div class="col-md-4 mt-3">
+                                <div class="invoice-title">
+                                    <h2><img src="{{ asset($setting->logo) }}" alt="" width="130px"></h2>
                                 </div>
-                                <hr>
-                                @php
-                                    $orderAddress = $order->orderAddress;
-                                @endphp
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <address>
-                                            {!! $setting->invoice_address !!}
-                                        </address>
-                                    </div>
+                            </div>
 
-                                    <div class="col-md-4">
-                                        <address>
-                                            <strong>{{ __('Billing Address') }}:</strong>
-                                            <p class="mb-0">
-                                                Name: {{ $orderAddress->billing_name }}
-                                            </p>
-                                            @if ($orderAddress->billing_email)
-                                                <p class="mb-0">
-                                                    Email: {{ $orderAddress->billing_email }}
-                                                </p>
-                                            @endif
-                                            @if ($orderAddress->billing_phone)
-                                                <p class="mb-0">
-                                                    Phone: {{ $orderAddress->billing_phone }}
-                                                </p>
-                                            @endif
-                                            <p class="mb-0">
-                                                Address: {{ $orderAddress->billing_address }}
-                                            </p>
-                                            <p class="mb-0">
-                                                City: {{ $orderAddress->billing_city }}
-                                            </p>
-                                            <p class="mb-0">
-                                                State: {{ $orderAddress->billing_state }}
-                                            </p>
-                                        </address>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <address>
-                                            <strong>{{ __('Shipping Address') }} :</strong>
+                            <div class="col-md-4">
+                            </div>
 
-                                            <p class="mb-0">
-                                                Name: {{ $orderAddress->shipping_name }}
-                                            </p>
-                                            @if ($orderAddress->shipping_email)
-                                                <p class="mb-0">
-                                                    Email: {{ $orderAddress->shipping_email }}
-                                                </p>
-                                            @endif
-                                            @if ($orderAddress->shipping_phone)
-                                                <p class="mb-0">
-                                                    Phone: {{ $orderAddress->shipping_phone }}
-                                                </p>
-                                            @endif
-                                            <p class="mb-0">
-                                                Address: {{ $orderAddress->shipping_address }}
-                                            </p>
-                                            <p class="mb-0">
-                                                City: {{ $orderAddress->shipping_city }}
-                                            </p>
-                                            <p class="mb-0">
-                                                State: {{ $orderAddress->shipping_state }}
-                                            </p>
-                                        </address>
-                                    </div>
+                            <div class="col-md-4">
+                                <div class="invoice_details text-dark fw-bold">
+                                    <p>
+                                        Order Number : {{ $order->order_id }}
+                                    </p>
+                                    <p>
+                                        Order Date : {{ $order->created_at->format('d-M-Y') }}
+                                    </p>
+                                    <p>
+                                        Invoice Date : {{ now()->format('d-m-Y') }}
+                                    </p>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="row mt-4">
+                        <div class="row">
+                            @php
+                                $orderAddress = $order->orderAddress;
+                            @endphp
+
+                            <div class="col-md-4">
+                                <address>
+                                    {!! $setting->invoice_address !!}
+                                </address>
+                            </div>
+
+                            <div class="col-md-4">
+                            </div>
+
+                            {{-- <div class="col-md-4 text-dark fw-bold">
+                                <p class="mb-0 fw-bolder">Billing Address</p>
+                                <p class="mb-0">Name : {{ $orderAddress->billing_name }}</p>
+                                @if ($orderAddress->billing_email)
+                                    <p class="mb-0">Email : {{ $orderAddress->billing_email }}</p>
+                                @endif
+                                @if ($orderAddress->billing_phone)
+                                    <p class="mb-0">Phone : {{ $orderAddress->billing_phone }}</p>
+                                @endif
+                                <p class="mb-0">Address : {{ $orderAddress->billing_address }}</p>
+                                <p class="mb-0">City : {{ $orderAddress->billing_city }}</p>
+                                <p class="mb-0">State : {{ $orderAddress->billing_state }}</p>
+                            </div> --}}
+
+                            <div class="col-md-4 text-dark fw-bold">
+                                <p class="mb-0 fw-bolder">SHIPPING ADDRESS</p>
+                                <p class="mb-0">Name : {{ $orderAddress->shipping_name }}</p>
+                                @if ($orderAddress->shipping_email)
+                                    <p class="mb-0">Email : {{ $orderAddress->shipping_email }}</p>
+                                @endif
+                                @if ($orderAddress->shipping_phone)
+                                    <p class="mb-0">Phone : {{ $orderAddress->shipping_phone }}</p>
+                                @endif
+                                <p class="mb-0">Address : {{ $orderAddress->shipping_address }}</p>
+                                <p class="mb-0">City : {{ $orderAddress->shipping_city }}</p>
+                                <p class="mb-0">State : {{ $orderAddress->shipping_state }}</p>
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
                             <div class="col-md-12">
-                                <div class="section-title">{{ __('Order Summary') }}</div>
                                 <div class="table-responsive">
-                                    <table class="table table-striped table-hover table-md">
+                                    <table class="table table-striped table-hover table-md table-bordered">
                                         <tr>
                                             <th width="5%">#</th>
-                                            <th width="25%">{{ __('Product') }}</th>
-                                            <th width="20%">{{ __('Variant') }}</th>
-                                            @if ($setting->enable_multivendor == 1)
+                                            <th width="10%">{{ __('IMAGE') }}</th>
+                                            <th width="23%">{{ __('ITEM') }}</th>
+                                            <th width="17%">{{ __('DESCRIPTION') }}</th>
+                                            {{-- @if ($setting->enable_multivendor == 1)
                                                 <th width="10%">{{ __('Shop Name') }}</th>
-                                            @endif
-                                            <th width="10%" class="text-center">{{ __('Unit Price') }}</th>
-                                            <th width="10%" class="text-center">{{ __('Quantity') }}</th>
-                                            <th width="10%" class="text-right">{{ __('Total') }}</th>
+                                            @endif --}}
+                                            <th width="8%" class="text-center">{{ __('QUANTITY') }}</th>
+                                            <th width="12%" class="text-center">{{ __('UNIT PRICE') }}</th>
+                                            <th width="15%" class="text-right">{{ __('TOTAL PRICE') }}</th>
                                         </tr>
                                         @php
                                             $subTotal = 0;
@@ -150,9 +125,11 @@
                                                 $variantPrice = 0;
                                                 $totalVariant = $orderProduct->orderProductVariants->count();
                                             @endphp
-                                            <tr>
-                                                <td>{{ ++$index }}</td>
-                                                <td><a href="">{{ $orderProduct->product_name }}</a></td>
+                                            <tr class="text-dark">
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td><img class="w-50"
+                                                        src="{{ asset($orderProduct->product->thumb_image) }}" /></td>
+                                                <td>{{ $orderProduct->product_name }}</td>
                                                 <td>
                                                     @foreach ($orderProduct->orderProductVariants as $indx => $variant)
                                                         {{ $variant->variant_name . ' : ' . $variant->variant_value }}{{ $totalVariant == ++$indx ? '' : ',' }}
@@ -161,24 +138,23 @@
                                                             $variantPrice += $variant->variant_price;
                                                         @endphp
                                                     @endforeach
-
                                                 </td>
-                                                @if ($setting->enable_multivendor == 1)
+                                                {{-- @if ($setting->enable_multivendor == 1)
                                                     <td>
                                                         @if ($orderProduct->seller)
                                                             <a
                                                                 href="{{ route('admin.seller-show', $orderProduct->seller->id) }}">{{ $orderProduct->seller->shop_name }}</a>
                                                         @endif
                                                     </td>
-                                                @endif
-                                                <td class="text-center">
-                                                    {{ currency_icon() }}{{ $orderProduct->unit_price }}</td>
+                                                @endif --}}
                                                 <td class="text-center">{{ $orderProduct->qty }}</td>
+                                                <td class="text-center">
+                                                    {{ currency_icon() }}{{ $orderProduct->unit_price }}
+                                                </td>
                                                 @php
                                                     $total = $orderProduct->unit_price * $orderProduct->qty;
                                                 @endphp
-                                                <td class="text-right">{{ currency_icon() }}{{ $total }}
-                                                </td>
+                                                <td class="text-right">{{ currency_icon() }}{{ $total }}</td>
                                             </tr>
                                             @php
                                                 $totalVariant = 0;
@@ -207,48 +183,72 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-lg-6 text-right">
-                                        <div class="invoice-detail-item">
-                                            <div class="invoice-detail-name">{{ __('Subtotal') }} :
+                                    <div class="col-lg-6 text-right text-dark fw-bold">
+                                        <div>
+                                            <div>{{ __('Subtotal : ') }}
                                                 {{ currency_icon() }}{{ $order->sub_total }}</div>
                                         </div>
-                                        <div class="invoice-detail-item">
-                                            <div class="invoice-detail-name">{{ __('Discount') }}(-) :
-                                                {{ currency_icon() }}{{ $order->coupon_coast }}</div>
-                                        </div>
-                                        <div class="invoice-detail-item">
-                                            <div class="invoice-detail-name">{{ __('Shipping') }} :
+                                        <div>
+                                            <div>{{ __('Shipping Cost : ') }}
                                                 {{ currency_icon() }}{{ $order->shipping_cost }}</div>
                                         </div>
-                                        <div class="invoice-detail-item">
-                                            <div class="invoice-detail-name">{{ __('Tax') }} :
+                                        <div>
+                                            <div>{{ __('Tax : ') }}
                                                 {{ currency_icon() }}{{ $order->order_vat }}</div>
+                                        </div>
+                                        <div>
+                                            <div>{{ __('Discount : ') }}
+                                                {{ currency_icon() }}{{ $order->coupon_coast }}</div>
                                         </div>
 
                                         <hr class="mt-2 mb-2">
+
                                         <div class="invoice-detail-item">
-                                            <div class="invoice-detail-value invoice-detail-value-lg">
-                                                {{ __('Total') }} :
+                                            <div>
+                                                {{ __('Total Amount : ') }}
                                                 {{ currency_icon() }}{{ $order->total_amount }}</div>
+                                            @if ($order->payment_method == 'Cash on Delivery')
+                                                <div>
+                                                    {{ __('Paid Amount : ') }}{{ currency_icon() }}{{ 0 }}
+                                                </div>
+                                            @else
+                                                <div>
+                                                    {{ __('Paid Amount : ') }}{{ currency_icon() }}{{ $order->total_amount }}
+                                                </div>
+                                            @endif
+                                        </div>
+
+                                        <hr class="mt-2 mb-2">
+
+                                        <div class="invoice-detail-item">
+                                            <div>
+                                                @if ($order->payment_method != 'Cash on Delivery')
+                                                    <div>
+                                                        {{ __('Due Amount : ') }}{{ currency_icon() }}{{ 0 }}
+                                                    </div>
+                                                @else
+                                                    <div>
+                                                        {{ __('Due Amount : ') }}{{ currency_icon() }}{{ $order->total_amount }}
+                                                    </div>
+                                                @endif
+                                            </div>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="text-md-right print-area">
-                        <hr>
-                        <button class="btn btn-success btn-icon icon-left" onclick="window.print()"><i
-                                class="fas fa-print"></i> {{ __('Print') }}</button>
-                        <button class="btn btn-danger btn-icon icon-left" data-toggle="modal" data-target="#deleteModal"
-                            onclick="deleteData({{ $order->id }})"><i class="fas fa-times"></i>
-                            {{ __('Delete') }}</button>
+                        <div class="text-md-right print-area">
+                            <hr>
+                            <button class="btn btn-success btn-icon icon-left" onclick="window.print()"><i
+                                    class="fas fa-print"></i>
+                                {{ __('Print') }}</button>
+                            <button class="btn btn-danger btn-icon icon-left" data-toggle="modal" data-target="#deleteModal"
+                                onclick="deleteData({{ $order->id }})"><i class="fas fa-times"></i>
+                                {{ __('Delete') }}</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-
         </section>
     </div>
     <script>
@@ -262,6 +262,11 @@
 @section('style')
     <style>
         @media print {
+            @page {
+                size: A4;
+                /* margin: 20mm; */
+            }
+
             body {
                 background: #fff !important;
             }
