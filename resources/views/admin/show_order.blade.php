@@ -1,7 +1,9 @@
 @extends('admin.master_layout')
+
 @section('title')
     <title>{{ __('Invoice') }}</title>
 @endsection
+
 <style>
     @media print {
 
@@ -16,6 +18,7 @@
 
     }
 </style>
+
 @section('admin-content')
     <!-- Main Content -->
     <div class="main-content">
@@ -119,18 +122,6 @@
                                             </p>
                                         </address>
                                     </div>
-                                    {{-- <div class="col-md-4 invoice_details">
-                                        <p>
-                                            <strong>Invoice Date: </strong>{{ $order->created_at->format('d-m-Y') }}
-                                        </p>
-                                        <p>
-                                            <strong>Order No: </strong>{{ $order->order_id }}
-                                        </p>
-                                        <p>
-                                            <strong>Order Date: </strong>{{ $order->created_at->format('d-m-Y') }}
-                                        </p>
-
-                                    </div> --}}
                                 </div>
                             </div>
                         </div>
