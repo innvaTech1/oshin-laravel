@@ -34,10 +34,24 @@
   }
   .wsus__banner_content{
     margin-left: 40px;
+    width: 107%;
+  }
+}
+
+@media (min-width: 980px) and (max-width: 1199.99px) {
+  #wsus__banner{
+    margin-top: 34px;
   }
 }
 
 @media (min-width: 1200px) and (max-width: 1399.99px) {
+  #wsus__banner{
+    margin-top: 14px;
+  }
+    .wsus__banner_content {
+    margin-left: 40px;
+    width: 107%;
+  }
   .wsus__icon_area li {
     margin-left: 5px;
   }
@@ -101,7 +115,8 @@
   }
 
   .wsus__hot_deals__single_text h5 {
-    font-size: 14px;
+    margin-top: 3px;
+    font-size: 12px;
   }
 
   .wsus__hot_deals__single_text .wsus__tk {
@@ -495,6 +510,9 @@
 }
 
 @media (min-width: 992px) and (max-width: 1199.99px) {
+  .wsus__banner_content{
+    width: 100% !important;
+  }
   .wsus__header_logo {
     width: 90%;
   }
@@ -611,7 +629,10 @@
     padding-left: 15px !important;
     margin-top: 0;
   }
-
+  .wsus__hot_deals__single_text h5 {
+    margin-top: 3px;
+    font-size: 10px;
+  }
   .wsus__hot_deals__single_text .wsus__tk {
     font-size: 15px;
   }
@@ -1127,6 +1148,10 @@
 @media (min-width: 768px) and (max-width: 991.99px) {
   .wsus__pop_up_text form .common_btn {
     right: 0px;
+  }
+  .wsus__banner_content{
+    width: 135%;
+    margin-top: 68px;
   }
 
   /* TOPBAR START */
@@ -2284,7 +2309,11 @@
 }
 
 @media (min-width: 576px) and (max-width: 767.99px) {
-
+  .wsus__banner_content{
+    margin-top: -25px;
+    margin-bottom: -110px;
+    width: 100%;
+  }
   /* TOPBAR START */
   .section_separate{
     margin-top: 0px;
@@ -3625,7 +3654,7 @@
   }
 
   #wsus__single_banner {
-    padding-top: 0px;
+    padding-top: 20px;
   }
 
   .home_2 #wsus__hot_deals .nxt_arr,
@@ -4096,7 +4125,8 @@
     padding-left: 15px !important;
   }
   .wsus__hot_deals__single_text h5 {
-    font-size: 12px;
+    margin-top: 3px;
+    font-size: 7px;
   }
 
   .wsus__hot_deals__single_text .wsus__rating {
@@ -4324,7 +4354,7 @@ footer{
   }
 /* Product card */
 .wsus__product_item .wsus__pro_link{
-  height: 145px;
+  height: 100%;
 }
   /* PRODUCT GRID VIEW */
   #wsus__breadcrumb {
