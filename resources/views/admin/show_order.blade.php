@@ -87,7 +87,9 @@
                             </div> --}}
 
                             <div class="col-md-4 text-dark fw-bold">
-                                <p class="mb-0 fw-bolder">SHIPPING ADDRESS</p>
+                                <p class="mb-0 fw-bolder"
+                                    style="font-weight: bold;text-decoration:underline; text-transform: uppercase;">SHIPPING
+                                    ADDRESS</p>
                                 <p class="mb-0">Name : {{ $orderAddress->shipping_name }}</p>
                                 @if ($orderAddress->shipping_email)
                                     <p class="mb-0">Email : {{ $orderAddress->shipping_email }}</p>
