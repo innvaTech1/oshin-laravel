@@ -106,18 +106,34 @@
                         <div class="row mt-3">
                             <div class="col-md-12">
                                 <div class="table-responsive">
-                                    <table class="table table-striped table-hover table-md table-bordered">
+                                    <table class="table table-striped table-md table-bordered">
                                         <tr>
-                                            <th width="5%">#</th>
-                                            <th width="10%">{{ __('IMAGE') }}</th>
-                                            <th width="23%">{{ __('ITEM') }}</th>
-                                            <th width="17%">{{ __('DESCRIPTION') }}</th>
+                                            <th width="7%" class="text-center"
+                                                style="border-top: 1px solid black; border-bottom: 1px solid black;">
+                                                {{ __('SL NO') }}</th>
+                                            <th width="18%" class="text-center"
+                                                style="border-top: 1px solid black; border-bottom: 1px solid black;">
+                                                {{ __('IMAGE') }}</th>
+                                            <th width="23%"
+                                                style="border-top: 1px solid black; border-bottom: 1px solid black;">
+                                                {{ __('ITEM') }}</th>
+                                            <th width="17%"
+                                                style="border-top: 1px solid black; border-bottom: 1px solid black;">
+                                                {{ __('DESCRIPTION') }}
+                                            </th>
                                             {{-- @if ($setting->enable_multivendor == 1)
                                                 <th width="10%">{{ __('Shop Name') }}</th>
                                             @endif --}}
-                                            <th width="8%" class="text-center">{{ __('QUANTITY') }}</th>
-                                            <th width="12%" class="text-center">{{ __('UNIT PRICE') }}</th>
-                                            <th width="15%" class="text-right">{{ __('TOTAL PRICE') }}</th>
+                                            <th width="8%" class="text-center"
+                                                style="border-top: 1px solid black; border-bottom: 1px solid black;">
+                                                {{ __('QUANTITY') }}</th>
+                                            <th width="12%" class="text-center"
+                                                style="border-top: 1px solid black; border-bottom: 1px solid black;">
+                                                {{ __('UNIT PRICE') }}
+                                            </th>
+                                            <th width="15%" class="text-right"
+                                                style="border-top: 1px solid black; border-bottom: 1px solid black;">
+                                                {{ __('TOTAL PRICE') }}</th>
                                         </tr>
                                         @php
                                             $subTotal = 0;
@@ -128,13 +144,17 @@
                                                 $totalVariant = $orderProduct->orderProductVariants->count();
                                             @endphp
                                             <tr class="text-dark">
-                                                <td>{{ $loop->iteration }}</td>
-                                                <td>
+                                                <td class="text-center"
+                                                    style="border-top: 1px solid black; border-bottom: 1px solid black;">
+                                                    {{ $loop->iteration }}</td>
+                                                <td class="text-center"
+                                                    style="border-top: 1px solid black; border-bottom: 1px solid black;">
                                                     <img class="w-50"
                                                         src="{{ $orderProduct->product && $orderProduct->product->thumb_image ? asset($orderProduct->product->thumb_image) : asset('uploads/custom-images/placeholder-image.jpg') }}" />
                                                 </td>
-                                                <td>{{ $orderProduct->product_name }}</td>
-                                                <td>
+                                                <td style="border-top: 1px solid black; border-bottom: 1px solid black;">
+                                                    {{ $orderProduct->product_name }}</td>
+                                                <td style="border-top: 1px solid black; border-bottom: 1px solid black;">
                                                     @foreach ($orderProduct->orderProductVariants as $indx => $variant)
                                                         {{ $variant->variant_name . ' : ' . $variant->variant_value }}{{ $totalVariant == ++$indx ? '' : ',' }}
                                                         <br>
@@ -151,14 +171,19 @@
                                                         @endif
                                                     </td>
                                                 @endif --}}
-                                                <td class="text-center">{{ $orderProduct->qty }}</td>
-                                                <td class="text-center">
+                                                <td class="text-center"
+                                                    style="border-top: 1px solid black; border-bottom: 1px solid black;">
+                                                    {{ $orderProduct->qty }}</td>
+                                                <td class="text-center"
+                                                    style="border-top: 1px solid black; border-bottom: 1px solid black;">
                                                     {{ currency_icon() }}{{ $orderProduct->unit_price }}
                                                 </td>
                                                 @php
                                                     $total = $orderProduct->unit_price * $orderProduct->qty;
                                                 @endphp
-                                                <td class="text-right">{{ currency_icon() }}{{ $total }}</td>
+                                                <td class="text-right"
+                                                    style="border-top: 1px solid black; border-bottom: 1px solid black;">
+                                                    {{ currency_icon() }}{{ $total }}</td>
                                             </tr>
                                             @php
                                                 $totalVariant = 0;
@@ -166,6 +191,11 @@
                                         @endforeach
                                     </table>
                                 </div>
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="col-md-9">
                                 @if ($order->additional_info)
                                     <div class="row additional_info">
                                         <div class="col">
@@ -176,83 +206,85 @@
                                         </div>
                                     </div>
                                 @endif
+                                <div>
+                                    <strong>{{ __('Payment Method') }} : </strong> {{ $order->payment_method }}
+                                </div>
+                                <div class="mt-3">
+                                    <strong>Customer Note: </strong>{{ $order->additional_info }}
+                                </div>
+                            </div>
 
-                                <div class="row mt-3">
-                                    <div class="col-lg-6">
-                                        <div>
-                                            <strong>{{ __('Payment Method') }} : </strong> {{ $order->payment_method }}
-                                        </div>
-                                        <div class="mt-3">
-                                            <strong>Customer Note: </strong>{{ $order->additional_info }}
-                                        </div>
+                            <div class="col-lg-3 text-right text-dark fw-bold">
+                                <div>
+                                    <div>{{ __('Subtotal : ') }}
+                                        {{ currency_icon() }}{{ $order->sub_total }}</div>
+                                </div>
+                                <div>
+                                    <div>{{ __('Shipping Cost : ') }}
+                                        {{ currency_icon() }}{{ $order->shipping_cost }}</div>
+                                </div>
+                                <div>
+                                    <div>{{ __('Tax : ') }}
+                                        {{ currency_icon() }}{{ $order->order_vat }}</div>
+                                </div>
+
+                                <div style="border-top: 1px solid black; border-bottom: 1px solid black;"></div>
+
+                                <div>
+                                    {{ __('Total : ') }}
+                                    {{ currency_icon() }}{{ $order->sub_total + $order->shipping_cost + $order->order_vat }}
+                                </div>
+
+                                <div>
+                                    {{ __('Discount : ') }}
+                                    {{ currency_icon() }}{{ $order->coupon_coast }}</div>
+
+                                <div style="border-top: 1px solid black; border-bottom: 1px solid black;"></div>
+
+                                <div>
+                                    {{ __('Total Amount : ') }}
+                                    {{ currency_icon() }}{{ $order->sub_total + $order->shipping_cost + $order->order_vat + $order->coupon_coast }}
+                                </div>
+
+                                @if ($order->payment_method == 'Cash on Delivery')
+                                    <div>
+                                        {{ __('Paid Amount : ') }}{{ currency_icon() }}{{ 0 }}
                                     </div>
+                                @else
+                                    <div>
+                                        {{ __('Paid Amount : ') }}{{ currency_icon() }}{{ $order->total_amount }}
+                                    </div>
+                                @endif
 
-                                    <div class="col-lg-6 text-right text-dark fw-bold">
-                                        <div>
-                                            <div>{{ __('Subtotal : ') }}
-                                                {{ currency_icon() }}{{ $order->sub_total }}</div>
-                                        </div>
-                                        <div>
-                                            <div>{{ __('Shipping Cost : ') }}
-                                                {{ currency_icon() }}{{ $order->shipping_cost }}</div>
-                                        </div>
-                                        <div>
-                                            <div>{{ __('Tax : ') }}
-                                                {{ currency_icon() }}{{ $order->order_vat }}</div>
-                                        </div>
-                                        <div>
-                                            <div>{{ __('Discount : ') }}
-                                                {{ currency_icon() }}{{ $order->coupon_coast }}</div>
-                                        </div>
+                                <div style="border-top: 1px solid black; border-bottom: 1px solid black;"></div>
 
-                                        <hr class="mt-2 mb-2">
-
-                                        <div class="invoice-detail-item">
+                                <div class="invoice-detail-item">
+                                    <div>
+                                        @if ($order->payment_method != 'Cash on Delivery')
                                             <div>
-                                                {{ __('Total Amount : ') }}
-                                                {{ currency_icon() }}{{ $order->total_amount }}</div>
-                                            @if ($order->payment_method == 'Cash on Delivery')
-                                                <div>
-                                                    {{ __('Paid Amount : ') }}{{ currency_icon() }}{{ 0 }}
-                                                </div>
-                                            @else
-                                                <div>
-                                                    {{ __('Paid Amount : ') }}{{ currency_icon() }}{{ $order->total_amount }}
-                                                </div>
-                                            @endif
-                                        </div>
-
-                                        <hr class="mt-2 mb-2">
-
-                                        <div class="invoice-detail-item">
-                                            <div>
-                                                @if ($order->payment_method != 'Cash on Delivery')
-                                                    <div>
-                                                        {{ __('Due Amount : ') }}{{ currency_icon() }}{{ 0 }}
-                                                    </div>
-                                                @else
-                                                    <div>
-                                                        {{ __('Due Amount : ') }}{{ currency_icon() }}{{ $order->total_amount }}
-                                                    </div>
-                                                @endif
+                                                {{ __('Due Amount : ') }}{{ currency_icon() }}{{ 0 }}
                                             </div>
-                                        </div>
+                                        @else
+                                            <div>
+                                                {{ __('Due Amount : ') }}{{ currency_icon() }}{{ $order->sub_total + $order->shipping_cost + $order->order_vat + $order->coupon_coast }}
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="text-md-right print-area">
-                            <hr>
-                            <button class="btn btn-success btn-icon icon-left" onclick="window.print()"><i
-                                    class="fas fa-print"></i>
-                                {{ __('Print') }}</button>
-                            <button class="btn btn-danger btn-icon icon-left" data-toggle="modal" data-target="#deleteModal"
-                                onclick="deleteData({{ $order->id }})"><i class="fas fa-times"></i>
-                                {{ __('Delete') }}</button>
-                        </div>
                     </div>
                 </div>
+
+                <div class="text-md-right print-area">
+                    <hr>
+                    <button class="btn btn-success btn-icon icon-left" onclick="window.print()"><i class="fas fa-print"></i>
+                        {{ __('Print') }}</button>
+                    {{-- <button class="btn btn-danger btn-icon icon-left" data-toggle="modal" data-target="#deleteModal"
+                        onclick="deleteData({{ $order->id }})"><i class="fas fa-times"></i>
+                        {{ __('Delete') }}</button> --}}
+                </div>
+            </div>
         </section>
     </div>
     <script>
@@ -261,7 +293,6 @@
         }
     </script>
 @endsection
-
 
 @section('style')
     <style>
