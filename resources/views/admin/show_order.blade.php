@@ -15,6 +15,25 @@
         .additional_info {
             display: none !important;
         }
+
+        .row {
+            display: flex !important;
+            /* Ensure the row uses flexbox in print mode */
+            flex-wrap: nowrap;
+            /* Prevent wrapping */
+        }
+
+        .col-md-9 {
+            flex: 0 0 75%;
+            /* Adjust to take up 75% of the width */
+            max-width: 75%;
+        }
+
+        .col-lg-3 {
+            flex: 0 0 25%;
+            /* Adjust to take up 25% of the width */
+            max-width: 25%;
+        }
     }
 </style>
 
@@ -196,7 +215,7 @@
 
                         <div class="row mt-3">
                             <div class="col-md-9">
-                                @if ($order->additional_info)
+                                {{-- @if ($order->additional_info)
                                     <div class="row additional_info">
                                         <div class="col">
                                             <hr>
@@ -205,7 +224,7 @@
                                             <hr>
                                         </div>
                                     </div>
-                                @endif
+                                @endif --}}
                                 <div>
                                     <strong>{{ __('Payment Method') }} : </strong> {{ $order->payment_method }}
                                 </div>
