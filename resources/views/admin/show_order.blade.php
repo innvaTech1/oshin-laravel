@@ -176,14 +176,14 @@
                                                     {{ $orderProduct->qty }}</td>
                                                 <td class="text-center"
                                                     style="border-top: 1px solid black; border-bottom: 1px solid black;">
-                                                    {{ currency_icon() }}{{ $orderProduct->unit_price }}
+                                                    {{ '৳ ' }}{{ $orderProduct->unit_price }}
                                                 </td>
                                                 @php
                                                     $total = $orderProduct->unit_price * $orderProduct->qty;
                                                 @endphp
                                                 <td class="text-right"
                                                     style="border-top: 1px solid black; border-bottom: 1px solid black;">
-                                                    {{ currency_icon() }}{{ $total }}</td>
+                                                    {{ '৳ ' }}{{ $total }}</td>
                                             </tr>
                                             @php
                                                 $totalVariant = 0;
@@ -217,42 +217,42 @@
                             <div class="col-lg-3 text-right text-dark fw-bold">
                                 <div>
                                     <div>{{ __('Subtotal : ') }}
-                                        {{ currency_icon() }}{{ $order->sub_total }}</div>
+                                        {{ '৳ ' }}{{ $order->sub_total }}</div>
                                 </div>
                                 <div>
                                     <div>{{ __('Shipping Cost : ') }}
-                                        {{ currency_icon() }}{{ $order->shipping_cost }}</div>
+                                        {{ '৳ ' }}{{ $order->shipping_cost }}</div>
                                 </div>
                                 <div>
                                     <div>{{ __('Tax : ') }}
-                                        {{ currency_icon() }}{{ $order->order_vat }}</div>
+                                        {{ '৳ ' }}{{ $order->order_vat }}</div>
                                 </div>
 
                                 <div style="border-top: 1px solid black; border-bottom: 1px solid black;"></div>
 
                                 <div>
                                     {{ __('Total : ') }}
-                                    {{ currency_icon() }}{{ $order->sub_total + $order->shipping_cost + $order->order_vat }}
+                                    {{ '৳ ' }}{{ $order->sub_total + $order->shipping_cost + $order->order_vat }}
                                 </div>
 
                                 <div>
                                     {{ __('Discount : ') }}
-                                    {{ currency_icon() }}{{ $order->coupon_coast }}</div>
+                                    {{ '৳ ' }}{{ $order->coupon_coast }}</div>
 
                                 <div style="border-top: 1px solid black; border-bottom: 1px solid black;"></div>
 
                                 <div>
                                     {{ __('Total Amount : ') }}
-                                    {{ currency_icon() }}{{ $order->sub_total + $order->shipping_cost + $order->order_vat + $order->coupon_coast }}
+                                    {{ '৳ ' }}{{ $order->sub_total + $order->shipping_cost + $order->order_vat + $order->coupon_coast }}
                                 </div>
 
                                 @if ($order->payment_method == 'Cash on Delivery')
                                     <div>
-                                        {{ __('Paid Amount : ') }}{{ currency_icon() }}{{ 0 }}
+                                        {{ __('Paid Amount : ') }}{{ '৳ ' }}{{ 0 }}
                                     </div>
                                 @else
                                     <div>
-                                        {{ __('Paid Amount : ') }}{{ currency_icon() }}{{ $order->total_amount }}
+                                        {{ __('Paid Amount : ') }}{{ '৳ ' }}{{ $order->total_amount }}
                                     </div>
                                 @endif
 
@@ -262,11 +262,11 @@
                                     <div>
                                         @if ($order->payment_method != 'Cash on Delivery')
                                             <div>
-                                                {{ __('Due Amount : ') }}{{ currency_icon() }}{{ 0 }}
+                                                {{ __('Due Amount : ') }}{{ '৳ ' }}{{ 0 }}
                                             </div>
                                         @else
                                             <div>
-                                                {{ __('Due Amount : ') }}{{ currency_icon() }}{{ $order->sub_total + $order->shipping_cost + $order->order_vat + $order->coupon_coast }}
+                                                {{ __('Due Amount : ') }}{{ '৳ ' }}{{ $order->sub_total + $order->shipping_cost + $order->order_vat + $order->coupon_coast }}
                                             </div>
                                         @endif
                                     </div>
