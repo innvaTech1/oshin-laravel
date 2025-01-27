@@ -125,12 +125,12 @@
                         <div class="row mt-3">
                             <div class="col-md-12">
                                 <div class="table-responsive">
-                                    <table class="table table-striped table-md table-bordered">
+                                    <table class="table table-md">
                                         <tr>
-                                            <th width="7%" class="text-center"
+                                            <th width="8%" class="text-center"
                                                 style="border-top: 1px solid black; border-bottom: 1px solid black;">
                                                 {{ __('SL NO') }}</th>
-                                            <th width="18%" class="text-center"
+                                            <th width="17%" class="text-center"
                                                 style="border-top: 1px solid black; border-bottom: 1px solid black;">
                                                 {{ __('IMAGE') }}</th>
                                             <th width="23%"
@@ -234,63 +234,72 @@
                             </div>
 
                             <div class="col-lg-3 text-right text-dark fw-bold">
-                                <div>
-                                    <div>{{ __('Subtotal : ') }}
-                                        {{ '৳ ' }}{{ $order->sub_total }}</div>
-                                </div>
-                                <div>
-                                    <div>{{ __('Shipping Cost : ') }}
-                                        {{ '৳ ' }}{{ $order->shipping_cost }}</div>
-                                </div>
-                                <div>
-                                    <div>{{ __('Tax : ') }}
-                                        {{ '৳ ' }}{{ $order->order_vat }}</div>
-                                </div>
-
-                                <div style="border-top: 1px solid black; border-bottom: 1px solid black;"></div>
-
-                                <div>
-                                    {{ __('Total : ') }}
-                                    {{ '৳ ' }}{{ $order->sub_total + $order->shipping_cost + $order->order_vat }}
-                                </div>
-
-                                <div>
-                                    {{ __('Discount : ') }}
-                                    {{ '৳ ' }}{{ $order->coupon_coast }}</div>
-
-                                <div style="border-top: 1px solid black; border-bottom: 1px solid black;"></div>
-
-                                <div>
-                                    {{ __('Total Amount : ') }}
-                                    {{ '৳ ' }}{{ $order->sub_total + $order->shipping_cost + $order->order_vat + $order->coupon_coast }}
-                                </div>
-
-                                @if ($order->payment_method == 'Cash on Delivery')
-                                    <div>
-                                        {{ __('Paid Amount : ') }}{{ '৳ ' }}{{ 0 }}
-                                    </div>
-                                @else
-                                    <div>
-                                        {{ __('Paid Amount : ') }}{{ '৳ ' }}{{ $order->total_amount }}
-                                    </div>
-                                @endif
-
-                                <div style="border-top: 1px solid black; border-bottom: 1px solid black;"></div>
-
-                                <div class="invoice-detail-item">
-                                    <div>
-                                        @if ($order->payment_method != 'Cash on Delivery')
-                                            <div>
-                                                {{ __('Due Amount : ') }}{{ '৳ ' }}{{ 0 }}
-                                            </div>
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <th style="padding-right: 30px;">{{ __('Subtotal : ') }}</th>
+                                            <td>{{ ' ৳ ' }}{{ $order->sub_total }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th style="padding-right: 30px;">{{ __('Shipping Cost : ') }}</th>
+                                            <td>{{ ' ৳ ' }}{{ $order->shipping_cost }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th style="padding-right: 30px;">{{ __('Tax : ') }}</th>
+                                            <td>{{ ' ৳ ' }}{{ $order->order_vat }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2"
+                                                style="border-top: 1px solid black; height: 1px; padding: 0;"></td>
+                                        </tr>
+                                        <tr>
+                                            <th style="padding-right: 30px;">{{ __('Total : ') }}</th>
+                                            <td>{{ ' ৳ ' }}{{ $order->sub_total + $order->shipping_cost + $order->order_vat }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th style="padding-right: 30px;">{{ __('Discount : ') }}</th>
+                                            <td>{{ ' ৳ ' }}{{ $order->coupon_coast }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2"
+                                                style="border-top: 1px solid black; height: 1px; padding: 0;"></td>
+                                        </tr>
+                                        <tr>
+                                            <th style="padding-right: 30px;">{{ __('Total Amount : ') }}</th>
+                                            <td>{{ ' ৳ ' }}{{ $order->sub_total + $order->shipping_cost + $order->order_vat + $order->coupon_coast }}
+                                            </td>
+                                        </tr>
+                                        @if ($order->payment_method == 'Cash on Delivery')
+                                            <tr>
+                                                <th style="padding-right: 30px;">{{ __('Paid Amount : ') }}</th>
+                                                <td>{{ ' ৳ ' }}{{ 0 }}</td>
+                                            </tr>
                                         @else
-                                            <div>
-                                                {{ __('Due Amount : ') }}{{ '৳ ' }}{{ $order->sub_total + $order->shipping_cost + $order->order_vat + $order->coupon_coast }}
-                                            </div>
+                                            <tr>
+                                                <th style="padding-right: 30px;">{{ __('Paid Amount : ') }}</th>
+                                                <td>{{ ' ৳ ' }}{{ $order->total_amount }}</td>
+                                            </tr>
                                         @endif
-                                    </div>
-                                </div>
+                                        <tr>
+                                            <td colspan="2"
+                                                style="border-top: 1px solid black; height: 1px; padding: 0;"></td>
+                                        </tr>
+                                        <tr>
+                                            <th style="padding-right: 30px;">{{ __('Due Amount : ') }}</th>
+                                            <td>
+                                                @if ($order->payment_method != 'Cash on Delivery')
+                                                    {{ ' ৳ ' }}{{ 0 }}
+                                                @else
+                                                    {{ ' ৳ ' }}{{ $order->sub_total + $order->shipping_cost + $order->order_vat + $order->coupon_coast }}
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
+
+
                         </div>
                     </div>
                 </div>
