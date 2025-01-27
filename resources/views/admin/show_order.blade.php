@@ -71,6 +71,9 @@
                                         Order Date : {{ $order->created_at->format('d-M-Y') }}
                                     </p>
                                     <p>
+                                        Invoice Number : {{ $uniqueInvoiceNumber }}
+                                    </p>
+                                    <p>
                                         Invoice Date : {{ now()->format('d-m-Y') }}
                                     </p>
                                 </div>

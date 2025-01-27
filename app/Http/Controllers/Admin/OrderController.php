@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Order;
+use App\Models\Invoice;
 use App\Models\Setting;
-use App\Models\OrderProduct;
-use App\Models\OrderProductVariant;
 use App\Models\OrderAddress;
+use App\Models\OrderProduct;
+use Illuminate\Http\Request;
+use App\Models\OrderProductVariant;
+use App\Http\Controllers\Controller;
 
 class OrderController extends Controller
 {
@@ -75,9 +76,27 @@ class OrderController extends Controller
 
     public function show($id)
     {
-        $order = Order::with('orderProducts', 'user')->find($id);
+        $order = Order::with('orderProducts', 'user')->findOrFail($id);
         $setting = Setting::first();
-        return view('admin.show_order', compact('order', 'setting'));
+
+        $latestInvoice = Invoice::latest('id')->first();
+        $nextId = $latestInvoice ? $latestInvoice->id + 1 : 1;
+        $year = date('y');
+        $uniqueInvoiceNumber = 'IN' . str_pad($nextId, 5, '0', STR_PAD_LEFT) . '.' . $year . '_OSHIN';
+
+        // Save the invoice if not already generated
+        $existingInvoice = Invoice::where('order_id', $id)->first();
+        if (!$existingInvoice) {
+            $invoice = new Invoice();
+            $invoice->order_id = $id;
+            $invoice->user_id = auth()->id();
+            $invoice->invoice_number = $uniqueInvoiceNumber;
+            $invoice->save();
+        } else {
+            $uniqueInvoiceNumber = $existingInvoice->invoice_number;
+        }
+
+        return view('admin.show_order', compact('order', 'setting', 'uniqueInvoiceNumber'));
     }
 
     public function updateOrderStatus(Request $request, $id)

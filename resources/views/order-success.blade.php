@@ -4,8 +4,6 @@
     <title>{{ __('user.Order Success') }}</title>
 @endsection
 
-
-
 @section('public-content')
     <style>
         .success-body {

@@ -7,14 +7,9 @@ use App\Models\AamarpayPayment;
 use App\Models\Address;
 use Illuminate\Http\Request;
 use App\Models\BreadcrumbImage;
-
 use App\Models\CountryState;
 use App\Models\ShippingMethod;
 use App\Models\Setting;
-
-
-
-
 use App\Models\BankPayment;
 use App\Models\Coupon;
 use App\Models\Order;
@@ -64,7 +59,6 @@ class CheckoutController extends Controller
         return view('checkout', compact('banner', 'cartContents', 'states', 'shippingMethods', 'addresses', 'bankInfo', 'aamarpay'));
     }
 
-
     public function payment(Request $request)
     {
         $rules = [
@@ -95,7 +89,6 @@ class CheckoutController extends Controller
             $rules['billing_city_id'] = 'required';
             $rules['billing_state_id'] = 'required';
 
-
             $customMessages['billing_name.required'] = trans('user_validation.Billing Name is required');
             $customMessages['billing_phone.required'] = trans('user_validation.Billing Phone is required');
             $customMessages['billing_address.required'] = trans('user_validation.Billing Address is required');
@@ -104,7 +97,6 @@ class CheckoutController extends Controller
         }
 
         $this->validate($request, $rules, $customMessages);
-
 
         if ($request->payment_method == 'Cash on Delivery') {
             $order = $this->placeOrder($request);
@@ -133,7 +125,7 @@ class CheckoutController extends Controller
             if (isset($request->same_shipping)) {
                 $billing_id = $this->storeAddress($request, 'billing_');
             }
-            $this->orderStore($request, auth('web')->user(),  $request->delivery_fee, $address_id, $billing_id);
+            $this->orderStore($request, auth('web')->user(), $request->delivery_fee, $address_id, $billing_id);
 
             if (!auth('web')->user()) {
                 Address::where('id', $address_id)->delete();
@@ -415,7 +407,7 @@ class CheckoutController extends Controller
         $responseObj = json_decode($response);
         if (isset($responseObj->payment_url) && !empty($responseObj->payment_url)) {
             $request->merge(['transaction_info' => $tran_id]);
-            $this->orderStore($request, auth('web')->user(),  $request->delivery_fee, $address_id, $billing_id);
+            $this->orderStore($request, auth('web')->user(), $request->delivery_fee, $address_id, $billing_id);
 
             Address::where('id', $address_id)->delete();
 

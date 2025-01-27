@@ -1,7 +1,9 @@
 @extends('layout')
+
 @section('title')
     <title>{{ __('user.Checkout') }}</title>
 @endsection
+
 @section('meta')
     <meta name="description" content="{{ __('user.Checkout') }}">
 @endsection
@@ -31,7 +33,6 @@
         }
     </style>
 
-
     {{-- <!--============================
             CHECK OUT PAGE START
     ==============================--> --}}
@@ -43,8 +44,7 @@
                     <div class="row">
                         <div class="col-xl-7 col-lg-6">
                             <div class="wsus__check_form">
-                                <h5>{{ __('Shipping Details') }}
-                                </h5>
+                                <h5>{{ __('Shipping Details') }}</h5>
                                 @php
                                     if (auth('web')->user()) {
                                         $shipping = auth('web')->user()->shipping;
@@ -55,7 +55,6 @@
                                     }
                                 @endphp
                                 <div class="row mt-4">
-
                                     <div class="col-md-12 col-lg-6 col-xl-6">
                                         <div class="wsus__check_single_form">
                                             <input type="text" placeholder="{{ __('user.Name') }}*" name="name"
@@ -223,8 +222,8 @@
                                         </label>
                                     </div>
                                 </div>
-                                <button type="button"
-                                    class="common_btn place_order"> <span>{{ __('user.Place Order') }}</span></button>
+                                <button type="button" class="common_btn place_order">
+                                    <span>{{ __('user.Place Order') }}</span></button>
                             </div>
                         </div>
                     </div>
