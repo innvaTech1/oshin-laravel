@@ -25,10 +25,12 @@ class ProductImport implements ToModel, WithStartRow
      */
     public function model(array $row)
     {
+        // Product Name
         if (!trim($row[1])) {
             return null;
         }
 
+        // Product Name Slug
         $findProductWithSlug = Product::where('slug', trim($row[2]))->first();
 
         if ($findProductWithSlug) {
@@ -45,6 +47,7 @@ class ProductImport implements ToModel, WithStartRow
             'slug' => $slug,
         ];
 
+        // Category
         $category = Category::where('name', trim($row[3]))->first();
 
         if (!$category) {
@@ -57,6 +60,7 @@ class ProductImport implements ToModel, WithStartRow
 
         $data['category_id'] = $category->id;
 
+        // Sub Category
         if (trim($row[4])) {
             $subCategory = SubCategory::where('name', trim($row[4]))->first();
 
@@ -71,6 +75,7 @@ class ProductImport implements ToModel, WithStartRow
             $data['sub_category_id'] = $subCategory->id;
         }
 
+        // Child Category
         if (trim($row[5])) {
             $childCategory = ChildCategory::where('name', trim($row[5]))->first();
 
@@ -86,22 +91,11 @@ class ProductImport implements ToModel, WithStartRow
             $data['child_category_id'] = $childCategory->id;
         }
 
+        // Thumbnail Image
         if (trim($row[6])) {
-            $sourcePath = "C:/product-images/" . trim($row[6]);
+            $imagePathFromExcel = trim($row[6]);
 
-            if (file_exists($sourcePath)) {
-                $uniqueFileName = 'Thumb-' . now()->format('Y-m-d-H-i-s-u') . '.' . pathinfo($sourcePath, PATHINFO_EXTENSION);
-
-                $destinationPath = public_path("uploads/custom-images/{$uniqueFileName}");
-
-                if (copy($sourcePath, $destinationPath)) {
-                    $data['thumb_image'] = "uploads/custom-images/{$uniqueFileName}";
-                } else {
-                    // \Log::error("Failed to copy thumbnail image: {$sourcePath}");
-                }
-            } else {
-                // \Log::error("Thumbnail source image not found: {$sourcePath}");
-            }
+            $data['thumb_image'] = $imagePathFromExcel;
         }
 
         // location
@@ -148,6 +142,7 @@ class ProductImport implements ToModel, WithStartRow
             }
         }
 
+        // Brand
         if (trim($row[14])) {
             $name = trim($row[14]);
             $brand = Brand::where('name', 'like', "%$name%")->first();
@@ -162,37 +157,44 @@ class ProductImport implements ToModel, WithStartRow
             $data['brand_id'] = $brand->id;
         }
 
+        // SKU
         if (trim($row[15])) {
             $data['sku'] = trim($row[15]);
         } else {
             $data['sku'] = mt_rand(10000000, 99999999);
         }
 
+        // Price
         if (trim($row[16])) {
             $data['price'] = trim($row[16]);
         }
 
+        // Price Offer
         if (trim($row[17])) {
             $data['offer_price'] = trim($row[17]);
         }
 
+        // Stock Quantity
         if (trim($row[18])) {
             $data['qty'] = trim($row[18]);
         }
 
+        // Weight
         if (trim($row[19])) {
             $data['weight'] = trim($row[19]);
         }
 
+        // Short Description
         if (trim($row[20])) {
             $data['short_description'] = trim($row[20]);
         }
 
+        // Long Description
         if (trim($row[21])) {
             $data['long_description'] = trim($row[21]);
         }
 
-        // highlights
+        // Highlight
         if (trim($row[22])) {
             $dataString = trim($row[22]); // Extract the data from $row[13]
 
@@ -227,33 +229,40 @@ class ProductImport implements ToModel, WithStartRow
             }
         }
 
+        // Take Pre Order
         if (trim($row[24])) {
             $data['is_pre_order'] = $row[24];
         }
 
+        // Has Partial Payment
         if (trim($row[25])) {
             $data['is_partial'] = $row[25];
         }
 
+        // Status
         if (trim($row[26])) {
             $data['status'] = trim($row[26]);
         }
 
+        // SEO Title
         if (trim($row[27])) {
             $data['seo_title'] = trim($row[27]);
         }
 
+        // SEO Description
         if (trim($row[28])) {
             $data['seo_description'] = trim($row[28]);
         }
 
+        // Product Type
         if (trim($row[29])) {
             $data['type'] = trim($row[29]);
         }
 
+        // Vendor ID
         if (trim($row[30])) {
             $data['vendor_id'] = trim($row[30]);
-            $data['status'] = 0;
+            // $data['status'] = 0;
         } else {
             $data['vendor_id'] = 0;
         }
@@ -270,10 +279,9 @@ class ProductImport implements ToModel, WithStartRow
             // \Log::info('Product created successfully', ['product_id' => $product->id]);
         } catch (\Exception $e) {
             \Log::error('Product creation failed', ['error' => $e->getMessage(), 'data' => $data]);
-            // dd($e->getMessage());
         }
 
-        // Multiple images processing
+        // Multiple Images Process
         if (trim($row[7])) {
             $dataString = trim($row[7], '[]');
             $images = explode(',', $dataString);
@@ -281,29 +289,14 @@ class ProductImport implements ToModel, WithStartRow
             $images = array_filter($images);
 
             foreach ($images as $image) {
-                $sourcePath = "C:/product-images/{$image}";
-
-                // Ensure the source image exists
-                if (file_exists($sourcePath)) {
-                    $uniqueFileName = 'Gallery-' . now()->format('Y-m-d-H-i-s-u') . '.' . pathinfo($image, PATHINFO_EXTENSION);
-
-                    $destinationPath = public_path("uploads/custom-images/{$uniqueFileName}");
-
-                    if (copy($sourcePath, $destinationPath)) {
-                        $gallery = new ProductGallery();
-                        $gallery->product_id = $product->id;
-                        $gallery->image = "uploads/custom-images/{$uniqueFileName}";
-                        $gallery->save();
-                    } else {
-                        // \Log::error("Failed to copy image: {$sourcePath}");
-                    }
-                } else {
-                    // \Log::error("Source image not found: {$sourcePath}");
-                }
+                $gallery = new ProductGallery();
+                $gallery->product_id = $product->id;
+                $gallery->image = $image;
+                $gallery->save();
             }
         }
 
-        // product Variant
+        // Product Variant 1
         if (trim($row[8])) {
             $dataString = trim($row[8]);
 

@@ -1,7 +1,9 @@
 @extends('admin.master_layout')
+
 @section('title')
     <title>{{ __('Product Bulk Import') }}</title>
 @endsection
+
 @section('admin-content')
     <!-- Main Content -->
     <div class="main-content">
