@@ -33,6 +33,7 @@
                         $productDays[] = date('d', strtotime($product->flash_deal_date));
                     }
                 @endphp
+
                 <script>
                     var productIds = <?= json_encode($productIds) ?>;
                     var productYears = <?= json_encode($productYears) ?>;
@@ -43,7 +44,7 @@
                 <div class="row">
                     @foreach ($products as $product)
                         <div class="col-12 col-sm-12 col-md-6 col-lg-4 ">
-                            <div class="wsus__offer_det_single">
+                            <div class="w-50 wsus__offer_det_single">
                                 @php
                                     $variantPrice = 0;
                                     $variants = $product->variants->where('status', 1);
@@ -84,6 +85,7 @@
                                         $percentage = round($percentage);
                                     }
                                 @endphp
+
                                 <div class="wsus__product_item">
                                     @if ($isCampaign)
                                         <span class="wsus__minus">-{{ $campaignOffer }}%</span>
