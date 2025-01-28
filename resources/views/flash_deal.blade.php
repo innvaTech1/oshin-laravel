@@ -1,18 +1,14 @@
 @extends('layout')
+
 @section('title')
     <title>{{ $seoSetting->seo_title }}</title>
 @endsection
+
 @section('meta')
     <meta name="description" content="{{ $seoSetting->seo_description }}">
 @endsection
 
 @section('public-content')
-
-
-
-    <!--============================
-            DAILY DEALS DETAILS START
-        ==============================-->
     <section id="wsus__daily_deals">
         <div class="container">
             <div class="wsus__offer_details_area">
@@ -43,7 +39,6 @@
                     var productMonths = <?= json_encode($productMonths) ?>;
                     var productDays = <?= json_encode($productDays) ?>;
                 </script>
-
 
                 <div class="row">
                     @foreach ($products as $product)
@@ -97,7 +92,6 @@
                                             <span class="wsus__minus">-{{ $percentage }}%</span>
                                         @endif
                                     @endif
-
 
                                     <a class="wsus__pro_link" href="{{ route('product-detail', $product->slug) }}">
                                         <img src="{{ asset($product->thumb_image) }}" alt="product"
@@ -169,14 +163,14 @@
                                             </p>
                                         @endif
 
-
                                         <a class="wsus__pro_name"
                                             href="{{ route('product-detail', $product->slug) }}">{{ $product->short_name }}</a>
 
                                         @if ($isCampaign)
                                             <p class="wsus__price">
                                                 {{ currency_icon() }}{{ sprintf('%.2f', $campaignOfferPrice + $variantPrice) }}
-                                                <del>{{ currency_icon() }}{{ sprintf('%.2f', $totalPrice) }}</del></p>
+                                                <del>{{ currency_icon() }}{{ sprintf('%.2f', $totalPrice) }}</del>
+                                            </p>
                                         @else
                                             @if ($product->offer_price == null)
                                                 <p class="wsus__price">
@@ -185,7 +179,8 @@
                                             @else
                                                 <p class="wsus__price">
                                                     {{ currency_icon() }}{{ sprintf('%.2f', $product->offer_price + $variantPrice) }}
-                                                    <del>{{ currency_icon() }}{{ sprintf('%.2f', $totalPrice) }}</del></p>
+                                                    <del>{{ currency_icon() }}{{ sprintf('%.2f', $totalPrice) }}</del>
+                                                </p>
                                             @endif
                                         @endif
                                         <a class="add_cart" onclick="addToCartMainProduct('{{ $product->id }}')"
@@ -201,7 +196,6 @@
                     <div class="col-xl-12">
                         {{ $products->links('custom_paginator') }}
                     </div>
-
                 </div>
 
                 @foreach ($products as $product)
@@ -256,7 +250,6 @@
                                                     @endif
                                                     </p>
                 @endif
-
 
                 @php
                     $reviewQty = $product->reviews->where('status', 1)->count();
@@ -321,7 +314,8 @@
                 @if ($isCampaign)
                     <h4>{{ currency_icon() }} <span
                             id="mainProductModalPrice-{{ $product->id }}">{{ sprintf('%.2f', $campaignOfferPrice + $variantPrice) }}</span>
-                        <del>{{ currency_icon() }}{{ sprintf('%.2f', $totalPrice) }}</del></h4>
+                        <del>{{ currency_icon() }}{{ sprintf('%.2f', $totalPrice) }}</del>
+                    </h4>
                 @else
                     @if ($product->offer_price == null)
                         <h4>{{ currency_icon() }}<span
@@ -330,7 +324,8 @@
                     @else
                         <h4>{{ currency_icon() }}<span
                                 id="mainProductModalPrice-{{ $product->id }}">{{ sprintf('%.2f', $product->offer_price + $variantPrice) }}</span>
-                            <del>{{ currency_icon() }}{{ sprintf('%.2f', $totalPrice) }}</del></h4>
+                            <del>{{ currency_icon() }}{{ sprintf('%.2f', $totalPrice) }}</del>
+                        </h4>
                     @endif
                 @endif
 
@@ -486,8 +481,4 @@
     </div>
     </div>
     </section>
-    <!--============================
-            DAILY DEALS DETAILS END
-        ==============================-->
-
 @endsection
