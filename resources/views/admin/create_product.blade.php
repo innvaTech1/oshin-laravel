@@ -77,11 +77,31 @@
                                             </select>
                                         </div>
 
-                                        <div class="form-group col-12">
+                                        {{-- <div class="form-group col-12">
                                             <label>{{ __('Location') }} </label>
                                             <select name="delivery_id[]" class="form-control select2" id="delivery_id"
                                                 multiple>
                                                 <option value="">{{ __('Location') }}</option>
+                                                @foreach ($cities as $city)
+                                                    <option value="{{ $city->id }}">{{ $city->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div> --}}
+
+                                        <div class="form-group col-12">
+                                            <label>{{ __('State') }} <span class="text-danger">*</span></label>
+                                            <select name="state_id[]" class="form-control select2" id="state_id" multiple>
+                                                <option value="" disabled>{{ __('Select State') }}</option>
+                                                @foreach ($states as $state)
+                                                    <option value="{{ $state->id }}">{{ $state->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group col-12">
+                                            <label>{{ __('City') }} <span class="text-danger">*</span></label>
+                                            <select name="city_id[]" class="form-control select2" id="city_id" multiple>
+                                                <option value="" disabled>{{ __('Select City') }}</option>
                                                 @foreach ($cities as $city)
                                                     <option value="{{ $city->id }}">{{ $city->name }}</option>
                                                 @endforeach
@@ -100,7 +120,7 @@
                                         </div>
 
                                         <div class="form-group col-12">
-                                            <label>{{ __('SKU') }} <span class="text-danger"></span></label>
+                                            <label>{{ __('SKU') }} <span class="text-danger">*</span></label>
                                             <div class="input-group">
                                                 <input type="text" name="sku" class="form-control currency"
                                                     id="sku" required value="{{ old('sku') }}">

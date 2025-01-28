@@ -9,33 +9,7 @@ use Illuminate\Support\Facades\Route;
 
 class Product extends Model
 {
-    protected $fillable = [
-        "name",
-        "slug",
-        "category_id",
-        "sub_category_id",
-        "child_category_id",
-        "thumb_image",
-        "delivery_id",
-        "brand_id",
-        "sku",
-        "price",
-        "offer_price",
-        "qty",
-        "weight",
-        "short_description",
-        "long_description",
-        "is_top",
-        "new_product",
-        "is_best",
-        "is_featured",
-        "is_flash_deal",
-        "status",
-        "seo_title",
-        "seo_description",
-        "type",
-        "vendor_id",
-    ];
+    protected $guarded = ["id"];
 
     use HasFactory;
 
@@ -237,6 +211,5 @@ class Product extends Model
         'buyone_getone' => 'integer',
         'status' => 'integer',
         'is_specification' => 'integer',
-        'delivery_id' => 'array',
     ];
 }

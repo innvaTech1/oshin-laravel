@@ -26,6 +26,7 @@ use App\Models\CampaignProduct;
 use App\Models\ProductVariantItem;
 use App\Models\OrderProductVariant;
 use App\Http\Controllers\Controller;
+use App\Models\CountryState;
 use App\Models\ProductSpecification;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\ProductSpecificationKey;
@@ -91,7 +92,8 @@ class ProductController extends Controller
         $retrunPolicies = ReturnPolicy::where('status', 1)->get();
         $specificationKeys = ProductSpecificationKey::all();
         $cities = City::orderBy('name', 'asc')->get();
-        return view('admin.create_product', compact('categories', 'brands', 'productTaxs', 'retrunPolicies', 'specificationKeys', 'cities'));
+        $states = CountryState::orderBy('name', 'asc')->get();
+        return view('admin.create_product', compact('categories', 'brands', 'productTaxs', 'retrunPolicies', 'specificationKeys', 'cities', 'states'));
     }
 
     public function store(Request $request)
@@ -183,7 +185,9 @@ class ProductController extends Controller
         $product->short_description = $request->short_description;
         $product->long_description = $request->long_description;
         $product->tags = $request->tags;
-        $product->delivery_id = $request->delivery_id;
+        $product->state_id = json_encode($request->state_id);
+        $product->city_id = json_encode($request->city_id);
+        $product->delivery_id = json_encode($request->city_id);
         $product->status = $request->status;
         $product->weight = $request->weight;
         $product->is_undefine = 1;
@@ -240,6 +244,7 @@ class ProductController extends Controller
         $specificationKeys = ProductSpecificationKey::all();
         $productSpecifications = ProductSpecification::where('product_id', $product->id)->get();
         $cities = City::all();
+        $states = CountryState::all();
         $tagArray = json_decode($product->tags);
         $tags = '';
         if ($product->tags) {
@@ -248,7 +253,7 @@ class ProductController extends Controller
             }
         }
 
-        return view('admin.edit_product', compact('categories', 'brands', 'productTaxs', 'retrunPolicies', 'specificationKeys', 'product', 'subCategories', 'childCategories', 'tags', 'productSpecifications', 'cities'));
+        return view('admin.edit_product', compact('categories', 'brands', 'productTaxs', 'retrunPolicies', 'specificationKeys', 'product', 'subCategories', 'childCategories', 'tags', 'productSpecifications', 'cities', 'states'));
     }
 
     public function update(Request $request, $id)
@@ -332,7 +337,9 @@ class ProductController extends Controller
         $product->short_description = $request->short_description;
         $product->long_description = $request->long_description;
         $product->tags = $request->tags;
-        $product->delivery_id = $request->delivery_id;
+        $product->state_id = json_encode($request->state_id);
+        $product->city_id = json_encode($request->city_id);
+        $product->delivery_id = json_encode($request->city_id);
         $product->status = $request->status;
         $product->weight = $request->weight;
         $product->is_undefine = 1;
