@@ -338,6 +338,18 @@
                                         </div>
 
                                         <div class="form-group col-12">
+                                            <label>{{ __('Oshin Verified Status') }}</label>
+                                            <select class="form-control" name="oshin_verified">
+                                                <option value="1" @if (old('oshin_verified', isset($product) ? $product->oshin_verified : 0) == 1) selected @endif>
+                                                    {{ __('Oshin Verified') }}
+                                                </option>
+                                                <option value="0" @if (old('oshin_verified', isset($product) ? $product->oshin_verified : 0) == 0) selected @endif>
+                                                    {{ __('Not Oshin Verified') }}
+                                                </option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group col-12">
                                             <label>{{ __('SEO Title') }}</label>
                                             <input type="text" class="form-control" name="seo_title"
                                                 value="{{ old('seo_title') }}">

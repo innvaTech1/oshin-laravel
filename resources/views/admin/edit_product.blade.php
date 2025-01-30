@@ -385,7 +385,20 @@
                                         <div class="form-group col-12">
                                             <label>{{ __('Warranty Time') }} (Months)</label>
                                             <input type="number" class="form-control" name="warranty_times"
-                                                value="{{ $product->warranty_times }}">
+                                                value="{{ old('warranty_times', $product->warranty_times) }}"
+                                                min="0" placeholder="Enter warranty duration in months">
+                                        </div>
+
+                                        <div class="form-group col-12">
+                                            <label>{{ __('Oshin Verified Status') }}</label>
+                                            <select class="form-control" name="oshin_verified">
+                                                <option value="1" @if (old('oshin_verified', $product->oshin_verified) == 1) selected @endif>
+                                                    {{ __('Oshin Verified') }}
+                                                </option>
+                                                <option value="0" @if (old('oshin_verified', $product->oshin_verified) == 0) selected @endif>
+                                                    {{ __('Not Oshin Verified') }}
+                                                </option>
+                                            </select>
                                         </div>
 
                                         <div class="form-group col-12">

@@ -205,6 +205,7 @@ class ProductController extends Controller
         $product->return_policy_id = $request->return_policy_id ?? 1;
         $product->warranty_policy_id = $request->warranty_policy_id ?? 1;
         $product->warranty_times = $request->warranty_times;
+        $product->oshin_verified = $request->oshin_verified;
         $product->measurement = $request->measurement;
         $product->type = session('product_type');
 
@@ -358,6 +359,7 @@ class ProductController extends Controller
         $product->return_policy_id = $request->return_policy_id ?? 1;
         $product->warranty_policy_id = $request->warranty_policy_id ?? 1;
         $product->warranty_times = $request->warranty_times;
+        $product->oshin_verified = $request->oshin_verified;
         $product->measurement = $request->measurement;
 
         if ($request->is_pre_order) {
