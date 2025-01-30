@@ -324,18 +324,39 @@
                                 </div>
                             </div>
 
+                            <!-- Warranty -->
+                            <div class="wsus_pro_det_sidebar_single card p-3 mb-3 shadow">
+                                <div class="d-flex align-items-center">
+                                    @if ($product->warranty_times)
+                                        <i class="fas fa-shield-check fa-2x text-success me-3"></i>
+                                        <div class="wsus_pro_det_sidebar_text">
+                                            <h6 class="mb-1 text-success">
+                                                {{ __($product->warranty_times . ' months warranty') }}
+                                            </h6>
+                                        </div>
+                                    @else
+                                        <i class="fas fa-shield-check fa-2x text-secondary me-3"></i>
+                                        <div class="wsus_pro_det_sidebar_text">
+                                            <h6 class="mb-1 text-muted">{{ __('Warranty not applicable') }}</h6>
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+
                             <!-- Oshin Verified -->
                             <div class="wsus_pro_det_sidebar_single card p-3 mb-3 shadow">
                                 <div class="d-flex align-items-center">
-                                    <i class="fal fa-check-square fa-2x text-info me-3"></i>
-                                    <div class="wsus_pro_det_sidebar_text">
-                                        <h6 class="mb-1 text-dark">{{ __('Oshin Verified') }}</h6>
-                                        {{-- @if ($product->is_warranty == 1)
-                                        <h5>{{ __('user.Warranty Available') }}</h5>
+                                    @if ($product->oshin_verified == 1)
+                                        <i class="fas fa-check-circle fa-2x text-success me-3"></i>
+                                        <div class="wsus_pro_det_sidebar_text">
+                                            <h6 class="mb-1 text-success">{{ __('Oshin Verified') }}</h6>
+                                        </div>
                                     @else
-                                        <h5>{{ __('user.Warranty Not Available') }}</h5>
-                                    @endif --}}
-                                    </div>
+                                        <i class="fas fa-times-circle fa-2x text-danger me-3"></i>
+                                        <div class="wsus_pro_det_sidebar_text">
+                                            <h6 class="mb-1 text-danger">{{ __('Not Oshin Verified') }}</h6>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>
