@@ -113,6 +113,7 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::get('/help-support', [HomeController::class, 'helpAndSupport'])->name('help-support');
         Route::get('/page/{slug}', [HomeController::class, 'customPage'])->name('page');
         Route::get('/terms-and-conditions', [HomeController::class, 'termsAndCondition'])->name('terms-and-conditions');
+        Route::get('/returns-and-refunds', [HomeController::class, 'returnsAndRefunds'])->name('returns-and-refunds');
         Route::get('/privacy-policy', [HomeController::class, 'privacyPolicy'])->name('privacy-policy');
         Route::get('/sellers', [HomeController::class, 'seller'])->name('sellers');
         Route::get('/seller-detail', [HomeController::class, 'sellerDetail'])->name('seller-detail');

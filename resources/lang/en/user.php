@@ -498,6 +498,7 @@ return array(
     'store open' => 'store open',
     'store Closed' => 'store Closed',
     'Terms And Conditions' => 'Terms And Conditions',
+    'Returns and Refunds' => 'Returns and Refunds',
     'Terms And Condition' => 'Terms And Condition',
     'Order Tracking' => 'Order Tracking',
     'Tracking your order status' => 'Tracking your order status',

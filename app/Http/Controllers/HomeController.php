@@ -287,6 +287,12 @@ class HomeController extends Controller
         return view('terms_and_conditions', compact('terms_conditions'));
     }
 
+    public function returnsAndRefunds()
+    {
+        $terms_conditions = TermsAndCondition::first();
+        return view('returns_and_refunds');
+    }
+
     public function privacyPolicy()
     {
         $privacyPolicy = TermsAndCondition::first();
