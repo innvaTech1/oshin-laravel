@@ -344,21 +344,16 @@
                             </div>
 
                             <!-- Oshin Verified -->
-                            <div class="wsus_pro_det_sidebar_single card p-3 mb-3 shadow">
-                                <div class="d-flex align-items-center">
-                                    @if ($product->oshin_verified == 1)
+                            @if ($product->oshin_verified == 1)
+                                <div class="wsus_pro_det_sidebar_single card p-3 mb-3 shadow">
+                                    <div class="d-flex align-items-center">
                                         <i class="fas fa-check-circle fa-2x text-success me-3"></i>
                                         <div class="wsus_pro_det_sidebar_text">
                                             <h6 class="mb-1 text-success">{{ __('Oshin Verified') }}</h6>
                                         </div>
-                                    @else
-                                        <i class="fas fa-times-circle fa-2x text-danger me-3"></i>
-                                        <div class="wsus_pro_det_sidebar_text">
-                                            <h6 class="mb-1 text-danger">{{ __('Not Oshin Verified') }}</h6>
-                                        </div>
-                                    @endif
+                                    </div>
                                 </div>
-                            </div>
+                            @endif
                         </div>
 
                         @if ($banner->status == 1)
