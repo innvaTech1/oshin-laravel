@@ -16,76 +16,59 @@
                     <div class="col-12">
                         <div class="row">
                             @foreach ($sellers as $seller)
-                                <div class="col-xl-6 col-md-6">
-                                    <div class="w-50 wsus__vendor_single">
+                                <div class="col-xl-3 col-md-3">
+                                    <div class="card border-0 shadow-lg rounded-3 overflow-hidden">
                                         <img src="{{ asset($seller->banner_image) }}" alt="vendor"
-                                            class="img-fluid w-100">
-                                        <div class="wsus__vendor_text">
-                                            <div class="wsus__vendor_text_center">
-                                                <h5 class="text-white fw-bold">{{ $seller->shop_name }}</h5>
+                                            class="card-img-top img-fluid">
+                                        <div class="card-body text-center bg-white position-relative">
+                                            <h5 class="fw-bold text-primary">{{ $seller->shop_name }}</h5>
 
-                                                @php
-                                                    $reviewQty = App\Models\ProductReview::where('status', 1)
-                                                        ->where('product_vendor_id', $seller->id)
-                                                        ->count();
-                                                    $totalReview = App\Models\ProductReview::where('status', 1)
-                                                        ->where('product_vendor_id', $seller->id)
-                                                        ->sum('rating');
-                                                    if ($reviewQty > 0) {
-                                                        $average = $totalReview / $reviewQty;
-                                                        $intAverage = intval($average);
-                                                        $nextValue = $intAverage + 1;
-                                                        $reviewPoint = $intAverage;
-                                                        $halfReview = false;
-                                                        if ($intAverage < $average && $average < $nextValue) {
-                                                            $reviewPoint = $intAverage + 0.5;
-                                                            $halfReview = true;
-                                                        }
-                                                    }
-                                                @endphp
+                                            @php
+                                                $reviewQty = App\Models\ProductReview::where('status', 1)
+                                                    ->where('product_vendor_id', $seller->id)
+                                                    ->count();
+                                                $totalReview = App\Models\ProductReview::where('status', 1)
+                                                    ->where('product_vendor_id', $seller->id)
+                                                    ->sum('rating');
+                                                $average = $reviewQty > 0 ? $totalReview / $reviewQty : 0;
+                                                $intAverage = floor($average);
+                                                $halfReview = $average - $intAverage >= 0.5;
+                                            @endphp
 
-                                                @if ($reviewQty > 0)
-                                                    <p class="wsus__vendor_rating">
-                                                        @for ($i = 1; $i <= 5; $i++)
-                                                            @if ($i <= $reviewPoint)
-                                                                <i class="fas fa-star"></i>
-                                                            @elseif ($i > $reviewPoint)
-                                                                @if ($halfReview == true)
-                                                                    <i class="fas fa-star-half-alt"></i>
-                                                                    @php
-                                                                        $halfReview = false;
-                                                                    @endphp
-                                                                @else
-                                                                    <i class="fal fa-star"></i>
-                                                                @endif
-                                                            @endif
-                                                        @endfor
-                                                        <span>({{ $reviewQty }} {{ __('user.review') }})</span>
-                                                    </p>
-                                                @endif
+                                            <p class="mb-2">
+                                                @for ($i = 1; $i <= 5; $i++)
+                                                    @if ($i <= $intAverage)
+                                                        <i class="fas fa-star text-warning"></i>
+                                                    @elseif ($halfReview && $i == $intAverage + 1)
+                                                        <i class="fas fa-star-half-alt text-warning"></i>
+                                                        @php $halfReview = false; @endphp
+                                                    @else
+                                                        <i class="far fa-star text-secondary"></i>
+                                                    @endif
+                                                @endfor
+                                                <span class="text-muted ms-1">({{ $reviewQty }} Reviews)</span>
+                                            </p>
 
-                                                @if ($reviewQty == 0)
-                                                    <p class="wsus__vendor_rating">
-                                                        <i class="fal fa-star"></i>
-                                                        <i class="fal fa-star"></i>
-                                                        <i class="fal fa-star"></i>
-                                                        <i class="fal fa-star"></i>
-                                                        <i class="fal fa-star"></i>
-                                                        <span>(0 {{ __('user.review') }})</span>
-                                                    </p>
-                                                @endif
-
-                                                <a href="callto:{{ $seller->phone }}"><i class="far fa-phone-alt"></i>
-                                                    {{ $seller->phone }}</a>
-                                                <a href="mailto:{{ $seller->email }}"><i class="fal fa-envelope"></i>
-                                                    {{ $seller->email }}</a>
-                                                <a href="{{ route('seller-detail', ['shop_name' => $seller->slug]) }}"
-                                                    class="common_btn"> <span>{{ __('user.visit store') }}</span></a>
+                                            <div class="d-flex justify-content-center gap-3">
+                                                <a href="tel:{{ $seller->phone }}"
+                                                    class="btn btn-light btn-sm rounded-pill shadow-sm">
+                                                    <i class="fas fa-phone-alt me-1"></i> Call
+                                                </a>
+                                                <a href="mailto:{{ $seller->email }}"
+                                                    class="btn btn-light btn-sm rounded-pill shadow-sm">
+                                                    <i class="fas fa-envelope me-1"></i> Email
+                                                </a>
                                             </div>
+
+                                            <a href="{{ route('seller-detail', ['shop_name' => $seller->slug]) }}"
+                                                class="btn btn-primary btn-sm mt-3 px-4 rounded-pill">
+                                                <i class="fas fa-store me-1"></i> Visit Store
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
                             @endforeach
+
                         </div>
                     </div>
                 @else
