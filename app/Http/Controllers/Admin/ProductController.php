@@ -503,7 +503,8 @@ class ProductController extends Controller
     {
         $is_dummy = false;
 
-        $products = Product::where('id', 35)->get();
+        // $products = Product::where('id', 35)->get();
+        $products = Product::all();
 
         return Excel::download(new ProductExport($is_dummy, $products), 'products.xlsx');
     }

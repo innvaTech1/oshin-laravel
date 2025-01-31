@@ -9,9 +9,9 @@ use Illuminate\Support\Facades\Route;
 
 class Product extends Model
 {
-    protected $guarded = ["id"];
-
     use HasFactory;
+
+    protected $guarded = ["id"];
 
     protected $appends = ['averageRating'];
 
@@ -23,7 +23,7 @@ class Product extends Model
             static::addGlobalScope('preorder', function (Builder $builder) {
                 $builder->where('is_pre_order', 1);
             });
-        } else if (!str_contains(Route::getFacadeRoot()?->current()?->uri(), 'admin')) {
+        } elseif (!str_contains(Route::getFacadeRoot()?->current()?->uri(), 'admin')) {
             static::addGlobalScope('preorder', function (Builder $builder) {
                 $builder->where('is_pre_order', 0);
             });
@@ -33,13 +33,12 @@ class Product extends Model
             static::addGlobalScope('wholesale', function (Builder $builder) {
                 $builder->where('is_wholesale', 1);
             });
-        } else if (!str_contains(Route::getFacadeRoot()?->current()?->uri(), 'admin')) {
+        } elseif (!str_contains(Route::getFacadeRoot()?->current()?->uri(), 'admin')) {
             static::addGlobalScope('wholesale', function (Builder $builder) {
                 $builder->where('is_wholesale', 0);
             });
         }
     }
-
 
     public function getAverageRatingAttribute()
     {
@@ -50,7 +49,6 @@ class Product extends Model
     {
         return $this->name;
     }
-
 
     public function category()
     {
@@ -142,11 +140,11 @@ class Product extends Model
         // Return the average review for the menu item
         return $this->reviews()->where('status', 1)->avg('rating');
     }
+
     public function totalReviews()
     {
         return $this->reviews->count();
     }
-
 
     public function variants()
     {
@@ -174,7 +172,6 @@ class Product extends Model
         return $this->hasMany(ProductVariantItem::class);
     }
 
-
     public function activeReview()
     {
         return $this->hasMany(ProductReview::class)->where('status', 1);
@@ -184,7 +181,6 @@ class Product extends Model
     {
         return $this->hasMany(ProductReview::class)->where('status', 1);
     }
-
 
     protected $casts = [
         'vendor_id' => 'integer',

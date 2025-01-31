@@ -11,6 +11,7 @@ class ProductExport implements FromCollection, WithHeadings, WithMapping
 {
     protected $is_dummy = false;
     protected $products;
+    protected $index = 1; // Track row index
 
     public function __construct($is_dummy, $products = null)
     {
@@ -18,16 +19,15 @@ class ProductExport implements FromCollection, WithHeadings, WithMapping
         $this->products = $products;
     }
 
-
     public function headings(): array
     {
         return [
             "Sl No",
             "Name",
             "Slug",
-            "Category ",
-            "Sub Category ",
-            "Child Category ",
+            "Category",
+            "Sub Category",
+            "Child Category",
             "Thumnail Image",
             "New Image (Multiple)",
             "Product Variant 1",
@@ -38,7 +38,7 @@ class ProductExport implements FromCollection, WithHeadings, WithMapping
             "Location",
             "Brand",
             "SKU",
-            "Price ",
+            "Price",
             "Offer Price",
             "Stock Quantity",
             "Weight",
@@ -46,74 +46,58 @@ class ProductExport implements FromCollection, WithHeadings, WithMapping
             "Long Description",
             "Highlight",
             "Product Highlight",
-            "Take Pre Order?",
-            "Has Partial Payment?",
-            "Status ",
+            "Take Pre Order",
+            "Has Partial Payment",
+            "Status",
             "SEO Title",
             "SEO Description",
             "Product Type",
+            "Vendor ID" // Added Vendor ID
         ];
     }
 
-
     public function collection()
     {
-        // $select = [
-        //     "name",
-        //     "slug",
-        //     "category_id",
-        //     "sub_category_id",
-        //     "child_category_id",
-        //     "thumb_image",
-        //     "delivery_id",
-        //     "brand_id",
-        //     "sku",
-        //     "price",
-        //     "offer_price",
-        //     "qty",
-        //     "weight",
-        //     "short_description",
-        //     "long_description",
-        //     "is_top",
-        //     "new_product",
-        //     "is_best",
-        //     "is_featured",
-        //     "is_flash_deal",
-        //     "status",
-        //     "seo_title",
-        //     "seo_description",
-        //     "type",
-        // ];
-
-        return $this->products;
+        return $this->products ?? Product::all();
     }
 
     public function map($product): array
     {
-        dd($product->location);
+        // Use optional() to avoid null relationship errors
+        $category = optional($product->category)->name ?? '';
+        $subCategory = optional($product->subCategory)->name ?? '';
+        $childCategory = optional($product->childCategory)->name ?? '';
+        $brand = optional($product->brand)->name ?? '';
 
-        $data['is_top'] = 0;
-        $data['new_product'] = 0;
-        $data['is_best'] = 0;
-        $data['is_featured'] = 0;
-        $data['is_flash_deal'] = 0;
+        // Format location (assuming state/city relationships exist)
+        if (!$product->state || !$product->city) {
+            $location = '';
+        } elseif ($product->state && $product->city) {
+            $location = optional($product->state)->name . ', ' . optional($product->city)->name;
+        }
 
-        $highlights = [];
+        // Handle variants (customize based on your variant structure)
+        $variants = $product->variants->pluck('name')->toArray();
+        $variantColumns = array_pad($variants, 5, null); // Fill 5 columns
+
+        // Format new images (adjust if stored as JSON/array)
+        $newImages = $product->new_images ?? [];
+        $formattedImages = implode(', ', (array) $newImages);
+
         return [
+            // Sl No (index + 1)
+            $this->index++,
+
             $product->name,
             $product->slug,
-            $product->category->name,
-            $product->subCategory->name,
-            $product->childCategory->name,
+            $category, // Assuming "Slug Category" is a typo, adjust to ->slug if needed
+            $subCategory,
+            $childCategory,
             $product->thumb_image,
-            "[$product->new_images]",
-            "[$product->variantVal]",
-            null,
-            null,
-            null,
-            null,
-            "[$product->location]",
-            $product->brand->name,
+            $formattedImages,
+            ...$variantColumns, // Spread variants into 5 columns
+            $location,
+            $brand,
             $product->sku,
             $product->price,
             $product->offer_price,
@@ -121,15 +105,15 @@ class ProductExport implements FromCollection, WithHeadings, WithMapping
             $product->weight,
             $product->short_description,
             $product->long_description,
-            $product->is_top,
-            $product->new_product,
-            $product->is_best,
-            $product->is_featured,
-            $product->is_flash_deal,
-            $product->status,
+            $product->is_top ? 'Yes' : 'No',       // Highlight
+            $product->is_featured ? 'Yes' : 'No',  // Product Highlight
+            $product->is_pre_order ? 'Yes' : 'No',
+            $product->is_partial ? 'Yes' : 'No',
+            (string) $product->status,
             $product->seo_title,
             $product->seo_description,
-            $product->type
+            $product->type,
+            (string) $product->vendor_id // Added Vendor ID
         ];
     }
 }

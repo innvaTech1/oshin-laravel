@@ -20,8 +20,8 @@
                 <a href="{{ route('admin.product-export') }}" class="btn btn-success"><i class="fas fa-file-export"></i>
                     {{ __('Export Product List') }}</a>
 
-                <a href="{{ route('admin.product-demo-export') }}" class="btn btn-primary"><i
-                        class="fas fa-file-export"></i> {{ __('Demo Export') }}</a>
+                {{-- <a href="{{ route('admin.product-demo-export') }}" class="btn btn-primary"><i
+                        class="fas fa-file-export"></i> {{ __('Demo Export') }}</a> --}}
 
                 <div class="row mt-4">
                     <div class="col-12">
