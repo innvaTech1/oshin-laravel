@@ -379,20 +379,22 @@ $(function () {
 
 
     //==========PRODUCT ZOOMER============
-    if ($("#exzoom").length > 0) {
-        $("#exzoom").exzoom({
-            autoPlay: false,
-        });
-    }
+    $("#exzoom").exzoom({
+        autoPlay: false,
+    });
 
+    // $('.container').imagesLoaded(function () {
+    //     $("#exzoom").exzoom({
+    //         autoPlay: false,
+    //     });
+    //     $("#exzoom").removeClass('hidden')
+    // });
 
     //==========VENOBOX JS============
     $('.venobox').venobox();
 
-
     //=========main.js=========
     $('.counter').countUp();
-
 
     //*==========MOBILE MENU==========
     $('.wsus__mobile_menu_icon').on('click', function () {

@@ -39,22 +39,25 @@
                                 @endif
                                 <ul class='exzoom_img_ul'>
                                     @foreach ($product->gallery as $image)
-                                        <li><img class="zoom img-fluid w-100" src="{{ asset($image->image) }}"
-                                                alt="product"></li>
+                                        <li>
+                                            <img class="zoom img-fluid w-100" src="{{ asset($image->image) }}"
+                                                alt="product" loading="lazy">
+                                        </li>
                                     @endforeach
                                 </ul>
                             </div>
                             <div class="exzoom_nav"></div>
                             <p class="exzoom_btn">
-                                <a href="javascript:void(0);" class="exzoom_prev_btn"> <i class="far fa-chevron-left"></i>
+                                <a href="javascript:void(0);" class="exzoom_prev_btn">
+                                    <i class="far fa-chevron-left"></i>
                                 </a>
-                                <a href="javascript:void(0);" class="exzoom_next_btn"> <i class="far fa-chevron-right"></i>
+                                <a href="javascript:void(0);" class="exzoom_next_btn">
+                                    <i class="far fa-chevron-right"></i>
                                 </a>
                             </p>
                         </div>
                     </div>
                 </div>
-
 
                 <div class="col-xl-5 col-md-7 col-lg-7">
                     <div class="wsus__pro_details_text">
