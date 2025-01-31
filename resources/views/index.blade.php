@@ -192,7 +192,7 @@
                                     <div class="simply-countdown campaign-details"></div>
                                     <a class="common_btn"
                                         href="{{ route('campaign-detail', $campaign->slug) }}"><span>{{ __('user.see more') }}
-                                        <i class="fas fa-caret-right"></i></span></a>
+                                            <i class="fas fa-caret-right"></i></span></a>
                                 </div>
                             </div>
                         @endif
@@ -277,19 +277,19 @@
                     </div>
 
                     <!-- @foreach ($topCategories as $category)
-                        <div class="col-xl-12 col-12">
-                            <div class="wsus__features_section">
-                                <a href="{{ route('product', ['category' => $category->slug]) }}">
-                                    <div class="wsus__section_content">
-                                        <img src="{{ asset($category->image) }}" alt="{{ $category->name }}"
-                                            class="img-fluid">
-                                        <h2>{{ $category->name }}</h2>
-                                    </div>
-                                </a>
+    <div class="col-xl-12 col-12">
+                                        <div class="wsus__features_section">
+                                            <a href="{{ route('product', ['category' => $category->slug]) }}">
+                                                <div class="wsus__section_content">
+                                                    <img src="{{ asset($category->image) }}" alt="{{ $category->name }}"
+                                                        class="img-fluid">
+                                                    <h2>{{ $category->name }}</h2>
+                                                </div>
+                                            </a>
 
-                            </div>
-                        </div>
-                    @endforeach -->
+                                        </div>
+                                    </div>
+    @endforeach -->
 
 
 
@@ -352,7 +352,8 @@
                             <div class="wsus__single_banner_text">
                                 <h6>{{ $bannerOne->description }}</h6>
                                 <h3>{{ $bannerOne->title }}</h3>
-                                <a class="shop_btn" href="{{ $bannerOne->link }}"><span>{{ __('user.shop now') }}</span></a>
+                                <a class="shop_btn"
+                                    href="{{ $bannerOne->link }}"><span>{{ __('user.shop now') }}</span></a>
                             </div>
                         </div>
                     </div>
@@ -364,7 +365,8 @@
                             <div class="wsus__single_banner_text">
                                 <h6>{{ $bannerTwo->description }}</h6>
                                 <h3>{{ $bannerTwo->title }}</h3>
-                                <a class="shop_btn" href="{{ $bannerTwo->link }}"> <span>{{ __('user.shop now') }}</span></a>
+                                <a class="shop_btn" href="{{ $bannerTwo->link }}">
+                                    <span>{{ __('user.shop now') }}</span></a>
                             </div>
                         </div>
                     </div>
@@ -499,7 +501,7 @@
                                     <ul>
                                         <a class="add_cart" onclick="addToCartMainProduct('{{ $flashDealProduct->id }}')"
                                             href="javascript:;"> <span> <i class="far fa-shopping-basket"></i>
-                                            {{ __('user.ADD TO CART') }}</span></a>
+                                                {{ __('user.ADD TO CART') }}</span></a>
                                         <li><a href="javascript:;"
                                                 onclick="addToWishlist('{{ $flashDealProduct->id }}')"><i
                                                     class="far fa-heart"></i></a></li>
@@ -527,8 +529,8 @@
                 <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                     <div class="wsus__section_header">
                         <h3>{{ __('user.Just for You') }}</h3>
-                        <a class="see_btn" href="{{ route('product', ['type' => 'top']) }}"> <span>{{ __('see more') }} <i
-                                class="fas fa-caret-right"></i></span></a>
+                        <a class="see_btn" href="{{ route('product', ['type' => 'top']) }}"> <span>{{ __('see more') }}
+                                <i class="fas fa-caret-right"></i></span></a>
                     </div>
                 </div>
             </div>
@@ -559,7 +561,7 @@
                         <div class="wsus__section_header">
                             <h3>{{ __('user.Sale Products') }}</h3>
                             <a class="see_btn" href="{{ route('product', ['type' => 'new']) }}"><span>see more <i
-                                    class="fas fa-caret-right"></i></span></a>
+                                        class="fas fa-caret-right"></i></span></a>
                         </div>
                     </div>
                 </div>
@@ -719,8 +721,9 @@
                 <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                     <div class="wsus__section_header">
                         <h3>{{ __('user.Best Selling Products') }}</h3>
-                        <a class="see_btn" href="{{ route('product', ['type' => 'best']) }}"><span>{{ __('user.see more') }}
-                            <i class="fas fa-caret-right"></i> </span></a>
+                        <a class="see_btn"
+                            href="{{ route('product', ['type' => 'best']) }}"><span>{{ __('user.see more') }}
+                                <i class="fas fa-caret-right"></i> </span></a>
                     </div>
                 </div>
             </div>
@@ -752,7 +755,7 @@
                     <div class="wsus__section_header">
                         <h3>Feature Products</h3>
                         <a class="see_btn" href="{{ route('product', ['type' => 'featured']) }}"><span>see more <i
-                                class="fas fa-caret-right"></i> </span></a>
+                                    class="fas fa-caret-right"></i> </span></a>
                     </div>
                 </div>
             </div>
