@@ -275,24 +275,6 @@
                             @endforeach
                         </div>
                     </div>
-
-                    <!-- @foreach ($topCategories as $category)
-    <div class="col-xl-12 col-12">
-                                        <div class="wsus__features_section">
-                                            <a href="{{ route('product', ['category' => $category->slug]) }}">
-                                                <div class="wsus__section_content">
-                                                    <img src="{{ asset($category->image) }}" alt="{{ $category->name }}"
-                                                        class="img-fluid">
-                                                    <h2>{{ $category->name }}</h2>
-                                                </div>
-                                            </a>
-
-                                        </div>
-                                    </div>
-    @endforeach -->
-
-
-
                 </div>
             </div>
         </section>
