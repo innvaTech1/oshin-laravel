@@ -267,6 +267,15 @@ class ProductImport implements ToModel, WithStartRow
             $data['vendor_id'] = 0;
         }
 
+        // Tags
+        if (!empty($row[31])) {
+            // Assign the tags array to the data
+            $data['tags'] = trim($row[31]);
+        } else {
+            // If no tags are provided, set it to null
+            $data['tags'] = null;
+        }
+
         // if (auth('admin')->check()) {
         //     $data['vendor_id'] = 0;
         // } else {
