@@ -8,12 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Address extends Model
 {
     use HasFactory;
-    protected $fillable = ['state_id', 'city_id', 'address', 'type', 'name', 'phone', 'email', 'additional_info', 'user_id', 'default_address'];
+    protected $guarded = ['id'];
 
     protected $append = [
         'full_address',
     ];
-
 
     public function state()
     {

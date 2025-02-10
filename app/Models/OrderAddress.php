@@ -9,6 +9,8 @@ class OrderAddress extends Model
 {
     use HasFactory;
 
+    protected $guarded = ['id'];
+
     protected $casts = [
         'order_id' => 'integer',
     ];

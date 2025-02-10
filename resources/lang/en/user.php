@@ -4,6 +4,7 @@ return array(
     'Billing Address' => 'Billing Address',
     'name' => 'name',
     'Phone' => 'Phone',
+    'Alternative Phone' => 'Alternative Phone',
     'email' => 'email',
     'country' => 'country',
     'State' => 'State',

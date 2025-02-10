@@ -63,7 +63,9 @@ class CheckoutController extends Controller
     {
         $rules = [
             'name' => 'required',
+            'email' => 'nullable|email',
             'phone' => 'required',
+            'phone_alternative' => 'nullable|string',
             'delivery_fee' => 'required',
             'state_id' => 'required',
             'city_id' => 'required',
@@ -82,7 +84,7 @@ class CheckoutController extends Controller
             'agree_terms_condition.required' => trans('user.You must agree to our terms and condition'),
         ];
 
-        if (isset($request->same_shipping)) {
+        if ($request->same_shipping == null) {
             $rules['billing_name'] = 'required';
             $rules['billing_phone'] = 'required';
             $rules['billing_address'] = 'required';
@@ -116,22 +118,24 @@ class CheckoutController extends Controller
 
     public function placeOrder(Request $request)
     {
-
         DB::beginTransaction();
+
         try {
             $address_id = $this->storeAddress($request);
 
             $billing_id = $address_id;
-            if (isset($request->same_shipping)) {
+
+            if ($request->same_shipping == null) {
                 $billing_id = $this->storeAddress($request, 'billing_');
             }
+
             $this->orderStore($request, auth('web')->user(), $request->delivery_fee, $address_id, $billing_id);
 
             if (!auth('web')->user()) {
                 Address::where('id', $address_id)->delete();
             }
 
-            if (isset($request->same_shipping) && !auth('web')->user()) {
+            if ($request->same_shipping == null && !auth('web')->user()) {
                 Address::where('id', $billing_id)->delete();
             }
 
@@ -139,7 +143,6 @@ class CheckoutController extends Controller
 
             // forget cart
             Cart::destroy();
-
 
             return true;
         } catch (Exception $e) {
@@ -152,8 +155,6 @@ class CheckoutController extends Controller
     public function storeAddress(Request $request, $prefix = '')
     {
         // check if user has already address
-
-
         if (auth()->user()) {
             $address = Address::where('user_id', auth('web')->user()->id)->where('type', $prefix == 'billing_' ? 'billing' : 'shipping')->first();
             if (!$address) {
@@ -163,39 +164,40 @@ class CheckoutController extends Controller
             $address = new Address();
         }
 
-
-        $address->name = $prefix . $request->name;
-        $address->phone = $prefix . $request->phone;
-        $address->address = $prefix . $request->address;
-        $address->city_id = $prefix . $request->city_id;
-        $address->state_id = $prefix . $request->state_id;
+        $address->name = $request->input($prefix . 'name');
+        $address->email = $request->input($prefix . 'email');
+        $address->phone = $request->input($prefix . 'phone');
+        $address->phone_alternative = $request->input($prefix . 'phone_alternative');
+        $address->address = $request->input($prefix . 'address');
+        $address->city_id = $request->input($prefix . 'city_id');
+        $address->state_id = $request->input($prefix . 'state_id');
         $address->type = $prefix == 'billing_' ? 'billing' : 'shipping';
         if (auth()->user()) {
             $address->user_id = auth('web')->user()->id;
         }
+
         $address->save();
+
         return $address->id;
     }
 
-    public function orderStore($request, $user, $shipping_fee, $billing_address_id, $shipping_address_id)
+    public function orderStore($request, $user, $shipping_fee, $shipping_address_id, $billing_address_id)
     {
         $tax_amount = 0;
         $total_price = 0;
         $coupon_price = 0;
 
         $user = Auth::guard(name: 'web')->user();
-        $billing = Address::where('id', $billing_address_id)->first();
         $shipping = Address::where('id', $shipping_address_id)->first();
+        $billing = Address::where('id', $billing_address_id)->first();
 
         $cartContents = Cart::content();
         $shipping_method = $request->shipping_method;
-
 
         foreach ($cartContents as $key => $content) {
             $tax = $content->options->tax * $content->qty;
             $tax_amount = $tax_amount + $tax;
         }
-
 
         $subTotal = 0;
         foreach ($cartContents as $cartContent) {
@@ -221,7 +223,6 @@ class CheckoutController extends Controller
         $total_price = $total_price - $coupon_price;
         $total_price += $shipping_fee;
         $total_price = str_replace(array('\'', '"', ',', ';', '<', '>'), '', $total_price);
-
 
         $order = new Order();
         $orderId = substr(rand(0, time()), 0, 10);
@@ -296,25 +297,29 @@ class CheckoutController extends Controller
         }
 
         // store shipping and billing address
-        $billing = Address::find($billing_address_id);
-        $shipping = Address::find($shipping_address_id);
         $orderAddress = new OrderAddress();
+
+        $shipping = Address::find($shipping_address_id);
+        $orderAddress->shipping_name = $shipping->name ?? null;
+        $orderAddress->shipping_email = $shipping->email ?? null;
+        $orderAddress->shipping_phone = $shipping->phone ?? null;
+        $orderAddress->shipping_phone_alternative = $shipping->phone_alternative ?? null;
+        $orderAddress->shipping_address = $shipping->address ?? null;
+        $orderAddress->shipping_city = $shipping?->city?->name ?? null;
+        $orderAddress->shipping_state = $shipping?->state?->name ?? null;
+
+
+        $billing = Address::find($billing_address_id);
         $orderAddress->order_id = $order->id;
-        $orderAddress->billing_name = $billing->name;
-        $orderAddress->billing_email = $billing->email;
-        $orderAddress->billing_phone = $billing->phone;
-        $orderAddress->billing_address = $billing->address;
-        $orderAddress->billing_city = $billing?->city?->name;
-        $orderAddress->billing_state = $billing->state?->name;
+        $orderAddress->billing_name = $billing->name ?? null;
+        $orderAddress->billing_email = $billing->email ?? null;
+        $orderAddress->billing_phone = $billing->phone ?? null;
+        $orderAddress->billing_phone_alternative = $billing->phone_alternative ?? null;
+        $orderAddress->billing_address = $billing->address ?? null;
+        $orderAddress->billing_city = $billing?->city?->name ?? null;
+        $orderAddress->billing_state = $billing->state?->name ?? null;
 
-        $orderAddress->shipping_name = $shipping->name;
-        $orderAddress->shipping_email = $shipping->email;
-        $orderAddress->shipping_phone = $shipping->phone;
-        $orderAddress->shipping_address = $shipping->address;
-        $orderAddress->shipping_city = $billing?->city?->name;
-        $orderAddress->shipping_state = $billing?->state?->name;
         $orderAddress->save();
-
 
         $arr = [];
         $arr['order'] = $order;

@@ -73,6 +73,13 @@
                                                 value="{{ old('phone', $shipping->phone ?? '') }}">
                                         </div>
                                     </div>
+                                    <div class="col-md-12 col-lg-6 col-xl-6">
+                                        <div class="wsus__add_address_single">
+                                            <input type="text" placeholder="{{ __('user.Alternative Phone') }}"
+                                                name="phone_alternative"
+                                                value="{{ old('phone_alternative', $shipping->phone_alternative ?? '') }}">
+                                        </div>
+                                    </div>
                                     <div class="col-md-6 col-lg-12 col-xl-6">
                                         <div class="wsus__check_single_form">
                                             <input type="text" name="address" placeholder="{{ __('user.Address') }}*"
@@ -114,10 +121,9 @@
                                                         <div class="wsus__check_single_form">
                                                             <div class="form-check">
                                                                 <input class="form-check-input" type="checkbox"
-                                                                    value="1" id="flexCheckDefault"
-                                                                    name="same_shipping">
+                                                                    id="flexCheckDefault" name="same_shipping" checked>
                                                                 <label class="form-check-label" for="flexCheckDefault">
-                                                                    {{ __('Bill to a different address') }}
+                                                                    {{ __('Billing address is the same as shipping address') }}
                                                                 </label>
                                                             </div>
                                                         </div>
@@ -151,6 +157,14 @@
                                                                             placeholder="{{ __('user.Phone') }}*"
                                                                             name="billing_phone"
                                                                             value="{{ old('billing_phone', $billing->phone ?? '') }}">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-12 col-lg-6 col-xl-6">
+                                                                    <div class="wsus__add_address_single">
+                                                                        <input type="text"
+                                                                            placeholder="{{ __('user.Alternative Phone') }}"
+                                                                            name="billing_phone_alternative"
+                                                                            value="{{ old('billing_phone_alternative', $billing->billing_phone_alternative ?? '') }}">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-6 col-lg-12 col-xl-6">
@@ -241,12 +255,15 @@
             "use strict";
             $(document).ready(function() {
                 $('.accordion-button').on('click', function() {
+                    // Check if the button is in a collapsed state (accordion is closed)
                     if ($(this).hasClass('collapsed')) {
-                        $(this).find('input[name="same_shipping"]').prop('checked', false);
-                    } else {
+                        // When expanding, check the checkbox
                         $(this).find('input[name="same_shipping"]').prop('checked', true);
+                    } else {
+                        // When collapsing, uncheck the checkbox
+                        $(this).find('input[name="same_shipping"]').prop('checked', false);
                     }
-                })
+                });
                 $('.state').on('change', function() {
                     $('.preloader_area').removeClass('d-none');
                     let state_id = $(this).val();
