@@ -1,19 +1,16 @@
 @extends('layout')
+
 @section('title')
     <title>{{ __('user.Shopping Cart') }}</title>
 @endsection
+
 @section('meta')
     <meta name="description" content="{{ __('user.Shopping Cart') }}">
 @endsection
 
 @section('public-content')
-
-
     <div id="CartResponse">
         @if ($cartContents->count() != 0)
-            {{-- <!--============================
-                    CART VIEW PAGE START
-            ==============================--> --}}
             <section id="wsus__cart_view">
                 <div class="container">
                     <div class="row">
@@ -50,7 +47,6 @@
                                                     </th>
                                                 </tr>
 
-
                                                 @csrf
                                                 @php
                                                     $subTotal = 0;
@@ -66,7 +62,8 @@
                                                         </td>
 
                                                         <td class="wsus__pro_name">
-                                                            <p><a
+                                                            <p>
+                                                                <a
                                                                     href="{{ route('product-detail', $cartContent->options->slug) }}">{{ $cartContent->name }}</a>
                                                             </p>
                                                             @foreach ($cartContent->options->variants as $indx => $variant)
@@ -78,7 +75,6 @@
                                                                         $cartContent->options->prices[$indx];
                                                                 @endphp
                                                             @endforeach
-
                                                         </td>
 
                                                         @php
@@ -188,6 +184,7 @@
                 $bannerOne = $banners->where('id', 9)->first();
                 $bannerTwo = $banners->where('id', 10)->first();
             @endphp
+
             @if ($bannerOne->status == 1)
                 <section id="wsus__single_banner">
                     <div class="container">
@@ -222,13 +219,7 @@
                     </div>
                 </section>
             @endif
-            {{-- <!--============================
-                    CART VIEW PAGE END
-            ==============================--> --}}
         @else
-            {{-- <!--============================
-                CART VIEW PAGE START
-            ==============================--> --}}
             <section id="wsus__cart_view">
                 <div class="container">
                     <div class="row">
@@ -242,13 +233,8 @@
                     </div>
                 </div>
             </section>
-            {{-- <!--============================
-                    CART VIEW PAGE END
-            ==============================--> --}}
         @endif
-
     </div>
-
 
     <script>
         (function($) {
@@ -314,8 +300,6 @@
                         }
                     });
                 })
-
-
             });
         })(jQuery);
 
@@ -369,7 +353,6 @@
                 }
             });
         }
-
 
         function cartItemRemove(rowId) {
             $.ajax({

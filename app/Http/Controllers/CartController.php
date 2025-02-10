@@ -30,6 +30,7 @@ class CartController extends Controller
         $cartVariant = explode(',', $request->items);
         $itemExist = false;
         $cartContents = Cart::content();
+
         foreach ($cartContents as $cartContent) {
             if ($cartContent->id == $request->product_id) $itemExist = true;
         }
@@ -109,7 +110,6 @@ class CartController extends Controller
                 $tax_percentage_amount = ($tax_percentage / 100) * $productPrice;
             }
         }
-
 
         $data = array();
         $data['id'] = $product->id;
