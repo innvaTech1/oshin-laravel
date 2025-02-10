@@ -40,6 +40,7 @@
                                                 <th width="15%">{{ __('Photo') }}</th>
                                                 <th width="15%">{{ __('Type') }}</th>
                                                 <th width="10%">{{ __('Status') }}</th>
+                                                <th width="10%">{{ __('Admin Approve') }}</th>
                                                 <th width="15%">{{ __('Action') }}</th>
                                             </tr>
                                         </thead>
@@ -79,6 +80,16 @@
                                                                     data-offstyle="danger">
                                                             </a>
                                                         @endif
+                                                    </td>
+                                                    <td>
+                                                        <a href="javascript:;"
+                                                            onclick="changeProductApproval({{ $product->id }})">
+                                                            <input id="approval_toggle" type="checkbox"
+                                                                {{ $product->approve_by_admin == 1 ? 'checked' : '' }}
+                                                                data-toggle="toggle" data-on="{{ __('Approve') }}"
+                                                                data-off="{{ __('Denied') }}" data-onstyle="success"
+                                                                data-offstyle="danger">
+                                                        </a>
                                                     </td>
                                                     <td>
                                                         <a href="{{ route('admin.product.edit', $product->id) }}"
@@ -174,6 +185,23 @@
                         _token: '{{ csrf_token() }}'
                     },
                     url: "{{ url('/admin/product-status/') }}" + "/" + id,
+                    success: function(response) {
+                        toastr.success(response)
+                    },
+                    error: function(err) {
+                        console.log(err);
+
+                    }
+                })
+            }
+
+            function changeProductApproval(id) {
+                $.ajax({
+                    type: "put",
+                    data: {
+                        _token: '{{ csrf_token() }}'
+                    },
+                    url: "{{ url('/admin/product-approval/') }}" + "/" + id,
                     success: function(response) {
                         toastr.success(response)
                     },

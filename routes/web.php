@@ -344,18 +344,17 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::resource('product', ProductController::class);
         Route::post('product/bulk-delete', [ProductController::class, 'bulkDelete'])->name('product.bulk-delete');
         Route::put('product-status/{id}', [ProductController::class, 'changeStatus'])->name('product.status');
+        Route::put('product-approval/{id}', [ProductController::class, 'changeApproval'])->name('product.approval');
         Route::put('removed-product-exist-specification/{id}', [ProductController::class, 'removedProductExistSpecification'])->name('removed-product-exist-specification');
         Route::get('seller-product', [ProductController::class, 'sellerProduct'])->name('seller-product');
         Route::get('seller-pending-product', [ProductController::class, 'sellerPendingProduct'])->name('seller-pending-product');
         Route::get('product-highlight/{id}', [ProductController::class, 'productHighlight'])->name('product-highlight');
         Route::put('update-product-highlight/{id}', [ProductController::class, 'productHighlightUpdate'])->name('update-product-highlight');
 
-
         Route::get('product-import-page', [ProductController::class, 'product_import_page'])->name('product-import-page');
         Route::get('product-export', [ProductController::class, 'product_export'])->name('product-export');
         Route::get('product-demo-export', [ProductController::class, 'demo_product_export'])->name('product-demo-export');
         Route::post('product-import', [ProductController::class, 'product_import'])->name('product-import');
-
 
         Route::get('stockout-product', [ProductController::class, 'stockoutProduct'])->name('stockout-product');
 

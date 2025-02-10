@@ -6,9 +6,6 @@
     <meta name="description" content="{{ $seoSetting->seo_description }}">
 @endsection
 @section('public-content')
-    <!--============================
-                                    PRODUCT PAGE START
-                                ==============================-->
     <section id="wsus__product_page">
         <div class="container">
             <div class="row">
@@ -89,7 +86,8 @@
                                             <div class="price_ranger">
                                                 <input value="0;{{ $shop_page->filter_price_range }}" type="hidden"
                                                     name="price_range" id="slider_range" class="flat-slider" />
-                                                <button type="submit" class="common_btn"><span>{{ __('user.filter') }}</span></button>
+                                                <button type="submit"
+                                                    class="common_btn"><span>{{ __('user.filter') }}</span></button>
                                             </div>
                                         </div>
                                     </div>
@@ -211,10 +209,6 @@
             </div>
         </div>
     </section>
-    {{-- <!--============================
-        PRODUCT PAGE END
-    ==============================--> --}}
-
 
     <script>
         (function($) {

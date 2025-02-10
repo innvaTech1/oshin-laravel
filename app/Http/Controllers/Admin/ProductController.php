@@ -417,6 +417,15 @@ class ProductController extends Controller
         return response()->json($message);
     }
 
+    public function changeApproval($id)
+    {
+        $product = Product::find($id);
+        $product->approve_by_admin = $product->approve_by_admin == 1 ? 0 : 1;
+        $product->save();
+        $message = $product->approve_by_admin == 1 ? trans('Approved Successfully') : trans('Denied Successfully');
+        return response()->json($message);
+    }
+
     public function removedProductExistSpecification($id)
     {
         $productSpecification = ProductSpecification::find($id);

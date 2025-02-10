@@ -328,6 +328,7 @@ class HomeController extends Controller
 
     public function product(Request $request)
     {
+        // dd($request->all());
         $variantsForSearch = ProductVariant::select('name', 'id')->groupBy('name')->get();
         $shop_page = ShopPage::first();
         $banner = BreadcrumbImage::where(['id' => 9])->first();
