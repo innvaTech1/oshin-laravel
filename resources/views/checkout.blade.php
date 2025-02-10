@@ -64,7 +64,9 @@
                                     <div class="col-md-12 col-lg-6 col-xl-6">
                                         <div class="wsus__add_address_single">
                                             <input type="email" placeholder="{{ __('user.Email') }}" name="email"
-                                                value="{{ old('email', $shipping->email ?? '') }}">
+                                                id="email" value="{{ old('email', $shipping->email ?? '') }}">
+                                            <div id="email-error" class="text-danger small mt-1"></div>
+                                            <!-- Validation message container -->
                                         </div>
                                     </div>
                                     <div class="col-md-12 col-lg-6 col-xl-6">
@@ -147,8 +149,11 @@
                                                                     <div class="wsus__add_address_single">
                                                                         <input type="email"
                                                                             placeholder="{{ __('user.Email') }}"
-                                                                            name="billing_email"
+                                                                            name="billing_email" id="billing-email"
                                                                             value="{{ old('billing_email', $billing->email ?? '') }}">
+                                                                        <div id="billing-email-error"
+                                                                            class="text-danger small mt-1"></div>
+                                                                        <!-- Validation message container -->
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-12 col-lg-6 col-xl-6">
@@ -249,7 +254,44 @@
             CHECK OUT PAGE END
     ==============================--> --}}
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const billingEmailInput = document.getElementById('billing-email');
+            const billingEmailError = document.getElementById('billing-email-error');
 
+            // Regular expression for email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            billingEmailInput.addEventListener('input', function() {
+                const billingEmailValue = billingEmailInput.value.trim();
+
+                if (!emailRegex.test(billingEmailValue)) {
+                    billingEmailError.textContent = '{{ __('Please enter a valid email address.') }}';
+                } else {
+                    billingEmailError.textContent = ''; // Clear error message if valid
+                }
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const emailInput = document.getElementById('email');
+            const emailError = document.getElementById('email-error');
+
+            // Regular expression for email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            emailInput.addEventListener('input', function() {
+                const emailValue = emailInput.value.trim();
+
+                if (!emailRegex.test(emailValue)) {
+                    emailError.textContent = '{{ __('Please enter a valid email address.') }}';
+                } else {
+                    emailError.textContent = ''; // Clear error message if valid
+                }
+            });
+        });
+    </script>
     <script>
         (function($) {
             "use strict";
