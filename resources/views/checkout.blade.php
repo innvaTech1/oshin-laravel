@@ -100,13 +100,13 @@
                                     </div>
                                     <div class="col-md-12 col-lg-6 col-xl-6">
                                         <div class="wsus__add_address_single">
-                                            <input type="text" placeholder="{{ __('user.Phone') }}*" name="phone"
+                                            <input type="number" placeholder="{{ __('user.Phone') }}*" name="phone"
                                                 value="{{ old('phone', $shipping->phone ?? '') }}">
                                         </div>
                                     </div>
                                     <div class="col-md-12 col-lg-6 col-xl-6">
                                         <div class="wsus__add_address_single">
-                                            <input type="text" placeholder="{{ __('user.Alternative Phone') }}"
+                                            <input type="number" placeholder="{{ __('user.Alternative Phone') }}"
                                                 name="phone_alternative"
                                                 value="{{ old('phone_alternative', $shipping->phone_alternative ?? '') }}">
                                         </div>
@@ -187,7 +187,7 @@
                                                                 </div>
                                                                 <div class="col-md-12 col-lg-6 col-xl-6">
                                                                     <div class="wsus__add_address_single">
-                                                                        <input type="text"
+                                                                        <input type="number"
                                                                             placeholder="{{ __('user.Phone') }}*"
                                                                             name="billing_phone"
                                                                             value="{{ old('billing_phone', $billing->phone ?? '') }}">
@@ -195,7 +195,7 @@
                                                                 </div>
                                                                 <div class="col-md-12 col-lg-6 col-xl-6">
                                                                     <div class="wsus__add_address_single">
-                                                                        <input type="text"
+                                                                        <input type="number"
                                                                             placeholder="{{ __('user.Alternative Phone') }}"
                                                                             name="billing_phone_alternative"
                                                                             value="{{ old('billing_phone_alternative', $billing->billing_phone_alternative ?? '') }}">
