@@ -2,39 +2,40 @@
 
 namespace App\Http\Controllers\Seller;
 
-use App\Http\Controllers\Controller;
-use App\Models\Product;
-use Illuminate\Http\Request;
-use App\Models\Category;
-use App\Models\SubCategory;
-use App\Models\ChildCategory;
-use App\Models\ProductGallery;
-use App\Models\Brand;
-use App\Models\ProductSpecificationKey;
-use App\Models\ProductSpecification;
+use Exception;
+use App\Models\City;
 use App\Models\User;
+use App\Models\Brand;
 use App\Models\Vendor;
+use App\Models\Product;
+use App\Models\Setting;
+use App\Models\Category;
+use App\Models\Wishlist;
+use App\Models\ProductTax;
+use App\Models\SubCategory;
+use App\Models\CountryState;
 use App\Models\OrderProduct;
-use App\Models\ProductVariant;
-use App\Models\ProductVariantItem;
+use App\Models\ReturnPolicy;
+use App\Models\ShoppingCart;
+use Illuminate\Http\Request;
+use App\Models\ChildCategory;
 use App\Models\ProductReport;
 use App\Models\ProductReview;
-use App\Models\Wishlist;
-use App\Models\Setting;
-use App\Models\ShoppingCart;
-use App\Models\FlashSaleProduct;
-use App\Models\ShoppingCartVariant;
-use App\Models\CompareProduct;
-
 use App\Exports\ProductExport;
 use App\Imports\ProductImport;
-use App\Models\City;
-use App\Models\ProductTax;
-use App\Models\ReturnPolicy;
-use Maatwebsite\Excel\Facades\Excel;
-use Exception;
+use App\Models\CompareProduct;
+use App\Models\ProductGallery;
+use Illuminate\Support\Str;
+use App\Models\ProductVariant;
+use App\Models\FlashSaleProduct;
+use App\Models\ProductVariantItem;
+use App\Models\ShoppingCartVariant;
+use App\Http\Controllers\Controller;
+use App\Models\ProductSpecification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Models\ProductSpecificationKey;
 
 class SellerProductController extends Controller
 {
@@ -88,9 +89,9 @@ class SellerProductController extends Controller
         $retrunPolicies = ReturnPolicy::where('status', 1)->get();
         $specificationKeys = ProductSpecificationKey::all();
         $cities = City::orderBy('name', 'asc')->get();
-        return view('seller.create_product', compact('categories', 'brands', 'productTaxs', 'retrunPolicies', 'specificationKeys', 'cities'));
+        $states = CountryState::orderBy('name', 'asc')->get();
+        return view('seller.create_product', compact('categories', 'brands', 'productTaxs', 'retrunPolicies', 'specificationKeys', 'states', 'cities'));
     }
-
 
     public function getSubcategoryByCategory($id)
     {
@@ -114,6 +115,15 @@ class SellerProductController extends Controller
 
     public function store(Request $request)
     {
+        if ($request->video_link) {
+            $valid = preg_match("/^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/watch\?v\=\w+$/", $request->video_link);
+
+            if (!$valid) {
+                $notification = trans('admin_validation.Please provide your valid youtube url');
+                $notification = array('messege' => $notification, 'alert-type' => 'error');
+                return redirect()->back()->with($notification);
+            }
+        }
 
         $rules = [
             'name' => 'required',
@@ -125,7 +135,17 @@ class SellerProductController extends Controller
             'price' => 'required|numeric',
             'weight' => 'nullable',
             'quantity' => 'nullable|numeric',
+            'state_id' => 'required',
+            'city_id' => 'required',
         ];
+
+        if ($request->is_pre_order) {
+            $rules['release_date'] = 'nullable|date';
+        }
+        if ($request->is_partial) {
+            $rules['partial_amount'] = 'required';
+        }
+
         $customMessages = [
             'name.required' => trans('Name is required'),
             'name.unique' => trans('Name is required'),
@@ -139,16 +159,37 @@ class SellerProductController extends Controller
             'status.required' => trans('Status is required'),
             'quantity.required' => trans('Quantity is required'),
             'weight.required' => trans('Weight is required'),
+            'state_id.required' => trans('State is required'),
+            'city_id.required' => trans('City is required'),
         ];
+
+        if (session('product_type') != null && session('product_type') == 'Digital') {
+            $rules['type_check'] = 'required';
+            $rules['file'] = 'required_if:type_check,1';
+            $rules['link'] = 'required_if:type_check,2';
+
+            $customMessages['type_check.required'] = trans('Upload Type is required');
+            $customMessages['file.required_if'] = trans('File is required');
+            $customMessages['link.required_if'] = trans('Link is required');
+        }
         $this->validate($request, $rules, $customMessages);
 
 
         $seller = Auth::guard('web')->user()->seller;
         $product = new Product();
-        if ($request->thumb_image) {
 
+        if ($request->thumb_image) {
             $image_name = file_upload($request->thumb_image, null, 'uploads/custom-images/');
             $product->thumb_image = $image_name;
+        }
+
+        $fileName = '';
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $fileName = file_upload($file, null, 'uploads/custom-files/', Str::slug($request->name));
+            $product->link = $fileName;
+        } else {
+            $product->link = $request->link;
         }
 
         $product->vendor_id = $seller->id;
@@ -165,19 +206,21 @@ class SellerProductController extends Controller
         $product->short_description = $request->short_description;
         $product->long_description = $request->long_description;
         $product->tags = $request->tags;
-        $product->delivery_id = $request->delivery_id;
-
+        $product->state_id = json_encode($request->state_id);
+        $product->city_id = json_encode($request->city_id);
+        $product->delivery_id = json_encode($request->city_id);
         $product->status = 1;
         $product->weight = $request->weight;
         $product->is_undefine = 1;
         $product->is_specification = $request->is_specification ? 1 : 0;
         $product->seo_title = $request->seo_title ? $request->seo_title : $request->name;
         $product->seo_description = $request->seo_description ? $request->seo_description : $request->name;
+        $product->type_check = $request->type_check;
         $product->is_top = $request->top_product ? 1 : 0;
         $product->new_product = $request->new_arrival ? 1 : 0;
         $product->is_best = $request->best_product ? 1 : 0;
         $product->is_featured = $request->is_featured ? 1 : 0;
-
+        $product->is_flash_deal = $request->is_flash_deal ? 1 : 0;
         $product->tax_id = $request->tax_id;
         $product->is_return = $request->is_return;
         $product->return_policy_id = $request->return_policy_id ?? 1;

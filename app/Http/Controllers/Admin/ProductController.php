@@ -162,6 +162,7 @@ class ProductController extends Controller
         $this->validate($request, $rules, $customMessages);
 
         $product = new Product();
+        
         if ($request->thumb_image) {
             $image_name = file_upload($request->thumb_image, null, 'uploads/custom-images/', Str::slug($request->name));
             $product->thumb_image = $image_name;

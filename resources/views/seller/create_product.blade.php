@@ -32,7 +32,6 @@
                                                 <img id="preview-img" class="admin-img"
                                                     src="{{ asset('uploads/website-images/preview.png') }}" alt="">
                                             </div>
-
                                         </div>
 
                                         <div class="form-group col-12">
@@ -77,11 +76,31 @@
                                             </select>
                                         </div>
 
-                                        <div class="form-group col-12">
+                                        {{-- <div class="form-group col-12">
                                             <label>{{ __('Location') }} </label>
                                             <select name="delivery_id[]" class="form-control select2" id="delivery_id"
                                                 multiple>
                                                 <option value="">{{ __('Location') }}</option>
+                                                @foreach ($cities as $city)
+                                                    <option value="{{ $city->id }}">{{ $city->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div> --}}
+
+                                        <div class="form-group col-12">
+                                            <label>{{ __('State') }} <span class="text-danger">*</span></label>
+                                            <select name="state_id[]" class="form-control select2" id="state_id" multiple>
+                                                <option value="" disabled>{{ __('Select State') }}</option>
+                                                @foreach ($states as $state)
+                                                    <option value="{{ $state->id }}">{{ $state->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group col-12">
+                                            <label>{{ __('City') }} <span class="text-danger">*</span></label>
+                                            <select name="city_id[]" class="form-control select2" id="city_id" multiple>
+                                                <option value="" disabled>{{ __('Select City') }}</option>
                                                 @foreach ($cities as $city)
                                                     <option value="{{ $city->id }}">{{ $city->name }}</option>
                                                 @endforeach
@@ -100,7 +119,7 @@
                                         </div>
 
                                         <div class="form-group col-12">
-                                            <label>{{ __('SKU') }} <span class="text-danger"></span></label>
+                                            <label>{{ __('SKU') }} <span class="text-danger">*</span></label>
                                             <div class="input-group">
                                                 <input type="text" name="sku" class="form-control currency"
                                                     id="sku" required value="{{ old('sku') }}">
@@ -119,15 +138,14 @@
                                         </div>
 
                                         <div class="form-group col-12">
-                                            <label>{{ __('user.Offer Price') }}</label>
+                                            <label>{{ __('user.Offer Price') }} <span class="text-danger">*</span></label>
                                             <input type="text" class="form-control" name="offer_price"
                                                 value="{{ old('offer_price') }}">
                                         </div>
 
-
-
                                         <div class="form-group col-12">
-                                            <label>{{ __('user.Stock Quantity') }}</label>
+                                            <label>{{ __('user.Stock Quantity') }} <span
+                                                    class="text-danger">*</span></label>
                                             <input type="number" class="form-control" name="quantity"
                                                 value="{{ old('quantity') }}">
                                         </div>
@@ -160,6 +178,27 @@
                                             <label>{{ __('user.Long Description') }} <span
                                                     class="text-danger">*</span></label>
                                             <textarea name="long_description" id="" cols="30" rows="10" class="summernote">{{ old('long_description') }}</textarea>
+                                        </div>
+
+                                        <div class="form-group col-12">
+                                            <label>{{ __('Highlight') }}</label>
+                                            <div>
+                                                <input type="checkbox"name="top_product" id="top_product"> <label
+                                                    for="top_product" class="mr-3">{{ __('Just for You') }}</label>
+
+                                                <input type="checkbox" name="new_arrival" id="new_arrival"> <label
+                                                    for="new_arrival" class="mr-3">{{ __('Sale Products') }}</label>
+
+                                                <input type="checkbox" name="best_product" id="best_product"> <label
+                                                    for="best_product"
+                                                    class="mr-3">{{ __('Best Selling Product') }}</label>
+
+                                                <input type="checkbox" name="is_featured" id="is_featured"> <label
+                                                    for="is_featured" class="mr-3">{{ __('Featured Product') }}</label>
+
+                                                <input type="checkbox" name="is_flash_deal" id="is_flash_deal"> <label
+                                                    for="is_flash_deal" class="mr-3">{{ __('Flash Deal') }}</label>
+                                            </div>
                                         </div>
 
                                         <div class="col-md-12">
@@ -244,6 +283,14 @@
                                         @if (session('product_type') == 'Digital')
                                             @include('admin/products/digital-products-field')
                                         @endif
+
+                                        <div class="form-group col-12">
+                                            <label>{{ __('Status') }} <span class="text-danger">*</span></label>
+                                            <select name="status" class="form-control">
+                                                <option value="1">{{ __('Active') }}</option>
+                                                <option value="0">{{ __('Inactive') }}</option>
+                                            </select>
+                                        </div>
 
                                         <div class="form-group col-12">
                                             <label>{{ __('Tags') }}</label>

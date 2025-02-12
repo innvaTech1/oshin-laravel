@@ -62,7 +62,6 @@
                                             </select>
                                         </div>
 
-
                                         <div class="form-group col-12">
                                             <label>{{ __('Sub Category') }}</label>
                                             <select name="sub_category" class="form-control select2" id="sub_category">
@@ -144,7 +143,6 @@
                                                 value="{{ old('offer_price') }}">
                                         </div>
 
-
                                         <div class="form-group col-12">
                                             <label>{{ __('Stock Quantity') }} <span class="text-danger">*</span></label>
                                             <input type="number" class="form-control" name="quantity"
@@ -163,6 +161,11 @@
                                                 value="{{ old('measurement') }}">
                                         </div>
 
+                                        <div class="form-group col-12">
+                                            <label>{{ __('Video Link') }}</label>
+                                            <input type="text" class="form-control" name="video_link"
+                                                value="{{ old('video_link') }}">
+                                        </div>
 
                                         <div class="form-group col-12">
                                             <label>{{ __('Short Description') }} <span
@@ -195,6 +198,7 @@
                                                     for="is_flash_deal" class="mr-3">{{ __('Flash Deal') }}</label>
                                             </div>
                                         </div>
+
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>{{ __('Take Pre Order?') }} </span></label>
@@ -273,9 +277,11 @@
                                                 @enderror
                                             </div>
                                         </div>
+
                                         @if (session('product_type') == 'Digital')
                                             @include('admin/products/digital-products-field')
                                         @endif
+
                                         <div class="form-group col-12">
                                             <label>{{ __('Status') }} <span class="text-danger">*</span></label>
                                             <select name="status" class="form-control">
