@@ -731,7 +731,7 @@
                                 toastr.error(response.message)
                             }
                             if (response.status == 1) {
-                                toastr.success(response.message)
+                                // toastr.success(response.message)
                                 $.ajax({
                                     type: 'get',
                                     url: "{{ route('load-sidebar-cart') }}",
