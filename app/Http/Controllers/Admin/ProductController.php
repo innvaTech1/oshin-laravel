@@ -162,7 +162,7 @@ class ProductController extends Controller
         $this->validate($request, $rules, $customMessages);
 
         $product = new Product();
-        
+
         if ($request->thumb_image) {
             $image_name = file_upload($request->thumb_image, null, 'uploads/custom-images/', Str::slug($request->name));
             $product->thumb_image = $image_name;
@@ -273,6 +273,7 @@ class ProductController extends Controller
                 return redirect()->back()->with($notification);
             }
         }
+
         $product = Product::find($id);
 
         $rules = [
@@ -285,6 +286,8 @@ class ProductController extends Controller
             'status' => 'required',
             'weight' => 'nullable',
             'quantity' => 'nullable|numeric',
+            'state_id' => 'required',
+            'city_id' => 'required',
         ];
 
         if ($request->is_pre_order) {
@@ -311,6 +314,8 @@ class ProductController extends Controller
             'release_date.date' => __('Release Date must be a Date'),
             'max_product.required' => __('Pre order Quantity is Required'),
             'partial_amount.required' => __('Partial Amount Quantity is Required'),
+            'state_id.required' => trans('State is required'),
+            'city_id.required' => trans('City is required'),
         ];
 
         $this->validate($request, $rules, $customMessages);
@@ -346,7 +351,7 @@ class ProductController extends Controller
         $product->state_id = json_encode($request->state_id);
         $product->city_id = json_encode($request->city_id);
         $product->delivery_id = json_encode($request->city_id);
-        $product->status = $request->status;
+        $product->status = $request->status ?? 0;
         $product->weight = $request->weight;
         $product->is_undefine = 1;
         $product->is_specification = $request->is_specification ? 1 : 0;
@@ -358,7 +363,6 @@ class ProductController extends Controller
         $product->is_best = $request->best_product ? 1 : 0;
         $product->is_featured = $request->is_featured ? 1 : 0;
         $product->is_flash_deal = $request->is_flash_deal ? 1 : 0;
-        $product->tags = $request->tags;
         $product->tax_id = $request->tax_id;
         $product->is_return = $request->is_return;
         $product->return_policy_id = $request->return_policy_id ?? 1;

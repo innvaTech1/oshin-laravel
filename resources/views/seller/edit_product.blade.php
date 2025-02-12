@@ -43,7 +43,7 @@
                                                 onchange="previewThumnailImage(event)">
                                         </div>
 
-                                        <div class="form-group col-12">
+                                        {{-- <div class="form-group col-12">
                                             <label>{{ __('user.Current Banner Image') }}</label>
                                             <div>
                                                 <img id="preview-img" width="200px"
@@ -54,8 +54,7 @@
                                         <div class="form-group col-12">
                                             <label>{{ __('user.Banner Image') }} <span class="text-danger">*</span></label>
                                             <input type="file" class="form-control-file" name="banner_image">
-                                        </div>
-
+                                        </div> --}}
 
                                         <div class="form-group col-12">
                                             <label>{{ __('user.Name') }} <span class="text-danger">*</span></label>
@@ -111,6 +110,32 @@
                                         </div>
 
                                         <div class="form-group col-12">
+                                            <label>{{ __('State') }} <span class="text-danger">*</span></label>
+                                            <select name="state_id[]" class="form-control select2" id="state_id" multiple>
+                                                <option value="">{{ __('Select State') }}</option>
+                                                @foreach ($states as $state)
+                                                    <option value="{{ $state->id }}"
+                                                        {{ in_array($state->id, json_decode($product->state_id ?? '[]', true) ?: []) ? 'selected' : '' }}>
+                                                        {{ $state->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group col-12">
+                                            <label>{{ __('City') }} <span class="text-danger">*</span></label>
+                                            <select name="city_id[]" class="form-control select2" id="city_id" multiple>
+                                                <option value="">{{ __('Select City') }}</option>
+                                                @foreach ($cities as $city)
+                                                    <option value="{{ $city->id }}"
+                                                        {{ in_array($city->id, json_decode($product->city_id ?? '[]', true) ?: []) ? 'selected' : '' }}>
+                                                        {{ $city->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group col-12">
                                             <label>{{ __('user.Brand') }} <span class="text-danger">*</span></label>
                                             <select name="brand" class="form-control select2" id="brand">
                                                 <option value="">{{ __('user.Select Brand') }}</option>
@@ -146,8 +171,6 @@
                                                 value="{{ $product->offer_price }}">
                                         </div>
 
-
-
                                         <div class="form-group col-12">
                                             <label>{{ __('user.Stock Quantity') }}</label>
                                             <input type="number" class="form-control" name="quantity"
@@ -159,12 +182,12 @@
                                             <input type="text" class="form-control" name="weight"
                                                 value="{{ $product->weight }}">
                                         </div>
+
                                         <div class="form-group col-12">
                                             <label>{{ __('Product Measurement') }} </label>
                                             <input type="text" class="form-control" name="measurement"
                                                 value="{{ $product->measurement }}">
                                         </div>
-
 
                                         @if ($product->video_link)
                                             <div class="form-group col-12">
@@ -177,7 +200,6 @@
                                                         src="https://www.youtube.com/embed/{{ $video_id[1] }}">
                                                     </iframe>
                                                 </div>
-
                                             </div>
                                         @endif
 
@@ -186,8 +208,6 @@
                                             <input type="text" class="form-control" name="video_link"
                                                 value="{{ $product->video_link }}">
                                         </div>
-
-
 
                                         <div class="form-group col-12">
                                             <label>{{ __('user.Short Description') }} <span
@@ -199,6 +219,30 @@
                                             <label>{{ __('user.Long Description') }} <span
                                                     class="text-danger">*</span></label>
                                             <textarea name="long_description" id="" cols="30" rows="10" class="summernote">{{ $product->long_description }}</textarea>
+                                        </div>
+
+                                        <div class="form-group col-12">
+                                            <label>{{ __('Highlight') }}</label>
+                                            <div>
+                                                <input {{ $product->is_top == 1 ? 'checked' : '' }}
+                                                    type="checkbox"name="top_product" id="top_product"> <label
+                                                    for="top_product" class="mr-3">{{ __('Just for You') }}</label>
+
+                                                <input {{ $product->new_product == 1 ? 'checked' : '' }} type="checkbox"
+                                                    name="new_arrival" id="new_arrival"> <label for="new_arrival"
+                                                    class="mr-3">{{ __('Sale Products') }}</label>
+
+                                                <input {{ $product->is_best == 1 ? 'checked' : '' }} type="checkbox"
+                                                    name="best_product" id="best_product"> <label for="best_product"
+                                                    class="mr-3">{{ __('Best Selling Product') }}</label>
+
+                                                <input {{ $product->is_featured == 1 ? 'checked' : '' }} type="checkbox"
+                                                    name="is_featured" id="is_featured"> <label for="is_featured"
+                                                    class="mr-3">{{ __('Featured Product') }}</label>
+                                                <input type="checkbox" name="is_flash_deal" id="is_flash_deal"
+                                                    {{ $product->is_flash_deal == 1 ? 'checked' : '' }}> <label
+                                                    for="is_flash_deal" class="mr-3">{{ __('Flash Deal') }}</label>
+                                            </div>
                                         </div>
 
                                         <div class="col-md-12">

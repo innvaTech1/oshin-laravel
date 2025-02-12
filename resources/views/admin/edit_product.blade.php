@@ -175,6 +175,25 @@
                                                 value="{{ $product->measurement }}">
                                         </div>
 
+                                        @if ($product->video_link)
+                                            <div class="form-group col-12">
+                                                <label>{{ __('Video Preview') }}</label>
+                                                @php
+                                                    $video_id = explode('=', $product->video_link);
+                                                @endphp
+                                                <div>
+                                                    <iframe width="300" height="200"
+                                                        src="https://www.youtube.com/embed/{{ $video_id[1] }}">
+                                                    </iframe>
+                                                </div>
+                                            </div>
+                                        @endif
+
+                                        <div class="form-group col-12">
+                                            <label>{{ __('Video Link') }}</label>
+                                            <input type="text" class="form-control" name="video_link"
+                                                value="{{ $product->video_link }}">
+                                        </div>
 
                                         <div class="form-group col-12">
                                             <label>{{ __('Short Description') }} <span
@@ -190,7 +209,6 @@
                                         <div class="form-group col-12">
                                             <label>{{ __('Highlight') }}</label>
                                             <div>
-
                                                 <input {{ $product->is_top == 1 ? 'checked' : '' }}
                                                     type="checkbox"name="top_product" id="top_product"> <label
                                                     for="top_product" class="mr-3">{{ __('Just for You') }}</label>

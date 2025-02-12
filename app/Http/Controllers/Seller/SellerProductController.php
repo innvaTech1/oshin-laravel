@@ -273,6 +273,7 @@ class SellerProductController extends Controller
         $specificationKeys = ProductSpecificationKey::all();
         $productSpecifications = ProductSpecification::where('product_id', $product->id)->get();
         $cities = City::orderBy('name', 'asc')->get();
+        $states = CountryState::orderBy('name', 'asc')->get();
         $productTaxs = ProductTax::where('status', 1)->get();
         $retrunPolicies = ReturnPolicy::where('status', 1)->get();
         $tagArray = json_decode($product->tags);
@@ -283,12 +284,20 @@ class SellerProductController extends Controller
             }
         }
 
-        return view('seller.edit_product', compact('categories', 'brands', 'specificationKeys', 'product', 'subCategories', 'childCategories', 'productSpecifications', 'cities', 'tags', 'productTaxs', 'retrunPolicies'));
+        return view('seller.edit_product', compact('categories', 'brands', 'specificationKeys', 'product', 'subCategories', 'childCategories', 'productSpecifications', 'states', 'cities', 'tags', 'productTaxs', 'retrunPolicies'));
     }
 
     public function update(Request $request, $id)
     {
+        if ($request->video_link) {
+            $valid = preg_match("/^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/watch\?v\=\w+$/", $request->video_link);
 
+            if (!$valid) {
+                $notification = trans('admin_validation.Please provide your valid youtube url');
+                $notification = array('messege' => $notification, 'alert-type' => 'error');
+                return redirect()->back()->with($notification);
+            }
+        }
 
         $product = Product::find($id);
 
@@ -301,7 +310,17 @@ class SellerProductController extends Controller
             'price' => 'required|numeric',
             'weight' => 'nullable',
             'quantity' => 'nullable|numeric',
+            'state_id' => 'required',
+            'city_id' => 'required',
         ];
+
+        if ($request->is_pre_order) {
+            $rules['release_date'] = 'nullable|date';
+        }
+        if ($request->is_partial) {
+            $rules['partial_amount'] = 'required';
+        }
+
         $customMessages = [
             'name.required' => trans('Name is required'),
             'name.unique' => trans('Name is required'),
@@ -317,6 +336,8 @@ class SellerProductController extends Controller
             'quantity.required' => trans('Quantity is required'),
             'status.required' => trans('Status is required'),
             'weight.required' => trans('Weight is required'),
+            'state_id.required' => trans('State is required'),
+            'city_id.required' => trans('City is required'),
         ];
         $this->validate($request, $rules, $customMessages);
 
@@ -328,21 +349,32 @@ class SellerProductController extends Controller
             $product->save();
         }
 
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $fileName = file_upload($file, $product->link, 'uploads/custom-files/', Str::slug($request->name));
+            $product->link = $fileName;
+        } else {
+            $product->link = $request->link;
+        }
+
         $product->name = $request->name;
         $product->slug = $request->slug;
         $product->category_id = $request->category;
         $product->sub_category_id = $request->sub_category ? $request->sub_category : 0;
         $product->child_category_id = $request->child_category ? $request->child_category : 0;
         $product->brand_id = $request->brand ? $request->brand : 0;
-        $product->qty = $request->quantity ? $request->quantity : 0;
-        $product->sold_qty = 0;
         $product->sku = $request->sku;
         $product->price = $request->price;
         $product->offer_price = $request->offer_price;
+        $product->qty = $request->quantity ? $request->quantity : 0;
+        $product->sold_qty = 0;
         $product->short_description = $request->short_description;
         $product->long_description = $request->long_description;
         $product->tags = $request->tags;
-
+        $product->state_id = json_encode($request->state_id);
+        $product->city_id = json_encode($request->city_id);
+        $product->delivery_id = json_encode($request->city_id);
+        $product->status = $request->status ?? 0;
         $product->weight = $request->weight;
         $product->is_specification = $request->is_specification ? 1 : 0;
         $product->seo_title = $request->seo_title ? $request->seo_title : $request->name;
@@ -351,16 +383,18 @@ class SellerProductController extends Controller
         $product->new_product = $request->new_arrival ? 1 : 0;
         $product->is_best = $request->best_product ? 1 : 0;
         $product->is_featured = $request->is_featured ? 1 : 0;
-        if ($product->approve_by_admin == 1) {
-            $product->status = $request->status;
-        }
-
+        $product->is_flash_deal = $request->is_flash_deal ? 1 : 0;
         $product->tax_id = $request->tax_id;
         $product->is_return = $request->is_return;
         $product->return_policy_id = $request->return_policy_id ?? 1;
         $product->warranty_policy_id = $request->warranty_policy_id ?? 1;
         $product->warranty_times = $request->warranty_times;
         $product->measurement = $request->measurement;
+
+        if ($product->approve_by_admin == 1) {
+            $product->status = $request->status;
+        }
+
         $product->type = session('product_type');
 
         $product->is_pre_order = $request->is_pre_order ? 1 : 0;
