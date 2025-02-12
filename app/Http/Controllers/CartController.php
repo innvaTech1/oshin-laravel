@@ -27,12 +27,12 @@ class CartController extends Controller
 
     public function addToCart(Request $request)
     {
-        $cartVariant = explode(',', $request->items);
+        $cartVariant = explode(',', $request->variantItems);
         $cartContents = Cart::content();
         $existingItem = null;
 
         foreach ($cartContents as $cartContent) {
-            if ($cartContent->id == $request->product_id) {
+            if ($cartContent->id == $request->product_id && $cartContent->options['variantItems'] == $request->variantItems) {
                 $existingItem = $cartContent;
                 break;
             }
@@ -49,7 +49,7 @@ class CartController extends Controller
 
         $newQuantity = $request->quantity;
         if ($existingItem) {
-            $newQuantity += $existingItem->qty; // Increase quantity if the item exists
+            $newQuantity += $existingItem->qty; // Increase quantity if the same variant exists
         }
 
         if ($productStock->qty < $newQuantity) {
@@ -62,7 +62,7 @@ class CartController extends Controller
         $prices = [];
         $variantPrice = 0;
 
-        if ($request->variants) {
+        if ($request->variantItems) {
             $items = ProductVariantItem::whereIn('id', $cartVariant)->get(['name', 'price', 'product_variant_id'])->toArray();
             foreach ($items as $item) {
                 $variants[]  = $item['product_variant_id'];
@@ -95,11 +95,11 @@ class CartController extends Controller
         $productPrice = $campaignOfferPrice + $variantPrice;
         $tax_percentage_amount = ($tax_percentage / 100) * $productPrice;
 
-        // If item already exists, update its quantity
+        // If item with same variant exists, update its quantity
         if ($existingItem) {
             Cart::update($existingItem->rowId, ['qty' => $newQuantity]);
         } else {
-            // Otherwise, add a new item to the cart
+            // Otherwise, add as a new cart item
             Cart::add([
                 'id' => $product->id,
                 'name' => $product->short_name,
@@ -116,6 +116,8 @@ class CartController extends Controller
                     'variants' => $variants,
                     'values' => $values,
                     'prices' => $prices,
+                    'variantItems' => $request->variantItems, // Used for checking duplicates
+                    'variantItemNames' => $request->variantItemNames, // Display purposes
                 ]
             ]);
         }
@@ -128,7 +130,9 @@ class CartController extends Controller
         $itemExist = false;
         $cartContents = Cart::content();
         foreach ($cartContents as $cartContent) {
-            if ($cartContent->id == $request->product_id) $itemExist = true;
+            if ($cartContent->id == $request->product_id) {
+                $itemExist = true;
+            }
         }
 
         if ($itemExist) {

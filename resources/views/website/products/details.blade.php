@@ -722,6 +722,24 @@
                 //start insert new cart item
                 $("#shoppingCartForm").on("submit", function(e) {
                     e.preventDefault();
+
+                    let activeVariant = $(".active-variant");
+
+                    if (activeVariant.length > 0) {
+                        let variantId = activeVariant.data("id");
+                        let variantName = activeVariant.text().trim();
+
+                        // Remove existing hidden inputs if any
+                        $("input[name='variantItems']").remove();
+                        $("input[name='variantItemNames']").remove();
+
+                        // Append new hidden inputs
+                        $("#shoppingCartForm").append(
+                            `<input type="hidden" name="variantItems" value="${variantId}">`);
+                        $("#shoppingCartForm").append(
+                            `<input type="hidden" name="variantItemNames" value="${variantName}">`);
+                    }
+
                     $.ajax({
                         type: 'get',
                         data: $('#shoppingCartForm').serialize(),

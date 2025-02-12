@@ -15,6 +15,8 @@
         @if ($items->count() != 0)
             <input type="hidden" name="variants[]" value="{{ $productVariant->id }}">
             <input type="hidden" name="variantNames[]" value="{{ $productVariant->name }}">
+            <input type="hidden" name="variantItems" value="">
+            <input type="hidden" name="variantItemNames" value="">
             <div class="parent-variant  {{ $variName == 'color' ? 'wsus_pro_det_color' : 'wsus_pro__det_size' }}">
                 <h5>{{ $productVariant->name }} :</h5>
                 <ul>
