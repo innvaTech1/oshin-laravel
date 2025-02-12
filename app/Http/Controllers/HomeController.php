@@ -389,9 +389,9 @@ class HomeController extends Controller
                     }
                     $query->whereIn('name', $sortArr);
                 }
-            })->where('status', 1);
+            })->where('status', 1)->where('approve_by_admin', 1);
         } else {
-            $products = Product::where('status', 1);
+            $products = Product::where('status', 1)->where('approve_by_admin', 1);
         }
 
         if ($request->shorting_id) {
@@ -448,22 +448,20 @@ class HomeController extends Controller
         }
 
         if ($request->search) {
-            $products = $products->where('name', 'LIKE', '%' . $request->search . "%")
-                ->orWhere('long_description', 'LIKE', '%' . $request->search . '%');
+            $products = $products->where(function ($query) use ($request) {
+                $query->where('name', 'LIKE', '%' . $request->search . "%")
+                    ->orWhere('long_description', 'LIKE', '%' . $request->search . '%');
+            });
         }
 
         $products = $products->paginate($paginateQty);
         $products = $products->appends($request->all());
 
-        $page_view = '';
-        if ($request->page_view) {
-            $page_view = $request->page_view;
-        } else {
-            $page_view = 'grid_view';
-        }
+        $page_view = $request->page_view ?? 'grid_view';
 
         $currencySetting = Setting::first();
         $setting = $currencySetting;
+
         return view('ajax_products', compact('products', 'page_view', 'currencySetting', 'setting'));
     }
 
