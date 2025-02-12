@@ -31,6 +31,35 @@
             border: 1px solid #930a02;
             border-radius: 5px;
         }
+
+        .payment-item {
+            transition: all 0.3s ease-in-out;
+            border-width: 2px;
+        }
+
+        .payment-item:hover,
+        .payment-radio:checked+.custom-radio-icon .checkmark {
+            border-color: #930A02 !important;
+            background-color: #930A02 !important;
+        }
+
+        .custom-radio-icon {
+            width: 20px;
+            height: 20px;
+        }
+
+        .checkmark {
+            display: block;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+        }
+
+        /* When selected */
+        .payment-radio:checked+.custom-radio-icon .checkmark {
+            background-color: #930A02 !important;
+            border-color: #ff0d00 !important;
+        }
     </style>
 
     {{-- <!--============================
