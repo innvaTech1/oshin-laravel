@@ -32,7 +32,7 @@
                 $total = $productPrice * $cartContent->qty;
                 $subTotal += $total;
             @endphp
-            <div class="wsus__order_details_tk">
+            <div class="wsus__order_details_tk total_amount" data-total="{{ $total }}">
                 <p>{{ currency_icon() }}{{ $total }}</p>
             </div>
         </li>

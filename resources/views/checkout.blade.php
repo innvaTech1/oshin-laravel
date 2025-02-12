@@ -92,7 +92,7 @@
                                         <div class="wsus__check_single_form">
                                             <select name="state_id" class="state form-control select_2"
                                                 data-type="shipping">
-                                                <option selected disabled>{{ __('user.Select State') }}
+                                                <option selected disabled>{{ __('Select State *') }}
                                                 </option>
                                                 @foreach ($states as $state)
                                                     <option value="{{ $state->id }}"
@@ -107,7 +107,7 @@
                                             <select name="city_id" class="city form-control select_2">
                                                 <option selected {{ $shipping?->city_id ? 'selected' : '' }}
                                                     value="{{ $shipping?->city_id }}">
-                                                    {{ $shipping?->city?->name ?? __('user.Select City') }}
+                                                    {{ $shipping?->city?->name ?? __('Select City *') }}
                                                 </option>
                                             </select>
                                         </div>
@@ -185,7 +185,7 @@
                                                                             class="state form-control select_2"
                                                                             data-type="billing">
                                                                             <option selected disabled value="">
-                                                                                {{ __('user.Select State') }}
+                                                                                {{ __('Select State *') }}
                                                                             </option>
                                                                             @foreach ($states as $state)
                                                                                 <option value="{{ $state->id }}"
@@ -201,7 +201,7 @@
                                                                             class="city form-control select_2">
                                                                             <option selected
                                                                                 {{ $billing?->city_id ? 'selected' : '' }}>
-                                                                                {{ $billing?->city?->name ?? __('user.Select City') }}
+                                                                                {{ $billing?->city?->name ?? __('Select City *') }}
                                                                             </option>
                                                                         </select>
                                                                     </div>
@@ -394,15 +394,122 @@
             $(this).addClass('selected')
         })
 
-        function setPaymentMethod(ship) {
-            // Set the selected payment method
-            $('input[name="payment_method"]').val(ship);
+        document.querySelector('.place_order').addEventListener('click', function(e) {
+            const paymentMethod = document.querySelector('input[name="payment_method"]')?.value;
 
-            if (ship == 'aamarpay') {
-                $('.place_order').html('Pay Now');
-            } else {
-                $('.place_order').html('Place Order');
+            if (!paymentMethod) {
+                toastr.error('{{ __('Please select a payment method') }}');
+                return;
             }
+
+            if (paymentMethod === 'aamarpay') {
+                // Additional validation for Aamarpay
+                const requiredFields = ['name', 'email', 'phone', 'address'];
+                let isValid = true;
+
+                requiredFields.forEach(field => {
+                    if (!document.querySelector(`[name="${field}"]`).value) {
+                        isValid = false;
+                        toastr.error(`{{ __('Please fill in all required fields') }}`);
+                    }
+                });
+
+                if (!isValid) return;
+            }
+
+            document.querySelector('.wsus__checkout_form').submit();
+        });
+
+        function setPaymentMethod(method) {
+            const form = document.querySelector('.wsus__checkout_form');
+            const placeOrderBtn = document.querySelector('.place_order');
+            let paymentMethod = document.querySelector('input[name="payment_method"]');
+
+            // Create payment_method input if it doesn't exist
+            if (!paymentMethod) {
+                paymentMethod = document.createElement('input');
+                paymentMethod.type = 'hidden';
+                paymentMethod.name = 'payment_method';
+                form.appendChild(paymentMethod);
+            }
+
+            // Remove existing Aamarpay fields
+            document.querySelectorAll('[data-aamarpay]').forEach(el => el.remove());
+
+            if (method === 'aamarpay') {
+                // Change form action to Aamarpay endpoint
+                form.action = 'https://sandbox.aamarpay.com/index.php'; // Use live URL for production
+
+                // Get Aamarpay credentials from data attributes
+                const aamarpayDiv = document.querySelector('[data-method="aamarpay"]');
+                const storeId = aamarpayDiv.dataset.storeId;
+                const signatureKey = aamarpayDiv.dataset.signatureKey;
+                const currency = aamarpayDiv.dataset.currency;
+                const country = aamarpayDiv.dataset.country;
+
+                // Generate transaction ID
+                const tranId = 'WEP-' + generateRandomString(6);
+
+                // Get customer details from form
+                const name = form.querySelector('[name="name"]').value;
+                const email = form.querySelector('[name="email"]').value;
+                const phone = form.querySelector('[name="phone"]').value;
+                const address = form.querySelector('[name="address"]').value;
+                const state = form.querySelector('[name="state_id"] option:checked').textContent;
+                const city = form.querySelector('[name="city_id"] option:checked').textContent;
+
+                // Get order total
+                const amount = parseFloat(document.querySelector('.total_amount').dataset.total);
+
+                // Create Aamarpay required fields
+                const fields = {
+                    'store_id': 'aamarpaytest',
+                    'signature_key': 'dbb74894e82415a2f7ff0ec3a97e4183',
+                    'tran_id': tranId,
+                    'amount': amount,
+                    'currency': "BDT",
+                    'cus_name': name,
+                    'cus_email': email,
+                    'cus_phone': phone,
+                    'cus_add1': address,
+                    'cus_city': city,
+                    'cus_state': state,
+                    'cus_country': country,
+                    'cus_postcode': '1206', // Adjust as needed
+                    'desc': 'Order Payment',
+                    'success_url': '{{ route('payment.success') }}',
+                    'fail_url': '{{ route('payment.fail') }}',
+                    'cancel_url': '{{ route('payment.cancel') }}'
+                };
+
+                // Add fields to form
+                Object.entries(fields).forEach(([name, value]) => {
+                    const input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = name;
+                    input.value = value;
+                    input.setAttribute('data-aamarpay', 'true');
+                    form.appendChild(input);
+                });
+
+                // Update button text
+                placeOrderBtn.querySelector('span').textContent = 'Pay Now';
+            } else {
+                // Reset for other payment methods
+                form.action = '{{ route('checkout.payment') }}';
+                placeOrderBtn.querySelector('span').textContent = 'Place Order';
+            }
+
+            paymentMethod.value = method;
+        }
+
+        function generateRandomString(length) {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            let str = '';
+            for (let i = 0; i < length; i++) {
+                str += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return str;
         }
     </script>
 @endsection

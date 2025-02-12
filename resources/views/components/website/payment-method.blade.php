@@ -23,8 +23,13 @@
                 </div>
             @endif
             @if ($aamarpay && $aamarpay->status)
-                <div onclick="setPaymentMethod('aamarpay')"
-                    class="payment-item text-center bg-light  w-100 h-50px font-weight-bold text-sm text-white d-flex justify-content-center align-items-center px-3 text-uppercase cursor-pointer">
+            <div onclick="setPaymentMethod('aamarpay')" 
+                 data-method="aamarpay"
+                 data-store-id="{{ "aamarpay" }}"
+                 data-signature-key="{{ "28c78bb1f45112f5d40b956fe104645a" }}"
+                 data-currency="{{ $aamarpay->currency }}"
+                 data-country="{{ $aamarpay->country }}"
+                 class="payment-item text-center bg-light  w-100 h-50px font-weight-bold text-sm text-white d-flex justify-content-center align-items-center px-3 text-uppercase cursor-pointer">
                     <div class="w-100">
                         <span class="text-dark font-weight-bold text-base">
                             Aamarpay
@@ -40,7 +45,6 @@
                                 clip-rule="evenodd" />
                         </svg>
                     </span>
-
                 </div>
             @endif
         </div>

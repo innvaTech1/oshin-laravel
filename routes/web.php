@@ -205,9 +205,14 @@ Route::group(['middleware' => ['XSS']], function () {
             Route::get('send-message', [MessageController::class, 'sendMessage'])->name('send-message');
         });
 
+        Route::get('/payment/success', 'PaymentController@success')->name('payment.success');
+        Route::get('/payment/fail', 'PaymentController@fail')->name('payment.fail');
+        Route::get('/payment/cancel', 'PaymentController@cancel')->name('payment.cancel');
+
         Route::group(['as' => 'checkout.', 'prefix' => 'checkout'], function () {
             Route::get('/', [CheckoutController::class, 'checkout'])->name('checkout');
             Route::post('/payment', [CheckoutController::class, 'payment'])->name('payment');
+
             //You need declear your success & fail route in "app\Middleware\VerifyCsrfToken.php"
             Route::post('success', [CheckoutController::class, 'success'])->name('success');
             Route::post('fail', [CheckoutController::class, 'fail'])->name('fail');
