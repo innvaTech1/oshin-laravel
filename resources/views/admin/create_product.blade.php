@@ -139,14 +139,14 @@
                                         </div>
 
                                         <div class="form-group col-12">
-                                            <label>{{ __('Offer Price') }} <span class="text-danger"></span></label>
+                                            <label>{{ __('Offer Price') }} <span class="text-danger">*</span></label>
                                             <input type="text" class="form-control" name="offer_price"
                                                 value="{{ old('offer_price') }}">
                                         </div>
 
 
                                         <div class="form-group col-12">
-                                            <label>{{ __('Stock Quantity') }} </label>
+                                            <label>{{ __('Stock Quantity') }} <span class="text-danger">*</span></label>
                                             <input type="number" class="form-control" name="quantity"
                                                 value="{{ old('quantity') }}">
                                         </div>

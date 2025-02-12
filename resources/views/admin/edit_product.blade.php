@@ -101,7 +101,7 @@
                                                 <option value="">{{ __('Select State') }}</option>
                                                 @foreach ($states as $state)
                                                     <option value="{{ $state->id }}"
-                                                        {{ in_array($state->id, json_decode($product->state_id ?? '[]', true)) ? 'selected' : '' }}>
+                                                        {{ in_array($state->id, json_decode($product->state_id ?? '[]', true) ?: []) ? 'selected' : '' }}>
                                                         {{ $state->name }}
                                                     </option>
                                                 @endforeach
@@ -114,7 +114,7 @@
                                                 <option value="">{{ __('Select City') }}</option>
                                                 @foreach ($cities as $city)
                                                     <option value="{{ $city->id }}"
-                                                        {{ in_array($city->id, json_decode($product->city_id ?? '[]', true)) ? 'selected' : '' }}>
+                                                        {{ in_array($city->id, json_decode($product->city_id ?? '[]', true) ?: []) ? 'selected' : '' }}>
                                                         {{ $city->name }}
                                                     </option>
                                                 @endforeach

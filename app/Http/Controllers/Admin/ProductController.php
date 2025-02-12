@@ -118,6 +118,8 @@ class ProductController extends Controller
             'price' => 'required|numeric',
             'status' => 'required',
             'quantity' => 'nullable|numeric',
+            'state_id' => 'required',
+            'city_id' => 'required',
         ];
 
         if ($request->is_pre_order) {
@@ -133,7 +135,7 @@ class ProductController extends Controller
             'slug.required' => trans('Slug is required'),
             'slug.unique' => trans('Slug already exist'),
             'category.required' => trans('Category is required'),
-            'thumb_image.required' => trans('thumbnail is required'),
+            'thumb_image.required' => trans('Thumbnail is required'),
             'short_description.required' => trans('Short description is required'),
             'long_description.required' => trans('Long description is required'),
             'price.required' => trans('Price is required'),
@@ -144,6 +146,8 @@ class ProductController extends Controller
             'release_date.date' => __('Release Date must be a Date'),
             'max_product.required' => __('Pre order Quantity is Required'),
             'partial_amount.required' => __('Partial Amount Quantity is Required'),
+            'state_id.required' => trans('State is required'),
+            'city_id.required' => trans('City is required'),
         ];
 
         if (session('product_type') != null && session('product_type') == 'Digital') {
