@@ -379,6 +379,7 @@ class HomeController extends Controller
     public function searchProduct(Request $request)
     {
         $paginateQty = CustomPagination::whereId('2')->first()->qty;
+
         if ($request->variantItems) {
             $products = Product::whereHas('variantItems', function ($query) use ($request) {
                 $sortArr = [];
@@ -393,21 +394,17 @@ class HomeController extends Controller
             $products = Product::where('status', 1);
         }
 
-
-
-
         if ($request->shorting_id) {
             if ($request->shorting_id == 1) {
                 $products = $products->orderBy('id', 'desc');
-            } else if ($request->shorting_id == 2) {
+            } elseif ($request->shorting_id == 2) {
                 $products = $products->orderBy('price', 'asc');
-            } else if ($request->shorting_id == 3) {
+            } elseif ($request->shorting_id == 3) {
                 $products = $products->orderBy('price', 'desc');
             }
         } else {
             $products = $products->orderBy('id', 'desc');
         }
-
 
         if ($request->category) {
             $category = Category::where('slug', $request->category)->first();

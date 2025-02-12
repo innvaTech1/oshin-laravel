@@ -215,6 +215,7 @@
             "use strict";
             $(document).ready(function() {
                 loadProductUsingAjax();
+                
                 $(".categoryForSearch").on("click", function() {
                     let categoryId = $(this).data('category');
                     $("#category_id_for_search").val(categoryId);
