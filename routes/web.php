@@ -170,6 +170,7 @@ Route::group(['middleware' => ['XSS']], function () {
 
         Route::group(['as' => 'user.', 'prefix' => 'user'], function () {
             Route::get('dashboard', [UserProfileController::class, 'dashboard'])->name('dashboard');
+            Route::get('pending', [UserProfileController::class, 'pending'])->name('pending');
             Route::get('order', [UserProfileController::class, 'order'])->name('order');
             Route::get('pending-order', [UserProfileController::class, 'pendingOrder'])->name('pending-order');
             Route::get('complete-order', [UserProfileController::class, 'completeOrder'])->name('complete-order');

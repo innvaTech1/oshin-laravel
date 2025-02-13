@@ -8,6 +8,17 @@
     <div class="row">
         <div class="col-xl-9 col-xxl-10 col-lg-9 ms-auto">
             <div class="dashboard_content">
+                @if (session()->has('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                @endif
+                @if (session()->has('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
                 <div class="wsus__dashboard">
                     <div class="row">
                         <div class="col-lg-4 col-6 col-md-4">

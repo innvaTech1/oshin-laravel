@@ -45,6 +45,11 @@ class UserProfileController extends Controller
         return view('user.dashboard', compact('orders', 'reviews', 'wishlists'));
     }
 
+    public function pending()
+    {
+        return view('user.pending');
+    }
+
     public function order()
     {
         $user = Auth::guard('web')->user();
