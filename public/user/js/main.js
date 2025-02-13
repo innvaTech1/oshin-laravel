@@ -379,9 +379,15 @@ $(function () {
 
 
     //==========PRODUCT ZOOMER============
-    $("#exzoom").exzoom({
-        autoPlay: false,
-    });
+    if ($("#exzoom").length > 0) {
+        $("#exzoom").exzoom({
+            autoPlay: false,
+        });
+    }
+
+    // $("#exzoom").exzoom({
+    //     autoPlay: false,
+    // });
 
     // $('.container').imagesLoaded(function () {
     //     $("#exzoom").exzoom({
