@@ -4,7 +4,6 @@ namespace App\Http\Controllers\User;
 
 use App\Models\City;
 use App\Models\User;
-
 use App\Models\Order;
 use App\Models\Vendor;
 use App\Rules\Captcha;
@@ -23,10 +22,8 @@ use App\Models\OrderProduct;
 use Illuminate\Http\Request;
 use App\Models\ProductReport;
 use App\Models\ProductReview;
-
 use App\Models\BillingAddress;
 use App\Models\GoogleRecaptcha;
-
 use App\Models\ShippingAddress;
 use App\Models\OrderProductVariant;
 use App\Http\Controllers\Controller;
@@ -35,7 +32,6 @@ use Illuminate\Support\Facades\Hash;
 
 class UserProfileController extends Controller
 {
-
     public function __construct()
     {
         $this->middleware('auth:web');
@@ -48,7 +44,6 @@ class UserProfileController extends Controller
         $reviews = ProductReview::where(['user_id' => $user->id, 'status' => 1])->get();
         return view('user.dashboard', compact('orders', 'reviews', 'wishlists'));
     }
-
 
     public function order()
     {
@@ -593,7 +588,9 @@ class UserProfileController extends Controller
         $user_image = $user->image;
 
         if ($user_image) {
-            if (File::exists(public_path() . '/' . $user_image)) unlink(public_path() . '/' . $user_image);
+            if (File::exists(public_path() . '/' . $user_image)) {
+                unlink(public_path() . '/' . $user_image);
+            }
         }
         ProductReport::where('user_id', $id)->delete();
         ProductReview::where('user_id', $id)->delete();
