@@ -1045,7 +1045,7 @@
                 success: function(response) {
                     toastr.success(response.message)
                     let ifCheckoutPage =
-                        "{{ Route::is('user.checkout.payment') || Route::is('user.checkout.checkout') || Route::is('user.checkout.billing-address') ? 'yes' : 'no' }}";
+                        "{{ Route::is('checkout.checkout') || Route::is('user.checkout.payment') || Route::is('user.checkout.checkout') || Route::is('user.checkout.billing-address') ? 'yes' : 'no' }}";
                     if (ifCheckoutPage == 'yes') {
                         window.location.reload();
                     }
