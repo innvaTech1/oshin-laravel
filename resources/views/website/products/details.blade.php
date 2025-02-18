@@ -13,6 +13,32 @@
         .exzoom_btn {
             display: none;
         }
+
+        /* Add these styles to your CSS */
+        .checkmark-container {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .checkmark-container .fa-check {
+            color: white;
+            font-size: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .variant.select-variant .checkmark-container {
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .variant.select-variant .fa-check {
+            opacity: 1 !important;
+            transform: scale(1.2);
+        }
     </style>
 @endpush
 

@@ -23,7 +23,6 @@
                     @foreach ($items as $item)
                         @if ($item->is_default == 1)
                             @php
-                                // array_push($selected, $item->id);
                                 $selected["$productVariant->id"] = $item->id;
                             @endphp
                         @endif
@@ -32,8 +31,10 @@
                                 <a href="javascript:;" style="background:{{ strtolower($item->name) }}"
                                     data-id = "{{ $item->id }}" data-parent-variant="{{ $productVariant->id }}"
                                     class="variant {{ $item->is_default == 1 ? 'select-variant' : '' }}">
-                                    <i class="far fa-check"
-                                        @if ($item->is_default == 1) style="opacity:1" @endif></i>
+                                    <div class="checkmark-container">
+                                        <i class="far fa-check"
+                                            @if ($item->is_default == 1) style="opacity:1" @endif></i>
+                                    </div>
                                 </a>
                             @else
                                 <a href="javascript:;" data-id = "{{ $item->id }}"
