@@ -473,7 +473,6 @@ class SellerProductController extends Controller
         return response()->json($message);
     }
 
-
     public function product_import_page()
     {
         $seller = Auth::guard('web')->user()->seller;
@@ -487,14 +486,11 @@ class SellerProductController extends Controller
         return Excel::download(new ProductExport($is_dummy, $products), 'products.xlsx');
     }
 
-
     public function demo_product_export()
     {
         $is_dummy = true;
         return Excel::download(new ProductExport($is_dummy), 'products.xlsx');
     }
-
-
 
     public function product_import(Request $request)
     {
