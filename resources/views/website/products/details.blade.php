@@ -39,6 +39,53 @@
             opacity: 1 !important;
             transform: scale(1.2);
         }
+
+        /* Add these CSS rules */
+        .parent-variant {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .variant-header {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            min-width: 120px;
+            /* Adjust based on your longest variant name */
+        }
+
+        .variant-colon {
+            flex-shrink: 0;
+        }
+
+        .parent-variant ul {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .parent-variant li {
+            flex-shrink: 0;
+        }
+
+        .variant-item-text {
+            display: inline-block;
+            max-width: 150px;
+            /* Adjust as needed */
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .wsus_pro_det_color ul {
+            align-items: center;
+        }
     </style>
 @endpush
 
