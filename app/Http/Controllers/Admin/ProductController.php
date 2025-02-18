@@ -543,9 +543,14 @@ class ProductController extends Controller
 
             return redirect()->back()->with($notification);
         } catch (Exception $ex) {
+            \Log::error('File upload failed', [
+                'message' => $ex->getMessage(),
+                'file' => $ex->getFile(),
+                'line' => $ex->getLine(),
+                'trace' => $ex->getTraceAsString(),
+            ]);
             $notification = trans('Please follow the instruction and input the value carefully');
             $notification = array('messege' => $notification, 'alert-type' => 'error');
-
             return redirect()->back()->with($notification);
         }
     }

@@ -305,52 +305,63 @@ class ProductImport implements ToModel, WithStartRow
             }
         }
 
-        // Product Variant 1
-        if (trim($row[8])) {
-            $dataString = trim($row[8]);
+        // Process all variant columns (8-12)
+        for ($col = 8; $col <= 12; $col++) {
+            if (!empty(trim($row[$col]))) {
+                $dataString = trim($row[$col]);
+                $dataString = trim($dataString, '[]');
 
-            $dataString = trim($dataString, '[]');
+                $variantParts = explode(':', $dataString, 2);
 
-            $pairs = explode(',', $dataString);
+                if (count($variantParts) === 2) {
+                    $variantName = trim($variantParts[0]);
+                    $itemsString = trim($variantParts[1]);
 
-            // Remove duplicates
-            $pairs = collect($pairs)->unique()->values()->all();
+                    $items = collect(explode(',', $itemsString))
+                        ->map(fn($item) => trim($item))
+                        ->unique()
+                        ->values()
+                        ->all();
 
-            $result = [];
+                    $variant = ProductVariant::firstOrCreate(
+                        ['name' => $variantName, 'product_id' => $product->id],
+                        ['status' => 1]
+                    );
 
-            foreach ($pairs as $pair) {
-                list($key, $value) = explode(':', $pair);
+                    $hasDefault = ProductVariantItem::where([
+                        'product_variant_id' => $variant->id,
+                        'is_default' => 1
+                    ])->exists();
 
-                $variant = ProductVariant::firstOrCreate(
-                    ['name' => $key, 'product_id' => $product->id],
-                    ['name' => $key, 'product_id' => $product->id, 'status' => 1]
-                );
+                    foreach ($items as $item) {
+                        $itemParts = explode('-', $item, 2);
+                        $name = trim($itemParts[0]);
+                        $price = isset($itemParts[1])
+                            ? (float) $itemParts[1]
+                            : $product->price;
 
-                $variantItemCheck = ProductVariantItem::where([
-                    'name' => $value,
-                    'product_id' => $product->id,
-                    'product_variant_id' => $variant->id,
-                ])->first();
+                        if (ProductVariantItem::where([
+                            'product_variant_id' => $variant->id,
+                            'name' => $name
+                        ])->exists()) {
+                            continue;
+                        }
 
-                if ($variantItemCheck) {
-                    continue;
+                        ProductVariantItem::create([
+                            'product_variant_id' => $variant->id,
+                            'product_id' => $product->id,
+                            'name' => $name,
+                            'price' => $price,
+                            'is_default' => !$hasDefault,
+                            'status' => 1,
+                            'product_variant_name' => $variant->name
+                        ]);
+
+                        if (!$hasDefault) {
+                            $hasDefault = true;
+                        }
+                    }
                 }
-
-                $variantItemDefaultCheck = ProductVariantItem::where([
-                    'is_default' => 1,
-                    'product_id' => $product->id,
-                    'product_variant_id' => $variant->id,
-                ])->exists();
-
-                ProductVariantItem::create([
-                    'product_id' => $product->id,
-                    'product_variant_id' => $variant->id,
-                    'name' => $value,
-                    'price' => 0,
-                    'status' => 1,
-                    'is_default' => $variantItemDefaultCheck ? 0 : 1,
-                    'product_variant_name' => $variant->name,
-                ]);
             }
         }
     }
