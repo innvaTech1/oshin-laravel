@@ -336,9 +336,7 @@ class ProductImport implements ToModel, WithStartRow
                     foreach ($items as $item) {
                         $itemParts = explode('-', $item, 2);
                         $name = trim($itemParts[0]);
-                        $price = isset($itemParts[1])
-                            ? (float) $itemParts[1]
-                            : $product->price;
+                        $price = isset($itemParts[1]) ? (float) $itemParts[1] : 0;
 
                         if (ProductVariantItem::where([
                             'product_variant_id' => $variant->id,
