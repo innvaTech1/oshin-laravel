@@ -25,25 +25,31 @@ class ProductImport implements ToModel, WithStartRow
      */
     public function model(array $row)
     {
-        // Product Name
-        if (!trim($row[1])) {
+        // Validate Product Name
+        if (empty(trim($row[1]))) {
             return null;
         }
 
-        // Product Name Slug
-        $findProductWithSlug = Product::where('slug', trim($row[2]))->first();
+        function generateSlug($name)
+        {
+            $slug = strtolower(trim($name));
+            $slug = preg_replace('/[^\w ]+/', '', $slug);
+            $slug = preg_replace('/\s+/', '-', $slug);
+            $slug = trim($slug, '-');
+            return $slug;
+        }
 
-        if ($findProductWithSlug) {
-            // make slug unique
-            $slug = $findProductWithSlug->slug;
-            $randomString = Str::random(5);
-            $slug = $slug . '-' . $randomString;
-        } else {
-            $slug = trim($row[2]);
+        $name = trim($row[1]);
+        $slug = generateSlug($name);
+
+        // Ensure Slug Uniqueness
+        $existingProduct = Product::where('slug', $slug)->first();
+        if ($existingProduct) {
+            $slug .= '-' . Str::random(5);
         }
 
         $data = [
-            'name' => trim($row[1]),
+            'name' => $name,
             'slug' => $slug,
         ];
 
