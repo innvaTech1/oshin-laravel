@@ -508,5 +508,32 @@
             }
             reader.readAsDataURL(event.target.files[0]);
         };
+
+        $(document).ready(function() {
+            $("#state_id").on("change", function() {
+                var stateIds = $(this).val();
+
+                if (stateIds && stateIds.length > 0) {
+                    $.ajax({
+                        type: "get",
+                        url: "{{ url('/cities-by-states/') }}" + "/" + stateIds.join(','),
+                        success: function(response) {
+                            $("#city_id").html(response.cities);
+                        },
+                        error: function(err) {
+                            console.log(err);
+                        }
+                    });
+                } else {
+                    var response = "<option value='' disabled>{{ __('Select City') }}</option>";
+                    $("#city_id").html(response);
+                }
+            });
+
+            $('#state_id, #city_id').select2({
+                placeholder: "{{ __('Select') }}",
+                allowClear: true
+            });
+        });
     </script>
 @endsection

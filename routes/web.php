@@ -223,6 +223,7 @@ Route::group(['middleware' => ['XSS']], function () {
 
         Route::get('state-by-country/{id}', [UserProfileController::class, 'stateByCountry'])->name('state-by-country');
         Route::get('city-by-state/{id}', [HomeController::class, 'cityByState'])->name('city-by-state');
+        Route::get('cities-by-states/{stateIds}', [HomeController::class, 'getCitiesByStates'])->name('cities-by-states');
 
         Route::group(['as' => 'seller.', 'prefix' => 'seller', 'middleware' => ['checkseller']], function () {
             Route::get('dashboard', [SellerDashboardController::class, 'index'])->name('dashboard');

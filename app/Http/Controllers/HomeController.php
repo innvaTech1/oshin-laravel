@@ -622,4 +622,16 @@ class HomeController extends Controller
             return response()->json(['cities' => $response]);
         }
     }
+    public function getCitiesByStates($stateIds)
+    {
+        $stateIds = explode(',', $stateIds);
+        $cities = City::whereIn('country_state_id', $stateIds)->get();
+
+        $html = '<option value="">' . __('Select City') . '</option>';
+        foreach ($cities as $city) {
+            $html .= '<option value="' . $city->id . '">' . $city->name . '</option>';
+        }
+
+        return response()->json(['cities' => $html]);
+    }
 }
