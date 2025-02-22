@@ -145,14 +145,16 @@
                                         <div class="accordion checkout_accordian" id="accordionExample">
                                             <div class="accordion-item">
                                                 <h2 class="accordion-header" id="headingThree">
-                                                    <button class="accordion-button collapsed" type="button"
-                                                        data-bs-toggle="collapse" data-bs-target="#collapseThree"
-                                                        aria-expanded="false" aria-controls="collapseThree"
-                                                        for="flexCheckDefault">
+                                                    <button
+                                                        class="accordion-button @if (old('same_shipping', !old())) collapsed @endif"
+                                                        type="button" data-bs-toggle="collapse"
+                                                        data-bs-target="#collapseThree" aria-expanded="false"
+                                                        aria-controls="collapseThree" for="flexCheckDefault">
                                                         <div class="wsus__check_single_form">
                                                             <div class="form-check">
                                                                 <input class="form-check-input" type="checkbox"
-                                                                    id="flexCheckDefault" name="same_shipping" checked>
+                                                                    id="flexCheckDefault" name="same_shipping"
+                                                                    {{ old('same_shipping', !old()) ? 'checked' : '' }}>
                                                                 <label class="form-check-label" for="flexCheckDefault">
                                                                     {{ __('Billing address is the same as shipping address') }}
                                                                 </label>
@@ -161,7 +163,8 @@
                                                     </button>
                                                 </h2>
                                                 {{--  --}}
-                                                <div id="collapseThree" class="accordion-collapse collapse"
+                                                <div id="collapseThree"
+                                                    class="accordion-collapse collapse @if (old() && !old('same_shipping', false)) show @endif"
                                                     aria-labelledby="headingThree" data-bs-parent="#accordionExample">
                                                     <div class="accordion-body p-0">
                                                         <div class="wsus__check_form p-0" style="box-shadow: none;">
@@ -245,7 +248,7 @@
                                     <div class="col-md-12 col-lg-12 col-xl-12">
                                         <div class="wsus__check_single_form">
                                             <h5>{{ __('user.Additional Information') }}</h5>
-                                            <textarea cols="3" rows="4" name="addition_information">{{ old('addition_information') }}</textarea>
+                                            <textarea cols="3" rows="4" name="addition_information">{{ old('addition_information', $shipping?->addition_information ?? '') }}</textarea>
                                         </div>
                                     </div>
                                 </div>
