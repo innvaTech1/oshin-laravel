@@ -9231,7 +9231,9 @@ header .wsus__call_text a:hover {
 }
 
 .wsus__menu_item li a:hover {
-    color: #1c1b1b !important;
+    color: #fff !important;
+    text-decoration: underline;
+    text-decoration-color: #fff;
 }
 
 .wsus__mini_cart h4 span {
