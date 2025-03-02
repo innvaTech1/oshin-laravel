@@ -236,7 +236,8 @@
                             }
                         @endphp
 
-                        <form id="shoppingCartForm">
+                        <form id="shoppingCartForm" method="POST">
+                            @csrf
                             @include('components.website.product-variation')
                             <div class="wsus__quentity">
                                 <h5>{{ __('user.Quantity') }} :</h5>
@@ -796,25 +797,47 @@
                 $("#shoppingCartForm").on("submit", function(e) {
                     e.preventDefault();
 
-                    let activeVariant = $(".active-variant");
+                    let activeVariants = $(".active-variant");
 
-                    if (activeVariant.length > 0) {
-                        let variantId = activeVariant.data("id");
-                        let variantName = activeVariant.text().trim();
+                    // Remove existing hidden inputs if any
+                    $("input[name='variantItems']").remove();
+                    $("input[name='variantItemNames']").remove();
 
-                        // Remove existing hidden inputs if any
-                        $("input[name='variantItems']").remove();
-                        $("input[name='variantItemNames']").remove();
+                    // Check if there are any active variants
+                    if (activeVariants.length > 0) {
+                        // Create an array to store the debug information
+                        let debugList = [];
 
-                        // Append new hidden inputs
-                        $("#shoppingCartForm").append(
-                            `<input type="hidden" name="variantItems" value="${variantId}">`);
-                        $("#shoppingCartForm").append(
-                            `<input type="hidden" name="variantItemNames" value="${variantName}">`);
+                        // Iterate over each active variant
+                        activeVariants.each(function() {
+                            let variantId = $(this).data(
+                                "id"); // Get the data-id of the current variant
+                            let variantName = $(this).text()
+                                .trim(); // Get the trimmed text of the current variant
+
+                            // Append new hidden inputs for each variant
+                            $("#shoppingCartForm").append(
+                                `<input type="hidden" name="variantItems" value="${variantId}">`
+                            );
+                            $("#shoppingCartForm").append(
+                                `<input type="hidden" name="variantItemNames" value="${variantName}">`
+                            );
+
+                            // Add the variant details to the debug list
+                            debugList.push({
+                                id: variantId,
+                                name: variantName
+                            });
+                        });
+
+                        // Log the debug list to the console
+                        console.log("List of processed variants:", debugList);
+                    } else {
+                        console.log("No active variants found.");
                     }
 
                     $.ajax({
-                        type: 'get',
+                        type: 'POST',
                         data: $('#shoppingCartForm').serialize(),
                         url: "{{ route('add-to-cart') }}",
                         success: function(response) {

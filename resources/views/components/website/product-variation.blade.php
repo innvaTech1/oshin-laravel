@@ -1,7 +1,4 @@
 @if ($productVariants->count() != 0)
-    @php
-        $selected = [];
-    @endphp
     @foreach ($productVariants as $productVariant)
         @php
             $items = App\Models\ProductVariantItem::orderBy('is_default', 'desc')
@@ -25,23 +22,19 @@
                 </div>
                 <ul>
                     @foreach ($items as $item)
-                        @if ($item->is_default == 1)
-                            @php
-                                $selected["$productVariant->id"] = $item->id;
-                            @endphp
-                        @endif
                         <li>
                             @if ($variName == 'color')
-                                <a href="javascript:;" style="background:{{ strtolower($item->name) }}"
+                                <a href="javascript:void(0)" style="background:{{ strtolower($item->name) }}"
                                     data-id="{{ $item->id }}" data-parent-variant="{{ $productVariant->id }}"
-                                    class="variant {{ $item->is_default == 1 ? 'select-variant' : '' }}">
+                                    class="variant {{ $item->is_default == 1 ? 'active-variant select-variant' : '' }}">
                                     <div class="checkmark-container">
                                         <i class="far fa-check"
                                             @if ($item->is_default == 1) style="opacity:1" @endif></i>
                                     </div>
+                                    <span class="variant-item-text">{{ $item->name }}</span>
                                 </a>
                             @else
-                                <a href="javascript:;" data-id="{{ $item->id }}"
+                                <a href="javascript:void(0)" data-id="{{ $item->id }}"
                                     class="variant {{ $item->is_default == 1 ? 'active-variant select-variant' : '' }}"
                                     data-parent-variant="{{ $productVariant->id }}">
                                     <span class="variant-item-text">{{ $item->name }}</span>
@@ -53,6 +46,4 @@
             </div>
         @endif
     @endforeach
-    <input type="hidden" name="items" value="{{ join(',', $selected) }}"
-        data-parent-variant="{{ join(',', array_keys($selected)) }}">
 @endif

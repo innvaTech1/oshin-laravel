@@ -132,7 +132,7 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::get('subscriber-verification/{token}', [HomeController::class, 'subscriberVerifcation'])->name('subscriber-verification');
         Route::get('/cart-test', [CartController::class, 'calculateWholsaleDiscount'])->name('cart-test');
         Route::get('/cart', [CartController::class, 'cart'])->name('cart');
-        Route::get('/add-to-cart', [CartController::class, 'addToCart'])->name('add-to-cart');
+        Route::post('/add-to-cart', [CartController::class, 'addToCart'])->name('add-to-cart');
         Route::get('/add-to-buy', [CartController::class, 'addToBuy'])->name('add-to-buy');
         Route::get('/cart-clear', [CartController::class, 'cartClear'])->name('cart-clear');
         Route::get('/cart-item-remove/{id}', [CartController::class, 'cartItemRemove'])->name('cart-item-remove');

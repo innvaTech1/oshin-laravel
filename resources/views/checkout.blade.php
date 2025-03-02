@@ -275,6 +275,9 @@
                                 </div>
                                 <button type="button" class="common_btn place_order">
                                     <span>{{ __('user.Place Order') }}</span></button>
+                                <div class="mt-3 text-center">Need to buy something else?</div>
+                                <a class="common_btn mt-2 w-100 text-center" href="{{ route('product') }}"> <span><i
+                                            class="fab fa-shopify"></i> {{ __('user.go to shop') }}</span></a>
                             </div>
                         </div>
                     </div>
