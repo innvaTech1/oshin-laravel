@@ -10,11 +10,6 @@ class AamarpayPayment extends Model
     use HasFactory;
 
     protected $table = 'aamarpay_payments';
-    protected $fillable = [
-        'store_id',
-        'mode',
-        'signature_key',
-        'currency_id',
-        'status',
-    ];
+
+    protected $guarded = ['id'];
 }
