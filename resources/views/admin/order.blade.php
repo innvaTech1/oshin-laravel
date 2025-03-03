@@ -32,7 +32,8 @@
                                                 <th width="10%">{{ __('Amount') }}</th>
                                                 <th width="10%">{{ __('Order Status') }}</th>
                                                 <th width="10%">{{ __('Payment') }}</th>
-                                                <th width="15%">{{ __('Action') }}</th>
+                                                <th width="15%">{{ 'Payment Method' }}</th>
+                                                <th width="10%">{{ __('Action') }}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -74,9 +75,9 @@
                                                             <span class="badge badge-danger">{{ __('Pending') }}</span>
                                                         @endif
                                                     </td>
+                                                    <td>{{ $order->payment_method }}</td>
 
                                                     <td>
-
                                                         <a href="{{ route('admin.order-show', $order->id) }}"
                                                             class="btn btn-primary btn-sm"><i class="fa fa-eye"
                                                                 aria-hidden="true"></i></a>
