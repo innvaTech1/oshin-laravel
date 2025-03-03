@@ -251,7 +251,6 @@ class CheckoutController extends Controller
             $coupon->save();
         }
 
-
         $order_details = '';
         foreach ($cartContents as $key => $cartContent) {
 
@@ -332,7 +331,6 @@ class CheckoutController extends Controller
     public function aamarpay(Request $request)
     {
         $aamarpayCred = AamarpayPayment::first();
-
 
         $tran_id = $aamarpayCred->prefix . rand(1111111, 9999999); //unique transection id for every transection
 
@@ -472,23 +470,32 @@ class CheckoutController extends Controller
 
     public function fail(Request $request)
     {
-        $order = Order::where('transection_id', $request->tran_id)->update([
-            'payment_status' => 0,
-            'payment_method' => $request->card_type,
-        ]);
+        $order = Order::where('transection_id', $request->tran_id)->first();
 
-        if (Session::get('coupon_name')) {
-            $coupon = Coupon::where(['code' => Session::get('coupon_name')])->first();
-            $qty = $coupon->apply_qty;
-            $qty = $qty - 1;
-            $coupon->apply_qty = $qty;
-            $coupon->save();
+        if ($order) {
+            $order->update([
+                'payment_status' => 0,
+                'payment_method' => $request->card_type,
+            ]);
+
+            if (Session::get('coupon_name')) {
+                $coupon = Coupon::where('code', Session::get('coupon_name'))->first();
+                if ($coupon) {
+                    $coupon->apply_qty -= 1;
+                    $coupon->save();
+                }
+            }
+
+            $order->orderAddress()->delete();
+            $order->orderProducts()->each(function ($orderProduct) {
+                $orderProduct->orderProductVariants()->delete();
+                $orderProduct->delete();
+            });
+
+            return redirect()->route('checkout.checkout');
         }
 
-        $order->orderAddress->delete();
-        $order->orderProducts?->orderProductVariants?->delete();
-        $order->orderProducts?->delete();
-        return back();
+        return back()->withErrors(['error' => 'Order not found.']);
     }
 
     public function cancel()
