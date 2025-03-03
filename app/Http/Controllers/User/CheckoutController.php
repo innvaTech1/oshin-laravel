@@ -108,7 +108,7 @@ class CheckoutController extends Controller
             } else {
                 return redirect()->back()->with(['messege' => 'Order Failed', 'alert-type' => 'error']);
             }
-        } else {
+        } elseif ($request->payment_method == 'aamarpay') {
             $url = $this->aamarpay($request);
             if ($url) {
                 return redirect()->away($url);
@@ -355,11 +355,19 @@ class CheckoutController extends Controller
 
         $address_id = $this->storeAddress($request);
         $billing_id = $request->same_shipping;
-        if (!$request->same_shipping) {
+        if (!$request->same_shipping == 'on') {
+            $billing_id = $this->storeAddress($request, 'billing_');
+        } else {
+            $request['billing_name'] = $request->name;
+            $request['billing_email'] = $request->email;
+            $request['billing_phone'] = $request->phone;
+            $request['billing_phone_alternative'] = $request->phone_alternative;
+            $request['billing_address'] = $request->address;
+            $request['billing_city_id'] = $request->city_id;
+            $request['billing_state_id'] = $request->state_id;
+
             $billing_id = $this->storeAddress($request, 'billing_');
         }
-
-
 
         $customer = null;
         if ($request->address_id) {

@@ -229,10 +229,12 @@
                                     </div>
                                 @endif --}}
                                 <div>
-                                    <strong>{{ __('Payment Method') }} : </strong> {{ $order->payment_method }}
+                                    <strong>{{ __('Payment Method') }} : </strong>
+                                    {{ $order->payment_method }}{{ $order->payment_status ? ' (Paid)' : ' (Unpaid)' }}
                                 </div>
                                 <div class="mt-3">
-                                    <strong>Customer Note: </strong>{{ $order->additional_info }}
+                                    <strong>Customer Note:
+                                    </strong>{{ $order->additional_info }}
                                 </div>
                             </div>
 
@@ -281,7 +283,11 @@
                                         @else
                                             <tr>
                                                 <th style="padding-right: 30px;">{{ __('Paid Amount : ') }}</th>
-                                                <td>{{ ' ৳ ' }}{{ $order->total_amount }}</td>
+                                                @if ($order->payment_status == 1 && $order->payment_method != 'Cash on Delivery')
+                                                    <td>{{ ' ৳ ' }}{{ $order->total_amount }}</td>
+                                                @else
+                                                    <td>{{ ' ৳ ' }}{{ 0 }}</td>
+                                                @endif
                                             </tr>
                                         @endif
                                         <tr>
@@ -291,7 +297,7 @@
                                         <tr>
                                             <th style="padding-right: 30px;">{{ __('Due Amount : ') }}</th>
                                             <td>
-                                                @if ($order->payment_method != 'Cash on Delivery')
+                                                @if ($order->payment_status == 1 && $order->payment_method != 'Cash on Delivery')
                                                     {{ ' ৳ ' }}{{ 0 }}
                                                 @else
                                                     {{ ' ৳ ' }}{{ $order->sub_total + $order->shipping_cost + $order->order_vat + $order->coupon_coast }}

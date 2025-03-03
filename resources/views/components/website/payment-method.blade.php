@@ -23,7 +23,7 @@
                         <span class="checkmark bg-white border border-secondary rounded-circle"></span>
                     </div>
                     <span class="text-dark font-weight-bold text-base">
-                        {{ 'Aamarpay' }}
+                        {{ __('user.AamarPay') }}
                     </span>
                 </label>
             @endif

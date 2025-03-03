@@ -303,7 +303,7 @@
                 if (!emailRegex.test(billingEmailValue)) {
                     billingEmailError.textContent = '{{ __('Please enter a valid email address.') }}';
                 } else {
-                    billingEmailError.textContent = ''; // Clear error message if valid
+                    billingEmailError.textContent = '';
                 }
             });
         });
@@ -322,7 +322,7 @@
                 if (!emailRegex.test(emailValue)) {
                     emailError.textContent = '{{ __('Please enter a valid email address.') }}';
                 } else {
-                    emailError.textContent = ''; // Clear error message if valid
+                    emailError.textContent = '';
                 }
             });
         });
@@ -353,8 +353,6 @@
 
                     // find closest city
                     $(parents).siblings('div').find('.city').first().html('').select2({});
-
-
 
                     $.ajax({
                         url: url,

@@ -1,6 +1,7 @@
 <?php
 return array(
     'Address' => 'Address',
+    'AamarPay' => 'AamarPay',
     'Billing Address' => 'Billing Address',
     'name' => 'name',
     'Phone' => 'Phone',
