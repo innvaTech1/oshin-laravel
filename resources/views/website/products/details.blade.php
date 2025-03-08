@@ -259,10 +259,10 @@
                             <ul class="wsus__button_area">
                                 <li><button type="submit"
                                         class="add_cart"><span>{{ __('user.add to cart') }}</span></button></li>
-                                <li><a class="buy_now" href="javascript:;"
+                                <li><a class="buy_now" href="javascript:void(0);"
                                         id="buyNowBtn"><span>{{ __('user.buy now') }}</span></a>
                                 </li>
-                                <li><a href="javascript:;" onclick="addToWishlist('{{ $product->id }}')"><i
+                                <li><a href="javascript:void(0);" onclick="addToWishlist('{{ $product->id }}')"><i
                                             class="fal fa-heart"></i></a></li>
                                 {{-- <li><a href="javascript:;" onclick="addToCompare('{{ $product->id }}')"><i
                                             class="far fa-random"></i></a></li> --}}
@@ -877,7 +877,7 @@
                 // buy now item
                 $("#buyNowBtn").on("click", function() {
                     $.ajax({
-                        type: 'get',
+                        type: 'post',
                         data: $('#shoppingCartForm').serialize(),
                         url: "{{ route('add-to-cart') }}",
                         success: function(response) {

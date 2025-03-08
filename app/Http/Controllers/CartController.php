@@ -28,7 +28,6 @@ class CartController extends Controller
     public function addToCart(Request $request)
     {
         $cartVariant = explode(',', $request->variantItems);
-        // dd($cartVariant);
         $cartContents = Cart::content();
         $existingItem = null;
 
