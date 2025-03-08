@@ -10,7 +10,7 @@
                         <span class="checkmark bg-white border border-secondary rounded-circle"></span>
                     </div>
                     <span class="text-dark font-weight-bold text-base">
-                        {{ __('user.Cash On Delivery') }}
+                        {{ 'Payment by Cash On Delivery' }}
                     </span>
                 </label>
             @endif
@@ -23,7 +23,7 @@
                         <span class="checkmark bg-white border border-secondary rounded-circle"></span>
                     </div>
                     <span class="text-dark font-weight-bold text-base">
-                        {{ __('user.AamarPay') }}
+                        {{ 'Payment by Online' }}
                     </span>
                 </label>
             @endif
