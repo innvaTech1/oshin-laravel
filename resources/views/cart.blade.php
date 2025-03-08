@@ -8,6 +8,12 @@
     <meta name="description" content="{{ __('user.Shopping Cart') }}">
 @endsection
 
+@push('custom-styles')
+    <style>
+
+    </style>
+@endpush
+
 @section('public-content')
     <div id="CartResponse">
         @if ($cartContents->count() != 0)
@@ -125,6 +131,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-xl-3">
                             {{-- wsus__cart_list_footer --}}
                             @php
