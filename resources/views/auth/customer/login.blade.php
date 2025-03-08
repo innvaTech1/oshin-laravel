@@ -63,7 +63,8 @@
                                             </div>
                                         @endif
 
-                                        <button class="common_btn" type="submit"><span>{{ __('user.login') }}</span></button>
+                                        <button class="common_btn"
+                                            type="submit"><span>{{ __('user.login') }}</span></button>
                                         @if (enum_exists('App\Enums\SocialiteDriverType'))
                                             @php
                                                 $socialiteEnum = 'App\Enums\SocialiteDriverType';
@@ -135,7 +136,8 @@
                                             </div>
                                         @endif
 
-                                        <button class="common_btn" type="submit"><span>{{ __('user.signup') }}</span></button>
+                                        <button class="common_btn"
+                                            type="submit"><span>{{ __('user.signup') }}</span></button>
                                     </form>
                                 </div>
                             </div>
