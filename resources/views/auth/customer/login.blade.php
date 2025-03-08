@@ -11,7 +11,7 @@
 @push('custom-styles')
     <style>
         #wsus__login_register {
-            margin-top: -30px;
+            padding-top: 10px;
         }
 
         .wsus__login_reg_area {
