@@ -1,10 +1,13 @@
 @extends('layout')
+
 @section('title')
     <title>{{ $seoSetting->seo_title }}</title>
 @endsection
+
 @section('meta')
     <meta name="description" content="{{ $seoSetting->seo_description }}">
 @endsection
+
 @section('public-content')
     <section id="wsus__product_page">
         <div class="container">
@@ -215,7 +218,7 @@
             "use strict";
             $(document).ready(function() {
                 loadProductUsingAjax();
-                
+
                 $(".categoryForSearch").on("click", function() {
                     let categoryId = $(this).data('category');
                     $("#category_id_for_search").val(categoryId);

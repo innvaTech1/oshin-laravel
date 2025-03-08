@@ -328,17 +328,20 @@ class HomeController extends Controller
 
     public function product(Request $request)
     {
-        // dd($request->all());
+
         $variantsForSearch = ProductVariant::select('name', 'id')->groupBy('name')->get();
         $shop_page = ShopPage::first();
-        $banner = BreadcrumbImage::where(['id' => 9])->first();
-        $productCategories = Category::where(['status' => 1])->get();
-        $brands = Brand::where(['status' => 1])->get();
+        $banner = BreadcrumbImage::where('id', 9)->first();
+        $productCategories = Category::where('status', 1)->get();
+        $brands = Brand::where('status', 1)->get();
+
         $paginateQty = CustomPagination::whereId('2')->first()->qty;
-        $products = Product::orderBy('id', 'desc')->where(['status' => 1]);
+        $products = Product::orderBy('id', 'desc')->where('status', 1);
+
         if ($request->category_id) {
             $products = $products->where('category_id', $request->category_id);
         }
+
         if ($request->sub_category_id) {
             $products = $products->where('sub_category_id', $request->sub_category_id);
         }
@@ -350,6 +353,7 @@ class HomeController extends Controller
         if ($request->brand_id) {
             $products = $products->where('brand_id', $request->brand_id);
         }
+
         if ($request->type) {
             switch ($request->type) {
                 case 'new':
@@ -370,6 +374,7 @@ class HomeController extends Controller
         }
 
         $products = $products->paginate($paginateQty);
+
         $seoSetting = SeoSetting::find(9);
         $currencySetting = Setting::first();
         $setting = $currencySetting;
