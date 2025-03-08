@@ -272,7 +272,7 @@
                                         </tr>
                                         <tr>
                                             <th style="padding-right: 30px;">{{ __('Total Amount : ') }}</th>
-                                            <td>{{ ' ৳ ' }}{{ $order->sub_total + $order->shipping_cost + $order->order_vat + $order->coupon_coast }}
+                                            <td>{{ ' ৳ ' }}{{ $order->sub_total + $order->shipping_cost + $order->order_vat - $order->coupon_coast }}
                                             </td>
                                         </tr>
                                         @if ($order->payment_method == 'Cash on Delivery')
@@ -300,7 +300,7 @@
                                                 @if ($order->payment_status == 1 && $order->payment_method != 'Cash on Delivery')
                                                     {{ ' ৳ ' }}{{ 0 }}
                                                 @else
-                                                    {{ ' ৳ ' }}{{ $order->sub_total + $order->shipping_cost + $order->order_vat + $order->coupon_coast }}
+                                                    {{ ' ৳ ' }}{{ $order->sub_total + $order->shipping_cost + $order->order_vat - $order->coupon_coast }}
                                                 @endif
                                             </td>
                                         </tr>
