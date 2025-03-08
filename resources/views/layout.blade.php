@@ -343,7 +343,9 @@
                 </div>
             </div>
             <div class="col-3">
-                <a href="{{ route('cart') }}" class="wsus__mobile_bottom_menu">
+                <a href="{{ route('cart') }}" class="wsus__mobile_bottom_menu wsus__mobile_bottom_menu_cart">
+                    <span
+                        style="background-color: #930A02; border-radius: 50%; padding: 2px 6px; color: white; margin-left: 20px">{{ Cart::instance('default')->count() }}</span>
                     <i class="far fa-shopping-cart"></i>
                     <span>{{ __('user.Cart') }}</span>
                 </a>

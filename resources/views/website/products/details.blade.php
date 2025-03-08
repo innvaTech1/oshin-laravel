@@ -861,6 +861,10 @@
                                                 $("#cartQty").text(
                                                     response.qty
                                                 );
+                                                $(".wsus__mobile_bottom_menu_cart span")
+                                                    .first().text(
+                                                        response.qty
+                                                    );
                                             },
                                         });
                                     },
