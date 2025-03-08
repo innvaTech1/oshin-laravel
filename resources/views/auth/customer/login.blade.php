@@ -1,10 +1,38 @@
 @extends('layout')
+
 @section('title')
     <title>{{ __('user.Login') }}</title>
 @endsection
+
 @section('meta')
     <meta name="description" content="{{ __('user.Login') }}">
 @endsection
+
+@push('custom-styles')
+    <style>
+        #wsus__login_register {
+            margin-top: -30px;
+        }
+
+        .wsus__login_reg_area {
+            padding-top: 15px;
+            padding-bottom: 20px;
+        }
+
+        .wsus__login_input input {
+            height: 30px;
+        }
+
+        .wsus__login_input {
+            margin-top: 5px
+        }
+
+        .wsus__login_save {
+            margin-top: 5px;
+            margin-bottom: 10px;
+        }
+    </style>
+@endpush
 
 @section('public-content')
     {{-- <!--============================
