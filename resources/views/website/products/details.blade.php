@@ -402,23 +402,25 @@
                             </div>
 
                             <!-- Warranty -->
-                            <div class="wsus_pro_det_sidebar_single card p-3 mb-3 shadow">
-                                <div class="d-flex align-items-center">
-                                    @if ($product->warranty_times)
-                                        <i class="fas fa-shield-check fa-2x text-success me-3"></i>
-                                        <div class="wsus_pro_det_sidebar_text">
-                                            <h6 class="mb-1 text-success">
-                                                {{ __($product->warranty_times . ' months warranty') }}
-                                            </h6>
-                                        </div>
-                                    @else
-                                        <i class="fas fa-shield-check fa-2x text-secondary me-3"></i>
-                                        <div class="wsus_pro_det_sidebar_text">
-                                            <h6 class="mb-1 text-muted">{{ __('Warranty not applicable') }}</h6>
-                                        </div>
-                                    @endif
+                            @if ($product->warranty_times)
+                                <div class="wsus_pro_det_sidebar_single card p-3 mb-3 shadow">
+                                    <div class="d-flex align-items-center">
+                                        @if ($product->warranty_times)
+                                            <i class="fas fa-shield-check fa-2x text-success me-3"></i>
+                                            <div class="wsus_pro_det_sidebar_text">
+                                                <h6 class="mb-1 text-success">
+                                                    {{ __($product->warranty_times . ' months warranty') }}
+                                                </h6>
+                                            </div>
+                                        @else
+                                            <i class="fas fa-shield-check fa-2x text-secondary me-3"></i>
+                                            <div class="wsus_pro_det_sidebar_text">
+                                                <h6 class="mb-1 text-muted">{{ __('Warranty not applicable') }}</h6>
+                                            </div>
+                                        @endif
+                                    </div>
                                 </div>
-                            </div>
+                            @endif
 
                             <!-- Oshin Verified -->
                             @if ($product->oshin_verified == 1)
