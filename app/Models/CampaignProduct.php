@@ -9,11 +9,13 @@ class CampaignProduct extends Model
 {
     use HasFactory;
 
-    public function product(){
+    public function product()
+    {
         return $this->belongsTo(Product::class);
     }
 
-    public function campaign(){
+    public function campaign()
+    {
         return $this->belongsTo(Campaign::class);
     }
 
@@ -23,6 +25,4 @@ class CampaignProduct extends Model
         'product_id' => 'integer',
         'show_homepage' => 'integer'
     ];
-
-
 }

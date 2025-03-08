@@ -225,7 +225,6 @@ class HomeController extends Controller
         $campaign = Campaign::where(['status' => 1, 'slug' => $slug])->first();
         $campaignProducts = $campaign->products;
         $currencySetting = Setting::first();
-
         $bannerOne = BannerImage::whereId('11')->first();
         $bannerTwo = BannerImage::whereId('12')->first();
         $setting = Setting::first();
