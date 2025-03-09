@@ -84,7 +84,7 @@ class CheckoutController extends Controller
             'agree_terms_condition.required' => trans('user.You must agree to our terms and condition'),
         ];
 
-        if ($request->same_shipping == null) {
+        if ($request->same_shipping == "on") {
             $rules['billing_name'] = 'required';
             $rules['billing_phone'] = 'required';
             $rules['billing_address'] = 'required';
@@ -125,7 +125,7 @@ class CheckoutController extends Controller
 
             $billing_id = $address_id;
 
-            if ($request->same_shipping == null) {
+            if ($request->same_shipping == "on") {
                 $billing_id = $this->storeAddress($request, 'billing_');
             }
 
@@ -135,7 +135,7 @@ class CheckoutController extends Controller
                 Address::where('id', $address_id)->delete();
             }
 
-            if ($request->same_shipping == null && !auth('web')->user()) {
+            if ($request->same_shipping == "on" && !auth('web')->user()) {
                 Address::where('id', $billing_id)->delete();
             }
 

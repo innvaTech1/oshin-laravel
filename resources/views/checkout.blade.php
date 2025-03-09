@@ -147,26 +147,23 @@
                                         <div class="accordion checkout_accordian" id="accordionExample">
                                             <div class="accordion-item">
                                                 <h2 class="accordion-header" id="headingThree">
-                                                    <button
-                                                        class="accordion-button @if (old('same_shipping', !old())) collapsed @endif"
-                                                        type="button" data-bs-toggle="collapse"
-                                                        data-bs-target="#collapseThree" aria-expanded="false"
-                                                        aria-controls="collapseThree" for="flexCheckDefault">
+                                                    <button class="accordion-button collapsed" type="button"
+                                                        data-bs-toggle="collapse" data-bs-target="#collapseThree"
+                                                        aria-expanded="false" aria-controls="collapseThree">
                                                         <div class="wsus__check_single_form">
                                                             <div class="form-check">
                                                                 <input class="form-check-input" type="checkbox"
                                                                     id="flexCheckDefault" name="same_shipping"
-                                                                    {{ old('same_shipping', !old()) ? 'checked' : '' }}>
+                                                                    {{ old('same_shipping', false) ? 'checked' : '' }}>
                                                                 <label class="form-check-label" for="flexCheckDefault">
-                                                                    {{ __('Billing address is the same as shipping address') }}
+                                                                    {{ __('Bill to a different address') }}
                                                                 </label>
                                                             </div>
                                                         </div>
                                                     </button>
                                                 </h2>
-                                                {{--  --}}
                                                 <div id="collapseThree"
-                                                    class="accordion-collapse collapse @if (old() && !old('same_shipping', false)) show @endif"
+                                                    class="accordion-collapse collapse @if (old('same_shipping', false)) show @endif"
                                                     aria-labelledby="headingThree" data-bs-parent="#accordionExample">
                                                     <div class="accordion-body p-0">
                                                         <div class="wsus__check_form p-0" style="box-shadow: none;">
@@ -340,15 +337,10 @@
             "use strict";
             $(document).ready(function() {
                 $('.accordion-button').on('click', function() {
-                    // Check if the button is in a collapsed state (accordion is closed)
-                    if ($(this).hasClass('collapsed')) {
-                        // When expanding, check the checkbox
-                        $(this).find('input[name="same_shipping"]').prop('checked', true);
-                    } else {
-                        // When collapsing, uncheck the checkbox
-                        $(this).find('input[name="same_shipping"]').prop('checked', false);
-                    }
+                    const checkbox = $(this).find('input[name="same_shipping"]');
+                    checkbox.prop('checked', !checkbox.prop('checked'));
                 });
+
                 $('.state').on('change', function() {
                     $('.preloader_area').removeClass('d-none');
                     let state_id = $(this).val();
