@@ -102,6 +102,7 @@
                                         <div class="wsus__add_address_single">
                                             <input type="number" placeholder="{{ __('user.Phone') }}*" name="phone"
                                                 value="{{ old('phone', $shipping->phone ?? '') }}">
+                                            <div class="text-danger small mt-1 phone-error"></div>
                                         </div>
                                     </div>
                                     <div class="col-md-12 col-lg-6 col-xl-6">
@@ -109,6 +110,7 @@
                                             <input type="number" placeholder="{{ __('user.Alternative Phone') }}"
                                                 name="phone_alternative"
                                                 value="{{ old('phone_alternative', $shipping->phone_alternative ?? '') }}">
+                                            <div class="text-danger small mt-1 phone-error"></div>
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-lg-12 col-xl-6">
@@ -194,6 +196,8 @@
                                                                             placeholder="{{ __('user.Phone') }}*"
                                                                             name="billing_phone"
                                                                             value="{{ old('billing_phone', $billing->phone ?? '') }}">
+                                                                        <div class="text-danger small mt-1 phone-error">
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-12 col-lg-6 col-xl-6">
@@ -202,6 +206,8 @@
                                                                             placeholder="{{ __('user.Alternative Phone') }}"
                                                                             name="billing_phone_alternative"
                                                                             value="{{ old('billing_phone_alternative', $billing->billing_phone_alternative ?? '') }}">
+                                                                        <div class="text-danger small mt-1 phone-error">
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-6 col-lg-12 col-xl-6">
@@ -276,8 +282,8 @@
                                 <button type="button" class="common_btn place_order">
                                     <span>{{ __('user.Place Order') }}</span></button>
                                 <div class="mt-3 text-center">Need something more?</div>
-                                <a class="common_btn mt-2 w-100 text-center" href="{{ route('product') }}"> <span><i
-                                            class="fab fa-shopify"></i> {{ __('user.go to shop') }}</span></a>
+                                <a class="common_btn mt-2 w-100 text-center" href="{{ route('product') }}">
+                                    <span><i class="fab fa-shopify"></i> {{ __('user.go to shop') }}</span></a>
                             </div>
                         </div>
                     </div>
@@ -437,5 +443,43 @@
                 $('.place_order').html('Place Order');
             }
         }
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Select both shipping and billing phone inputs
+            const phoneInputs = document.querySelectorAll(
+                'input[name="phone"], input[name="billing_phone"],input[name="phone_alternative"],input[name="billing_phone_alternative"]'
+            );
+
+            phoneInputs.forEach(input => {
+                // Create error message container
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'text-danger small mt-1 phone-error';
+                input.parentNode.appendChild(errorDiv);
+
+                input.addEventListener('input', function() {
+                    const value = this.value.trim();
+                    const isValid = /^01[3-9]\d{8}$/.test(value);
+
+                    if (!isValid) {
+                        errorDiv.textContent =
+                            '{{ __('Please enter a valid 11-digit Bangladeshi phone number starting with 01') }}';
+                    } else {
+                        errorDiv.textContent = '';
+                    }
+                });
+
+                // Add validation on form submission
+                input.form.addEventListener('submit', function(e) {
+                    const value = input.value.trim();
+                    if (!/^01[3-9]\d{8}$/.test(value)) {
+                        e.preventDefault();
+                        errorDiv.textContent =
+                            '{{ __('Please enter a valid 11-digit Bangladeshi phone number starting with 01') }}';
+                    }
+                });
+            });
+        });
     </script>
 @endsection
