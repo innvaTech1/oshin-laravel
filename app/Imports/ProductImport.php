@@ -30,17 +30,8 @@ class ProductImport implements ToModel, WithStartRow
             return null;
         }
 
-        function generateSlug($name)
-        {
-            $slug = strtolower(trim($name));
-            $slug = preg_replace('/[^\w ]+/', '', $slug);
-            $slug = preg_replace('/\s+/', '-', $slug);
-            $slug = trim($slug, '-');
-            return $slug;
-        }
-
         $name = trim($row[1]);
-        $slug = generateSlug($name);
+        $slug = $this->generateSlug($name);
 
         // Ensure Slug Uniqueness
         $existingProduct = Product::where('slug', $slug)->first();
@@ -282,6 +273,15 @@ class ProductImport implements ToModel, WithStartRow
             $data['tags'] = null;
         }
 
+        // Admin Approve
+        if (trim($row[32]) !== '') {
+            // Convert to integer (0 or 1) if a value exists
+            $data['approve_by_admin'] = (int)trim($row[32]);
+        } else {
+            // If empty, set to null
+            $data['approve_by_admin'] = null;
+        }
+
         // if (auth('admin')->check()) {
         //     $data['vendor_id'] = 0;
         // } else {
@@ -324,7 +324,7 @@ class ProductImport implements ToModel, WithStartRow
                     $itemsString = trim($variantParts[1]);
 
                     $items = collect(explode(',', $itemsString))
-                        ->map(fn($item) => trim($item))
+                        ->map(fn ($item) => trim($item))
                         ->unique()
                         ->values()
                         ->all();
@@ -373,5 +373,17 @@ class ProductImport implements ToModel, WithStartRow
     public function startRow(): int
     {
         return 2; // Skip the first 1 rows (headers and/or other data)
+    }
+
+    private function generateSlug(string $name): string
+    {
+        $slug = strtolower(trim($name));
+        $slug = preg_replace('/[^\w ]+/', '', $slug);
+        $slug = preg_replace('/\s+/', '-', $slug);
+        $slug = trim($slug, '-');
+
+        // Check for existing slug
+        $count = Product::where('slug', $slug)->count();
+        return $count ? "{$slug}-" . Str::random(5) : $slug;
     }
 }
