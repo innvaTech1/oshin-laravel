@@ -143,6 +143,7 @@ class CheckoutController extends Controller
 
             // forget cart
             Cart::destroy();
+            Session::forget(['coupon_price', 'offer_type', 'coupon_name']); // Add this
 
             return true;
         } catch (Exception $e) {
@@ -472,6 +473,9 @@ class CheckoutController extends Controller
 
         curl_close($curl);
         echo $response;
+
+        Cart::destroy();
+        Session::forget(['coupon_price', 'offer_type', 'coupon_name']); // Add this
 
         return redirect()->route('order.success');
     }
