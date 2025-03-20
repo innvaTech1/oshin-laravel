@@ -300,11 +300,11 @@ class HomeController extends Controller
 
     public function seller()
     {
+        $paginateQty = CustomPagination::whereId('3')->first()->qty;
         $banner = BreadcrumbImage::where(['id' => 8])->first();
-        $sellers = Vendor::orderBy('id', 'desc')->where('status', 1)->get();
-        $productReviews = ProductReview::all();
+        $sellers = Vendor::orderBy('id', 'desc')->where('status', 1)->paginate($paginateQty);
         $seoSetting = SeoSetting::find(5);
-        return view('seller', compact('banner', 'sellers', 'productReviews', 'seoSetting'));
+        return view('seller', compact('banner', 'sellers', 'seoSetting'));
     }
 
     public function sellerDetail(Request $request)

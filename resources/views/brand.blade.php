@@ -1,15 +1,14 @@
 @extends('layout')
+
 @section('title')
     <title>{{ $seoSetting->seo_title }}</title>
 @endsection
+
 @section('meta')
     <meta name="description" content="{{ $seoSetting->seo_description }}">
 @endsection
 
 @section('public-content')
-    <!--============================
-                BRANDS PAGE START
-            ==============================-->
     <section id="wsus__brands">
         <div class="container">
             <div class="row">
@@ -29,7 +28,4 @@
             </div>
         </div>
     </section>
-    <!--============================
-                BRANDS PAGE END
-            ==============================-->
 @endsection
