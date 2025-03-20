@@ -20,12 +20,9 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
 {
-
     use RegistersUsers;
 
-
     protected $redirectTo = RouteServiceProvider::HOME;
-
 
     public function __construct()
     {
@@ -44,6 +41,7 @@ class RegisterController extends Controller
             'password.min' => trans('user_validation.Password must be 4 characters'),
             'password.confirmed' => trans('user_validation.Confirm password does not match'),
         ];
+
         $this->validate($request, $rules, $customMessages);
 
         $login = $request->username;
@@ -54,8 +52,6 @@ class RegisterController extends Controller
         } elseif (filter_var($login, FILTER_VALIDATE_EMAIL)) {
             $field = 'email';
         }
-
-
 
         $check = User::where($field, $login)->first();
 
@@ -85,9 +81,14 @@ class RegisterController extends Controller
         // $message = str_replace('{{user_name}}', $request->name, $message);
         // Mail::to($user->email)->send(new UserRegistration($message, $subject, $user));
 
+        // Automatically log in the user
+        Auth::guard('web')->login($user);
+
         $notification = trans('user_validation.Register Successfully');
-        $notification = array('messege' => $notification, 'alert-type' => 'success');
-        return redirect()->back()->with($notification);
+        return redirect()->route('user.dashboard')->with([
+            'messege' => $notification,
+            'alert-type' => 'success'
+        ]);
     }
 
     public function userVerification($token)
@@ -108,7 +109,6 @@ class RegisterController extends Controller
         }
     }
 
-
     protected function validator(array $data)
     {
         return Validator::make($data, [
@@ -117,7 +117,6 @@ class RegisterController extends Controller
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
-
 
     protected function create(array $data)
     {
