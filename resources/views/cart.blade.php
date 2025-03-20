@@ -287,6 +287,13 @@
 
                 $("#couponFormId").on("submit", function(e) {
                     e.preventDefault();
+
+                    @if (!Auth::check())
+                        toastr.error("{{ __('Please login to use coupons') }}");
+                        window.location.href = "{{ route('login') }}";
+                        return;
+                    @endif
+                    
                     $.ajax({
                         type: 'get',
                         data: $('#couponFormId').serialize(),
