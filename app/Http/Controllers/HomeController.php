@@ -76,11 +76,11 @@ class HomeController extends Controller
         $oneColumnBanner = BannerImage::whereId('2')->first();
         $banners  = BannerImage::all();
         $paginateQty = $visibilities->where('id', 7)->first()->qty;
-        $flashDealProducts = Product::where(['status' => 1, 'is_flash_deal' => 1])->inRandomOrder()->get();
-        $featuredProducts = Product::where(['status' => 1, 'is_featured' => 1])->inRandomOrder()->get()->take($paginateQty);
-        $bestProducts = Product::where(['status' => 1, 'is_best' => 1])->inRandomOrder()->get()->take($paginateQty);
-        $topProducts = Product::where(['status' => 1, 'is_top' => 1])->inRandomOrder()->get()->take($paginateQty);
-        $newProducts = Product::where(['status' => 1, 'new_product' => 1])->inRandomOrder()->get()->take($paginateQty);
+        $flashDealProducts = Product::where(['status' => 1, 'approve_by_admin' => 1, 'is_flash_deal' => 1])->inRandomOrder()->get();
+        $featuredProducts = Product::where(['status' => 1, 'approve_by_admin' => 1, 'is_featured' => 1])->inRandomOrder()->get()->take($paginateQty);
+        $bestProducts = Product::where(['status' => 1, 'approve_by_admin' => 1, 'is_best' => 1])->inRandomOrder()->get()->take($paginateQty);
+        $topProducts = Product::where(['status' => 1, 'approve_by_admin' => 1, 'is_top' => 1])->inRandomOrder()->get()->take($paginateQty);
+        $newProducts = Product::where(['status' => 1, 'approve_by_admin' => 1, 'new_product' => 1])->inRandomOrder()->get()->take($paginateQty);
 
         $seoSetting = SeoSetting::find(1);
         $currencySetting = cache('setting');
@@ -381,85 +381,114 @@ class HomeController extends Controller
     {
         $paginateQty = CustomPagination::whereId('2')->first()->qty;
 
-        if ($request->variantItems) {
-            $products = Product::whereHas('variantItems', function ($query) use ($request) {
-                $sortArr = [];
-                if ($request->variantItems) {
-                    foreach ($request->variantItems as $variantItem) {
-                        $sortArr[] = $variantItem;
-                    }
-                    $query->whereIn('name', $sortArr);
-                }
-            })->where('status', 1)->where('approve_by_admin', 1);
-        } else {
-            $products = Product::where('status', 1)->where('approve_by_admin', 1);
+        // Initialize base query
+        $products = Product::where('status', 1)
+            ->where('approve_by_admin', 1);
+
+        // 1. Apply type filter
+        if ($request->type) {
+            switch ($request->type) {
+                case 'new':
+                    $products->where('new_product', 1);
+                    break;
+                case 'featured':
+                    $products->where('is_featured', 1);
+                    break;
+                case 'best':
+                    $products->where('is_best', 1);
+                    break;
+                case 'top':
+                    $products->where('is_top', 1);
+                    break;
+            }
         }
 
+        // 2. Variant items filter
+        if ($request->variantItems) {
+            $products->whereHas('variantItems', function ($query) use ($request) {
+                $query->whereIn('name', $request->variantItems);
+            });
+        }
+
+        // 3. Sorting
         if ($request->shorting_id) {
-            if ($request->shorting_id == 1) {
-                $products = $products->orderBy('id', 'desc');
-            } elseif ($request->shorting_id == 2) {
-                $products = $products->orderBy('price', 'asc');
-            } elseif ($request->shorting_id == 3) {
-                $products = $products->orderBy('price', 'desc');
+            switch ($request->shorting_id) {
+                case 2:
+                    $products->orderBy('price', 'asc');
+                    break;
+                case 3:
+                    $products->orderBy('price', 'desc');
+                    break;
+                default:
+                    $products->orderBy('id', 'desc');
             }
         } else {
-            $products = $products->orderBy('id', 'desc');
+            $products->orderBy('id', 'desc');
         }
 
+        // 4. Category filters
         if ($request->category) {
             $category = Category::where('slug', $request->category)->first();
-            $products = $products->where('category_id', $category->id);
+            if ($category) {
+                $products->where('category_id', $category->id);
+            }
         }
 
         if ($request->sub_category) {
-            $sub_category = SubCategory::where('slug', $request->sub_category)->first();
-            $products = $products->where('sub_category_id', $sub_category->id);
+            $subCategory = SubCategory::where('slug', $request->sub_category)->first();
+            if ($subCategory) {
+                $products->where('sub_category_id', $subCategory->id);
+            }
         }
 
         if ($request->child_category) {
-            $child_category = ChildCategory::where('slug', $request->child_category)->first();
-            $products = $products->where('child_category_id', $child_category->id);
+            $childCategory = ChildCategory::where('slug', $request->child_category)->first();
+            if ($childCategory) {
+                $products->where('child_category_id', $childCategory->id);
+            }
         }
 
+        // 5. Brand filters
         if ($request->brand) {
             $brand = Brand::where('slug', $request->brand)->first();
-            $products = $products->where('brand_id', $brand->id);
-        }
-
-        $brandSortArr = [];
-        if ($request->brands) {
-            foreach ($request->brands as $brand) {
-                $brandSortArr[] = $brand;
+            if ($brand) {
+                $products->where('brand_id', $brand->id);
             }
-            $products = $products->whereIn('brand_id', $brandSortArr);
         }
 
+        if ($request->brands) {
+            $products->whereIn('brand_id', $request->brands);
+        }
+
+        // 6. Price range filter
         if ($request->price_range) {
-            $price_range = explode(';', $request->price_range);
-            $start_price = $price_range[0];
-            $end_price = $price_range[1];
-            $products = $products->where('price', '>=', $start_price)->where('price', '<=', $end_price);
+            $priceRange = explode(';', $request->price_range);
+            if (count($priceRange) === 2) {
+                $products->whereBetween('price', [(float)$priceRange[0], (float)$priceRange[1]]);
+            }
         }
 
+        // 7. Vendor filter
         if ($request->shop_name) {
-            $slug = $request->shop_name;
-            $seller = Vendor::where(['slug' => $slug])->first();
-            $products = $products->where('vendor_id', $seller->id);
+            $vendor = Vendor::where('slug', $request->shop_name)->first();
+            if ($vendor) {
+                $products->where('vendor_id', $vendor->id);
+            }
         }
 
+        // 8. Search term filter
         if ($request->search) {
-            $products = $products->where(function ($query) use ($request) {
-                $query->where('name', 'LIKE', '%' . $request->search . "%")
+            $products->where(function ($query) use ($request) {
+                $query->where('name', 'LIKE', '%' . $request->search . '%')
                     ->orWhere('long_description', 'LIKE', '%' . $request->search . '%');
             });
         }
 
-        $products = $products->paginate($paginateQty);
-        $products = $products->appends($request->all());
+        // Final execution
+        $products = $products->paginate($paginateQty)
+            ->appends($request->all());
 
         $page_view = $request->page_view ?? 'grid_view';
-
         $currencySetting = Setting::first();
         $setting = $currencySetting;
 

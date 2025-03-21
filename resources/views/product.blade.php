@@ -22,6 +22,8 @@
                         </span>
                     </div>
                     <form id="searchProductFormId">
+                        <input type="hidden" name="type" value="{{ request()->input('type') }}">
+
                         <div class="wsus__product_sidebar" id="sticky_sidebar">
                             <div class="accordion" id="accordionExample">
                                 <div class="accordion-item">
