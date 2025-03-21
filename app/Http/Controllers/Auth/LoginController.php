@@ -17,10 +17,11 @@ use App\Mail\UserForgetPassword;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use App\Models\SocialLoginInformation;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Mail;
+use App\Models\SocialLoginInformation;
+use Illuminate\Support\Facades\Session;
 use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
 {
@@ -35,11 +36,20 @@ class LoginController extends Controller
 
     public function loginPage()
     {
+        $couponFlagCheck = 0;
+
+        $couponFlag = Session::get('couponFlag');
+
+        if ($couponFlag == 1) {
+            $couponFlagCheck = 1;
+            Session::forget('couponFlag');
+        }
+
         $banner = BreadcrumbImage::where(['id' => 5])->first();
         $background = BannerImage::whereId('13')->first();
         $recaptchaSetting = GoogleRecaptcha::first();
         $socialLogin = SocialLoginInformation::first();
-        return view('auth.customer.login', compact('banner', 'background', 'recaptchaSetting', 'socialLogin'));
+        return view('auth.customer.login', compact('banner', 'background', 'recaptchaSetting', 'socialLogin', 'couponFlagCheck'));
     }
 
     public function storeLogin(Request $request)

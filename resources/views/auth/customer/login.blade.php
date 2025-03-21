@@ -43,6 +43,12 @@
             <div class="row">
                 <div class="col-xl-5 m-auto">
                     <div class="wsus__login_reg_area">
+                        @if ($couponFlagCheck)
+                            <div class="text-danger my-2" style="font-size: 0.9rem;">
+                                <i class="fas fa-exclamation-circle"></i>
+                                {{ __('You need to login to apply coupons') }}
+                            </div>
+                        @endif
                         <ul class="nav nav-pills mb-3" id="pills-tab2" role="tablist">
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link active" id="pills-home-tab2" data-bs-toggle="pill"
@@ -137,7 +143,8 @@
                                         </div>
                                         <div class="wsus__login_input">
                                             <i class="fas fa-key"></i>
-                                            <input type="password" placeholder="{{ __('user.Password') }}" name="password">
+                                            <input type="password" placeholder="{{ __('user.Password') }}"
+                                                name="password">
                                             <a href="javascript:;" class="show-pass"><i class="fas fa-eye"></i></a>
                                         </div>
                                         <div class="wsus__login_input">

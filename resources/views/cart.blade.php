@@ -306,7 +306,25 @@
 
                     @if (!Auth::check())
                         toastr.error("{{ __('Please login to use coupons') }}");
-                        window.location.href = "{{ route('login') }}";
+                        $.ajax({
+                            url: "{{ route('set.coupon.flag') }}", // Use named route
+                            type: "POST",
+                            data: {
+                                couponFlag: 1,
+                                _token: "{{ csrf_token() }}"
+                            },
+                            success: function(response) {
+                                if (response.success) {
+                                    window.location.href =
+                                        "{{ route('login') }}"; // Redirect after success
+                                }
+                            },
+                            error: function(error) {
+                                console.log("Error:", error);
+                                window.location.href =
+                                    "{{ route('login') }}"; // Fallback redirect
+                            }
+                        });
                         return;
                     @endif
 
