@@ -73,7 +73,6 @@ class HomeController extends Controller
             $start_time  = strtotime(date('Y-m-d'));
         }
 
-
         $oneColumnBanner = BannerImage::whereId('2')->first();
         $banners  = BannerImage::all();
         $paginateQty = $visibilities->where('id', 7)->first()->qty;
@@ -86,7 +85,6 @@ class HomeController extends Controller
         $seoSetting = SeoSetting::find(1);
         $currencySetting = cache('setting');
         $setting = $currencySetting;
-
 
         return view('index', compact('brands', 'visibilities', 'campaign', 'sliders', 'topCategories', 'campaignProducts', 'oneColumnBanner', 'banners', 'flashDealProducts', 'featuredProducts', 'bestProducts', 'topProducts', 'newProducts', 'seoSetting', 'currencySetting', 'setting', 'productCategories'));
     }
@@ -327,7 +325,6 @@ class HomeController extends Controller
 
     public function product(Request $request)
     {
-
         $variantsForSearch = ProductVariant::select('name', 'id')->groupBy('name')->get();
         $shop_page = ShopPage::first();
         $banner = BreadcrumbImage::where('id', 9)->first();

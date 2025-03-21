@@ -172,11 +172,17 @@
                                     <span>{{ currency_icon() }}{{ $total_price }}</span>
                                 </p>
 
+                                <div id="couponLoginWarning" class="text-danger mt-2"
+                                    style="display: none; font-size: 0.9rem;">
+                                    <i class="fas fa-exclamation-circle"></i>
+                                    {{ __('You need to login to apply coupons') }}
+                                </div>
                                 <form id="couponFormId">
                                     <input type="text" name="coupon" placeholder="{{ __('Enter Coupon') }}">
                                     <button type="submit"
                                         class="common_btn w-50"><span>{{ __('user.apply') }}</span></button>
                                 </form>
+
                                 <a class="common_btn mt-4 w-100 text-center" href="{{ route('checkout.checkout') }}">
                                     <span>{{ __('user.checkout') }}</span></a>
                                 <a class="common_btn mt-4 w-100 text-center" href="{{ route('product') }}"> <span><i
@@ -247,6 +253,16 @@
         (function($) {
             "use strict";
             $(document).ready(function() {
+                $('input[name="coupon"]').on('input', function() {
+                    var isAuthenticated = $('meta[name="user-authenticated"]').attr('content') ===
+                        'true';
+                    if (!isAuthenticated) {
+                        $('#couponLoginWarning').show();
+                    } else {
+                        $('#couponLoginWarning').hide();
+                    }
+                });
+
                 $(".shoppingDecrementId").on("click", function(e) {
                     cartItemIncrement();
                 })
@@ -293,7 +309,7 @@
                         window.location.href = "{{ route('login') }}";
                         return;
                     @endif
-                    
+
                     $.ajax({
                         type: 'get',
                         data: $('#couponFormId').serialize(),

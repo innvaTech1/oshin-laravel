@@ -22,6 +22,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     @yield('title')
     @yield('meta')
+    <meta name="user-authenticated" content="{{ Auth::check() ? 'true' : 'false' }}">
 
     <link rel="icon" type="image/png" href="{{ asset($setting->favicon) }}">
     <link rel="stylesheet" href="{{ asset('user/css/all.min.css') }}">
