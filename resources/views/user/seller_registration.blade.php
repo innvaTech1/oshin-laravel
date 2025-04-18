@@ -81,7 +81,10 @@
                                         <div class="col-xl-6 col-md-6">
                                             <div class="wsus__dash_pro_single">
                                                 <input type="text" placeholder="{{ __('user.Phone') }}*" name="phone"
-                                                    value="{{ old('phone', auth()->user()->phone) }}">
+                                                    value="{{ old('phone', auth()->user()->phone) }}" id="phone_number"
+                                                    maxlength="11">
+                                                <small id="phone_validation_message"
+                                                    class="text-danger d-none">{{ __('Please enter a valid 11-digit Bangladeshi phone number starting with 0') }}</small>
                                                 @error('phone')
                                                     <div>
                                                         <span class="text-danger">{{ $message }}</span>
@@ -214,6 +217,25 @@
         (function($) {
             "use strict";
             $(document).ready(function() {
+                // Phone number validation
+                $('#phone_number').on('input', function() {
+                    let phoneNumber = $(this).val();
+                    // Allow only digits
+                    $(this).val(phoneNumber.replace(/[^0-9]/g, ''));
+
+                    // Validate Bangladeshi phone number (11 digits starting with 0)
+                    let validationMessage = $('#phone_validation_message');
+                    if (phoneNumber.length > 0) {
+                        if (phoneNumber.length !== 11 || phoneNumber.charAt(0) !== '0') {
+                            validationMessage.removeClass('d-none');
+                        } else {
+                            validationMessage.addClass('d-none');
+                        }
+                    } else {
+                        validationMessage.addClass('d-none');
+                    }
+                });
+
                 $('.state').on('change', function() {
                     $('.preloader_area').removeClass('d-none');
                     let state_id = $(this).val();
