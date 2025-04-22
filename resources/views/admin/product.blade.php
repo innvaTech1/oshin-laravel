@@ -57,9 +57,8 @@
                                                     </td>
                                                     <td>{{ currency_icon() }}{{ $product->price }}</td>
                                                     <td>
-                                                        <img class="rounded-circle"
-                                                            src="{{ asset($product->thumb_image) }}" alt=""
-                                                            width="100px" height="100px">
+                                                        <img class="rounded-circle" src="{{ url($product->thumb_image) }}"
+                                                            alt="" width="100px" height="100px">
                                                     </td>
                                                     <td>{{ $product->type }}</td>
                                                     <td>
