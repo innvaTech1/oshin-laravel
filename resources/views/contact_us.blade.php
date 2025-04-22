@@ -1,15 +1,14 @@
 @extends('layout')
+
 @section('title')
     <title>{{ $seoSetting->seo_title }}</title>
 @endsection
+
 @section('meta')
     <meta name="description" content="{{ $seoSetting->seo_description }}">
 @endsection
 
 @section('public-content')
-    <!--============================
-                    CONTACT PAGE START
-                ==============================-->
     <section id="wsus__contact">
         <div class="container">
             <div class="row">
@@ -102,7 +101,7 @@
                     </div>
                 </div>
                 <div class="col-12">
-                    @if ($contact->map)
+                    @if ($contact && $contact->map)
                         <div class="wsus__con_map">
                             {!! $contact->map !!}
 
@@ -114,7 +113,4 @@
             </div>
         </div>
     </section>
-    <!--============================
-                    CONTACT PAGE END
-                ==============================-->
 @endsection
