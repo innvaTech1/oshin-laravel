@@ -324,7 +324,7 @@ class ProductImport implements ToModel, WithStartRow
                     $itemsString = trim($variantParts[1]);
 
                     $items = collect(explode(',', $itemsString))
-                        ->map(fn ($item) => trim($item))
+                        ->map(fn($item) => trim($item))
                         ->unique()
                         ->values()
                         ->all();

@@ -227,6 +227,14 @@ class ProductController extends Controller
         }
         $product->save();
 
+        // Add thumbnail image to gallery if it exists
+        if ($product->thumb_image) {
+            $gallery = new ProductGallery();
+            $gallery->product_id = $product->id;
+            $gallery->image = $product->thumb_image;
+            $gallery->save();
+        }
+
         session()->forget('product_type');
         $notification = trans('admin_validation.Created Successfully');
         $notification = array('messege' => $notification, 'alert-type' => 'success');
@@ -325,6 +333,18 @@ class ProductController extends Controller
             $image_name = file_upload($request->thumb_image, $old_thumbnail, 'uploads/custom-images/');
             $product->thumb_image = $image_name;
             $product->save();
+
+            // Add or update thumbnail in gallery
+            $existingGalleryItem = ProductGallery::where('product_id', $product->id)
+                ->where('image', $image_name)
+                ->first();
+
+            if (!$existingGalleryItem) {
+                $gallery = new ProductGallery();
+                $gallery->product_id = $product->id;
+                $gallery->image = $image_name;
+                $gallery->save();
+            }
         }
 
         if ($request->hasFile('file')) {

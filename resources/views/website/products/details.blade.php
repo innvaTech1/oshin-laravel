@@ -113,8 +113,8 @@
                                 <ul class='exzoom_img_ul'>
                                     @foreach ($product->gallery as $image)
                                         <li>
-                                            <img class="zoom img-fluid w-100" src="{{ asset($image->image) }}"
-                                                alt="product" loading="lazy">
+                                            <img class="zoom img-fluid w-100" src="{{ url($image->image) }}" alt="product"
+                                                loading="lazy">
                                         </li>
                                     @endforeach
                                 </ul>
