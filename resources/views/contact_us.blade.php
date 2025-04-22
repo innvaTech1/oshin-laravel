@@ -7,17 +7,16 @@
 @endsection
 
 @section('public-content')
-  
-<!--============================
-        CONTACT PAGE START
-    ==============================-->
+    <!--============================
+            CONTACT PAGE START
+        ==============================-->
     <section id="wsus__contact">
         <div class="container">
             <div class="row">
                 <div class="col-xl-12">
                     <div class="wsus__contact_header">
-                        <h4>{{ $contact ? $contact->title : ''}}</h4>
-                        <p>{{ $contact ? $contact->description : ''}}</p>
+                        <h4>{{ $contact ? $contact->title : '' }}</h4>
+                        <p>{{ $contact ? $contact->description : '' }}</p>
                     </div>
                 </div>
             </div>
@@ -25,9 +24,9 @@
                 <div class="col-xl-4 col-sm-12 col-lg-4">
                     <div class="wsus__contact_single">
                         <i class="fal fa-envelope"></i>
-                        <h5>{{__('user.mail address')}}</h5>
+                        <h5>{{ __('user.mail address') }}</h5>
                         @if ($contact)
-                        <a href="mailto:{{ $contact->email }}">{{ $contact->email }}</a>
+                            <a href="mailto:{{ $contact->email }}">{{ $contact->email }}</a>
                         @endif
 
                     </div>
@@ -35,18 +34,18 @@
                 <div class="col-xl-4 col-sm-12 col-lg-4">
                     <div class="wsus__contact_single">
                         <i class="far fa-phone-alt"></i>
-                        <h5>{{__('user.phone number')}}</h5>
+                        <h5>{{ __('user.phone number') }}</h5>
                         @if ($contact)
-                        <a href="macallto:{{ $contact->phone }}">{{ $contact->phone }}</a>
+                            <a href="macallto:{{ $contact->phone }}">{{ $contact->phone }}</a>
                         @endif
                     </div>
                 </div>
                 <div class="col-xl-4 col-sm-12 col-lg-4">
                     <div class="wsus__contact_single">
                         <i class="fal fa-map-marker-alt"></i>
-                        <h5>{{__('user.contact address')}}</h5>
+                        <h5>{{ __('user.contact address') }}</h5>
                         @if ($contact)
-                        <a href="javascript::void()">{{ $contact->address }}</a>
+                            <a href="javascript::void()">{{ $contact->address }}</a>
                         @endif
                     </div>
                 </div>
@@ -55,39 +54,39 @@
             <div class="row">
                 <div class="col-12">
                     <div class="wsus__contact_question">
-                        <h5>{{__('user.Send Us a Message')}}</h5>
+                        <h5>{{ __('user.Send Us a Message') }}</h5>
                         <form method="POST" action="{{ route('send-contact-message') }}">
                             @csrf
                             <div class="row">
                                 <div class="col-xl-6 col-md-6">
                                     <div class="wsus__con_form_single">
-                                        <input type="text" name="name" placeholder="{{__('user.Name')}}">
+                                        <input type="text" name="name" placeholder="{{ __('user.Name') }}">
                                     </div>
                                 </div>
                                 <div class="col-xl-6 col-md-6">
                                     <div class="wsus__con_form_single">
-                                        <input type="email" name="email"  placeholder="{{__('user.Email')}}">
+                                        <input type="email" name="email" placeholder="{{ __('user.Email') }}">
                                     </div>
                                 </div>
                                 <div class="col-xl-6 col-md-6">
                                     <div class="wsus__con_form_single">
-                                        <input type="text" name="phone"  placeholder="{{__('user.Phone')}}">
+                                        <input type="text" name="phone" placeholder="{{ __('user.Phone') }}">
                                     </div>
                                 </div>
 
                                 <div class="col-xl-6 col-md-6">
                                     <div class="wsus__con_form_single">
-                                        <input type="text" placeholder="{{__('user.Subject')}}" name="subject">
+                                        <input type="text" placeholder="{{ __('user.Subject') }}" name="subject">
                                     </div>
                                 </div>
                                 <div class="col-xl-12">
                                     <div class="wsus__con_form_single">
-                                        <textarea cols="3" rows="5" placeholder="{{__('user.Message')}}" name="message"></textarea>
+                                        <textarea cols="3" rows="5" placeholder="{{ __('user.Message') }}" name="message"></textarea>
                                     </div>
                                 </div>
                             </div>
 
-                            @if($recaptchaSetting->status==1)
+                            @if ($recaptchaSetting->status == 1)
                                 <div class="col-xl-12">
                                     <div class="wsus__single_com mb-3">
                                         <div class="g-recaptcha" data-sitekey="{{ $recaptchaSetting->site_key }}"></div>
@@ -96,7 +95,7 @@
                             @endif
 
                             <div class="col-12">
-                                <button type="submit" class="common_btn"> <span>{{__('user.send now')}}</span></button>
+                                <button type="submit" class="common_btn"> <span>{{ __('user.send now') }}</span></button>
                             </div>
 
                         </form>
@@ -104,9 +103,9 @@
                 </div>
                 <div class="col-12">
                     @if ($contact)
-                    <div class="wsus__con_map">
-                        {!! $contact->map !!}
-                    </div>
+                        <div class="wsus__con_map">
+                            {!! $contact->map !!}
+                        </div>
                     @endif
 
                 </div>
@@ -114,7 +113,6 @@
         </div>
     </section>
     <!--============================
-        CONTACT PAGE END
-    ==============================-->
-
+            CONTACT PAGE END
+        ==============================-->
 @endsection
