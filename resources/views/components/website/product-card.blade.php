@@ -47,8 +47,8 @@
         @endif
     @endif
     <a class="wsus__pro_link" href="{{ route('product-detail', $product?->slug) }}">
-        <img src="{{ asset($product?->thumb_image) }}" alt="product" class="img-fluid w-100 img_1" />
-        <img src="{{ asset($product?->thumb_image) }}" alt="product" class="img-fluid w-100 img_2" />
+        <img src="{{ url($product->thumb_image) }}" alt="product" class="img-fluid w-100 img_1" />
+        <img src="{{ url($product->thumb_image) }}" alt="product" class="img-fluid w-100 img_2" />
     </a>
     <ul class="wsus__single_pro_icon">
         <li><a href="javascript:;" data-bs-toggle="modal" data-bs-target="#productModalView-{{ $product?->id }}"><i
