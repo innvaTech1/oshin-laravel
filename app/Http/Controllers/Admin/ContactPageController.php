@@ -26,7 +26,6 @@ class ContactPageController extends Controller
             'phone' => 'required',
             'address' => 'required',
             'title' => 'required',
-            'google_map' => 'required',
             'description' => 'required',
         ];
         $customMessages = [
@@ -35,7 +34,6 @@ class ContactPageController extends Controller
             'phone.unique' => trans('admin_validation.Phone is required'),
             'address.unique' => trans('admin_validation.Address is required'),
             'title.unique' => trans('admin_validation.Title is required'),
-            'google_map.unique' => trans('admin_validation.Google Map is required'),
             'description.unique' => trans('admin_validation.Description is required'),
         ];
         $this->validate($request, $rules, $customMessages);
@@ -67,7 +65,6 @@ class ContactPageController extends Controller
             'phone' => 'required',
             'address' => 'required',
             'title' => 'required',
-            'google_map' => 'required',
             'description' => 'required',
         ];
         $customMessages = [
@@ -75,7 +72,6 @@ class ContactPageController extends Controller
             'phone.unique' => trans('admin_validation.Phone is required'),
             'address.unique' => trans('admin_validation.Address is required'),
             'title.unique' => trans('admin_validation.Title is required'),
-            'google_map.unique' => trans('admin_validation.Google Map is required'),
             'description.unique' => trans('admin_validation.Description is required'),
         ];
         $this->validate($request, $rules, $customMessages);

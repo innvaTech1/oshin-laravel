@@ -8,8 +8,8 @@
 
 @section('public-content')
     <!--============================
-            CONTACT PAGE START
-        ==============================-->
+                    CONTACT PAGE START
+                ==============================-->
     <section id="wsus__contact">
         <div class="container">
             <div class="row">
@@ -102,17 +102,19 @@
                     </div>
                 </div>
                 <div class="col-12">
-                    @if ($contact)
+                    @if ($contact->map)
                         <div class="wsus__con_map">
                             {!! $contact->map !!}
+
+                            {{-- sample --}}
+                            {{-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14615.994260040543!2d90.49477098678912!3d23.67600930953518!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b6c9cac2182b%3A0x8cbfd7608a612b0e!2sPaschim%20Para%2C%20Kadamtoli!5e0!3m2!1sen!2sbd!4v1719647563096!5m2!1sen!2sbd" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> --}}
                         </div>
                     @endif
-
                 </div>
             </div>
         </div>
     </section>
     <!--============================
-            CONTACT PAGE END
-        ==============================-->
+                    CONTACT PAGE END
+                ==============================-->
 @endsection
