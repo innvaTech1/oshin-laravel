@@ -154,8 +154,11 @@
                                                             <div class="form-check">
                                                                 <input class="form-check-input" type="checkbox"
                                                                     id="flexCheckDefault" name="same_shipping"
-                                                                    {{ old('same_shipping', false) ? 'checked' : '' }}>
-                                                                <label class="form-check-label" for="flexCheckDefault">
+                                                                    {{ old('same_shipping', false) ? 'checked' : '' }}
+                                                                    style="opacity: 1; visibility: visible; position: relative;"
+                                                                    onclick="event.stopPropagation(); toggleBillingAddress(this);">
+                                                                <label class="form-check-label"
+                                                                    style="pointer-events: none;">
                                                                     {{ __('Bill to a different address') }}
                                                                 </label>
                                                             </div>
@@ -475,5 +478,17 @@
                 });
             });
         });
+    </script>
+    </section>
+
+    <script>
+        function toggleBillingAddress(checkbox) {
+            const collapseElement = document.getElementById('collapseThree');
+            if (checkbox.checked) {
+                collapseElement.classList.add('show');
+            } else {
+                collapseElement.classList.remove('show');
+            }
+        }
     </script>
 @endsection
