@@ -118,8 +118,7 @@ class ProductController extends Controller
             'price' => 'required|numeric',
             'status' => 'required',
             'quantity' => 'nullable|numeric',
-            'state_id' => 'required',
-            'city_id' => 'required',
+            // state_id and city_id removed from required fields
         ];
 
         if ($request->is_pre_order) {
@@ -146,8 +145,7 @@ class ProductController extends Controller
             'release_date.date' => __('Release Date must be a Date'),
             'max_product.required' => __('Pre order Quantity is Required'),
             'partial_amount.required' => __('Partial Amount Quantity is Required'),
-            'state_id.required' => trans('State is required'),
-            'city_id.required' => trans('City is required'),
+            // state_id and city_id error messages removed
         ];
 
         if (session('product_type') != null && session('product_type') == 'Digital') {
@@ -190,9 +188,9 @@ class ProductController extends Controller
         $product->short_description = $request->short_description;
         $product->long_description = $request->long_description;
         $product->tags = $request->tags;
-        $product->state_id = json_encode($request->state_id);
-        $product->city_id = json_encode($request->city_id);
-        $product->delivery_id = json_encode($request->city_id);
+        $product->state_id = $request->state_id ? json_encode($request->state_id) : json_encode([]);
+        $product->city_id = $request->city_id ? json_encode($request->city_id) : json_encode([]);
+        $product->delivery_id = $request->city_id ? json_encode($request->city_id) : json_encode([]);
         $product->status = $request->status;
         $product->weight = $request->weight;
         $product->is_undefine = 1;
