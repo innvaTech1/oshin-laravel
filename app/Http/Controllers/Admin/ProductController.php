@@ -188,8 +188,8 @@ class ProductController extends Controller
         $product->short_description = $request->short_description;
         $product->long_description = $request->long_description;
         $product->tags = $request->tags;
-        $product->state_id = $request->state_id ? json_encode($request->state_id) : json_encode([]);
-        $product->city_id = $request->city_id ? json_encode($request->city_id) : json_encode([]);
+        $product->state_id = json_encode($request->state_id);
+        $product->city_id = json_encode($request->city_id);
         $product->delivery_id = $request->city_id ? json_encode($request->city_id) : json_encode([]);
         $product->status = $request->status;
         $product->weight = $request->weight;

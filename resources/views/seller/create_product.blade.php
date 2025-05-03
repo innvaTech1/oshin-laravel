@@ -88,7 +88,7 @@
                                         </div> --}}
 
                                         <div class="form-group col-12">
-                                            <label>{{ __('State') }} <span class="text-danger">*</span></label>
+                                            <label>{{ __('State') }}</label>
                                             <select name="state_id[]" class="form-control select2" id="state_id" multiple>
                                                 <option value="" disabled>{{ __('Select State') }}</option>
                                                 @foreach ($states as $state)
@@ -98,7 +98,7 @@
                                         </div>
 
                                         <div class="form-group col-12">
-                                            <label>{{ __('City') }} <span class="text-danger">*</span></label>
+                                            <label>{{ __('City') }}</label>
                                             <select name="city_id[]" class="form-control select2" id="city_id" multiple>
                                                 <option value="" disabled>{{ __('Select City') }}</option>
                                                 @foreach ($cities as $city)

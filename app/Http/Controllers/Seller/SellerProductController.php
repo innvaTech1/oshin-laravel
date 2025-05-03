@@ -135,8 +135,8 @@ class SellerProductController extends Controller
             'price' => 'required|numeric',
             'weight' => 'nullable',
             'quantity' => 'nullable|numeric',
-            'state_id' => 'required',
-            'city_id' => 'required',
+            'state_id' => 'nullable',
+            'city_id' => 'nullable',
         ];
 
         if ($request->is_pre_order) {
@@ -159,8 +159,6 @@ class SellerProductController extends Controller
             'status.required' => trans('Status is required'),
             'quantity.required' => trans('Quantity is required'),
             'weight.required' => trans('Weight is required'),
-            'state_id.required' => trans('State is required'),
-            'city_id.required' => trans('City is required'),
         ];
 
         if (session('product_type') != null && session('product_type') == 'Digital') {
