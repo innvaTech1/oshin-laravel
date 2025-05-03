@@ -8,8 +8,10 @@ use App\Models\Setting;
 use App\Models\OrderAddress;
 use App\Models\OrderProduct;
 use Illuminate\Http\Request;
+use App\Exports\OrdersExport;
 use App\Models\OrderProductVariant;
 use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
 
 class OrderController extends Controller
 {
@@ -159,5 +161,10 @@ class OrderController extends Controller
         $notification = trans('admin_validation.Delete successfully');
         $notification = array('messege' => $notification, 'alert-type' => 'success');
         return redirect()->route('admin.all-order')->with($notification);
+    }
+
+    public function export()
+    {
+        return Excel::download(new OrdersExport, 'orders.xlsx');
     }
 }

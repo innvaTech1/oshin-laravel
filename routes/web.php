@@ -656,6 +656,7 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::get('order-show/{id}', [OrderController::class, 'show'])->name('order-show');
         Route::delete('delete-order/{id}', [OrderController::class, 'destroy'])->name('delete-order');
         Route::put('update-order-status/{id}', [OrderController::class, 'updateOrderStatus'])->name('update-order-status');
+        Route::get('/export-orders', [OrderController::class, 'export'])->name('orders.export');
 
         Route::resource('coupon', CouponController::class);
         Route::put('coupon-status/{id}', [CouponController::class, 'changeStatus'])->name('coupon-status');

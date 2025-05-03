@@ -8,6 +8,7 @@
         <section class="section">
             <div class="section-header">
                 <h1>{{ $title }}</h1>
+                <a href="{{ route('admin.orders.export') }}" class="ml-3 btn btn-primary">Export Orders to Excel</a>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">{{ __('Dashboard') }}</a>
                     </div>
