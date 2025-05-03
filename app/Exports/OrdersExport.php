@@ -20,7 +20,7 @@ class OrdersExport implements FromCollection, WithHeadings, WithMapping
 
     public function collection()
     {
-        return Order::with('user', 'orderAddress')->orderBy('id', 'desc')->get();
+        return Order::with('user', 'orderAddress', 'orderProducts')->orderBy('id', 'desc')->get();
     }
 
     public function headings(): array
@@ -56,6 +56,17 @@ class OrdersExport implements FromCollection, WithHeadings, WithMapping
     {
         static $index = 0;
         $index++;
+
+        // Get order products
+        $orderProducts = $order->orderProducts ?? collect();
+
+        // Prepare item data (up to 10 items)
+        $items = [];
+        for ($i = 0; $i < 10; $i++) {
+            $product = $orderProducts->get($i);
+            $items[] = $product ? $product->product_name ?? $product->product_id : '';
+        }
+
         return [
             $index,
             $order->user->name ?? $order->orderAddress->billing_name,
@@ -63,20 +74,20 @@ class OrdersExport implements FromCollection, WithHeadings, WithMapping
             $order->created_at->format('d F, Y'),
             $order->user->name ?? $order->orderAddress->billing_address,
             $order->user->name ?? $order->orderAddress->shipping_address,
-            $order->(order_products table)->product_id,
-            $order->(order_products table)->product_id,
-            $order->(order_products table)->product_id,
-            $order->(order_products table)->product_id,
-            $order->(order_products table)->product_id,
-            $order->(order_products table)->product_id,
-            $order->(order_products table)->product_id,
-            $order->(order_products table)->product_id,
-            $order->(order_products table)->product_id,
-            $order->(order_products table)->product_id,
+            $items[0],
+            $items[1],
+            $items[2],
+            $items[3],
+            $items[4],
+            $items[5],
+            $items[6],
+            $items[7],
+            $items[8],
+            $items[9],
             $order->product_qty,
             $this->currencyIcon . $order->total_amount,
             $this->currencyIcon . $order->shipping_cost,
-            $this->currencyIcon . $order->total_amount + $order->shipping_cost,
+            $this->currencyIcon . ($order->total_amount + $order->shipping_cost),
             $this->getOrderStatus($order->order_status),
             $order->payment_status == 1 ? 'Success' : 'Pending',
             $order->payment_method
