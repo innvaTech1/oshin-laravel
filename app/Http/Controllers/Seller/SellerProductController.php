@@ -308,8 +308,6 @@ class SellerProductController extends Controller
             'price' => 'required|numeric',
             'weight' => 'nullable',
             'quantity' => 'nullable|numeric',
-            'state_id' => 'required',
-            'city_id' => 'required',
         ];
 
         if ($request->is_pre_order) {
@@ -334,8 +332,6 @@ class SellerProductController extends Controller
             'quantity.required' => trans('Quantity is required'),
             'status.required' => trans('Status is required'),
             'weight.required' => trans('Weight is required'),
-            'state_id.required' => trans('State is required'),
-            'city_id.required' => trans('City is required'),
         ];
         $this->validate($request, $rules, $customMessages);
 

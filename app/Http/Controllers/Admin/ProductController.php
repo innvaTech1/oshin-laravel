@@ -292,8 +292,6 @@ class ProductController extends Controller
             'status' => 'required',
             'weight' => 'nullable',
             'quantity' => 'nullable|numeric',
-            'state_id' => 'required',
-            'city_id' => 'required',
         ];
 
         if ($request->is_pre_order) {
@@ -320,8 +318,6 @@ class ProductController extends Controller
             'release_date.date' => __('Release Date must be a Date'),
             'max_product.required' => __('Pre order Quantity is Required'),
             'partial_amount.required' => __('Partial Amount Quantity is Required'),
-            'state_id.required' => trans('State is required'),
-            'city_id.required' => trans('City is required'),
         ];
 
         $this->validate($request, $rules, $customMessages);
