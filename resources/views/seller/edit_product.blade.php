@@ -161,14 +161,16 @@
 
                                         <div class="form-group col-12">
                                             <label>{{ __('user.Price') }} <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" name="price"
+                                            <input type="text" class="form-control" name="price" id="price"
                                                 value="{{ $product->price }}">
                                         </div>
 
                                         <div class="form-group col-12">
-                                            <label>{{ __('user.Offer Price') }}</label>
+                                            <label>{{ __('user.Offer Price') }} <span class="text-danger">*</span></label>
                                             <input type="text" class="form-control" name="offer_price"
-                                                value="{{ $product->offer_price }}">
+                                                id="offer_price" value="{{ $product->offer_price }}">
+                                            <small id="offerPriceError"
+                                                class="text-danger d-none">{{ __('Offer price cannot be greater than regular price') }}</small>
                                         </div>
 
                                         <div class="form-group col-12">
@@ -570,4 +572,43 @@
     </script>
 
 
+@endsection
+
+@section('scripts')
+    <script>
+        $(document).ready(function() {
+            // Validate offer price
+            $('#price, #offer_price').on('input', function() {
+                validateOfferPrice();
+            });
+
+            function validateOfferPrice() {
+                var price = parseFloat($('#price').val()) || 0;
+                var offerPrice = parseFloat($('#offer_price').val()) || 0;
+
+                if (offerPrice > price && offerPrice > 0) {
+                    $('#offerPriceError').removeClass('d-none');
+                    $('#offer_price').addClass('is-invalid');
+                    return false;
+                } else {
+                    $('#offerPriceError').addClass('d-none');
+                    $('#offer_price').removeClass('is-invalid');
+                    return true;
+                }
+            }
+
+            // Initial validation
+            validateOfferPrice();
+
+            // Form submission validation
+            $('form').on('submit', function(e) {
+                if (!validateOfferPrice()) {
+                    e.preventDefault();
+                    $('html, body').animate({
+                        scrollTop: $('#offer_price').offset().top - 100
+                    }, 500);
+                }
+            });
+        });
+    </script>
 @endsection

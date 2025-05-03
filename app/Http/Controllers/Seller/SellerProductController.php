@@ -133,6 +133,7 @@ class SellerProductController extends Controller
             'short_description' => 'required',
             'long_description' => 'required',
             'price' => 'required|numeric',
+            'offer_price' => 'nullable|numeric|lte:price',
             'weight' => 'nullable',
             'quantity' => 'nullable|numeric',
             'state_id' => 'nullable',
@@ -156,6 +157,7 @@ class SellerProductController extends Controller
             'short_description.required' => trans('Short description is required'),
             'long_description.required' => trans('Long description is required'),
             'price.required' => trans('Price is required'),
+            'offer_price.lte' => trans('Offer price cannot be greater than regular price'),
             'status.required' => trans('Status is required'),
             'quantity.required' => trans('Quantity is required'),
             'weight.required' => trans('Weight is required'),
@@ -306,8 +308,11 @@ class SellerProductController extends Controller
             'short_description' => 'required',
             'long_description' => 'required',
             'price' => 'required|numeric',
+            'offer_price' => 'nullable|numeric|lte:price',
             'weight' => 'nullable',
             'quantity' => 'nullable|numeric',
+            'state_id' => 'nullable',
+            'city_id' => 'nullable',
         ];
 
         if ($request->is_pre_order) {
