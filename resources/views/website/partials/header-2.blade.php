@@ -121,7 +121,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-4 col-lg-3">
-                        <div class="wsus_header_cate_wra d-none d-md-block">
+                        <div class="wsus_header_cate_wra d-none d-md-block" style="z-index: 9998;">
                             <div class="wsus_header_cate">
                                 <div class="wsus_header_icon">
                                     <p> <i class="far fa-bars"></i> {{ __('user.All Categories') }}</p>
