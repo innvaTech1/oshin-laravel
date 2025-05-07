@@ -173,6 +173,7 @@ class CheckoutController extends Controller
         $address->city_id = $request->input($prefix . 'city_id');
         $address->state_id = $request->input($prefix . 'state_id');
         $address->type = $prefix == 'billing_' ? 'billing' : 'shipping';
+
         if (auth()->user()) {
             $address->user_id = auth('web')->user()->id;
         }
@@ -356,7 +357,8 @@ class CheckoutController extends Controller
 
         $address_id = $this->storeAddress($request);
         $billing_id = $request->same_shipping;
-        if (!$request->same_shipping == 'on') {
+
+        if ($request->same_shipping == 'on') {
             $billing_id = $this->storeAddress($request, 'billing_');
         } else {
             $request['billing_name'] = $request->name;
@@ -423,7 +425,7 @@ class CheckoutController extends Controller
 
             Address::where('id', $address_id)->delete();
 
-            if (!$request->same_shipping) {
+            if ($request->same_shipping) {
                 Address::where('id', $billing_id)->delete();
             }
 
