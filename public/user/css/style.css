@@ -1107,7 +1107,7 @@ HEADER CATEGORIES MENU START
     height: 100%;
     background: #fff;
     padding: 4px 10px;
-    z-index: 9999999;
+    z-index: 9998;
     cursor: pointer;
     position: relative;
     transition: all linear 0.3s;

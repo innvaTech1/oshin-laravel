@@ -7,6 +7,26 @@
 @endsection
 
 @section('public-content')
+    <!-- Page Loader -->
+    <div id="page-loader">
+        <img src="{{ asset($setting->logo) }}" alt="Loading...">
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Show loader
+            const loader = document.getElementById('page-loader');
+            
+            // Hide loader after 5 seconds
+            setTimeout(function() {
+                loader.style.opacity = '0';
+                setTimeout(function() {
+                    loader.style.display = 'none';
+                }, 300);
+            }, 5000);
+        });
+    </script>
+    
     {{-- <!--============================
         BANNER PART START
     ==============================--> --}}
