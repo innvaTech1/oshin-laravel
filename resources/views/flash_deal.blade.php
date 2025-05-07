@@ -43,7 +43,7 @@
 
                 <div class="row">
                     @foreach ($products as $product)
-                        <div class="col-6 col-sm-3 col-md-3 col-lg-2">
+                        <div class="col-6 col-sm-3 col-md-3 col-lg-2 shadow">
                             @include('components/website.product-card')
                         </div>
                     @endforeach
