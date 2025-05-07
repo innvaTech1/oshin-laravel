@@ -114,6 +114,18 @@
     {{-- @include('theme_style_css') --}}
 
     @stack('custom-styles')
+
+    <style>
+        .zoom-hover {
+            transition: transform 0.3s ease;
+        }
+
+        .zoom-hover:hover {
+            transform: scale(1.05);
+            z-index: 2;
+            /* Optional: lifts the item above others */
+        }
+    </style>
 </head>
 
 <body>
