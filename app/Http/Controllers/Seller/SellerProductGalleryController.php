@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Seller;
 
-use App\Http\Controllers\Controller;
-use App\Models\ProductGallery;
-use App\Models\Product;
-use Illuminate\Http\Request;
-use Image;
-use File;
 use Str;
+use File;
+use App\Models\Product;
+use Faker\Provider\Image;
+use Illuminate\Http\Request;
+use App\Models\ProductGallery;
+use App\Http\Controllers\Controller;
+
 class SellerProductGalleryController extends Controller
 {
     public function __construct()
@@ -19,20 +20,19 @@ class SellerProductGalleryController extends Controller
     public function index($productId)
     {
         $product = Product::find($productId);
-        if($product){
-            if($product->vendor_id == 0){
+        if ($product) {
+            if ($product->vendor_id == 0) {
                 $notification = trans('user_validation.Something went wrong');
-                $notification=array('messege'=>$notification,'alert-type'=>'error');
+                $notification = array('messege' => $notification, 'alert-type' => 'error');
                 return redirect()->route('seller.product.index')->with($notification);
             }
-            $gallery = ProductGallery::where('product_id',$productId)->get();
-            return view('seller.product_image_gallery',compact('gallery','product'));
-        }else{
+            $gallery = ProductGallery::where('product_id', $productId)->get();
+            return view('seller.product_image_gallery', compact('gallery', 'product'));
+        } else {
             $notification = trans('user_validation.Something went wrong');
-            $notification=array('messege'=>$notification,'alert-type'=>'error');
+            $notification = array('messege' => $notification, 'alert-type' => 'error');
             return redirect()->route('seller.product.index')->with($notification);
         }
-
     }
 
 
@@ -47,14 +47,12 @@ class SellerProductGalleryController extends Controller
         $this->validate($request, $rules, $customMessages);
 
         $product = Product::find($request->product_id)->first();
-        if($product){
-            if($request->images){
-                foreach($request->images as $index => $image){
-                    $extention = $image->getClientOriginalExtension();
-                    $image_name = 'Gallery'.date('-Y-m-d-h-i-s-').rand(999,9999).'.'.$extention;
-                    $image_name = 'uploads/custom-images/'.$image_name;
-                    Image::make($image)
-                        ->save(public_path().'/'.$image_name);
+        if ($product) {
+            if ($request->images) {
+                foreach ($request->images as $index => $image) {
+                    // Replace manual file handling with the file_upload helper
+                    $image_name = file_upload($image, null, 'uploads/custom-images/');
+
                     $gallery = new ProductGallery();
                     $gallery->product_id = $request->product_id;
                     $gallery->image = $image_name;
@@ -62,15 +60,14 @@ class SellerProductGalleryController extends Controller
                 }
 
                 $notification = trans('user_validation.Uploaded Successfully');
-                $notification=array('messege'=>$notification,'alert-type'=>'success');
+                $notification = array('messege' => $notification, 'alert-type' => 'success');
                 return redirect()->back()->with($notification);
             }
-        }else{
+        } else {
             $notification = trans('user_validation.Something went wrong');
-            $notification=array('messege'=>$notification,'alert-type'=>'error');
+            $notification = array('messege' => $notification, 'alert-type' => 'error');
             return redirect()->back()->with($notification);
         }
-
     }
 
 
@@ -79,22 +76,23 @@ class SellerProductGalleryController extends Controller
         $gallery = ProductGallery::find($id);
         $old_image = $gallery->image;
         $gallery->delete();
-        if($old_image){
-            if(File::exists(public_path().'/'.$old_image))unlink(public_path().'/'.$old_image);
+        if ($old_image) {
+            if (File::exists(public_path() . '/' . $old_image)) unlink(public_path() . '/' . $old_image);
         }
 
         $notification = trans('user_validation.Delete Successfully');
-        $notification = array('messege'=>$notification,'alert-type'=>'success');
+        $notification = array('messege' => $notification, 'alert-type' => 'success');
         return redirect()->back()->with($notification);
     }
 
-    public function changeStatus($id){
+    public function changeStatus($id)
+    {
         $gallery = ProductGallery::find($id);
-        if($gallery->status == 1){
+        if ($gallery->status == 1) {
             $gallery->status = 0;
             $gallery->save();
             $message = trans('user_validation.Inactive Successfully');
-        }else{
+        } else {
             $gallery->status = 1;
             $gallery->save();
             $message = trans('user_validation.Active Successfully');
@@ -102,4 +100,3 @@ class SellerProductGalleryController extends Controller
         return response()->json($message);
     }
 }
-
