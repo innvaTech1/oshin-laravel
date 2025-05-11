@@ -43,6 +43,12 @@
             background-color: #930A02 !important;
         }
 
+        /* Add hover effect for text color */
+        .payment-item:hover span {
+            color: white !important;
+            transition: color 0.3s ease-in-out;
+        }
+
         .custom-radio-icon {
             width: 20px;
             height: 20px;
