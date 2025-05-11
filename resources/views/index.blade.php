@@ -14,19 +14,30 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Show loader
+            // Check if this is the first visit
+            const hasVisitedBefore = localStorage.getItem('hasVisitedBefore');
+
+            // Get the loader element
             const loader = document.getElementById('page-loader');
-            
-            // Hide loader after 5 seconds
-            setTimeout(function() {
-                loader.style.opacity = '0';
+
+            if (hasVisitedBefore) {
+                // If not first visit, hide loader immediately
+                loader.style.display = 'none';
+            } else {
+                // If first visit, show loader and set the flag
+                localStorage.setItem('hasVisitedBefore', 'true');
+
+                // Show loader for 5 seconds
                 setTimeout(function() {
-                    loader.style.display = 'none';
-                }, 300);
-            }, 5000);
+                    loader.style.opacity = '0';
+                    setTimeout(function() {
+                        loader.style.display = 'none';
+                    }, 300);
+                }, 5000);
+            }
         });
     </script>
-    
+
     {{-- <!--============================
         BANNER PART START
     ==============================--> --}}
