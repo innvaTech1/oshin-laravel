@@ -243,6 +243,14 @@ class SellerProductController extends Controller
 
         $product->save();
 
+        // Add thumbnail image to gallery if it exists
+        if ($product->thumb_image) {
+            $gallery = new ProductGallery();
+            $gallery->product_id = $product->id;
+            $gallery->image = $product->thumb_image;
+            $gallery->save();
+        }
+
         $notification = trans('Created Successfully');
         $notification = array('messege' => $notification, 'alert-type' => 'success');
         return redirect()->route('seller.product.index')->with($notification);
