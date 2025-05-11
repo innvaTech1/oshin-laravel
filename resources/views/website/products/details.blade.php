@@ -377,6 +377,22 @@
                             <!-- Secure Payment -->
                             <div class="wsus_pro_det_sidebar_single card p-3 mb-3 shadow">
                                 <div class="d-flex align-items-center">
+                                    <i class="far fa-store fa-2x text-primary me-3"></i>
+                                    <div class="wsus_pro_det_sidebar_text">
+                                        <h6 class="mb-1 text-dark">
+                                            @if ($product->seller->shop_name)
+                                                {{ $product->seller->shop_name }}
+                                            @else
+                                                Oshin Hub
+                                            @endif
+                                        </h6>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Secure Payment -->
+                            <div class="wsus_pro_det_sidebar_single card p-3 mb-3 shadow">
+                                <div class="d-flex align-items-center">
                                     <i class="far fa-shield-check fa-2x text-primary me-3"></i>
                                     <div class="wsus_pro_det_sidebar_text">
                                         <h6 class="mb-1 text-dark">{{ __('user.Secure Payment') }}</h6>
