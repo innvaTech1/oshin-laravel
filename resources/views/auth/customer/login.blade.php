@@ -31,6 +31,13 @@
             margin-top: 5px;
             margin-bottom: 10px;
         }
+
+        /* Add responsive styling for phone view */
+        @media (max-width: 767px) {
+            .wsus__login_reg_area {
+                margin-top: 70px;
+            }
+        }
     </style>
 @endpush
 
