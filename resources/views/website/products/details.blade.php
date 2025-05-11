@@ -380,7 +380,7 @@
                                     <i class="far fa-store fa-2x text-primary me-3"></i>
                                     <div class="wsus_pro_det_sidebar_text">
                                         <h6 class="mb-1 text-dark">
-                                            @if ($product->seller->shop_name)
+                                            @if ($product->seller && $product->seller->shop_name != null)
                                                 {{ $product->seller->shop_name }}
                                             @else
                                                 Oshin Hub
