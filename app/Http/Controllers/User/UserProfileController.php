@@ -25,10 +25,12 @@ use App\Models\ProductReview;
 use App\Models\BillingAddress;
 use App\Models\GoogleRecaptcha;
 use App\Models\ShippingAddress;
+use App\Models\CampaignProduct;
 use App\Models\OrderProductVariant;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Cart;
 
 class UserProfileController extends Controller
 {
@@ -575,6 +577,116 @@ class UserProfileController extends Controller
         return redirect()->back()->with($notification);
     }
 
+
+    public function addSelectedToCart(Request $request)
+    {
+        if (!$request->has('selected_items') || empty($request->selected_items)) {
+            $notification = trans('user_validation.Please select at least one item');
+            $notification = array('messege' => $notification, 'alert-type' => 'error');
+            return redirect()->back()->with($notification);
+        }
+
+        $addedCount = 0;
+        foreach ($request->selected_items as $wishlistId) {
+            $wishlistItem = Wishlist::find($wishlistId);
+            if ($wishlistItem) {
+                $product = Product::find($wishlistItem->product_id);
+
+                if ($product && $product->qty > 0) {
+                    // Get default variant items if any
+                    $variants = [];
+                    $values = [];
+                    $prices = [];
+                    $variantPrice = 0;
+                    $variantItems = '';
+                    $variantItemNames = '';
+
+                    $productVariants = $product->variants->where('status', 1);
+                    if ($productVariants->count() > 0) {
+                        foreach ($productVariants as $variant) {
+                            $variantItems = $variant->variantItems->where('is_default', 1)->first();
+                            if ($variantItems) {
+                                $variants[] = $variant->id;
+                                $values[] = $variantItems->name;
+                                $prices[] = $variantItems->price;
+                                $variantPrice += $variantItems->price;
+                                $variantItems .= $variantItems->id . ',';
+                                $variantItemNames .= $variantItems->name . ',';
+                            }
+                        }
+
+                        // Remove trailing comma
+                        $variantItems = rtrim($variantItems, ',');
+                        $variantItemNames = rtrim($variantItemNames, ',');
+                    }
+
+                    // Calculate product price
+                    $tax_percentage = $product->tax ? $product->tax->price : 0;
+
+                    $isCampaign = false;
+                    $today = date('Y-m-d');
+                    $campaign = CampaignProduct::where(['status' => 1, 'product_id' => $product->id])->first();
+
+                    if ($campaign) {
+                        $campaign = $campaign->campaign;
+                        if ($campaign->start_date <= $today && $today <= $campaign->end_date) {
+                            $isCampaign = true;
+                        }
+                        $campaignOffer = $campaign->offer;
+                        $productPrice = $product->price;
+                        $campaignOfferPrice = $productPrice - (($campaignOffer / 100) * $productPrice);
+                    } else {
+                        $campaignOfferPrice = $product->offer_price ?? $product->price;
+                    }
+
+                    $productPrice = $campaignOfferPrice + $variantPrice;
+                    $tax_percentage_amount = ($tax_percentage / 100) * $productPrice;
+
+                    // Add to cart
+                    Cart::add([
+                        'id' => $product->id,
+                        'name' => $product->short_name,
+                        'qty' => 1,
+                        'vendor_id' => $product->vendor_id,
+                        'delivery_charge' => $product->deliveryCharge(),
+                        'price' => $productPrice,
+                        'weight' => 1,
+                        'options' => [
+                            'tax' => $tax_percentage_amount,
+                            'coupon_price' => 0,
+                            'image' => $product->thumb_image,
+                            'slug' => $product->slug,
+                            'variants' => $variants,
+                            'values' => $values,
+                            'prices' => $prices,
+                            'variantItems' => $variantItems,
+                            'variantItemNames' => $variantItemNames,
+                        ]
+                    ]);
+
+                    // Remove from wishlist
+                    $wishlistItem->delete();
+                    $addedCount++;
+                }
+            }
+        }
+
+        if ($addedCount > 0) {
+            $notification = trans('user_validation.Items added to cart successfully');
+            $notification = array('messege' => $notification, 'alert-type' => 'success');
+
+            // Check if we should redirect to checkout
+            if ($request->has('checkout') && $request->checkout == 1) {
+                return redirect()->route('checkout.checkout')->with($notification);
+            }
+
+            return redirect()->route('cart')->with($notification);
+        } else {
+            $notification = trans('user_validation.Failed to add items to cart');
+            $notification = array('messege' => $notification, 'alert-type' => 'error');
+            return redirect()->back()->with($notification);
+        }
+    }
 
     public function delete_account()
     {

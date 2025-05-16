@@ -199,6 +199,7 @@ Route::group(['middleware' => ['XSS']], function () {
             Route::get('wishlist', [UserProfileController::class, 'wishlist'])->name('wishlist');
             Route::get('add-to-wishlist/{id}', [UserProfileController::class, 'addToWishlist'])->name('add-to-wishlist');
             Route::get('remove-wishlist/{id}', [UserProfileController::class, 'removeWishlist'])->name('remove-wishlist');
+            Route::post('add-selected-to-cart', [UserProfileController::class, 'addSelectedToCart'])->name('add-selected-to-cart');
             Route::post('product-report', [UserProfileController::class, 'storeProductReport'])->name('product-report');
             Route::post('store-product-review', [UserProfileController::class, 'storeProductReview'])->name('store-product-review');
             Route::post('update-review/{id}', [UserProfileController::class, 'updateReview'])->name('update-review');
