@@ -1,7 +1,9 @@
 @extends('user.layout')
+
 @section('title')
     <title>{{ __('user.Wishlist') }}</title>
 @endsection
+
 @section('user-content')
     <div class="row">
         <div class="col-xl-9 col-xxl-10 col-lg-9 ms-auto">
@@ -39,10 +41,13 @@
                                                     @endphp
                                                     <tr class="d-flex">
                                                         <td class="wsus__pro_select">
-                                                            <input type="checkbox" name="selected_items[]" value="{{ $wishlist->id }}" class="form-check-input wishlist-checkbox">
+                                                            <input type="checkbox" name="selected_items[]"
+                                                                value="{{ $wishlist->id }}"
+                                                                class="form-check-input wishlist-checkbox">
                                                         </td>
-                                                        <td class="wsus__pro_img"><img src="{{ asset($product->thumb_image) }}"
-                                                                alt="product" class="img-fluid w-100">
+                                                        <td class="wsus__pro_img"><img
+                                                                src="{{ asset($product->thumb_image) }}" alt="product"
+                                                                class="img-fluid w-100">
                                                             <a href="{{ route('user.remove-wishlist', $wishlist->id) }}"><i
                                                                     class="far fa-times"></i></a>
                                                         </td>
@@ -51,7 +56,7 @@
                                                                     href="{{ route('product-detail', $product->slug) }}">{{ $product->short_name }}</a>
                                                             </p>
                                                         </td>
-                                                        
+
                                                         @php
                                                             $variantPrice = 0;
                                                             $variants = $product->variants->where('status', 1);
@@ -117,8 +122,8 @@
                                                             @endif
                                                         </td>
 
-                                                        <td class="wsus__pro_icon">
-                                                            <a class="common_btn"
+                                                        <td class="">
+                                                            <a class="custom-button"
                                                                 href="{{ route('product-detail', $product->slug) }}"></span>{{ __('user.View Product') }}</span></a>
                                                         </td>
                                                     </tr>
@@ -131,8 +136,9 @@
                                     {{ $wishlists->links('custom_paginator') }}
                                 </div>
                                 <div class="wishlist-actions mt-3">
-                                    <button type="submit" class="common_btn">{{ __('user.Add Selected to Cart') }}</button>
-                                    <button type="button" id="checkoutBtn" class="common_btn ms-2">{{ __('user.Checkout Selected') }}</button>
+                                    <button type="submit"
+                                        class="custom-button">{{ __('user.Add Selected to Cart') }}</button>
+                                    <a class="custom-button" href="{{ route('cart') }}">{{ __('user.View Cart') }}</a>
                                 </div>
                             </form>
                         </div>
@@ -141,15 +147,16 @@
             </div>
         </div>
     </div>
+@endsection
 
-    @section('user_js')
+@section('user_js')
     <script>
         $(document).ready(function() {
             // Select all checkbox functionality
             $("#selectAll").change(function() {
                 $(".wishlist-checkbox").prop('checked', $(this).prop('checked'));
             });
-            
+
             // Update "Select All" checkbox when individual checkboxes change
             $(".wishlist-checkbox").change(function() {
                 if ($(".wishlist-checkbox:checked").length == $(".wishlist-checkbox").length) {
@@ -158,7 +165,7 @@
                     $("#selectAll").prop('checked', false);
                 }
             });
-            
+
             // Checkout button functionality
             $("#checkoutBtn").click(function(e) {
                 e.preventDefault();
@@ -169,7 +176,7 @@
                         name: "checkout",
                         value: "1"
                     }).appendTo("#wishlistForm");
-                    
+
                     $("#wishlistForm").submit();
                 } else {
                     alert("{{ __('user.Please select at least one item') }}");
@@ -177,5 +184,4 @@
             });
         });
     </script>
-    @endsection
 @endsection

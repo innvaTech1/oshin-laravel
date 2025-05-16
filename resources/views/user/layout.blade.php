@@ -61,6 +61,21 @@
         var productMonths = [];
         var productDays = [];
     </script>
+    <style>
+        .custom-button {
+            padding: 10px 20px;
+            border: #930A02 solid 1px;
+            border-radius: 5px;
+            background-color: white;
+            color: #930a02;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .custom-button:hover {
+            background-color: #930a02;
+            color: white;
+        }
+    </style>
 </head>
 
 <body>

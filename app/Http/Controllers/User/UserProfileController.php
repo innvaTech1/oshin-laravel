@@ -598,25 +598,25 @@ class UserProfileController extends Controller
                     $values = [];
                     $prices = [];
                     $variantPrice = 0;
-                    $variantItems = '';
+                    $variantItemsStr = '';
                     $variantItemNames = '';
 
                     $productVariants = $product->variants->where('status', 1);
                     if ($productVariants->count() > 0) {
                         foreach ($productVariants as $variant) {
-                            $variantItems = $variant->variantItems->where('is_default', 1)->first();
-                            if ($variantItems) {
+                            $item = $variant->variantItems->where('is_default', 1)->first();
+                            if ($item) {
                                 $variants[] = $variant->id;
-                                $values[] = $variantItems->name;
-                                $prices[] = $variantItems->price;
-                                $variantPrice += $variantItems->price;
-                                $variantItems .= $variantItems->id . ',';
-                                $variantItemNames .= $variantItems->name . ',';
+                                $values[] = $item->name;
+                                $prices[] = $item->price;
+                                $variantPrice += $item->price;
+                                $variantItemsStr .= $item->id . ',';
+                                $variantItemNames .= $item->name . ',';
                             }
                         }
 
                         // Remove trailing comma
-                        $variantItems = rtrim($variantItems, ',');
+                        $variantItemsStr = rtrim($variantItemsStr, ',');
                         $variantItemNames = rtrim($variantItemNames, ',');
                     }
 
@@ -659,7 +659,7 @@ class UserProfileController extends Controller
                             'variants' => $variants,
                             'values' => $values,
                             'prices' => $prices,
-                            'variantItems' => $variantItems,
+                            'variantItems' => $variantItemsStr,
                             'variantItemNames' => $variantItemNames,
                         ]
                     ]);
@@ -680,7 +680,8 @@ class UserProfileController extends Controller
                 return redirect()->route('checkout.checkout')->with($notification);
             }
 
-            return redirect()->route('cart')->with($notification);
+            return redirect()->back()->with($notification);
+            // return redirect()->route('cart')->with($notification);
         } else {
             $notification = trans('user_validation.Failed to add items to cart');
             $notification = array('messege' => $notification, 'alert-type' => 'error');

@@ -514,4 +514,6 @@ return array(
     'GCash' => 'GCash',
     'Payment with Paymongo' => 'Payment with Paymongo',
     'Delete Account' => 'Delete Account',
+    'Add Selected to Cart' => 'Add Selected to Cart',
+    'Checkout Selected' => 'Checkout Selected',
 );

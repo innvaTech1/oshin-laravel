@@ -146,4 +146,6 @@ return array(
     'Payment method is required' => 'Payment method is required',
     'Delivery fee is required' => 'Delivery fee is required',
     'Order submitted successfully. please wait for admin approval' => 'Order submitted successfully. please wait for admin approval',
+    'Please select at least one item' => 'Please select at least one item',
+    'Items added to cart successfully' => 'Items added to cart successfully',
 );
