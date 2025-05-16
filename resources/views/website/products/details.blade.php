@@ -86,6 +86,79 @@
         .wsus_pro_det_color ul {
             align-items: center;
         }
+
+        /* Replace checkmark styles with highlight styles */
+        .variant {
+            position: relative;
+            transition: all 0.3s ease;
+            border: 2px solid #e5e5e5;
+            background-color: white !important;
+            color: black !important;
+        }
+
+        .variant-item-text {
+            color: black;
+        }
+
+        .variant.select-variant {
+            border: 2px solid #930a02;
+            box-shadow: 0 0 5px rgba(147, 10, 2, 0.3);
+            transform: scale(1.1);
+            /* Make selected variant slightly larger */
+        }
+
+        .variant.select-variant .variant-item-text {
+            color: #930a02 !important;
+            /* Change text color to deep red */
+        }
+
+        /* For color variants, override background color */
+        .wsus_pro_det_color .variant {
+            background-color: white !important;
+        }
+
+        /* Remove checkmark container styles */
+        .checkmark-container {
+            display: none;
+        }
+
+        .variant-header {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            min-width: 120px;
+            /* Adjust based on your longest variant name */
+        }
+
+        .variant-colon {
+            flex-shrink: 0;
+        }
+
+        .parent-variant ul {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .parent-variant li {
+            flex-shrink: 0;
+        }
+
+        .variant-item-text {
+            display: inline-block;
+            max-width: 150px;
+            /* Adjust as needed */
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .wsus_pro_det_color ul {
+            align-items: center;
+        }
     </style>
 @endpush
 

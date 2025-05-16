@@ -27,10 +27,6 @@
                                 <a href="javascript:void(0)" style="background:{{ strtolower($item->name) }}"
                                     data-id="{{ $item->id }}" data-parent-variant="{{ $productVariant->id }}"
                                     class="variant {{ $item->is_default == 1 ? 'active-variant select-variant' : '' }}">
-                                    <div class="checkmark-container">
-                                        <i class="far fa-check"
-                                            @if ($item->is_default == 1) style="opacity:1" @endif></i>
-                                    </div>
                                     <span class="variant-item-text">{{ $item->name }}</span>
                                 </a>
                             @else
